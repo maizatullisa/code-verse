@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Settings - Quizio PWA HTML Template</title>
+    <title>Pengaturan</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -44,12 +44,12 @@
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
             <a
-              href="home.html"
+              href="{{ url('/home') }}"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Settings</h2>
+            <h2 class="text-2xl font-semibold text-white">Pengaturan</h2>
           </div>
         </div>
         <!-- Page Title End -->
@@ -61,21 +61,19 @@
               id="tabOne"
               class="tabButton activeTabButton w-full cursor-pointer"
             >
-              Account
+              Akun
             </li>
-            <li id="tabTwo" class="tabButton w-full cursor-pointer">Billing</li>
             <li id="tabThree" class="tabButton w-full cursor-pointer">
-              Others
+              Lainnya
             </li>
           </ul>
 
           <div class="pt-8">
             <div class="tab-content activeTab" id="tabOne_data">
               <div class="bg-white dark:bg-color10 p-5 rounded-2xl">
-                <p class="text-xl font-semibold">Account</p>
+                <p class="text-xl font-semibold">Akun</p>
                 <div class="flex flex-col gap-5 pt-8">
-                  <a
-                    href="verify-details.html"
+                  <a href="{{ url('/details') }}"
                     class="flex justify-between items-center p-4 border border-color21 rounded-2xl dark:bg-color11 dark:border-color24"
                   >
                     <div class="flex justify-start items-center gap-3">
@@ -216,17 +214,16 @@
               <div class="bg-white dark:bg-color10 p-5 rounded-2xl">
                 <p class="text-xl font-semibold">Account</p>
                 <div class="flex flex-col gap-5 pt-8">
-                  <a
-                    href="notification-setting.html"
+                  <a href="{{ url('/notification') }}"
                     class="flex justify-between items-center p-4 border border-color21 rounded-2xl dark:bg-color11 dark:border-color24"
                   >
                     <div class="flex justify-start items-center gap-3">
                       <div
                         class="flex justify-center items-center p-2 rounded-full border bg-color14 border-color16 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
                       >
-                        <i class="ph ph-bell"></i>
+                        <i class="ph ph-bell" ></i>
                       </div>
-                      <p class="font-semibold text-sm">Notification</p>
+                      <p class="font-semibold text-sm">notifikasi</p>
                     </div>
                     <div
                       class="flex justify-center items-center p-2 rounded-full border border-color14 !leading-none text-p2 text-xl dark:border-bgColor16 dark:text-p1"

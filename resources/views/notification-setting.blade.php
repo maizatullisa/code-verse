@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Notification - Quizio PWA HTML Template</title>
+    <title>Notifikasi</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -43,13 +43,12 @@
       <div class="relative z-10 px-6">
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
-            <a
-              href="home.html"
+            <a href="{{ url('/home') }}"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Notification</h2>
+            <h2 class="text-2xl font-semibold text-white">Notifikasi</h2>
           </div>
         </div>
         <!-- Page Title End -->
@@ -80,7 +79,7 @@
               >
                 <i class="ph-fill ph-users-three"></i>
               </div>
-              <p class="font-semibold text-sm">New Followers</p>
+              <p class="font-semibold text-sm">Pengikut Baru</p>
             </div>
             <div class="toggle new-followers">
               <div class="circle"></div>
@@ -95,7 +94,7 @@
               >
                 <i class="ph-fill ph-thumbs-up"></i>
               </div>
-              <p class="font-semibold text-sm">New Likes</p>
+              <p class="font-semibold text-sm">Like baru</p>
             </div>
             <div class="toggle new-likes">
               <div class="circle"></div>
@@ -110,27 +109,13 @@
               >
                 <i class="ph ph-messenger-logo"></i>
               </div>
-              <p class="font-semibold text-sm">Phone Messenger</p>
+              <p class="font-semibold text-sm">Pesan</p>
             </div>
             <div class="toggle phone-messanger">
               <div class="circle"></div>
             </div>
           </div>
-          <div
-            class="flex justify-between items-center py-4 px-5 rounded-xl bg-white border border-color21 dark:bg-color11 dark:border-color24"
-          >
-            <div class="flex justify-start items-center gap-3">
-              <div
-                class="flex justify-center items-center p-2 rounded-full border bg-color14 border-color16 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-              >
-                <i class="ph-fill ph-currency-dollar"></i>
-              </div>
-              <p class="font-semibold text-sm">Payment & Subscription</p>
-            </div>
-            <div class="toggle payment-subscription">
-              <div class="circle"></div>
-            </div>
-          </div>
+          
           <div
             class="flex justify-between items-center py-4 px-5 rounded-xl bg-white border border-color21 dark:bg-color11 dark:border-color24"
           >
@@ -140,7 +125,7 @@
               >
                 <i class="ph-fill ph-lightbulb-filament"></i>
               </div>
-              <p class="font-semibold text-sm">New Tips Available</p>
+              <p class="font-semibold text-sm">Tips Baru</p>
             </div>
             <div class="toggle new-tips">
               <div class="circle"></div>
@@ -155,7 +140,7 @@
               >
                 <i class="ph-fill ph-arrows-counter-clockwise"></i>
               </div>
-              <p class="font-semibold text-sm">App Updates</p>
+              <p class="font-semibold text-sm">Applikasi Update</p>
             </div>
             <div class="toggle app-update">
               <div class="circle"></div>
@@ -164,10 +149,9 @@
         </div>
 
         <div class="pt-12">
-          <a
-            href="home.html"
+          <a href="{{ url('/home') }}"
             class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block dark:bg-p1"
-            >Continue</a
+            >Lanjut</a
           >
         </div>
       </div>
