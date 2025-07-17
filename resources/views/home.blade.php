@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Home - Quizio PWA HTML Template</title>
+    <title>Home</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="-z-20">
     <div
       class="container min-h-dvh relative overflow-hidden py-8 dark:text-white dark:bg-black"
     >
-      <!-- Absolute Items Start -->
+      <!-- ITEM MULAI -->
       <img
         src="assets/images/header-bg-1.png"
         alt=""
@@ -37,7 +37,7 @@
       <div
         class="absolute bottom-0 right-0 bg-p3 blur-[220px] h-[174px] w-[149px]"
       ></div>
-      <!-- Absolute Items End -->
+      <!-- ITEM SELESAI -->
 
       <!-- Page Title Start -->
       <div class="relative z-10 pb-20">
@@ -48,7 +48,7 @@
             >
               <i class="ph ph-list"></i>
             </button>
-            <h2 class="text-2xl font-semibold text-white">devblade</h2>
+            <h2 class="text-2xl font-semibold text-white">Code Verse</h2>
           </div>
           <div class="flex justify-start items-center gap-2">
             <a
@@ -77,7 +77,7 @@
           >
             <i class="ph ph-magnifying-glass"></i>
             <span class="text-white w-full text-xs">
-              <span>Search Contest</span>
+              <span>Cari Materi</span>
             </span>
           </a>
           <div
@@ -89,7 +89,7 @@
         <!-- Search Box End -->
         <div class="relative">
           <p class="text-white text-center pt-5 text-sm font-semibold">
-            Browse By Category
+            Platform Pembelajaran Online Untuk Para Coder
           </p>
           <div
             class="absolute -left-[53%] -top-[620px] min-[370px]:-top-[650px] min-[380px]:-top-[680px] min-[400px]:-top-[720px] min-[420px]:-top-[750px]"
@@ -213,9 +213,9 @@
             class="px-4 bg-p2 flex justify-between items-center rounded-2xl relative after:absolute after:h-full after:left-2 after:right-2 after:bg-p2 after:mt-6 after:opacity-30 after:rounded-2xl after:-z-10 before:absolute before:h-full before:bg-p2 before:mt-12 before:opacity-30 before:rounded-2xl before:-z-10 before:left-4 before:right-4"
           >
             <div class="text-white font-semibold !leading-none pl-2">
-              <p class="">Invite Friends</p>
-              <p class="text-[36px] py-2 pl-2">$80</p>
-              <p class="pl-7">Earn Up To</p>
+              <p class="">Ajak Temanmu</p>
+              <p class="text-[36px] py-2 pl-2">20%</p>
+              <p class="pl-7">dapatkan diskon</p>
             </div>
             <div class="">
               <img src="assets/images/invite_illus.png" alt="" />
@@ -227,12 +227,12 @@
           <div class="flex justify-between items-center">
             <div class="flex justify-start items-center gap-2">
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
-              <h3 class="text-xl font-semibold">Current Contest</h3>
+              <h3 class="text-xl font-semibold">Rekomendasi Materi</h3>
             </div>
             <a
               href="upcoming-contest.html"
               class="text-p1 font-semibold text-sm"
-              >See All</a
+              >Lihat Semua</a
             >
           </div>
           <div class="pt-5">
@@ -244,7 +244,7 @@
                 class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"
               >
                 <div class="flex justify-start items-center gap-3">
-                  <p class="font-medium">Starting In</p>
+                  <p class="font-medium"> mulai</p>
                   <div class="flex justify-start items-center gap-1">
                     <p
                       class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
@@ -269,7 +269,7 @@
                     </p>
                   </div>
                 </div>
-                <p class="text-xs text-p1">Read Instruction</p>
+                <p class="text-xs text-p1"> Baca Instruksi</p>
               </div>
               <div class="p-5 bg-white dark:bg-color10">
                 <div class="flex justify-start items-center gap-2">
@@ -280,20 +280,20 @@
                     <p class="text-[10px]">04.32</p>
                   </div>
                   <div class="">
-                    <p class="font-semibold text-sm">Browse By Category</p>
-                    <p class="text-xs">Language - English , Hindi</p>
+                    <p class="font-semibold text-sm">Quiz</p>
+                    <p class="text-xs">Dasar Dasar Pemrograman</p>
                   </div>
                 </div>
                 <div
                   class="flex justify-between items-center text-xs py-5 border-b border-dashed border-black border-opacity-10 dark:border-color24"
                 >
                   <div class="">
-                    <p>Max Time</p>
+                    <p>Waktu Mksimal</p>
                     <p class="font-semibold">5 min</p>
                   </div>
                   <div class="">
-                    <p>Max Ques</p>
-                    <p class="font-semibold">v</p>
+                    <p>Soal</p>
+                    <p class="font-semibold">5</p>
                   </div>
                   <div class="">
                     <p>No of Contest</p>
@@ -318,10 +318,10 @@
           <div class="flex justify-between items-center pr-6">
             <div class="flex justify-start items-center gap-2">
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
-              <h3 class="text-xl font-semibold">Best Players</h3>
+              <h3 class="text-xl font-semibold">Pengajar Terbaik</h3>
             </div>
             <a href="players.html" class="text-p1 font-semibold text-sm"
-              >See All</a
+              >Lihat Semua</a
             >
           </div>
           <div class="pt-5 swiper best-player-slider">
@@ -366,10 +366,10 @@
                     href="user-profile.html"
                     class="text-xs font-semibold text-color8 dark:text-white pt-4"
                   >
-                    ShadowStriker
+                    Budi
                   </a>
                   <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                    1060 XP
+                    Fullstack Developer
                   </p>
                   <button
                     class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
@@ -418,10 +418,10 @@
                     href="user-profile.html"
                     class="text-xs font-semibold text-color8 dark:text-white pt-4"
                   >
-                    BlazeKnight
+                    Andi
                   </a>
                   <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                    660 XP
+                    AI Enginner
                   </p>
                   <button
                     class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
@@ -470,10 +470,10 @@
                     href="user-profile.html"
                     class="text-xs font-semibold text-color8 dark:text-white pt-4"
                   >
-                    ShadowStriker
+                    Dedi
                   </a>
                   <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                    2060 XP
+                    Security Enginner
                   </p>
                   <button
                     class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
@@ -488,12 +488,12 @@
         <div class="pt-12 pl-6">
           <div class="flex justify-between items-center pr-6">
             <div class="flex justify-start items-center gap-2">
-              <h3 class="text-xl font-semibold">Upcoming Contest</h3>
+              <h3 class="text-xl font-semibold">Materi Terbaru</h3>
             </div>
             <a
               href="upcoming-contest.html"
               class="text-p1 font-semibold text-sm"
-              >See All</a
+              >Lihat Semua</a
             >
           </div>
           <div class="pt-5 swiper upcoming-contest-slider">
@@ -513,9 +513,9 @@
                       </div>
                       <div class="">
                         <p class="font-semibold text-xs">
-                          English Language Quiz
+                          Fundamental Network Enginner
                         </p>
-                        <p class="text-xs">Language - English</p>
+                        <p class="text-xs">dasar Networking</p>
                       </div>
                     </div>
                     <div class="flex justify-start items-center gap-1">
@@ -544,8 +544,8 @@
                   </div>
                   <div class="flex justify-between items-center text-xs pt-5">
                     <div class="flex gap-2">
-                      <p>Max Time</p>
-                      <p class="font-semibold">- 5 min</p>
+                      <p>Waktu</p>
+                      <p class="font-semibold">- 2 Bulan</p>
                     </div>
                     <div class="flex gap-3">
                       <p>Max Ques</p>
@@ -579,7 +579,7 @@
                       <button
                         class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                       >
-                        Join Now
+                        Gabung Sekarang
                       </button>
                       <div class="">
                         <p>Entry</p>
@@ -590,7 +590,7 @@
                   <div class="pt-5 flex justify-between items-center">
                     <div class="flex justify-start items-center gap-1">
                       <i class="ph ph-brain text-p2"></i>
-                      <p class="text-xs">Trivia Quiz</p>
+                      <p class="text-xs">Kuis Trivia</p>
                     </div>
                     <div class="flex justify-start items-center gap-2">
                       <i class="ph ph-bell-ringing"></i>
@@ -613,8 +613,8 @@
                         <p class="text-[10px]">05.25</p>
                       </div>
                       <div class="">
-                        <p class="font-semibold text-xs">China Language Quiz</p>
-                        <p class="text-xs">Language - English</p>
+                        <p class="font-semibold text-xs">Machine Learning</p>
+                        <p class="text-xs">Dasar Machine Learning</p>
                       </div>
                     </div>
                     <div class="flex justify-start items-center gap-1">
@@ -678,7 +678,7 @@
                       <button
                         class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                       >
-                        Join Now
+                        Gabung Sekarang
                       </button>
                       <div class="">
                         <p>Entry</p>
@@ -704,7 +704,7 @@
       </div>
     </div>
 
-    <!-- Bottom Tab Start -->
+    <!-- Bottom NAVBAR BAWAH MULAI -->
     <div class="fixed bottom-0 left-0 right-0 z-40">
       <div
         class="container bg-p2 px-6 py-3 rounded-t-2xl flex justify-around items-center dark:bg-p1"
@@ -718,7 +718,7 @@
           >
             <i class="ph ph-house text-xl !leading-none text-white"></i>
           </div>
-          <p class="text-xs text-white font-semibold dark:text-color10">Home</p>
+          <p class="text-xs text-white font-semibold dark:text-color10">Beranda</p>
         </a>
         <a
           href="library.html"
@@ -747,7 +747,7 @@
             ></i>
           </div>
           <p class="text-xs text-white font-semibold dark:text-color10">
-            Share & Earn
+            Bagikan 
           </p>
         </a>
         <a
@@ -761,13 +761,13 @@
               class="ph ph-users-three text-xl !leading-none dark:text-white"
             ></i>
           </div>
-          <p class="text-xs text-white font-semibold dark:text-color10">Chat</p>
+          <p class="text-xs text-white font-semibold dark:text-color10">Help AI</p>
         </a>
       </div>
     </div>
-    <!-- Bottom Tab End -->
+    <!-- Bottom NAVBAR BAWAH SELESAI -->
 
-    <!-- Sidebar Start -->
+    <!-- SIDEBAR MULAI -->
     <div class="hidden sidebarModal inset-0 z-50">
       <div class="container bg-black bg-opacity-80 h-full overflow-y-auto">
         <div class="w-[330px] bg-slate-50 relative">
