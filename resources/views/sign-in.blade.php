@@ -120,12 +120,13 @@
           <div class="border-b border-color21 w-full dark:border-color18"></div>
         </div>
         <div class="flex flex-col gap-4">
-          <button
-            class="flex justify-center items-center gap-3 py-3 border border-color21 text-sm font-semibold rounded-full bg-white dark:bg-color11 dark:border-color21"
-          >
+               <a
+              href="/auth/google"
+              class="flex justify-center items-center gap-3 py-3 border border-color21 text-sm font-semibold rounded-full bg-white dark:bg-color11 dark:border-color21"
+            >
             <img src="assets/images/google.png" alt="" />
             <p>Continue With</p>
-          </button>
+            </a>
           <button
             class="flex justify-center items-center gap-3 py-3 border border-color21 text-sm font-semibold rounded-full bg-white dark:bg-color11 dark:border-color21"
           >
