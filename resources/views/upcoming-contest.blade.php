@@ -12,7 +12,7 @@
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Upcoming Contest - Quizio PWA HTML Template</title>
+    <title>contest</title>
   <link href="style.css" rel="stylesheet"></head>
   <body>
     <div
@@ -47,7 +47,7 @@
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Upcoming Contest</h2>
+            <h2 class="text-2xl font-semibold text-white">CODE VERSE</h2>
           </div>
           <a
             href="create-quiz.html"
@@ -64,7 +64,7 @@
             class="flex justify-start items-center gap-3 bg-color24 border border-color24 p-4 rounded-full text-white w-full"
           >
             <i class="ph ph-magnifying-glass"></i>
-            <span class="text-white w-full text-xs">Search Contest</span>
+            <span class="text-white w-full text-xs">Cari materi</span>
           </a>
           <div
             class="bg-color24 border border-color24 p-4 rounded-full text-white flex justify-center items-center"
@@ -77,7 +77,7 @@
         <div class="pt-24 px-6">
           <div class="flex justify-between items-center">
             <div class="flex justify-start items-center gap-2">
-              <h3 class="text-xl font-semibold">Upcoming Contest</h3>
+              <h3 class="text-xl font-semibold">Materi Tersedia</h3>
             </div>
           </div>
           <div class="pt-5">
@@ -97,9 +97,9 @@
                       </div>
                       <div class="">
                         <p class="font-semibold text-xs">
-                          English Language Quiz
+                          HTML, CSS, JAVASCRIPT
                         </p>
-                        <p class="text-xs">Language - English</p>
+                        <p class="text-xs">fundamental website modern</p>
                       </div>
                     </div>
                     <div class="flex justify-start items-center gap-1">
@@ -128,8 +128,8 @@
                   </div>
                   <div class="flex justify-between items-center text-xs pt-5">
                     <div class="flex gap-2">
-                      <p>Max Time</p>
-                      <p class="font-semibold">- 5 min</p>
+                      <p>Durasi</p>
+                      <p class="font-semibold">2 bulan</p>
                     </div>
                     <div class="flex gap-3">
                       <p>Max Ques</p>
@@ -163,7 +163,7 @@
                       <button
                         class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                       >
-                        Join Now
+                        Gabung sekarang
                       </button>
                       <div class="">
                         <p>Entry</p>
@@ -197,8 +197,8 @@
                         <p class="text-[10px]">05.25</p>
                       </div>
                       <div class="">
-                        <p class="font-semibold text-xs">China Language Quiz</p>
-                        <p class="text-xs">Language - English</p>
+                        <p class="font-semibold text-xs">Bahasa Pemrograman Python</p>
+                        <p class="text-xs">Fundamental Dasar</p>
                       </div>
                     </div>
                     <div class="flex justify-start items-center gap-1">
@@ -227,8 +227,8 @@
                   </div>
                   <div class="flex justify-between items-center text-xs pt-5">
                     <div class="flex gap-2">
-                      <p>Max Time</p>
-                      <p class="font-semibold">- 5 min</p>
+                      <p>Durasi</p>
+                      <p class="font-semibold">2 Bulan</p>
                     </div>
                     <div class="flex gap-3">
                       <p>Max Ques</p>
@@ -262,7 +262,7 @@
                       <button
                         class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                       >
-                        Join Now
+                        Bergabung Sekarang
                       </button>
                       <div class="">
                         <p>Entry</p>
@@ -297,9 +297,9 @@
                       </div>
                       <div class="">
                         <p class="font-semibold text-xs">
-                          Swedish Language Quiz
+                          Dasar Java
                         </p>
-                        <p class="text-xs">Language - English</p>
+                        <p class="text-xs">Fundamental Java</p>
                       </div>
                     </div>
                     <div class="flex justify-start items-center gap-1">

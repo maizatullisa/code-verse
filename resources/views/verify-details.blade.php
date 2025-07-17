@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Verify Details - Quizio PWA HTML Template</title>
+    <title>Verif Detail</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -43,12 +43,12 @@
       <div class="relative z-10 px-6">
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
-            <a
+            <a href="{{ url('/settings') }}"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Verify Details</h2>
+            <h2 class="text-2xl font-semibold text-white">Detail Verifikasi</h2>
           </div>
         </div>
         <!-- Page Title End -->
@@ -62,7 +62,7 @@
               <i class="ph ph-bank"></i>
             </div>
             <div class="text-white">
-              <p class="text-2xl font-semibold">Get Verify</p>
+              <p class="text-2xl font-semibold">Dapatkan Verifikasi</p>
               <p class="text-xs">Withdraw winnings to your bank immediately</p>
             </div>
           </div>

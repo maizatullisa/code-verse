@@ -71,8 +71,7 @@
         <div
           class="flex justify-between items-center gap-3 pt-8 px-6 relative z-20"
         >
-          <a
-            href="contest-search-result.html"
+          <a href="{{ url('/search-result') }}"
             class="flex justify-start items-center gap-3 bg-color24 border border-color24 p-4 rounded-full text-white w-full"
           >
             <i class="ph ph-magnifying-glass"></i>
@@ -229,8 +228,7 @@
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
               <h3 class="text-xl font-semibold">Rekomendasi Materi</h3>
             </div>
-            <a
-              href="upcoming-contest.html"
+            <a href="{{ url('/contest') }}" 
               class="text-p1 font-semibold text-sm"
               >Lihat Semua</a
             >
@@ -783,7 +781,7 @@
               <img src="assets/images/user_sidebar.png" alt="" />
               <div class="">
                 <p class="text-2xl font-semibold">
-                  Jhon Smith <i class="ph-fill ph-seal-check text-p1"></i>
+                  user<i class="ph-fill ph-seal-check text-p1"></i>
                 </p>
                 <p class="text-xs">
                   <span class="font-semibold">ID :</span> 6546354651
@@ -812,13 +810,13 @@
                   <i class="ph-fill ph-coins"></i>
                 </div>
                 <div class="">
-                  <p class="text-xs">Quizio Coin Earned</p>
+                  <p class="text-xs">Code Verse Coin Earned</p>
                   <p class="text-base font-semibold">20</p>
                 </div>
               </div>
             </div>
             <p class="pt-5 text-end text-xs">
-              <span class="text-p1">* </span>Current Month
+              <span class="text-p1">* </span>Berjalan Bulan
             </p>
           </div>
           <div class="flex flex-col">
@@ -826,32 +824,22 @@
               href="upgrade-premium.html"
               class="flex justify-between items-center py-3 px-4 bg-p1 text-white"
             >
-              <div class="flex justify-start items-center gap-3">
-                <img src="assets/images/premium-badge.png" alt="" />
-                <p class="font-semibold">Upgrade to Primium</p>
-              </div>
+
               <div class="flex justify-center items-center rounded-full">
                 <i class="ph ph-arrow-right"></i>
               </div>
             </a>
-            <a
-              href="my-profile.html"
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-user"></i>
+            <a href="{{ url('/profile') }}">
+                <div class="flex justify-start items-center gap-3 cursor-pointer">
+                    <div
+                        class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
+                    >
+                        <i class="ph ph-user"></i>
+                    </div>
+                    <p class="font-semibold dark:text-white">Saya</p>
                 </div>
-                <p class="font-semibold dark:text-white">My Profile</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
             </a>
+
             <a
               href="my-wallet.html"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
@@ -862,9 +850,8 @@
                 >
                   <i class="ph ph-wallet"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Balance</p>
+                <p class="font-semibold dark:text-white">Kelas</p>
               </div>
-              <p class="text-p1 font-semibold text-sm">$40</p>
             </a>
             <a
               href="earn-rewards.html"
@@ -876,12 +863,11 @@
                 >
                   <i class="ph ph-users-three"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Share & Earn</p>
+                <p class="font-semibold dark:text-white">Forum Diskusi</p>
               </div>
-              <p class="text-p1 font-semibold text-sm">$65</p>
             </a>
-            <a
-              href="notification-setting.html"
+            <a href="{{ url('/notification') }}"
+
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
             >
               <div class="flex justify-start items-center gap-3">
@@ -890,7 +876,7 @@
                 >
                   <i class="ph ph-bell"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Notification</p>
+                <p class="font-semibold dark:text-white">Notifikasi</p>
               </div>
               <div
                 class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
@@ -899,8 +885,7 @@
               </div>
             </a>
 
-            <a
-              href="settings.html"
+            <a href="{{ url('/settings') }}"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
             >
               <div class="flex justify-start items-center gap-3">
@@ -909,7 +894,7 @@
                 >
                   <i class="ph ph-gear-six"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Settings</p>
+                <p class="font-semibold dark:text-white">Pengaturan</p>
               </div>
               <div
                 class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
@@ -927,7 +912,7 @@
                 >
                   <i class="ph ph-medal"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Award</p>
+                <p class="font-semibold dark:text-white">Quiz</p>
               </div>
               <div
                 class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
@@ -935,95 +920,6 @@
                 <i class="ph ph-arrow-right"></i>
               </div>
             </a>
-            <a
-              href="earn-rewards.html"
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-share-network"></i>
-                </div>
-                <p class="font-semibold dark:text-white">Share App</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
-            </a>
-            <a
-              href="top-member.html"
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-users-three"></i>
-                </div>
-                <p class="font-semibold dark:text-white">Top Members</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
-            </a>
-            <a
-              href="about-quizio.html"
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-info"></i>
-                </div>
-                <p class="font-semibold dark:text-white">About Us</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
-            </a>
-            <a
-              href="choose-category.html"
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-diamonds-four"></i>
-                </div>
-                <p class="font-semibold dark:text-white">Category</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
-            </a>
-            <div
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-lightbulb-filament"></i>
-                </div>
-                <p class="font-semibold dark:text-white">Suggest a Contest</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
-            </div>
             <a
               href="chat.html"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
@@ -1034,7 +930,7 @@
                 >
                   <i class="ph ph-chats-teardrop"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Chat with Us</p>
+                <p class="font-semibold dark:text-white">Chat dengan Mentor</p>
               </div>
               <div
                 class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
@@ -1052,7 +948,7 @@
                 >
                   <i class="ph ph-seal-question"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Help Center</p>
+                <p class="font-semibold dark:text-white">Hubungi Kami</p>
               </div>
               <div
                 class="flex justify-center items-center rounded-full text-p2 dark:text-p1"

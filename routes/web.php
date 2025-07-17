@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\QuizController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,11 +40,41 @@ Route::get('/login', function () {
     return redirect('/home');
 });
 
-/// Halaman setelah login berhasil
+/// Halaman setelah login berhasil DIA AKAN KE HOME
 Route::get('/home', function () {
-    return view('home'); // pastikan file resources/views/home.blade.php ada
+    return view('home'); 
 })->name('home');
 
 //QUIZ
 Route::get('/quizzes', [QuizController::class, 'index']);
 Route::post('/quizzes', [QuizController::class, 'store']);
+
+Route::get('/profile', function () {
+    return view('my-profile');
+})->name('profile');
+
+// SEARCH
+Route::get('/search-result', function(){
+    return view('contest-search-result');
+})->name('search-result');
+
+// REKOMENDASI MATERI SEE ALL
+Route::get('/contest', function(){
+    return view('upcoming-contest');
+})->name('contest');
+
+// ROUTE NAVBAR SAMPING KIRI (KOMPONEN DAN KAWAN KAWANNYA)
+// PENGATURAN START
+Route::get('/settings', function(){
+    return view('settings');
+})->name('settings');
+
+Route::get('/details', function(){
+    return view('verify-details');
+})->name('details');
+
+Route::get('/notification', function(){
+    return view('notification-setting');
+})->name('notification');
+// PENGATURAN END
+
