@@ -42,11 +42,11 @@
       <div class="relative z-10">
         <div class="flex justify-between items-center gap-4 px-6">
           <div class="flex justify-start items-center gap-4">
-            <a
+            <a href="{{ url('/home') }}"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
-            </a>
+          </a>
             <h2 class="text-2xl font-semibold text-white">CODE VERSE</h2>
           </div>
           <a
