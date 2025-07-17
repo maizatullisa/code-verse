@@ -1,0 +1,21 @@
+{
+  "name": "Quizio",
+  "short_name": "quizio",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/images/fav-140.png",
+      "sizes": "140x140",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/fav-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

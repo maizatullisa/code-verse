@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('assets/css/swiper.min.css') }}" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="manifest" href="{{ asset('manifest.json') }}" />
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
     <title>Sign Up - Quizio</title>
     <link href="{{ asset('style.css') }}" rel="stylesheet">
 </head>

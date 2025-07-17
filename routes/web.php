@@ -14,9 +14,10 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
 
 //registrasi
 Route::get('/sign-up', function () {
