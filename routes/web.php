@@ -34,3 +34,4 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/home', function () {
     return view('home'); // pastikan file resources/views/home.blade.php ada
 })->name('home');
+
