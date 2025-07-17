@@ -749,7 +749,7 @@
           </p>
         </a>
         <a
-          href="chat.html"
+            href="{{ url('/box') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div

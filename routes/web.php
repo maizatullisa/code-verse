@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\QuizController;
 
+use function PHPUnit\Framework\returnSelf;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,3 +80,8 @@ Route::get('/notification', function(){
 })->name('notification');
 // PENGATURAN END
 
+//CHAT DENGAN AI
+
+Route::get('/box', function (){
+    return view(view:'chat-box');
+})->name(name:'box');
