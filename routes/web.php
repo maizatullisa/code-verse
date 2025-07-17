@@ -8,6 +8,11 @@ use function Termwind\renderUsing;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
 */
 
 /// Halaman awal: login
@@ -34,28 +39,28 @@ Route::get('/home', function () {
 Route::get('/profile', function () {
     return view('my-profile');
 })->name('profile');
+
 // SEARCH
 Route::get('/search-result', function(){
-    return view(view:'contest-search-result');
-})->name(name:'search-result');
+    return view('contest-search-result');
+})->name('search-result');
 
-//REKOMENDASI MATERI SEE ALL
+// REKOMENDASI MATERI SEE ALL
 Route::get('/contest', function(){
-    return view(view:'upcoming-contest');
-})->name(name:'contest');
+    return view('upcoming-contest');
+})->name('contest');
 
-
-//ROUTE NAVBAR SAMPING KIRI (KOMPONEN DAN KAWAN KAWANNYA)
-//PENGATURAN START
+// ROUTE NAVBAR SAMPING KIRI (KOMPONEN DAN KAWAN KAWANNYA)
+// PENGATURAN START
 Route::get('/settings', function(){
-    return view(view: 'settings');
+    return view('settings');
 })->name('settings');
 
 Route::get('/details', function(){
-    return view(view:'verify-details');
-})->name(name:'details');
+    return view('verify-details');
+})->name('details');
 
 Route::get('/notification', function(){
-    return view(view:'notification-setting');
-})->name(name:'notification');
-//PENGATURAN END
+    return view('notification-setting');
+})->name('notification');
+// PENGATURAN END
