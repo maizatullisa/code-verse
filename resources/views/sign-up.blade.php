@@ -39,8 +39,6 @@
 @endif
 <!-- Alert Message End -->
 
-<form action="{{ route('register') }}" method="POST" class="relative z-20 mt-10">
-
     <!-- Form -->
     <form action="{{ route('register') }}" method="POST" class="relative z-20 mt-10">
         @csrf
