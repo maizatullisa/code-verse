@@ -655,8 +655,7 @@
       <div
         class="container bg-p2 px-6 py-3 rounded-t-2xl flex justify-around items-center dark:bg-p1"
       >
-        <a
-          href="home.html"
+        <a href="{{ url('/home') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -664,10 +663,9 @@
           >
             <i class="ph ph-house text-xl !leading-none dark:text-white"></i>
           </div>
-          <p class="text-xs text-white font-semibold dark:text-color10">Home</p>
+          <p class="text-xs text-white font-semibold dark:text-color10">Beranda</p>
         </a>
-        <a
-          href="library.html"
+        <a href="{{ url('/library') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -679,8 +677,7 @@
             Library
           </p>
         </a>
-        <a
-          href="earn-rewards.html"
+        <a href="{{ url(path: '/kelas') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -691,11 +688,10 @@
             ></i>
           </div>
           <p class="text-xs text-white font-semibold dark:text-color10">
-            Share & Earn
+            Kelas
           </p>
         </a>
-        <a
-          href="chat.html"
+        <a href="{{ url(path: '/box') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -705,7 +701,7 @@
               class="ph ph-users-three text-xl !leading-none dark:text-white"
             ></i>
           </div>
-          <p class="text-xs text-white font-semibold dark:text-color10">Chat</p>
+          <p class="text-xs text-white font-semibold dark:text-color10">Help AI</p>
         </a>
       </div>
     </div>

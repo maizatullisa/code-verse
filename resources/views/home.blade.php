@@ -758,8 +758,7 @@
       <div
         class="container bg-p2 px-6 py-3 rounded-t-2xl flex justify-around items-center dark:bg-p1"
       >
-        <a
-          href="home.html"
+        <a href="{{ url('/home') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -769,8 +768,7 @@
           </div>
           <p class="text-xs text-white font-semibold dark:text-color10">Beranda</p>
         </a>
-        <a
-          href="library.html"
+        <a href="{{ url('/library') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -784,8 +782,7 @@
             Library
           </p>
         </a>
-        <a
-          href="earn-rewards.html"
+        <a href="{{ url('/kelas') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
@@ -796,7 +793,7 @@
             ></i>
           </div>
           <p class="text-xs text-white font-semibold dark:text-color10">
-            Bagikan 
+            Kelas 
           </p>
         </a>
         <a

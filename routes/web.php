@@ -95,8 +95,18 @@ Route::get('/notification', function(){
 })->name('notification');
 // PENGATURAN END
 
-//CHAT DENGAN AI
 
+//NAVBAR BAWAH
 Route::get('/box', function (){
     return view(view:'chat-box');
 })->name(name:'box');
+
+//LIBRARY
+Route::get('/library', function(){
+    return view(view:'library');
+})->name(name:'library');
+
+//KELAS
+Route::get('/kelas', function(){
+    return view(view:'kelas');
+})->name(name:'kelas');
