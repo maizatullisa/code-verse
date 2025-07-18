@@ -28,7 +28,7 @@ Route::get('/', function(){
 })->name(name:'index');
 
 /// Halaman awal: login
-Route::get('masuk', function () {
+Route::get('/masuk', function () {
     return view('masuk');
 })->name('masuk');
 

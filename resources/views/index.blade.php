@@ -54,26 +54,26 @@
                 class="swiper-slide flex flex-col justify-center items-center text-center px-4"
               >
                 <h1 class="text-4xl font-semibold">
-                  Code Verse On <span class="text-p1">Go</span>
+                 Code Verse On <span class="text-p1">Go</span>
                 </h1>
                 <p class="m-body pt-5 opacity-80">
-                  Selamat Datang Para Calon Developer
+                  Selamat Datang Para Calon Developer 🙌🏻
                 </p>
               </div>
               <div
                 class="swiper-slide flex flex-col justify-center items-center text-center px-4"
               >
-                <h1 class="text-4xl font-semibold">Tahu Ngak sih?? Kalau di CODE VERSE TUH gratis</h1>
+                <h1 class="text-4xl font-semibold">Tahu Engga sih?? Kalau Di CODE VERSE tuh gratis</h1>
                 <p class="m-body pt-5 opacity-80">
-                  Temukan beberapa materi dengan gratis
+                  Temukan Beberapa Materi dengan gratis
                 </p>
               </div>
               <div
                 class="swiper-slide flex flex-col justify-center items-center text-center px-4"
               >
-                <h1 class="text-4xl font-semibold">SIAPPPP??</h1>
+                <h1 class="text-4xl font-semibold">Siapp????</h1>
                 <p class="m-body pt-5 opacity-80">
-                  kuyyyy kuyyy klik MULAI
+                  YUKSS KLIK MULAI 🙌🏻
                 </p>
               </div>
             </div>
@@ -83,17 +83,19 @@
             </div>
 
             <div class="flex justify-between items-center px-6">
-              <a href="{{ url(path: 'masuk') }}"
+              <a href="{{ url(path: '/masuk')}}"
                 class="text-p2 font-semibold dark:text-p1"
-                >Lanjutkan</a
+                >Skip</a
               >
               <div class="nextButton">
                 <div class="ara-next">
                   <button
-                    class="text-white flex justify-center items-center bg-p2 rounded-full text-2xl p-3.5"
-                  >
-                    <i class="ph ph-arrow-right"></i>
+                        onclick="window.location.href='{{ url(path: '/masuk')}}';"
+                        class="text-white flex justify-center items-center bg-p2 rounded-full text-2xl p-3.5"
+                      >
+                        <i class="ph ph-arrow-right"></i>
                   </button>
+
                 </div>
               </div>
             </div>
