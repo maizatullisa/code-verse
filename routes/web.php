@@ -61,9 +61,19 @@ Route::get('/search-result', function(){
 })->name('search-result');
 
 // REKOMENDASI MATERI SEE ALL
-Route::get('/contest', function(){
-    return view('upcoming-contest');
-})->name('contest');
+//Route::get('/contest', function(){
+    //return view('upcoming-contest');
+///)->name('contest');
+
+//PENGAJAR TERBAIK
+Route::get('/pengajar', function(){
+    return view(view:'pengajar');
+})->name(name:'pengajar');
+
+//SEE ALL MATERI YGY 
+Route::get('/materi', function(){
+    return view(view:'materi');
+})->name(name:'materi');
 
 // ROUTE NAVBAR SAMPING KIRI (KOMPONEN DAN KAWAN KAWANNYA)
 // PENGATURAN START

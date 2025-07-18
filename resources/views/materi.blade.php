@@ -363,7 +363,7 @@
                       <button
                         class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                       >
-                        Join Now
+                        Bergabung Sekarang  
                       </button>
                       <div class="">
                         <p>Entry</p>
@@ -397,8 +397,8 @@
                         <p class="text-[10px]">05.25</p>
                       </div>
                       <div class="">
-                        <p class="font-semibold text-xs">China Language Quiz</p>
-                        <p class="text-xs">Language - English</p>
+                        <p class="font-semibold text-xs"> Networking</p>
+                        <p class="text-xs">fundamental Networking</p>
                       </div>
                     </div>
                     <div class="flex justify-start items-center gap-1">
@@ -462,7 +462,7 @@
                       <button
                         class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                       >
-                        Join Now
+                        Bergabung Sekarang  
                       </button>
                       <div class="">
                         <p>Entry</p>

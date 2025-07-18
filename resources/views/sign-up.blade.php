@@ -84,7 +84,7 @@
                 <select name="role" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
                     <option value="siswa">Siswa</option>
                     <option value="pengajar">Pengajar</option>
-                    <option value="admin">Admin</option>
+                   
                 </select>
             </div>
 

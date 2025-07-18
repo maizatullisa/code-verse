@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Players - Quizio PWA HTML Template</title>
+    <title>Pemateri</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -42,7 +42,7 @@
       <!-- Page Title Start -->
       <div class="relative z-10">
         <div class="flex justify-start items-center gap-4 px-6">
-          <h2 class="text-2xl font-semibold text-white">Players</h2>
+          <h2 class="text-2xl font-semibold text-white">Pemateri</h2>
         </div>
         <!-- Page Title End -->
 
@@ -54,7 +54,7 @@
             <i class="ph ph-magnifying-glass"></i>
             <input
               type="text"
-              placeholder="Search Players.."
+              placeholder="Cari Pengajar"
               class="bg-transparent outline-none placeholder:text-white w-full text-xs"
             />
           </div>
@@ -67,7 +67,7 @@
         <!-- Search Box End -->
 
         <div class="px-6 pt-16">
-          <p class="text-xl font-semibold">Players List</p>
+          <p class="text-xl font-semibold">Daftar Pengajar</p>
           <div class="grid grid-cols-2 gap-4 pt-5">
             <div
               class="p-4 rounded-xl border border-black border-opacity-10 bg-white shadow2 swiper-slide dark:bg-color9 dark:border-color24"
@@ -107,7 +107,7 @@
                   href="user-profile.html"
                   class="text-xs font-semibold text-color8 dark:text-white pt-4"
                 >
-                  ShadowStriker
+                  Budi
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
                   1060 XP
@@ -115,7 +115,7 @@
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                 >
-                  Follow
+                  Ikuti
                 </button>
               </div>
             </div>
@@ -157,7 +157,7 @@
                   href="user-profile.html"
                   class="text-xs font-semibold text-color8 dark:text-white pt-4"
                 >
-                  BlazeKnight
+                  Andi
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
                   660 XP
@@ -165,7 +165,7 @@
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                 >
-                  Follow
+                  Ikuti
                 </button>
               </div>
             </div>
@@ -207,7 +207,7 @@
                   href="user-profile.html"
                   class="text-xs font-semibold text-color8 dark:text-white pt-4"
                 >
-                  ShadowStriker
+                  Dedi
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
                   2060 XP
@@ -215,7 +215,7 @@
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                 >
-                  Follow
+                  Ikuti
                 </button>
               </div>
             </div>
@@ -257,7 +257,7 @@
                   href="user-profile.html"
                   class="text-xs font-semibold text-color8 dark:text-white pt-4"
                 >
-                  ShadowStriker
+                  Imam
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
                   1060 XP
@@ -265,10 +265,12 @@
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
                 >
-                  Follow
+                  Ikuti
                 </button>
               </div>
             </div>
+            
+               pengajar bisa tambah 
           </div>
         </div>
       </div>

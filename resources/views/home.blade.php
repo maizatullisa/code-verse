@@ -318,7 +318,7 @@
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
               <h3 class="text-xl font-semibold">Pengajar Terbaik</h3>
             </div>
-            <a href="players.html" class="text-p1 font-semibold text-sm"
+            <a href="{{ url('/pengajar') }}" class="text-p1 font-semibold text-sm"
               >Lihat Semua</a
             >
           </div>
@@ -480,6 +480,58 @@
                   </button>
                 </div>
               </div>
+                            <div
+                class="p-4 rounded-xl border border-black border-opacity-10 bg-white shadow2 swiper-slide dark:bg-color9 dark:border-color24"
+              >
+                <div
+                  class="flex justify-between items-center pb-3 border-b border-dashed border-black border-opacity-10"
+                >
+                  <div
+                    class="bg-p2 bg-opacity-10 border border-p2 border-opacity-20 py-1 px-3 flex justify-start items-center gap-1 rounded-full dark:bg-bgColor14 dark:border-bgColor16"
+                  >
+                    <i class="ph-fill ph-trophy text-p1"></i>
+                    <p class="text-xs font-semibold text-p2 dark:text-white">
+                      #1
+                    </p>
+                  </div>
+                  <img src="assets/images/Flags1.png" alt="" />
+                </div>
+                <div class="flex flex-col justify-center items-center pt-4">
+                  <div
+                    class="relative size-24 flex justify-center items-center"
+                  >
+                    <img
+                      src="assets/images/user-img-1.png"
+                      alt=""
+                      class="size-[68px] rounded-full"
+                    />
+                    <img
+                      src="assets/images/user-progress.svg"
+                      alt=""
+                      class="absolute top-0 left-0"
+                    />
+                    <img
+                      src="assets/images/medal1.svg"
+                      alt=""
+                      class="absolute -bottom-1.5 left-9 size-7"
+                    />
+                  </div>
+                  <a
+                    href="user-profile.html"
+                    class="text-xs font-semibold text-color8 dark:text-white pt-4"
+                  >
+                    Imam
+                  </a>
+                  <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
+                    Natwork Enginner
+                  </p>
+                  <button
+                    class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
+                  >
+                    Follow
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -488,8 +540,7 @@
             <div class="flex justify-start items-center gap-2">
               <h3 class="text-xl font-semibold">Materi Terbaru</h3>
             </div>
-            <a
-              href="upcoming-contest.html"
+            <a href="{{ url('/materi') }}"
               class="text-p1 font-semibold text-sm"
               >Lihat Semua</a
             >
@@ -1027,24 +1078,24 @@
             <div
               class="px-6 pt-8 border-b border-color21 dark:border-color24 border-dashed pb-5 mx-6"
             >
-              <p class="text-2xl text-p1 text-center font-semibold">Log Out</p>
+              <p class="text-2xl text-p1 text-center font-semibold">Keluar</p>
             </div>
 
             <div class="pt-5 px-6">
               <p class="text-color5 dark:text-white pb-8 text-center">
-                Are you sure you want to log out?
+                Apakah Kamu Yakin Ingin Keluar?
               </p>
               <div class="flex justify-between items-center gap-3">
                 <button
                   class="withdrawModalCloseButton border border-color16 bg-color14 rounded-full py-3 text-p2 text-sm font-semibold text-center block dark:border-p1 w-full dark:text-white"
                 >
-                  Cancel
+                  Batal
                 </button>
                 <a
                   href="sign-in.html"
                   class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block dark:bg-p1 w-full"
                 >
-                  Yes, Logout
+                  Ya, Saya Yakakin
                 </a>
               </div>
             </div>
