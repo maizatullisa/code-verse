@@ -22,15 +22,20 @@ use function PHPUnit\Framework\returnSelf;
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
+//PERTAMA
+Route::get('/', function(){
+    return view(view:'index');
+})->name(name:'index');
+
 /// Halaman awal: login
-Route::get('/', function () {
-    return view('sign-in');
-})->name('sign-in');
+Route::get('masuk', function () {
+    return view('masuk');
+})->name('masuk');
 
 /// Halaman registrasi
-Route::get('/sign-up', function () {
-    return view('sign-up'); 
-})->name('sign-up');
+Route::get('/register', function () {
+    return view('register'); 
+})->name('register');
 
 /// Aksi kirim form register
 Route::post('/register', [AuthController::class, 'register'])->name('register');

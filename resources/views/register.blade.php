@@ -19,7 +19,7 @@
         <a href="/" class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10">
             <i class="ph ph-caret-left"></i>
         </a>
-        <h2 class="text-2xl font-semibold text-white">Sign Up</h2>
+        <h2 class="text-2xl font-semibold text-white">Registrasi</h2>
     </div>
     <!-- Alert Message Start -->
 @if(session('success'))
@@ -46,13 +46,13 @@
         @csrf
         <div class="bg-white py-8 px-6 rounded-xl dark:bg-color10">
             <div class="pt-2">
-                <label class="text-sm font-semibold pb-2 block">First Name</label>
-                <input type="text" name="first_name" placeholder="Enter Name" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
+                <label class="text-sm font-semibold pb-2 block">Nama</label>
+                <input type="text" name="first_name" placeholder="Nama Lengkap" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
             </div>
 
             <div class="pt-4">
                 <label class="text-sm font-semibold pb-2 block">Email</label>
-                <input type="email" name="email" placeholder="Enter Email" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
+                <input type="email" name="email" placeholder="Ketik Email" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
             </div>
 
             <div class="pt-4">
@@ -61,26 +61,26 @@
             </div>
 
             <div class="pt-4">
-                <label class="text-sm font-semibold pb-2 block">Confirm Password</label>
+                <label class="text-sm font-semibold pb-2 block">Konfirmasi Password</label>
                 <input type="password" name="password_confirmation" placeholder="*****" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
             </div>
 
             <div class="pt-4">
-                <label class="text-sm font-semibold pb-2 block">Gender</label>
+                <label class="text-sm font-semibold pb-2 block">Jenis Kelamin</label>
                 <div class="flex gap-4">
                     <label class="flex items-center gap-2">
                         <input type="radio" name="gender" value="male" checked>
-                        <span>Male</span>
+                        <span>Laki-Laki</span>
                     </label>
                     <label class="flex items-center gap-2">
                         <input type="radio" name="gender" value="female">
-                        <span>Female</span>
+                        <span>Perempuan</span>
                     </label>
                 </div>
             </div>
 
             <div class="pt-4">
-                <label class="text-sm font-semibold pb-2 block">Role</label>
+                <label class="text-sm font-semibold pb-2 block">Pilih</label>
                 <select name="role" class="w-full border border-color21 rounded-xl px-4 py-3 dark:text-color18 dark:border-color18" required>
                     <option value="siswa">Siswa</option>
                     <option value="pengajar">Pengajar</option>
@@ -91,20 +91,20 @@
             <div class="pt-4">
                 <label class="flex items-center gap-2 text-sm cursor-pointer">
                     <input type="checkbox" name="terms" required>
-                    <span>I accept all Terms, Privacy and Fees</span>
+                    <span>Saya menerima semua Persyaratan dan Privasi</span>
                 </label>
             </div>
         </div>
 
         <button type="submit" class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block mt-12 dark:bg-p1 w-full">
-            Sign Up
+            Registrasi
         </button>
     </form>
 
     <div class="relative z-10">
         <p class="text-sm font-semibold text-center pt-5">
-            Already have an account?
-            <a href="{{ url('sign-in') }}" class="text-p2 dark:text-p1">Sign In</a> here
+            Sudah punya akun?
+            <a href="{{ url('masuk') }}" class="text-p2 dark:text-p1">Klik</a> disini
         </p>
     </div>
 </div>

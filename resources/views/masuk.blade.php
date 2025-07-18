@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Sign In - Quizio PWA HTML Template</title>
+    <title>Masuk</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -46,7 +46,7 @@
         >
           <i class="ph ph-caret-left"></i>
         </a>
-        <h2 class="text-2xl font-semibold text-white">Sign In</h2>
+        <h2 class="text-2xl font-semibold text-white">Masuk</h2>
       </div>
       <!-- Page Title End -->
 
@@ -58,13 +58,9 @@
             <a
               href="#"
               class="text-center text-xl font-semibold text-p2 border-b-2 pb-2 border-p2 w-full dark:text-p1 dark:border-p1"
-              >Sign In</a
+              >Masuk</a
             >
-            <a
-              href="sign-up.blade.php"
-              class="text-center text-xl font-semibold text-bgColor18 border-b-2 pb-2 border-bgColor18 w-full dark:text-color18 dark:border-color18"
-              >Sign Up</a
-            >
+            
           </div>
 
           <div class="pt-8">
@@ -75,7 +71,7 @@
               <input
                 type="email"
                 name="email"
-                placeholder="Enter Email"
+                placeholder="Ketik Email"
                 class="outline-none bg-transparent text-n600 text-sm placeholder:text-sm w-full placeholder:text-bgColor18 dark:text-color18 dark:placeholder:text-color18"
               />
               <i
@@ -102,12 +98,12 @@
           <a
             href="forgot-password.html"
             class="text-end text-p2 text-sm font-semibold block pt-2 dark:text-p1"
-            >Forgot password?</a
+            >Lupa password?</a
           >
         </div>
 
         <button type="submit" class="bg-p2 rounded-full py-3 text-white text-sm font-semibold text-center block mt-12 dark:bg-p1 w-full">
-          Sign In
+          Masuk
         </button>
 
       </form>
@@ -115,7 +111,7 @@
         <div class="flex justify-center items-center my-8 gap-2">
           <div class="border-b border-color21 w-full dark:border-color18"></div>
           <p class="text-sm text-color1 text-nowrap dark:text-white">
-            Or Continue With
+            Atau Masuk Dengan
           </p>
           <div class="border-b border-color21 w-full dark:border-color18"></div>
         </div>
@@ -125,19 +121,19 @@
               class="flex justify-center items-center gap-3 py-3 border border-color21 text-sm font-semibold rounded-full bg-white dark:bg-color11 dark:border-color21"
             >
             <img src="assets/images/google.png" alt="" />
-            <p>Continue With</p>
+            <p>Masuk Dengan</p>
             </a>
           <button
             class="flex justify-center items-center gap-3 py-3 border border-color21 text-sm font-semibold rounded-full bg-white dark:bg-color11 dark:border-color21"
           >
             <img src="assets/images/AppleLogo.png" alt="" />
-            <p>Continue With</p>
+            <p>Masuk Dengan</p>
           </button>
         </div>
 
         <p class="text-sm font-semibold text-center pt-5">
-          Don’t have an account?
-          <a href="{{ url('sign-up') }}" class="text-p2 dark:text-p1">Sign Up</a> here
+          Tidak Memiliki Akun?
+          <a href="{{ url('register') }}" class="text-p2 dark:text-p1">Klik</a> Disini
         </p>
       </div>
       <!-- Sign In Form End -->
