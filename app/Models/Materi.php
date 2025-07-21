@@ -13,6 +13,6 @@ class Materi extends Model
 
     public function forumPosts()
     {
-        return $this->hasMany(ForumPost::class);
+        return $this->hasMany(ForumDiskusi::class);
     }
 }

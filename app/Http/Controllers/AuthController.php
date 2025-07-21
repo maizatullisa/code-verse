@@ -46,7 +46,7 @@ class AuthController extends Controller
                     } elseif (auth()->user()->role == 'pengajar') {
                         return redirect('/pengajar/dashboard');
                     } else {
-                        return redirect('/user/dashboard');
+                        return redirect()->route('/my-profile');
                     }
                 }
 
@@ -56,3 +56,5 @@ class AuthController extends Controller
             }
 
 }
+
+

@@ -828,10 +828,10 @@
               <img src="assets/images/user_sidebar.png" alt="" />
               <div class="">
                 <p class="text-2xl font-semibold">
-                  user<i class="ph-fill ph-seal-check text-p1"></i>
+                {{ $user->first_name }}<i class="ph-fill ph-seal-check text-p1"></i>
                 </p>
                 <p class="text-xs">
-                  <span class="font-semibold">ID :</span> 6546354651
+                  <span class="font-semibold">ID :</span>{{ $user->id }}
                 </p>
               </div>
             </div>

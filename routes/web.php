@@ -51,12 +51,15 @@ Route::get('/login', function () {
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME
 Route::get('/home', function () {
-    return view('home'); 
-})->name('home');
+    $user = Auth::user(); // ambil user login
+    return view('home', compact('user'));
+})->middleware('auth')->name('home');
 
 Route::get('/profile', function () {
-    return view('my-profile');
-})->name('profile');
+    $user = Auth::user(); // ambil user login
+    return view('my-profile', compact('user'));
+})->middleware('auth')->name('profile');
+
 
 // SEARCH
 Route::get('/search-result', function(){

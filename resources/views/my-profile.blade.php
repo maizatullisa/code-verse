@@ -127,12 +127,16 @@
         <!-- User Profile Image End -->
         <div class="flex justify-center items-center pt-5 flex-col pb-5">
           <div class="flex justify-start items-center gap-1 text-2xl">
-            <p class="font-semibold">user</p>
+            <p class="font-semibold">{{ $user->first_name }}</p>
             <i class="ph-fill ph-seal-check text-p1"></i>
           </div>
           <p class="text-color5 pt-1 dark:text-bgColor20 font-semibold">
-           
+           {{ $user->email }}
           </p>
+          <p class="text-color5 pt-1 dark:text-bgColor20 font-semibold">
+            {{ ucfirst($user->role) }} | {{ ucfirst($user->gender) }}
+        </p>
+
         </div>
 
 
