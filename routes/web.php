@@ -47,17 +47,23 @@ Route::get('/berhasil', function () {
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 /// Aksi kirim form login
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/home', [AuthController::class, 'home'])->name('home');
 /// Redirect jika akses GET ke /login
-Route::get('/login', function () {
+Route::get('/home', function () {
     return redirect('/home');
 });
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME
+// Route::get('/home'), function () {
+//     $user = Auth::user(); // ambil user login
+//     return view('home', compact('user'));
+// })->middleware('auth')->name('home');
+
 Route::get('/home', function () {
-    $user = Auth::user(); // ambil user login
-    return view('home', compact('user'));
+ $user = Auth::user(); // ambil user login
+return view('home', compact('user'));
 })->middleware('auth')->name('home');
+
 
 Route::get('/profile', function () {
     $user = Auth::user(); // ambil user login
