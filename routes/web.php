@@ -39,6 +39,10 @@ Route::get('/register', function () {
     return view('register'); 
 })->name('register');
 
+Route::get('/berhasil', function () {
+    return view('berhasil'); 
+})->name('berhasil');
+
 /// Aksi kirim form register
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
