@@ -51,7 +51,7 @@
       <!-- Page Title End -->
 
       <!-- Sign In Form Start -->
-      <form action="{{ route('/masuk') }}" method="POST" class="relative z-10">
+      <form action="{{ route('/home') }}" method="POST" class="relative z-10">
       @csrf
         <div class="bg-white py-8 px-6 rounded-xl mt-12 dark:bg-color10">
           <div class="flex justify-between items-center">

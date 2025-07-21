@@ -57,7 +57,7 @@ Route::get('/login', function () {
 Route::get('/home', function () {
     $user = Auth::user(); // ambil user login
     return view('home', compact('user'));
-})->middleware('auth')->name('home');
+})->middleware('auth')->name('/home');
 
 Route::get('/profile', function () {
     $user = Auth::user(); // ambil user login
