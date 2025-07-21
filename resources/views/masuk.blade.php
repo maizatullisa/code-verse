@@ -51,12 +51,11 @@
       <!-- Page Title End -->
 
       <!-- Sign In Form Start -->
-      <form action="{{ route('login') }}" method="POST" class="relative z-10">
+      <form action="{{ route('/masuk') }}" method="POST" class="relative z-10">
       @csrf
         <div class="bg-white py-8 px-6 rounded-xl mt-12 dark:bg-color10">
           <div class="flex justify-between items-center">
-            <a
-              href="#"
+            <a href="{{ url(path: '/home') }}"
               class="text-center text-xl font-semibold text-p2 border-b-2 pb-2 border-p2 w-full dark:text-p1 dark:border-p1"
               >Masuk</a
             >
