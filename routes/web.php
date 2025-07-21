@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\ForumDiskusiController;
 use App\Http\Controllers\QuizController;
+
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -21,7 +24,6 @@ use function PHPUnit\Framework\returnSelf;
 //google auth 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
 //PERTAMA
 Route::get('/', function(){
     return view(view:'index');
@@ -51,10 +53,6 @@ Route::get('/login', function () {
 Route::get('/home', function () {
     return view('home'); 
 })->name('home');
-
-//QUIZ
-Route::get('/quizzes', [QuizController::class, 'index']);
-Route::post('/quizzes', [QuizController::class, 'store']);
 
 Route::get('/profile', function () {
     return view('my-profile');
@@ -100,7 +98,6 @@ Route::get('/notification', function(){
 Route::get('/box', function (){
     return view(view:'chat-box');
 })->name(name:'box');
-
 //LIBRARY
 Route::get('/library', function(){
     return view(view:'library');
@@ -110,3 +107,27 @@ Route::get('/library', function(){
 Route::get('/kelas', function(){
     return view(view:'kelas');
 })->name(name:'kelas');
+//ini tambahan dari MAIZ, jangan diubah dulu,\ini ro
+//rute siswa
+// tampilan kuis khusus siswa (untuk ngerjakan kuiz)
+Route::get('/materi/{materi}/quiz/view', [QuizController::class, 'showByMateri'])->name('quiz.view');
+Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submit'])->name('quiz.submit');
+
+//rute pengajar
+//forumdiskusi 
+Route::post('/(forumdiskusi)', [ForumDiskusiController::class, 'store'])->name('forum-diskusi.store');
+//quizcontroller
+//khusus pengajar
+//menampiljan semua kuis (dipakai pengajar untuk melihat semua quiz)
+Route::get('/materi/{materi}/quiz', [QuizController::class, 'index']);
+//untuk menyimpan kuis baru (dari form pengajar)
+Route::post('/materi/{materi}/quiz', [QuizController::class, 'store']);
+// hapus kuis beserta pertanyaan dan opsi (khusus pengajar)
+Route::delete('/quiz/{id}/delete', [QuizController::class, 'destroy']);
+//edit
+Route::get('/materi/{materi}/quiz/edit', [QuizController::class, 'edit']);
+//simpan hasil edit
+Route::put('/materi/{materi}/quiz', [QuizController::class, 'update']);
+//hasilscrore
+Route::get('/quiz/{quiz}/results', [QuizController::class, 'results'])->name('quiz.results');
+
