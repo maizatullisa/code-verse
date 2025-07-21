@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:51 GMT -->
+<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:57 GMT -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
       type="image/x-icon"
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script> <link rel="manifest" href="manifest.json" />
-    <title>Quiz 2 - Quizio PWA HTML Template</title>
+    <title>Quiz 5</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -43,19 +43,19 @@
             class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9"
           >
             <i class="ph ph-user"></i>
-            <p class="text-xs font-semibold text-nowrap">2 of 10</p>
+            <p class="text-xs font-semibold text-nowrap">5 of 5</p>
           </div>
           <div class="w-full bg-p1 bg-opacity-10 h-2 rounded-full relative">
             <span
               class="absolute top-0 left-0 bg-p1 h-2 rounded-full"
-              style="width: 20%"
+              style="width: 50%"
             ></span>
           </div>
           <div
             class="flex justify-center items-center gap-1 bg-p1 text-white py-2 px-4 rounded-xl "
           >
             <i class="ph ph-puzzle-piece"></i>
-            <p class="text-xs font-semibold text-nowrap">2 of 10</p>
+            <p class="text-xs font-semibold text-nowrap">5 of 5</p>
           </div>
         </div>
 
@@ -84,21 +84,23 @@
                   cx="16"
                   cy="16"
                   r="15.9155"
-                  style="stroke-dashoffset: 80px"
+                  style="stroke-dashoffset: 50px"
                   class="progress-bar__progress js-progress-bar"
                 />
                 <p class="text-lg font-bold absolute top-[26px] left-[30px]">
-                  20
+                  50
                 </p>
               </svg>
             </div>
           </div>
-          <p class="text-2xl font-semibold pt-8">Question 02</p>
+          <p class="text-2xl font-semibold pt-8">Quiz 05</p>
+          <div class="pt-8">
+          </div>
           <p class="text-sm text-color5 pt-5 pb-3 dark:text-bgColor5">Sports Quiz</p>
           <p
             class="text-lg font-semibold px-4 pt-3 border-t border-dashed border-color21 dark:border-color24"
           >
-          "Which planet is known as the Red Planet?"
+          "Kalo lo buka website, terus muncullah tampilan UI cakep, itu kerjaan siapa cuy?"
           </p>
         </div>
 
@@ -106,7 +108,7 @@
           <div
             class="flex justify-between items-center bg-color4 py-4 px-5 rounded-2xl"
           >
-            <p class="text-p3 text-sm font-semibold">Mars</p>
+            <p class="text-p3 text-sm font-semibold">Frontend Developer</p>
             <div
               class="size-8 rounded-full text-white bg-p3 flex justify-center items-center"
             >
@@ -116,7 +118,7 @@
           <div
             class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl"
           >
-          <p class=" text-sm font-semibold">Venus</p>
+          <p class=" text-sm font-semibold">Security</p>
           <div
             class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"
           ></div>
@@ -124,7 +126,7 @@
         <div
         class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl"
       >
-      <p class=" text-sm font-semibold">Jupitar</p>
+      <p class=" text-sm font-semibold">Backend Developer</p>
       <div
         class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"
       ></div>
@@ -132,7 +134,7 @@
     <div
     class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl border border-p1"
   >
-  <p class="text-p1 text-sm font-semibold">Saturn</p>
+  <p class="text-p1 text-sm font-semibold">Office Boy</p>
   <div
     class="size-8 rounded-full text-white  bg-p1 flex justify-center items-center"
   > <i class="ph ph-x"></i> </div>
@@ -141,7 +143,7 @@
 
       <div class="pt-12">
         <a
-        href="quiz-3.html"
+        href="quiz-6.html"
       class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full"
     >
       Next
@@ -153,5 +155,5 @@
     <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script></body>
 
-<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:51 GMT -->
+<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:58 GMT -->
 </html>

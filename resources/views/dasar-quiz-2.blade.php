@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:56 GMT -->
+<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:51 GMT -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
       type="image/x-icon"
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script> <link rel="manifest" href="manifest.json" />
-    <title>Quiz 4 - Quizio PWA HTML Template</title>
+    <title>Quiz 2</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -19,10 +19,10 @@
     >
       <!-- Absolute Items Start -->
       <img
-      src="assets/images/header-bg-1.png"
-      alt=""
-      class="absolute top-0 left-0 right-0 -mt-8"
-    />
+        src="assets/images/header-bg-1.png"
+        alt=""
+        class="absolute top-0 left-0 right-0 -mt-8"
+      />
       <div
         class="absolute top-0 left-0 bg-p3 blur-[145px] h-[174px] w-[149px]"
       ></div>
@@ -43,19 +43,19 @@
             class="flex justify-center items-center gap-1 bg-white  py-2 px-4 rounded-xl dark:bg-color9"
           >
             <i class="ph ph-user"></i>
-            <p class="text-xs font-semibold text-nowrap">4 of 10</p>
+            <p class="text-xs font-semibold text-nowrap">2 of 10</p>
           </div>
           <div class="w-full bg-p1 bg-opacity-10 h-2 rounded-full relative">
             <span
               class="absolute top-0 left-0 bg-p1 h-2 rounded-full"
-              style="width: 40%"
+              style="width: 20%"
             ></span>
           </div>
           <div
             class="flex justify-center items-center gap-1 bg-p1 text-white py-2 px-4 rounded-xl "
           >
             <i class="ph ph-puzzle-piece"></i>
-            <p class="text-xs font-semibold text-nowrap">4 of 10</p>
+            <p class="text-xs font-semibold text-nowrap">2 of 5</p>
           </div>
         </div>
 
@@ -84,24 +84,21 @@
                   cx="16"
                   cy="16"
                   r="15.9155"
-                  style="stroke-dashoffset: 60px"
+                  style="stroke-dashoffset: 80px"
                   class="progress-bar__progress js-progress-bar"
                 />
                 <p class="text-lg font-bold absolute top-[26px] left-[30px]">
-                  40
+                  20
                 </p>
               </svg>
             </div>
           </div>
-          <p class="text-2xl font-semibold pt-8">Question 04</p>
-          <div class="pt-8">
-            <img src="assets/images/quiz-4-img.png" alt="" class=" rounded-xl">
-          </div>
+          <p class="text-2xl font-semibold pt-8">Quiz 2</p>
           <p class="text-sm text-color5 pt-5 pb-3 dark:text-bgColor5">Sports Quiz</p>
           <p
             class="text-lg font-semibold px-4 pt-3 border-t border-dashed border-color21 dark:border-color24"
           >
-          "This is a book?
+          "Nih ya, yang namanya CPU itu tugasnya ngapain sih bro?"
           </p>
         </div>
 
@@ -109,19 +106,33 @@
           <div
             class="flex justify-between items-center bg-color4 py-4 px-5 rounded-2xl"
           >
-            <p class="text-p3 text-sm font-semibold">True</p>
+            <p class="text-p3 text-sm font-semibold">Ngejalanin semua proses di komputer</p>
             <div
               class="size-8 rounded-full text-white bg-p3 flex justify-center items-center"
             >
               <i class="ph ph-check"></i>
             </div>
           </div>
-   
-       
+          <div
+            class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl"
+          >
+          <p class=" text-sm font-semibold">Ngejaga mood lo</p>
+          <div
+            class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"
+          ></div>
+        </div>
+        <div
+        class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl"
+      >
+      <p class=" text-sm font-semibold">Ngehasilin sinyal WiFi</p>
+      <div
+        class="size-8 rounded-full text-white border border-color21 flex justify-center items-center"
+      ></div>
+    </div>
     <div
     class="flex justify-between items-center bg-white dark:bg-color9 py-4 px-5 rounded-2xl border border-p1"
   >
-  <p class="text-p1 text-sm font-semibold">False</p>
+  <p class="text-p1 text-sm font-semibold">Ngerender video TikTok otomatis</p>
   <div
     class="size-8 rounded-full text-white  bg-p1 flex justify-center items-center"
   > <i class="ph ph-x"></i> </div>
@@ -129,8 +140,8 @@
       </div>
 
       <div class="pt-12">
-        <a
-        href="quiz-5.html"
+        
+        <a href="{{ url('/quiz-3') }}"
       class="py-3 text-center bg-p2 dark:bg-p1 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full"
     >
       Next
@@ -138,9 +149,9 @@
       </div>
     </div>
 
-   <!-- ==== js dependencies start ==== -->
-   <script src="assets/js/main.js"></script>
+    <!-- ==== js dependencies start ==== -->
+    <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script></body>
 
-<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:56 GMT -->
+<!-- Mirrored from softivuslab.com/html/quizio/live-demo/quiz-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Jul 2025 05:04:51 GMT -->
 </html>

@@ -12,7 +12,7 @@
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Quiz Details - Quizio PWA HTML Template</title>
+    <title>Quiz Details</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -42,13 +42,12 @@
       <div class="relative z-10 px-6">
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
-            <a
-              href="home.html"
+            <a href="{{ url('/home') }}"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>
             </a>
-            <h2 class="text-2xl font-semibold text-white">Quiz Details</h2>
+            <h2 class="text-2xl font-semibold text-white">Dasar IT</h2>
           </div>
           <div class="flex justify-start items-center gap-2">
             <div
@@ -102,8 +101,8 @@
                   <p class="text-[10px]">04.32</p>
                 </div>
                 <div class="">
-                  <p class="font-semibold text-xs">English Language Quiz</p>
-                  <p class="text-xs">Language - English</p>
+                  <p class="font-semibold text-xs">Seberapa Proggramingnya sih kamu</p>
+                  <p class="text-xs">Dasar BANGET INII</p>
                 </div>
               </div>
               <div class="flex justify-start items-center gap-1">
@@ -139,7 +138,7 @@
             <button
               class="py-3 text-center bg-p2 rounded-full text-sm font-semibold text-white block confirmationModalOpenButton w-full"
             >
-              Join Now $20
+              Gabung Sekarang
             </button>
 
             <div
@@ -218,155 +217,6 @@
             </div>
           </div>
         </div>
-
-        <div class="quizDetailsTab pt-8">
-          <ul
-            class="flex justify-start items-center tab-button text-center font-semibold"
-          >
-            <li id="tabOne" class="tabButton activeTabButton cursor-pointer">
-              Winning
-            </li>
-            <li id="tabTwo" class="tabButton cursor-pointer">Leaderboard</li>
-          </ul>
-
-          <div class="pt-8">
-            <div class="tab-content activeTab" id="tabOne_data">
-              <div class="text-sm font-semibold">
-                <div
-                  class="flex justify-between items-center py-2 px-5 bg-p2 text-white rounded-t-2xl"
-                >
-                  <p>Rank</p>
-                  <p>Winning</p>
-                </div>
-                <div
-                  class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5"
-                >
-                  <div class="flex justify-start items-center gap-1">
-                    <i class="ph ph-trophy text-p1 text-lg"></i>
-                    <p>1</p>
-                  </div>
-                  <p>$2499</p>
-                </div>
-                <div
-                  class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5"
-                >
-                  <div class="flex justify-start items-center gap-1">
-                    <i class="ph ph-trophy text-p1 text-lg"></i>
-                    <p>2</p>
-                  </div>
-                  <p>$2300</p>
-                </div>
-                <div
-                  class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5"
-                >
-                  <div class="flex justify-start items-center gap-1">
-                    <i class="ph ph-trophy text-p1 text-lg"></i>
-                    <p>3</p>
-                  </div>
-                  <p>$2150</p>
-                </div>
-                <div
-                  class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5"
-                >
-                  <div class="flex justify-start items-center gap-1">
-                    <i class="ph ph-trophy text-p1 text-lg"></i>
-                    <p>4</p>
-                  </div>
-                  <p>$1900</p>
-                </div>
-                <div
-                  class="flex justify-between items-center py-3 border-b border-dashed border-color21 dark:border-color24 mx-5"
-                >
-                  <div class="flex justify-start items-center gap-1">
-                    <i class="ph ph-trophy text-p1 text-lg"></i>
-                    <p>5</p>
-                  </div>
-                  <p>$1800</p>
-                </div>
-              </div>
-            </div>
-            <div class="tab-content hiddenTab" id="tabTwo_data">
-              <table class="text-sm font-semibold w-full text-center">
-                <tr class="bg-p2 text-white w-full">
-                  <th class="rounded-tl-xl text-start">
-                    <p class="py-2 pl-5">Name</p>
-                  </th>
-                  <th class="">
-                    <p class="py-2 text-nowrap">Final Marks</p>
-                  </th>
-                  <th class="">
-                    <p class="py-2">Rank</p>
-                  </th>
-                  <th class="rounded-tr-xl">
-                    <p class="py-2">Winnding</p>
-                  </th>
-                </tr>
-                <tr
-                  class="w-full border-b border-color21 dark:border-color24 border-dashed"
-                >
-                  <td>
-                    <div class="flex justify-start items-center gap-2 py-3">
-                      <img
-                        src="assets/images/user-img-1.png"
-                        alt=""
-                        class="size-8 rounded-full object-cover"
-                      />
-                      <p>Lunar Fang</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="py-3">40</p>
-                  </td>
-                  <td><p class="py-3">1</p></td>
-                  <td><p class="py-3">$226</p></td>
-                </tr>
-                <tr
-                  class="w-full border-b border-color21 dark:border-color24 border-dashed"
-                >
-                  <td>
-                    <div class="flex justify-start items-center gap-2 py-3">
-                      <img
-                        src="assets/images/user-img-2.png"
-                        alt=""
-                        class="size-8 rounded-full object-cover"
-                      />
-                      <p>Lunar Fang</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="py-3">40</p>
-                  </td>
-                  <td><p class="py-3">2</p></td>
-                  <td><p class="py-3">$226</p></td>
-                </tr>
-                <tr
-                  class="w-full border-b border-color21 dark:border-color24 border-dashed"
-                >
-                  <td>
-                    <div class="flex justify-start items-center gap-2 py-3">
-                      <img
-                        src="assets/images/user-img-3.png"
-                        alt=""
-                        class="size-8 rounded-full object-cover"
-                      />
-                      <p>Lunar Fang</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="py-3">40</p>
-                  </td>
-                  <td><p class="py-3">3</p></td>
-                  <td><p class="py-3">$226</p></td>
-                </tr>
-              </table>
-              <a
-                href="leader-board.html"
-                class="text-center pt-3 block font-semibold text-p2 dark:text-p1"
-                >See All</a
-              >
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -378,7 +228,7 @@
           class="bg-white dark:bg-color10 p-5 rounded-xl w-full dark:text-white"
         >
           <div class="flex justify-between items-center pb-4">
-            <p class="text-lg font-semibold">Confirmation</p>
+            <p class="text-lg font-semibold">Konfirmasi</p>
             <button
               class="p-2 flex justify-center items-center rounded-full border border-color16 confirmationModalCloseButton dark:border-bgColor16"
             >
@@ -389,36 +239,34 @@
             class="py-4 border-y border-dashed border-color21 dark:border-color24"
           >
             <div class="flex justify-between items-center">
-              <p class="text-color5 dark:text-bgColor5">Entry Fee :</p>
-              <p class="font-semibold">Rs. 25.00</p>
+              <p class="text-color5 dark:text-bgColor5">Durasi</p>
+              <p class="font-semibold">20 Menit</p>
             </div>
             <div class="flex justify-between items-center pt-3">
-              <p class="text-color5 dark:text-bgColor5">Joining Offer :</p>
-              <p class="font-semibold">Rs. 15.00</p>
+              <p class="text-color5 dark:text-bgColor5">Nilai Kelulusan:</p>
+              <p class="font-semibold">Min. 75</p>
             </div>
           </div>
           <div class="flex justify-between items-end py-4">
             <div class="">
-              <p class="font-semibold">To Pay :</p>
+              <p class="font-semibold">Maksimal Quiz</p>
               <p class="text-xs text-color5 dark:text-bgColor5">
-                inclusive of taxes
+                Selamat Mengerjakan
               </p>
             </div>
-            <p class="text-sm font-semibold text-p2 dark:text-p1">Rs. 15.00</p>
+            <p class="text-sm font-semibold text-p2 dark:text-p1">3x percobaan</p>
           </div>
-          <a
-            href="quiz-1.html"
+          <a href="{{ url('/quiz-1') }}"
             class="py-3 text-center bg-p2 rounded-full text-sm font-semibold text-white block w-full dark:bg-p1"
           >
-            Join Now $20
+            Mulai
           </a>
           <div class="flex justify-start items-start gap-2 pt-2">
             <div class="text-lg">
               <i class="ph ph-check-square"></i>
             </div>
             <p class="text-xs text-color5 dark:text-bgColor5">
-              You agree to all terms & conditions and also agree to be contacted
-              by company and their pertners
+              Saya Menyetujui Ketentuan di Atas
             </p>
           </div>
         </div>

@@ -107,6 +107,33 @@ Route::get('/library', function(){
 Route::get('/kelas', function(){
     return view(view:'kelas');
 })->name(name:'kelas');
+
+//QUIZZ
+Route::get('/detail', function(){
+    return view(view:'quiz-details');
+})->name(name:'/detail');
+
+//QUIZ 1 DUMMY
+Route::get('/quiz-1', function(){
+    return view(view:'dasar-quiz-1');
+})->name(name:'/quiz-1');
+
+Route::get('/quiz-2', function(){
+    return view(view:'dasar-quiz-2');
+})->name(name:'/quiz-2');
+
+Route::get('/quiz-3', function(){
+    return view(view:'dasar-quiz-3');
+})->name(name:'/quiz-3');
+
+Route::get('/quiz-4', function(){
+    return view(view:'dasar-quiz-4');
+})->name(name:'/quiz-4');
+
+Route::get('/quiz-5', function(){
+    return view(view:'dasar-quiz-5');
+})->name(name:'/quiz-4');
+
 //ini tambahan dari MAIZ, jangan diubah dulu,\ini ro
 //rute siswa
 // tampilan kuis khusus siswa (untuk ngerjakan kuiz)

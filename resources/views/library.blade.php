@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Master Medal - Quizio PWA HTML Template</title>
+    <title>Library</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -40,18 +40,17 @@
       <!-- Absolute Items End -->
       <!-- Page Title Start -->
       <div class="flex justify-start items-center gap-4 relative z-10">
-        <a
-          href="home.html"
+        <a href="{{ url('/home') }}"
           class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10"
         >
           <i class="ph ph-caret-left"></i>
         </a>
-        <h2 class="text-2xl font-semibold text-white">Master Medal</h2>
+        <h2 class="text-2xl font-semibold text-white">Daftar Catatan</h2>
       </div>
       <!-- Page Title End -->
 
       <div class="relative z-20 pt-32">
-        <p class="text-lg font-semibold">Award Unlocking</p>
+        <p class="text-lg font-semibold">...</p>
 
         <div class="grid grid-cols-2 gap-5 pt-5 text-center">
           <a

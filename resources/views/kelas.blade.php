@@ -12,7 +12,7 @@
     />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Library - Quizio PWA HTML Template</title>
+    <title>Kelas</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="">
     <div
@@ -42,7 +42,7 @@
       <div class="relative z-10 mb-20">
         <div class="flex justify-between items-center gap-4 px-6">
           <div class="flex justify-start items-center gap-4">
-            <h2 class="text-2xl font-semibold text-white">Library</h2>
+            <h2 class="text-2xl font-semibold text-white">Kelas Yang di Ambil</h2>
           </div>
         </div>
         <!-- Page Title End -->
@@ -68,11 +68,11 @@
         <div class="userProfileTab pt-24 px-6">
           <ul class="flex justify-start items-center gap-3 tab-button">
             <li id="tabOne" class="tabButton activeTabButton cursor-pointer">
-              MY Quizio
+              Capaian
             </li>
-            <li id="tabTwo" class="tabButton cursor-pointer">Favorites</li>
+            <li id="tabTwo" class="tabButton cursor-pointer">Selesai</li>
             <li id="tabThree" class="tabButton cursor-pointer">
-              Collaboration
+              Belajar
             </li>
           </ul>
 
@@ -84,8 +84,8 @@
                 >
                   <img src="assets/images/icon1.png" alt="" class="size-12" />
                   <div class="">
-                    <p class="text-sm font-semibold">Music Quiz</p>
-                    <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
+                    <p class="text-sm font-semibold">Kelulusan</p>
+                    <p class="text-xs text-p2 pt-1 dark:text-p1">Lulus 70%</p>
                   </div>
                 </div>
                 <div
@@ -93,8 +93,8 @@
                 >
                   <img src="assets/images/icon2.png" alt="" class="size-12" />
                   <div class="">
-                    <p class="text-sm font-semibold">Picture Quiz</p>
-                    <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
+                    <p class="text-sm font-semibold">Hail Belajar</p>
+                    <p class="text-xs text-p2 pt-1 dark:text-p1">naik 20%</p>
                   </div>
                 </div>
                 <div
@@ -102,8 +102,8 @@
                 >
                   <img src="assets/images/icon3.png" alt="" class="size-12" />
                   <div class="">
-                    <p class="text-sm font-semibold">Music Quiz</p>
-                    <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
+                    <p class="text-sm font-semibold">Materi Selesai</p>
+                    <p class="text-xs text-p2 pt-1 dark:text-p1">2</p>
                   </div>
                 </div>
                 <div
@@ -111,7 +111,7 @@
                 >
                   <img src="assets/images/icon4.png" alt="" class="size-12" />
                   <div class="">
-                    <p class="text-sm font-semibold">Science Quiz</p>
+                    <p class="text-sm font-semibold">Materi Belum Selesai</p>
                     <p class="text-xs text-p2 pt-1 dark:text-p1">Que: 150</p>
                   </div>
                 </div>
@@ -131,25 +131,25 @@
                     <p
                       class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md"
                     >
-                      10 Qs
+                      10 
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Test Your Knowledge....</p>
+                    <p class="font-semibold">Kelas HTML</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian 
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      100%
                     </p>
                     <p
                       class="text-xs text-color5 flex justify-start items-center gap-1 dark:text-color18"
                     >
                       <i class="ph ph-users-three text-base !leading-none"></i>
-                      Public
+                      289 siswa
                     </p>
                   </div>
                 </div>
@@ -169,21 +169,21 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Fun Challenges for Your.</p>
+                    <p class="font-semibold">Kelas CSS</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      100%
                     </p>
                     <p
                       class="text-xs text-color5 flex justify-start items-center gap-1 dark:text-color18"
                     >
                       <i class="ph ph-users-three text-base !leading-none"></i>
-                      Public
+                      132 siswa
                     </p>
                   </div>
                 </div>
@@ -203,21 +203,21 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Test Your Knowledge....</p>
+                    <p class="font-semibold">Kelas JAVASCRIPT</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      100%
                     </p>
                     <p
                       class="text-xs text-color5 flex justify-start items-center gap-1 dark:text-color18"
                     >
                       <i class="ph ph-users-three text-base !leading-none"></i>
-                      Public
+                      132 siswa
                     </p>
                   </div>
                 </div>
@@ -237,21 +237,21 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Unveil Your Knowledge...</p>
+                    <p class="font-semibold">Kelas PHP DASAR</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      100%
                     </p>
                     <p
                       class="text-xs text-color5 flex justify-start items-center gap-1 dark:text-color18"
                     >
                       <i class="ph ph-users-three text-base !leading-none"></i>
-                      Public
+                      132 siswa
                     </p>
                   </div>
                 </div>
@@ -271,21 +271,21 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Competitive Quizzes for..</p>
+                    <p class="font-semibold">Kelas BASISDATA</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian 
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      100%
                     </p>
                     <p
                       class="text-xs text-color5 flex justify-start items-center gap-1 dark:text-color18"
                     >
                       <i class="ph ph-users-three text-base !leading-none"></i>
-                      Public
+                      123 siswa
                     </p>
                   </div>
                 </div>
@@ -309,15 +309,15 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Test Your Knowledge....</p>
+                    <p class="font-semibold">Kelas AI DASAR</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      30%
                     </p>
                     <div
                       class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
@@ -379,15 +379,15 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Engaging Quizzers for....</p>
+                    <p class="font-semibold">Kelas NETWORKING</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      30%
                     </p>
                     <div
                       class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
@@ -449,15 +449,15 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Explore, Learn, and...</p>
+                    <p class="font-semibold">Kelas JAVA</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      30% 
                     </p>
                     <div
                       class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
@@ -519,15 +519,15 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Dive into Intellectual....</p>
+                    <p class="font-semibold">Kelas PYTHON DASAR</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      30%
                     </p>
                     <div
                       class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
@@ -589,15 +589,15 @@
                     </p>
                   </div>
                   <div class="">
-                    <p class="font-semibold">Guess the Name of Riva..</p>
+                    <p class="font-semibold">Kelas FULLSTACK</p>
                     <p
                       class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
                     >
-                      Today
+                      Capaian
                       <i
                         class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
                       ></i>
-                      600 plays
+                      30
                     </p>
                     <div
                       class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"

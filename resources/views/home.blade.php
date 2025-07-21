@@ -228,14 +228,13 @@
               <i class="ph-fill text-xl ph-trophy text-p1"></i>
               <h3 class="text-xl font-semibold">Rekomendasi Materi</h3>
             </div>
-            <a href="{{ url('/contest') }}" 
+            <a href="{{ url('/materi') }}" 
               class="text-p1 font-semibold text-sm"
               >Lihat Semua</a
             >
           </div>
           <div class="pt-5">
-            <a
-              href="quiz-details.html"
+            <a href="{{ url('/detail') }}"
               class="rounded-2xl overflow-hidden shadow2 block"
             >
               <div

@@ -110,7 +110,7 @@
                   Budi
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                  1060 XP
+                  Fullstack Developer
                 </p>
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
@@ -160,7 +160,7 @@
                   Andi
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                  660 XP
+                  AI Enginner
                 </p>
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
@@ -210,7 +210,7 @@
                   Dedi
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                  2060 XP
+                  Security Enginner
                 </p>
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
@@ -260,7 +260,7 @@
                   Imam
                 </a>
                 <p class="text-color8 pt-1 pb-4 dark:text-white text-xs">
-                  1060 XP
+                  Network Enginner
                 </p>
                 <button
                   class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
