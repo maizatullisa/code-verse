@@ -888,19 +888,7 @@
                 </div>
             </a>
 
-            <a
-              href="my-wallet.html"
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-wallet"></i>
-                </div>
-                <p class="font-semibold dark:text-white">Kelas</p>
-              </div>
-            </a>
+            
             <a
               href="earn-rewards.html"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
