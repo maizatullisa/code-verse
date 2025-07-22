@@ -34,6 +34,23 @@ Route::get('/masuk', function () {
     return view('masuk');
 })->name('masuk');
 
+// LUPA PASWORD
+Route::get('/pw', function () {
+    return view('lupa-pw');
+})->name('pw');
+
+Route::get('/bikin-pw', function () {
+    return view('bikin-pw');
+})->name('bikin-pw');
+
+Route::get('/otp', function () {
+    return view('veriv-otp');
+})->name('otp');
+
+Route::get('/pw-baru', function () {
+    return view('pw-baru-sukses');
+})->name('pw-baru');
+
 /// Halaman registrasi
 Route::get('/register', function () {
     return view('register'); 

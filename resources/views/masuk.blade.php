@@ -40,8 +40,7 @@
       <!-- Absolute Items End -->
       <!-- Page Title Start -->
       <div class="flex justify-start items-center gap-4 relative z-10">
-        <a
-          href="index-2.html"
+        <a href="{{ url('/') }}"
           class="bg-white p-2 rounded-full flex justify-center items-center text-xl dark:bg-color10"
         >
           <i class="ph ph-caret-left"></i>
@@ -55,7 +54,7 @@
       @csrf
         <div class="bg-white py-8 px-6 rounded-xl mt-12 dark:bg-color10">
           <div class="flex justify-between items-center">
-            <a href="{{ url(path: '/home') }}"
+            <a href="{{ url('/home') }}"
               class="text-center text-xl font-semibold text-p2 border-b-2 pb-2 border-p2 w-full dark:text-p1 dark:border-p1"
               >Masuk</a
             >
@@ -94,8 +93,7 @@
               ></i>
             </div>
           </div>
-          <a
-            href="forgot-password.html"
+           <a href="{{ url('/pw') }}"
             class="text-end text-p2 text-sm font-semibold block pt-2 dark:text-p1"
             >Lupa password?</a
           >

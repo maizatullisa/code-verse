@@ -57,8 +57,7 @@
             >
               <i class="ph ph-bell"></i>
             </a>
-            <a
-              href="my-profile.html"
+            <a href="{{ url('/...') }}"
               class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24"
             >
               <i class="ph ph-user"></i>
