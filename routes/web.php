@@ -6,6 +6,8 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ForumDiskusiController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\RangkumanController;
+use App\Http\Controllers\BasicQuizController;
 
 
 use function PHPUnit\Framework\returnSelf;
@@ -47,11 +49,8 @@ Route::get('/berhasil', function () {
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 /// Aksi kirim form login
-Route::post('/home', [AuthController::class, 'home'])->name('home');
+Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 /// Redirect jika akses GET ke /login
-Route::get('/home', function () {
-    return redirect('/home');
-});
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME
 // Route::get('/home'), function () {
@@ -79,7 +78,7 @@ Route::get('/search-result', function(){
 // REKOMENDASI MATERI SEE ALL
 //Route::get('/contest', function(){
     //return view('upcoming-contest');
-///)->name('contest');
+//)->name('contest');
 
 //PENGAJAR TERBAIK
 Route::get('/pengajar', function(){
@@ -171,3 +170,16 @@ Route::put('/materi/{materi}/quiz', [QuizController::class, 'update']);
 //hasilscrore
 Route::get('/quiz/{quiz}/results', [QuizController::class, 'results'])->name('quiz.results');
 
+//tambahan
+//rangkuman
+Route::middleware(['auth'])->group(function () {
+    Route::get('/rangkuman', [RangkumanController::class, 'index'])->name('rangkuman.index');
+    Route::get('/rangkuman/create', [RangkumanController::class, 'create'])->name('rangkuman.create');
+    Route::post('/rangkuman', [RangkumanController::class, 'store'])->name('rangkuman.store');
+    Route::get('/rangkuman/{rangkuman}/edit', [RangkumanController::class, 'edit'])->name('rangkuman.edit');
+    Route::put('/rangkuman/{rangkuman}', [RangkumanController::class, 'update'])->name('rangkuman.update');
+    Route::delete('/rangkuman/{rangkuman}', [RangkumanController::class, 'destroy'])->name('rangkuman.destroy');
+});
+//basicsquoz
+Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
+Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
