@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ForumDiskusiController;
@@ -22,14 +23,14 @@ use function PHPUnit\Framework\returnSelf;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// MOBILE
 //google auth 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 //PERTAMA
 Route::get('/', function(){
-    return view(view:'index');
-})->name(name:'index');
+    return view(view:'landing');
+})->name(name:'landing');
 
 /// Halaman awal: login
 Route::get('/masuk', function () {
@@ -171,6 +172,28 @@ Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submit'])->name('qui
 
 //rute pengajar
 //forumdiskusi 
+// DASHBOARD PENGAJAR
+Route::get('/pengajar/dashboard', function () {
+    return view('pengajar.dashboard_pengajar');
+})->name('pengajar.dashboard');
+// Materi - list semua materi pengajar
+Route::get('/pengajar/materi', function () {
+    return view('pengajar.materi.index-materi-pengajar');
+})->name('pengajar.materi.index');
+// Materi - form tambah materi
+Route::get('/pengajar/materi/create', function () {
+    return view('pengajar.materi.buat-materi-pengajar');
+})->name('pengajar.materi.create');
+// Quiz - pengajar melihat dan mengelola quiz
+Route::get('/pengajar/quiz', function () {
+    return view('pengajar.quiz.quiz-pengajar');
+})->name('pengajar.quiz.index');
+
+// Forum - forum diskusi pengajar
+Route::get('/pengajar/forum', function () {
+    return view('pengajar.forum.forum-pengajar');
+})->name('pengajar.forum.index');
+
 Route::post('/(forumdiskusi)', [ForumDiskusiController::class, 'store'])->name('forum-diskusi.store');
 //quizcontroller
 //khusus pengajar

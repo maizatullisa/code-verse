@@ -1,0 +1,192 @@
+@extends('pengajar.layouts.navbar-pengajar')
+
+@section('content')
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        backdropBlur: {
+          xs: '2px',
+        }
+      }
+    }
+  }
+</script>
+
+<!-- Header Section -->
+<div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-8 shadow-xl border border-white/20 backdrop-blur-sm mb-8">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="flex items-center space-x-4">
+      <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Daftar Materi</h1>
+        <p class="text-gray-600 text-lg">Kelola semua materi pembelajaran Anda</p>
+      </div>
+    </div>
+    
+    <a href="{{ route('pengajar.materi.create') }}" 
+       class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+      <span>Tambah Materi</span>
+    </a>
+  </div>
+</div>
+
+<!-- Materials List -->
+<div class="space-y-6">
+  <!-- Material Card 1 -->
+  <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+    <div class="flex flex-col lg:flex-row items-start justify-between gap-6">
+      <div class="flex items-start space-x-4 flex-1">
+        <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-xl font-bold text-gray-800 mb-3">Materi: Dasar HTML</h3>
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium border border-green-200">
+              📚 Published
+            </span>
+            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">
+              🕒 Updated 2 days ago
+            </span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Pengenalan dasar HTML untuk pemula, mencakup struktur dokumen, tag-tag penting, dan praktik terbaik dalam penulisan HTML.
+          </p>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-3 lg:flex-shrink-0">
+        <a href="#" class="bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span>Edit</span>
+        </a>
+        <a href="#" class="bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+          <span>Hapus</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Material Card 2 -->
+  <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+    <div class="flex flex-col lg:flex-row items-start justify-between gap-6">
+      <div class="flex items-start space-x-4 flex-1">
+        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-xl font-bold text-gray-800 mb-3">Materi: CSS Fundamentals</h3>
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium border border-green-200">
+              📚 Published
+            </span>
+            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">
+              🕒 Updated 1 week ago
+            </span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Pelajari dasar-dasar CSS, selector, properties, dan teknik styling untuk membuat website yang menarik dan responsif.
+          </p>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-3 lg:flex-shrink-0">
+        <a href="#" class="bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span>Edit</span>
+        </a>
+        <a href="#" class="bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+          <span>Hapus</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Material Card 3 -->
+  <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
+    <div class="flex flex-col lg:flex-row items-start justify-between gap-6">
+      <div class="flex items-start space-x-4 flex-1">
+        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-teal-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-xl font-bold text-gray-800 mb-3">Materi: JavaScript Basics</h3>
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium border border-yellow-200">
+              ✏️ Draft
+            </span>
+            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">
+              🕒 Created 3 days ago
+            </span>
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            Pengenalan JavaScript untuk pemula, variabel, function, dan konsep dasar programming yang perlu dipahami.
+          </p>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-3 lg:flex-shrink-0">
+        <a href="#" class="bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          <span>Edit</span>
+        </a>
+        <a href="#" class="bg-gradient-to-r from-red-400 to-pink-400 hover:from-red-500 hover:to-pink-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+          <span>Hapus</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Empty State (jika tidak ada materi) -->
+<!-- Uncomment ini jika ingin menampilkan empty state -->
+<!--
+<div class="text-center py-16">
+  <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+    </svg>
+  </div>
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Belum ada materi</h3>
+  <p class="text-gray-600 mb-6">Mulai dengan menambahkan materi pembelajaran pertama Anda</p>
+  <a href="{{ route('pengajar.materi.create') }}" 
+     class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+    </svg>
+    <span>Tambah Materi Pertama</span>
+  </a>
+</div>
+-->
+
+@endsection
