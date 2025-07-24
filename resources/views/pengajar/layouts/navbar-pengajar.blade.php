@@ -121,10 +121,11 @@
       color: white;
     }
 
-    @media (max-width: 1024px) {
+        @media (max-width: 1024px) {
       .sidebar-fixed {
         width: 260px;
       }
+
       .main-wrapper {
         margin-left: 260px;
         width: calc(100% - 260px);
@@ -133,17 +134,20 @@
 
     @media (max-width: 768px) {
       .sidebar-fixed {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        width: 260px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        transform: none !important;
       }
-      .sidebar-fixed.mobile-active {
-        transform: translateX(0);
-      }
+
       .main-wrapper {
-        margin-left: 0;
-        width: 100%;
+        margin-left: 260px;
+        width: calc(100% - 260px);
       }
     }
+
   </style>
 </head>
 <body>
