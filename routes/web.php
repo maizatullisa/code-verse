@@ -188,11 +188,52 @@ Route::get('/pengajar/materi/create', function () {
 Route::get('/pengajar/quiz', function () {
     return view('pengajar.quiz.quiz-pengajar');
 })->name('pengajar.quiz.index');
-
 // Forum - forum diskusi pengajar
 Route::get('/pengajar/forum', function () {
     return view('pengajar.forum.forum-pengajar');
 })->name('pengajar.forum.index');
+
+
+/// ADM
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard-admin');
+})->name('admin.dashboard');
+
+Route::get('/admin/user', function () {
+    return view('admin.user.index');
+})->name('admin.user.index');
+
+Route::get('/admin/user/show', function () {
+    return view('admin.user.show');
+})->name('admin.user.show');
+
+Route::get('/admin/pengajar', function () {
+    return view('admin.pengajar.index');
+})->name('admin.pengajar.index');
+
+Route::get('/admin/kelas', function () {
+    return view('admin.kelas.index');
+})->name('admin.kelas.index');
+
+Route::get('/admin/kelas/create', function () {
+    return view('admin.kelas.create-kelas');
+})->name('admin.kelas.create');
+
+Route::get('/admin/kelas/edit', function () {
+    return view('admin.kelas.edit');
+})->name('admin.kelas.edit');
+
+Route::get('/admin/modul', function () {
+    return view('admin.modul.index');
+})->name('admin.modul.index');
+
+Route::get('/admin/quiz', function () {
+    return view('admin.quiz.index');
+})->name('admin.quiz.index');
+
+Route::get('/admin/sertifikat', function () {
+    return view('admin.sertifikat.index');
+})->name('admin.sertifikat.index');
 
 Route::post('/(forumdiskusi)', [ForumDiskusiController::class, 'store'])->name('forum-diskusi.store');
 //quizcontroller
