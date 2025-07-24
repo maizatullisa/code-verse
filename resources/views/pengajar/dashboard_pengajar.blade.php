@@ -10,7 +10,7 @@
       </div>
       <div class="flex-1">
         <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
-          Hai, {{ Auth::user()->first_name ?? 'Pengajar' }}!
+          Hai, {{ Auth::user()->first_name ?? 'siapapun itu' }}!
         </h1>
         <p class="text-gray-600 text-base md:text-lg leading-relaxed">
           Selamat datang di dashboard pengajar. Mari berbagi ilmu dan inspirasi kepada siswa-siswa kita! 🌟
