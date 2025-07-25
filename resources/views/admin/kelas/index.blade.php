@@ -98,15 +98,15 @@
                     </div>
                     <select class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white">
                         <option>Semua Tingkat</option>
-                        <option>Kelas 10</option>
-                        <option>Kelas 11</option>
-                        <option>Kelas 12</option>
+                        <option>Pemula</option>
+                        <option>Menengah</option>
+                        <option>Lanjutan</option>
                     </select>
                     <select class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white">
                         <option>Semua Jurusan</option>
-                        <option>IPA</option>
-                        <option>IPS</option>
-                        <option>Bahasa</option>
+                        <option>SEMUA YG TERDAFTAR (CONTOH KLS FULLSTACK) </option>
+                        <option>SEMUA YG TERDAFTAR (CONTOH KLS NETWORKING)</option>
+                        <option>SEMUA YG TERDAFTAR (CONTOH KLS MACHINE LEARNING)</option>
                     </select>
                 </div>
                 <div class="flex items-center space-x-3">

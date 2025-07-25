@@ -1,0 +1,49 @@
+[
+  {
+    "cluster": "login",
+    "question": "kok aku gak bisa login ke akun aku, kenapa ya?",
+    "intent": "login_problem",
+    "response": "Coba pastikan email dan password yang kamu masukin udah bener. Kalau masih error, coba klik 'Lupa Password' buat reset akun kamu."
+  },
+  {
+    "cluster": "password",
+    "question": "kok password aku salah ya kak 😫",
+    "intent": "pass_problem",
+    "response": "wahh, salah password ya? tenang yaa. AI verse akan bantuin kok.. ikuti langkah langkah aku yaa : 1. klik lupa password. 2. masukkin email yang dulu di buat registrasi yaa. 3. tungguin sampai dapet token di email kamu. 4. masukkin token nya yng kamu dapet dari email yaa. 5. nah nanti akan muncul form untuk reset pass, nah kamu isi yaa. ingat jangan sampai lupaa yahh"
+  }
+  ,
+  {
+    "cluster": "register",
+    "question": "Gimana sic caranya daftar akun baru di Code Verse?",
+    "intent": "register_guide",
+    "response": "nah kan nati akan di arah kan ke form masuk, nanti bisa klik masuk dengan google & bisa register dengan klik 'Tidak Memiliki Akun? Klik Disini' nah kalau udah bisa registrasi jangan lupa password ya ;)"
+  },
+  {
+    "cluster": "error",
+    "question": "Tiap aku buka halaman home malah error 500, kenapa?",
+    "intent": "server_error",
+    "response": "Error 500 biasanya karena ada masalah dari sisi server. Coba tungguin dulu yahh, mungkin ada bug atau request yang gagal."
+  },
+  {
+    "cluster": "akses",
+    "question": "apa aja sih yang baru dari code verse?",
+    "intent": "ask",
+    "response": "hallo di code verse sekarang ada pemrograman python loh.. penasaran ya?? yuk gabung."
+  }
+,
+  {
+    "intent": "greeting",
+    "patterns": ["Halo", "Hai", "Pagi",  "siang",  "sore",  "malam","Selamat pagi", "Selamat siang", "Selamat sore", "Selamat malam", "Apa kabar?"],
+    "responses": ["Halo! ada apa? butuh bantun?", "Hai juga!", "Selamat datang di code verse!"]
+  },
+  {
+    "intent": "kelas",
+    "patterns": ["Kapan kelas cybersecurity rilis?", "Jadwal kelas", "berapa ketentuan untuk nilai kelulusan di setiap kelas"],
+    "responses": ["Kelas cybersecurity bentar lagi rilis loh, pantengin di dashboard yahh.", "untuk kelulusan di kita minimal itu 80 ya kak","Cek jadwal di dashboard yaaa semangat belajarnya."]
+  },
+  {
+    "intent": "logout",
+    "patterns": ["Gimana cara logout?", "Keluar dari sistem", "Logout"],
+    "responses": ["Klik ikon akun di kanan atas, lalu pilih 'Logout'."]
+  }
+]

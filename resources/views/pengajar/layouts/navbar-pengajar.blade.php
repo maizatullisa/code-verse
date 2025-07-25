@@ -6,6 +6,11 @@
   <title>Dashboard Pengajar</title>
   <link rel="stylesheet" href="/assets/css/swiper.min.css" />
   <link rel="stylesheet" href="/style.css" />
+   <link
+      rel="shortcut icon"
+      href="assets/images/logo.png"
+      type="image/x-icon"
+    />
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>

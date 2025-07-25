@@ -70,22 +70,23 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 /// Redirect jika akses GET ke /login
 
-/// Halaman setelah login berhasil DIA AKAN KE HOME
-// Route::get('/home'), function () {
-//     $user = Auth::user(); // ambil user login
-//     return view('home', compact('user'));
+//LOGIN DUMMY
+Route::get('/home', function(){
+    return view('home');
+})->name('home');
+
+
+//LOGIN DNGN MIDLEWARE SEMENTARA DI COMENT DULU
+// Route::get('/home', function () {
+//  $user = Auth::user(); // ambil user login
+// return view('home', compact('user'));
 // })->middleware('auth')->name('home');
 
-Route::get('/home', function () {
- $user = Auth::user(); // ambil user login
-return view('home', compact('user'));
-})->middleware('auth')->name('home');
 
-
-Route::get('/profile', function () {
-    $user = Auth::user(); // ambil user login
-    return view('my-profile', compact('user'));
-})->middleware('auth')->name('profile');
+// Route::get('/profile', function () {
+//     $user = Auth::user(); // ambil user login
+//     return view('my-profile', compact('user'));
+// })->middleware('auth')->name('profile');
 
 
 // SEARCH
