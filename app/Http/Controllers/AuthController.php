@@ -30,30 +30,30 @@ class AuthController extends Controller
         return redirect('/berhasil')->with('success', 'Registrasi berhasil!');
     }
 
-            // public function login(Request $request)
-            // {
-            //     $credentials = $request->validate([
-            //         'email' => ['required', 'email'],
-            //         'password' => ['required'],
-            //     ]);
+            public function login(Request $request)
+            {
+                $credentials = $request->validate([
+                    'email' => ['required', 'email'],
+                    'password' => ['required'],
+                ]);
 
-            //     if (Auth::attempt($credentials)) {
-            //         $request->session()->regenerate();
+                if (Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
 
-            //         // Redirect berdasarkan role
-            //         if (auth()->user()->role == 'admin') {
-            //             return redirect('/admin/dashboard');
-            //         } elseif (auth()->user()->role == 'pengajar') {
-            //             return redirect('/pengajar/dashboard');
-            //         } else {
-            //             return redirect()->route('profile');//aku ubah home
-            //         }
-            //     }
+                    // Redirect berdasarkan role
+                    if (auth()->user()->role == 'admin') {
+                        return redirect('/admin/dashboard');
+                    } elseif (auth()->user()->role == 'pengajar') {
+                        return redirect('/pengajar/dashboard');
+                    } else {
+                        return redirect()->route('profile');//aku ubah home
+                    }
+                }
 
-            //     return back()->withErrors([
-            //         'email' => 'Email atau password salah.',
-            //     ]);
-            // }
+                return back()->withErrors([
+                    'email' => 'Email atau password salah.',
+                ]);
+            }
 
 }
 

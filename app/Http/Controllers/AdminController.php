@@ -10,7 +10,7 @@ class AdminController extends Controller
    public function index()//menampilkan semua users
    {
     $users = User::all();
-    return view('admin', compact('users'));//bagian view bisa diubah ke admin.users.index -> untuk menandai di dalam halaman
+    return view('admin', compact('users'));
    }
    public function edit(User $user)
    {

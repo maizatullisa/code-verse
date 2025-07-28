@@ -177,18 +177,33 @@ Route::post('/quiz/{quiz}/submit', [QuizController::class, 'submit'])->name('qui
 Route::get('/pengajar/dashboard', function () {
     return view('pengajar.dashboard_pengajar');
 })->name('pengajar.dashboard');
+
 // Materi - list semua materi pengajar
 Route::get('/pengajar/materi', function () {
     return view('pengajar.materi.index-materi-pengajar');
 })->name('pengajar.materi.index');
+
 // Materi - form tambah materi
 Route::get('/pengajar/materi/create', function () {
     return view('pengajar.materi.buat-materi-pengajar');
 })->name('pengajar.materi.create');
+
 // Quiz - pengajar melihat dan mengelola quiz
+
 Route::get('/pengajar/quiz', function () {
-    return view('pengajar.quiz.quiz-pengajar');
+     return view('pengajar.quiz.index-quiz-pengajar');
 })->name('pengajar.quiz.index');
+
+//QUIZ - TAMBAH QUIZ DESKRIPSI
+Route::get('/pengajar/quiz/create', function () {
+    return view('pengajar.quiz.buat-quiz-pengajar');
+})->name('pengajar.quiz.create');
+
+//QUIZ - TAMBAH SOAL 
+Route::get('/pengajar/soal/create', function () {
+    return view('pengajar.quiz.buat-soal-pengajar');
+})->name('pengajar.soal.create');
+
 // Forum - forum diskusi pengajar
 Route::get('/pengajar/forum', function () {
     return view('pengajar.forum.forum-pengajar');
