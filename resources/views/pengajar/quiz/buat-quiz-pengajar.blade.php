@@ -81,7 +81,6 @@
                   <option value="" class="bg-gray-800 text-white">Pilih tipe soal...</option>
                   <option value="Pilihan Ganda" class="bg-gray-800 text-white">📝 Pilihan Ganda</option>
                   <option value="Isian" class="bg-gray-800 text-white">✏️ Isian</option>
-                  <option value="Mixed" class="bg-gray-800 text-white">🔀 Campuran</option>
                 </select>
               </div>
             </div>
