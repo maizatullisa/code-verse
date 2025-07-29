@@ -84,408 +84,47 @@
             <div class="flex flex-col gap-4">
               <a href="{{ url('/detail') }}"
                 class="rounded-2xl overflow-hidden shadow2"
-              >
-                <div class="p-5 bg-white dark:bg-color10">
-                  <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                      >
-                        <p class="font-semibold text-xs">19 Jun</p>
-                        <p class="text-[10px]">04.32</p>
-                      </div>
-                      <div class="">
-                        <p class="font-semibold text-xs">
-                          HTML, CSS, JAVASCRIPT
-                        </p>
-                        <p class="text-xs">fundamental website modern</p>
-                      </div>
+              >      
+          <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+            @foreach($pengajars as $pengajar)
+              <div class="p-6 bg-white dark:bg-color10 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="flex justify-between items-center">
+                  <div class="flex gap-3 items-center">
+                    <div class="py-2 px-3 text-white bg-p2 rounded-xl dark:bg-p1 dark:text-black text-center shadow-sm">
+                      <p class="font-semibold text-sm leading-none">
+                        {{ $pengajar->materis->first()?->created_at->format('d M') ?? '-' }}
+                      </p>
+                      <p class="text-[11px] leading-tight">
+                        {{ $pengajar->materis->first()?->created_at->format('H:i') ?? '' }}
+                      </p>
                     </div>
-                    <div class="flex justify-start items-center gap-1">
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        05
+
+                    <div>
+                      <p class="font-bold text-sm text-gray-800 dark:text-white tracking-wide">
+                        <i class="ph ph-user"></i> {{ $pengajar->first_name }}
                       </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
+                      <p class="text-[13px] italic text-gray-600 dark:text-gray-300 truncate max-w-[200px]">
+                        {{ $pengajar->materis->first()?->judul ?? 'Belum ada materi' }}
                       </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        14
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        20
+                      <p class="text-xs text-gray-500 mt-1">
+                        📚 {{ $pengajar->materis->count() }} MATERI TERSEDIA
                       </p>
                     </div>
                   </div>
-                  <div class="flex justify-between items-center text-xs pt-5">
-                    <div class="flex gap-2">
-                      <p>Durasi</p>
-                      <p class="font-semibold">2 bulan</p>
-                    </div>
-                    <div class="flex gap-3">
-                      <p>Max Ques</p>
-                      <p class="font-semibold">- 20</p>
-                    </div>
-                  </div>
-                  <div
-                    class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap"
-                  >
-                    <p>30 left</p>
-                    <div
-                      class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[40%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
-                    ></div>
-                    <p>100 spots</p>
-                  </div>
-                  <div
-                    class="border-b border-dashed border-black dark:border-color24 border-opacity-10 pb-5 flex justify-between items-center text-xs"
-                  >
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="text-white flex justify-center items-center p-2 bg-p1 rounded-full"
-                      >
-                        <i class="ph ph-trophy"></i>
-                      </div>
-                      <div class="">
-                        <p>Price Pool</p>
-                        <p class="font-semibold">$100</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <button
-                        class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
-                      >
-                        Gabung sekarang
-                      </button>
-                      <div class="">
-                        <p>Entry</p>
-                        <p class="font-semibold">$2.00</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
-                      <i class="ph ph-brain text-p2"></i>
-                      <p class="text-xs">Trivia Quiz</p>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <i class="ph ph-bell-ringing"></i>
-                      <i class="ph ph-share-network"></i>
-                    </div>
+
+                  <div>
+                    <a href="{{ route('materi.showByPengajar', $pengajar->id) }}"
+                      class="text-white text-xs bg-p2 py-1.5 px-4 rounded-full dark:bg-p1 hover:opacity-90 transition">
+                      Lihat Semua
+                    </a>
                   </div>
                 </div>
-              </a>
-              <a
-                href="quiz-details.html"
-                class="rounded-2xl overflow-hidden shadow2"
-              >
-                <div class="p-5 bg-white dark:bg-color10">
-                  <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                      >
-                        <p class="font-semibold text-xs">20 Jun</p>
-                        <p class="text-[10px]">05.25</p>
-                      </div>
-                      <div class="">
-                        <p class="font-semibold text-xs">Bahasa Pemrograman Python</p>
-                        <p class="text-xs">Fundamental Dasar</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-1">
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        03
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        12
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        16
-                      </p>
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center text-xs pt-5">
-                    <div class="flex gap-2">
-                      <p>Durasi</p>
-                      <p class="font-semibold">2 Bulan</p>
-                    </div>
-                    <div class="flex gap-3">
-                      <p>Max Ques</p>
-                      <p class="font-semibold">- 20</p>
-                    </div>
-                  </div>
-                  <div
-                    class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap"
-                  >
-                    <p>45 left</p>
-                    <div
-                      class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[20%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
-                    ></div>
-                    <p>100 spots</p>
-                  </div>
-                  <div
-                    class="border-b border-dashed border-black dark:border-color24 border-opacity-10 pb-5 flex justify-between items-center text-xs"
-                  >
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="text-white flex justify-center items-center p-2 bg-p1 rounded-full"
-                      >
-                        <i class="ph ph-trophy"></i>
-                      </div>
-                      <div class="">
-                        <p>Price Pool</p>
-                        <p class="font-semibold">$100</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <button
-                        class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
-                      >
-                        Bergabung Sekarang
-                      </button>
-                      <div class="">
-                        <p>Entry</p>
-                        <p class="font-semibold">$5.00</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
-                      <i class="ph ph-brain text-p2"></i>
-                      <p class="text-xs">Language Quiz</p>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <i class="ph ph-bell-ringing"></i>
-                      <i class="ph ph-share-network"></i>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a
-                href="quiz-details.html"
-                class="rounded-2xl overflow-hidden shadow2"
-              >
-                <div class="p-5 bg-white dark:bg-color10">
-                  <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                      >
-                        <p class="font-semibold text-xs">23 Jun</p>
-                        <p class="text-[10px]">04.32</p>
-                      </div>
-                      <div class="">
-                        <p class="font-semibold text-xs">
-                          Dasar Java
-                        </p>
-                        <p class="text-xs">Fundamental Java</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-1">
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        05
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        14
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        20
-                      </p>
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center text-xs pt-5">
-                    <div class="flex gap-2">
-                      <p>Max Time</p>
-                      <p class="font-semibold">- 5 min</p>
-                    </div>
-                    <div class="flex gap-3">
-                      <p>Max Ques</p>
-                      <p class="font-semibold">- 20</p>
-                    </div>
-                  </div>
-                  <div
-                    class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap"
-                  >
-                    <p>30 left</p>
-                    <div
-                      class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[60%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
-                    ></div>
-                    <p>100 spots</p>
-                  </div>
-                  <div
-                    class="border-b border-dashed border-black dark:border-color24 border-opacity-10 pb-5 flex justify-between items-center text-xs"
-                  >
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="text-white flex justify-center items-center p-2 bg-p1 rounded-full"
-                      >
-                        <i class="ph ph-trophy"></i>
-                      </div>
-                      <div class="">
-                        <p>Price Pool</p>
-                        <p class="font-semibold">$100</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <button
-                        class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
-                      >
-                        Bergabung Sekarang  
-                      </button>
-                      <div class="">
-                        <p>Entry</p>
-                        <p class="font-semibold">$2.00</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
-                      <i class="ph ph-brain text-p2"></i>
-                      <p class="text-xs">Trivia Quiz</p>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <i class="ph ph-bell-ringing"></i>
-                      <i class="ph ph-share-network"></i>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a
-                href="quiz-details.html"
-                class="rounded-2xl overflow-hidden shadow2"
-              >
-                <div class="p-5 bg-white dark:bg-color10">
-                  <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                      >
-                        <p class="font-semibold text-xs">16 Jul</p>
-                        <p class="text-[10px]">05.25</p>
-                      </div>
-                      <div class="">
-                        <p class="font-semibold text-xs"> Networking</p>
-                        <p class="text-xs">fundamental Networking</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-1">
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        03
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        12
-                      </p>
-                      <p class="text-p2 text-base font-semibold dark:text-p1">
-                        :
-                      </p>
-                      <p
-                        class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                      >
-                        16
-                      </p>
-                    </div>
-                  </div>
-                  <div class="flex justify-between items-center text-xs pt-5">
-                    <div class="flex gap-2">
-                      <p>Max Time</p>
-                      <p class="font-semibold">- 5 min</p>
-                    </div>
-                    <div class="flex gap-3">
-                      <p>Max Ques</p>
-                      <p class="font-semibold">- 20</p>
-                    </div>
-                  </div>
-                  <div
-                    class="flex justify-between items-center gap-2 text-xs py-3 text-nowrap"
-                  >
-                    <p>45 left</p>
-                    <div
-                      class="relative bg-p2 dark:bg-p1 dark:bg-opacity-10 bg-opacity-10 h-1 w-full rounded-full after:absolute after:h-1 after:w-[30%] after:bg-p2 after:dark:bg-p1 after:rounded-full"
-                    ></div>
-                    <p>100 spots</p>
-                  </div>
-                  <div
-                    class="border-b border-dashed border-black dark:border-color24 border-opacity-10 pb-5 flex justify-between items-center text-xs"
-                  >
-                    <div class="flex justify-start items-center gap-2">
-                      <div
-                        class="text-white flex justify-center items-center p-2 bg-p1 rounded-full"
-                      >
-                        <i class="ph ph-trophy"></i>
-                      </div>
-                      <div class="">
-                        <p>Price Pool</p>
-                        <p class="font-semibold">$100</p>
-                      </div>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <button
-                        class="text-white text-xs bg-p2 py-1 px-4 rounded-full dark:bg-p1"
-                      >
-                        Bergabung Sekarang  
-                      </button>
-                      <div class="">
-                        <p>Entry</p>
-                        <p class="font-semibold">$5.00</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-5 flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-1">
-                      <i class="ph ph-brain text-p2"></i>
-                      <p class="text-xs">Language Quiz</p>
-                    </div>
-                    <div class="flex justify-start items-center gap-2">
-                      <i class="ph ph-bell-ringing"></i>
-                      <i class="ph ph-share-network"></i>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
+              </div>
+            @endforeach
           </div>
-        </div>
-      </div>
-    </div>
+
+
+
     <!-- ==== js dependencies start ==== -->
     <script src="assets/js/main.js"></script>
   <script defer src="index.js"></script></body>

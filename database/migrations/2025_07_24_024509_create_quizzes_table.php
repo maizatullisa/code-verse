@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('materi_id'); // Relasi ke tabel materis
             $table->string('judul');
             $table->text('deskripsi')->nullable();
-            $table->string('video_url')->nullable();
             $table->timestamps();
+
+            $table->foreign('materi_id')->references('id')->on('materis')->onDelete('cascade');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('quizzes');
     }
 };

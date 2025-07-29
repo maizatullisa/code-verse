@@ -43,4 +43,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function materis()
+    {
+        return $this->hasMany(Materi::class, 'pengajar_id');
+    }
+
+    public function materiDipelajari()
+    {
+        return $this->belongsToMany(Materi::class, 'user_materi')
+                    ->withPivot('status', 'progress', 'nilai')
+                    ->withTimestamps();            
+    }
+
+    public function diskusi()
+    {
+        return $this->hasMany(Diskusi::class);
+    }
+
+    public function balasanDiskusi()
+    {
+        return $this->hasMany(BalasanDiskusi::class);
+    }
+    
 }

@@ -293,356 +293,72 @@
             </div>
             <div class="tab-content hiddenTab" id="tabThree_data">
               <div class="flex flex-col gap-5">
-                <div
-                  class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7"
-                >
-                  <div class="relative rounded-lg overflow-hidden">
-                    <img
-                      src="assets/images/library-favourite-img3.png"
-                      alt=""
-                      class="h-[100px] w-[140px] object-cover"
-                    />
-                    <p
-                      class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md"
-                    >
-                      10 Qs
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold">Kelas AI DASAR</p>
-                    <p
-                      class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
-                    >
-                      Capaian
-                      <i
-                        class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
-                      ></i>
-                      30%
-                    </p>
-                    <div
-                      class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
-                    >
-                      <div class="flex justify-start items-center">
-                        <div class="rounded-full bg-white p-0.5">
-                          <img
-                            src="assets/images/user-img-1.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-2.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-3.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-4.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-5.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
+                @if ($materis->count())
+                  @foreach ($materis as $index => $materi)
+                    <div class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7">
+                      <div class="relative rounded-lg overflow-hidden">
+                        <img
+                          src="assets/images/library-favourite-img{{ ($index % 5) + 1 }}.png"
+                          alt=""
+                          class="h-[100px] w-[140px] object-cover"
+                        />
+                        <p class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
+                          {{ $materi->pivot->status }}
+                        </p>
+                      </div>
+                      <div class="">
+                        <p class="font-semibold">{{ $materi->judul }}</p>
+                        <p class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18">
+                          Pengajar
+                          <i class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"></i>
+                          {{ $materi->pengajar->name ?? 'Tidak diketahui' }}
+                        </p>
+                        <div class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18">
+                          <div class="flex justify-start items-center">
+                            <div class="rounded-full bg-white p-0.5">
+                              <img
+                                src="assets/images/user-img-1.png"
+                                alt=""
+                                class="size-6 object-cover rounded-full"
+                              />
+                            </div>
+                            <div class="rounded-full bg-white p-0.5 -ml-2">
+                              <img
+                                src="assets/images/user-img-2.png"
+                                alt=""
+                                class="size-6 object-cover rounded-full"
+                              />
+                            </div>
+                            <div class="rounded-full bg-white p-0.5 -ml-2">
+                              <img
+                                src="assets/images/user-img-3.png"
+                                alt=""
+                                class="size-6 object-cover rounded-full"
+                              />
+                            </div>
+                            <div class="rounded-full bg-white p-0.5 -ml-2">
+                              <img
+                                src="assets/images/user-img-4.png"
+                                alt=""
+                                class="size-6 object-cover rounded-full"
+                              />
+                            </div>
+                            <div class="rounded-full bg-white p-0.5 -ml-2">
+                              <img
+                                src="assets/images/user-img-5.png"
+                                alt=""
+                                class="size-6 object-cover rounded-full"
+                              />
+                            </div>
+                          </div>
+                          <p>Public</p>
                         </div>
                       </div>
-                      <p>Public</p>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7"
-                >
-                  <div class="relative rounded-lg overflow-hidden">
-                    <img
-                      src="assets/images/library-favourite-img1.png"
-                      alt=""
-                      class="h-[100px] w-[140px] object-cover"
-                    />
-                    <p
-                      class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md"
-                    >
-                      10 Qs
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold">Kelas NETWORKING</p>
-                    <p
-                      class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
-                    >
-                      Capaian
-                      <i
-                        class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
-                      ></i>
-                      30%
-                    </p>
-                    <div
-                      class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
-                    >
-                      <div class="flex justify-start items-center">
-                        <div class="rounded-full bg-white p-0.5">
-                          <img
-                            src="assets/images/user-img-1.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-2.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-3.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-4.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-5.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                      </div>
-                      <p>Public</p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7"
-                >
-                  <div class="relative rounded-lg overflow-hidden">
-                    <img
-                      src="assets/images/library-favourite-img5.png"
-                      alt=""
-                      class="h-[100px] w-[140px] object-cover"
-                    />
-                    <p
-                      class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md"
-                    >
-                      10 Qs
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold">Kelas JAVA</p>
-                    <p
-                      class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
-                    >
-                      Capaian
-                      <i
-                        class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
-                      ></i>
-                      30% 
-                    </p>
-                    <div
-                      class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
-                    >
-                      <div class="flex justify-start items-center">
-                        <div class="rounded-full bg-white p-0.5">
-                          <img
-                            src="assets/images/user-img-1.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-2.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-3.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-4.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-5.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                      </div>
-                      <p>Public</p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7"
-                >
-                  <div class="relative rounded-lg overflow-hidden">
-                    <img
-                      src="assets/images/library-favourite-img4.png"
-                      alt=""
-                      class="h-[100px] w-[140px] object-cover"
-                    />
-                    <p
-                      class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md"
-                    >
-                      10 Qs
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold">Kelas PYTHON DASAR</p>
-                    <p
-                      class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
-                    >
-                      Capaian
-                      <i
-                        class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
-                      ></i>
-                      30%
-                    </p>
-                    <div
-                      class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
-                    >
-                      <div class="flex justify-start items-center">
-                        <div class="rounded-full bg-white p-0.5">
-                          <img
-                            src="assets/images/user-img-1.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-2.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-3.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-4.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-5.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                      </div>
-                      <p>Public</p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7"
-                >
-                  <div class="relative rounded-lg overflow-hidden">
-                    <img
-                      src="assets/images/library-favourite-img2.png"
-                      alt=""
-                      class="h-[100px] w-[140px] object-cover"
-                    />
-                    <p
-                      class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md"
-                    >
-                      10 Qs
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold">Kelas FULLSTACK</p>
-                    <p
-                      class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18"
-                    >
-                      Capaian
-                      <i
-                        class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"
-                      ></i>
-                      30
-                    </p>
-                    <div
-                      class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18"
-                    >
-                      <div class="flex justify-start items-center">
-                        <div class="rounded-full bg-white p-0.5">
-                          <img
-                            src="assets/images/user-img-1.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-2.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-3.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-4.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                        <div class="rounded-full bg-white p-0.5 -ml-2">
-                          <img
-                            src="assets/images/user-img-5.png"
-                            alt=""
-                            class="size-6 object-cover rounded-full"
-                          />
-                        </div>
-                      </div>
-                      <p>Public</p>
-                    </div>
-                  </div>
-                </div>
+                  @endforeach
+                @else
+                  <p class="text-gray-400 text-md italic">Belum ada materi dalam daftar belajar kamu.</p>
+                @endif
               </div>
             </div>
           </div>
