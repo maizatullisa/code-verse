@@ -49,7 +49,7 @@
       </div>
       <!-- Page Title End -->
 
-      <!-- Sign In Form Start -->
+      <!-- MASUKKAN OTP -->
       <form action="#" class="relative z-10">
         <div class="bg-white py-8 px-6 rounded-xl mt-12 dark:bg-color10">
           <div class="flex flex-col gap-3 text-center">

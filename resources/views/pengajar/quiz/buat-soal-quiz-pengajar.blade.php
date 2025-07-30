@@ -1,7 +1,7 @@
 @extends('pengajar.layouts.navbar-pengajar')
 
 @section('content')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
 <div class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 py-8 px-4">
   <div class="max-w-5xl mx-auto">

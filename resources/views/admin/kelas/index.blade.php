@@ -19,12 +19,6 @@
                         <p class="text-gray-600 mt-1">Kelola dan monitor kelas pembelajaran</p>
                     </div>
                 </div>
-                <a href="{{ route('admin.kelas.create') }}" class="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center space-x-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <span>Tambah Kelas Baru</span>
-                </a>
             </div>
         </div>
     </div>
@@ -103,7 +97,7 @@
                         <option>Lanjutan</option>
                     </select>
                     <select class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white">
-                        <option>Semua Jurusan</option>
+                        <option>Semua Kelas</option>
                         <option>SEMUA YG TERDAFTAR (CONTOH KLS FULLSTACK) </option>
                         <option>SEMUA YG TERDAFTAR (CONTOH KLS NETWORKING)</option>
                         <option>SEMUA YG TERDAFTAR (CONTOH KLS MACHINE LEARNING)</option>

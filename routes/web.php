@@ -200,9 +200,9 @@ Route::get('/pengajar/quiz/create', function () {
 })->name('pengajar.quiz.create');
 
 //QUIZ - TAMBAH SOAL 
-Route::get('/pengajar/soal/create', function () {
-    return view('pengajar.quiz.buat-soal-pengajar');
-})->name('pengajar.soal.create');
+Route::get('/pengajar/quiz/soal/create', function () {
+    return view('pengajar.quiz.buat-soal-quiz-pengajar');
+})->name('pengajar.quiz.soal.create');
 
 // Forum - forum diskusi pengajar
 Route::get('/pengajar/forum', function () {
@@ -280,3 +280,18 @@ Route::middleware(['auth'])->group(function () {
 //basicsquoz
 Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
 Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
+
+
+// DESKTOP 
+// MASUK & REGISTER
+Route::get('/desktop/lorek-desktop', function () {
+    return view('desktop.lorek-desktop');
+ })->name('desktop.lorek-desktop');
+
+//PAGES LANDING
+Route::get('/desktop/pages/landing-desktop', function () {
+    return view('desktop.pages.landing-desktop');
+})->name('desktop.landing-desktop');
+
+
+
