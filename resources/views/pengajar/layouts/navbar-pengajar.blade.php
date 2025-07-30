@@ -196,7 +196,7 @@
           <span class="nav-text">Quiz</span>
         </a>
 
-        <a href="{{ route('pengajar.forum.index') }}" 
+        <a href="#" 
            class="nav-item @if(request()->is('pengajar/forum*')) active @endif">
           <div class="nav-icon">
             <i class="ph ph-chat-circle text-lg"></i>

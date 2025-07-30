@@ -25,7 +25,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-600 mb-1">Total Materi</p>
-          <p class="text-2xl font-bold text-gray-900">24</p>
+          <p class="text-2xl font-bold text-gray-900">{{ $totalMateri }}</p>
         </div>
         <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
           📚
@@ -47,7 +47,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-600 mb-1">Diskusi Baru</p>
-          <p class="text-2xl font-bold text-gray-900">8</p>
+          <p class="text-2xl font-bold text-gray-900">{{ $totalDiskusi }}</p>
         </div>
         <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
           💬
@@ -109,7 +109,7 @@
     </a>
 
     <!-- Forum Card -->
-    <a href="{{ route('pengajar.forum.index') }}" 
+    <a href="#" 
        class="group bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 hover:-translate-y-2 block lg:col-span-2 xl:col-span-1">
       <div class="flex items-center justify-between mb-6">
         <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-purple-500/25">

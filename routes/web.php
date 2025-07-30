@@ -10,6 +10,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DaftarBelajarController;
 use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\BalasanDiskusiController;
+use App\Http\Controllers\PengajarDashboardController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -23,7 +26,49 @@ use function PHPUnit\Framework\returnSelf;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 // MOBILE
+// ADM
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+//admin-user
+Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+Route::put('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+
+Route::get('/admin/user/show', function () {
+    return view('admin.user.show');
+})->name('admin.user.show');
+
+Route::get('/admin/pengajar', function () {
+    return view('admin.pengajar.index');
+})->name('admin.pengajar.index');
+
+Route::get('/admin/kelas', function () {
+    return view('admin.kelas.index');
+})->name('admin.kelas.index');
+
+Route::get('/admin/kelas/create', function () {
+    return view('admin.kelas.create-kelas');
+})->name('admin.kelas.create');
+
+Route::get('/admin/kelas/edit', function () {
+    return view('admin.kelas.edit');
+})->name('admin.kelas.edit');
+
+Route::get('/admin/modul', function () {
+    return view('admin.modul.index');
+})->name('admin.modul.index');
+
+Route::get('/admin/quiz', function () {
+    return view('admin.quiz.index');
+})->name('admin.quiz.index');
+
+Route::get('/admin/sertifikat', function () {
+    return view('admin.sertifikat.index');
+})->name('admin.sertifikat.index');
 //google auth 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
@@ -71,7 +116,7 @@ Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 /// Redirect jika akses GET ke /login
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME
-Route::get('/home'), function () {
+Route::get('/home', function () {
 $user = Auth::user(); // ambil user login
 return view('home', compact('user'));
 })->middleware('auth')->name('home');
@@ -162,9 +207,7 @@ Route::get('/quiz-5', function(){
 //rute pengajar
 //forumdiskusi 
 // DASHBOARD PENGAJAR
-Route::get('/pengajar/dashboard', function () {
-    return view('pengajar.dashboard_pengajar');
-})->name('pengajar.dashboard');
+Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
 
 // Materi - list semua materi pengajar
 
@@ -221,15 +264,23 @@ Route::get('/belajar/materi-belum', [DaftarBelajarController::class, 'index'])->
 Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
 
 // Forum - forum diskusi pengajar
-Route::get('/pengajar/forum', function () {
-    return view('pengajar.forum.forum-pengajar');
-})->name('pengajar.forum.index');
+Route::get('/pengajar/forum/{materi}', [DiskusiController::class, 'materiDiskusi'])->name('pengajar.forum.show');
 // Forum untuk materi
 Route::get('/pengajar/materi/{materi}/forum', [DiskusiController::class, 'index'])->name('forum.pengajar');
-
 // Tambah diskusi
 Route::post('/pengajar/materi/{materi}/diskusi', [DiskusiController::class, 'store'])->name('diskusi.store');
-
 // Tambah balasan
 Route::post('/pengajar/diskusi/{diskusi}/balasan', [BalasanDiskusiController::class, 'store'])->name('balasan.store');
+//like
+Route::get('/pengajar/forum/like/{diskusi}', [DiskusiController::class, 'diskusiSuka'])->name('forum.diskusi.like');
 
+//QUIZ
+
+// Semua route quiz untuk pengajar, dengan middleware auth dan role pengajar
+Route::middleware(['auth', 'role:pengajar'])->group(function () {
+    Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+    Route::post('/quiz', [QuizController::class, 'store'])->name('quiz.store');
+    
+    Route::post('/quiz/{quiz}/add-question', [QuizController::class, 'addQuestion'])->name('quiz.addQuestion');
+    Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
+});

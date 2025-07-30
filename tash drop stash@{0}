@@ -1,0 +1,197 @@
+[1mdiff --git a/app/Http/Controllers/AuthController.php b/app/Http/Controllers/AuthController.php[m
+[1mindex e3d7264..0049689 100644[m
+[1m--- a/app/Http/Controllers/AuthController.php[m
+[1m+++ b/app/Http/Controllers/AuthController.php[m
+[36m@@ -30,30 +30,29 @@[m [mpublic function register(Request $request)[m
+         return redirect('/berhasil')->with('success', 'Registrasi berhasil!');[m
+     }[m
+ [m
+[31m-            // public function login(Request $request)[m
+[31m-            // {[m
+[31m-            //     $credentials = $request->validate([[m
+[31m-            //         'email' => ['required', 'email'],[m
+[31m-            //         'password' => ['required'],[m
+[31m-            //     ]);[m
+[31m-[m
+[31m-            //     if (Auth::attempt($credentials)) {[m
+[31m-            //         $request->session()->regenerate();[m
+[31m-[m
+[31m-            //         // Redirect berdasarkan role[m
+[31m-            //         if (auth()->user()->role == 'admin') {[m
+[31m-            //             return redirect('/admin/dashboard');[m
+[31m-            //         } elseif (auth()->user()->role == 'pengajar') {[m
+[31m-            //             return redirect('/pengajar/dashboard');[m
+[31m-            //         } else {[m
+[31m-            //             return redirect()->route('profile');//aku ubah home[m
+[31m-            //         }[m
+[31m-            //     }[m
+[31m-[m
+[31m-            //     return back()->withErrors([[m
+[31m-            //         'email' => 'Email atau password salah.',[m
+[31m-            //     ]);[m
+[31m-            // }[m
+[32m+[m[32mpublic function login(Request $request)[m
+[32m+[m[32m{[m
+[32m+[m[32m $credentials = $request->validate([[m
+[32m+[m[32m'email' => ['required', 'email'],[m
+[32m+[m[32m'password' => ['required'],[m
+[32m+[m[32m]);[m
+[32m+[m
+[32m+[m[32mif (Auth::attempt($credentials)) {[m
+[32m+[m[32m                 $request->session()->regenerate();[m
+[32m+[m
+[32m+[m[32m                    if (auth()->user()->role == 'admin') {[m
+[32m+[m[32m                       return redirect('/admin/dashboard');[m
+[32m+[m[32m                     } elseif (auth()->user()->role == 'pengajar') {[m
+[32m+[m[32m                         return redirect('/pengajar/dashboard');[m
+[32m+[m[32m                     } else {[m
+[32m+[m[32m                         return redirect()->route('profile');//aku ubah home[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                 }[m
+[32m+[m
+[32m+[m[32m         return back()->withErrors([[m
+[32m+[m[32m      'email' => 'Email atau password salah.',[m
+[32m+[m[32m ]);[m
+[32m+[m[32m }[m
+ [m
+ }[m
+ [m
+[1mdiff --git a/app/Http/Controllers/DaftarBelajarController.php b/app/Http/Controllers/DaftarBelajarController.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5f66ac5[m
+[1m--- /dev/null[m
+[1m+++ b/app/Http/Controllers/DaftarBelajarController.php[m
+[36m@@ -0,0 +1,54 @@[m
+[32m+[m[32m<?php[m
+[32m+[m
+[32m+[m[32mnamespace App\Http\Controllers;[m
+[32m+[m
+[32m+[m[32muse App\Models\Materi;[m
+[32m+[m[32muse Auth;[m
+[32m+[m[32muse Illuminate\Http\Request;[m
+[32m+[m
+[32m+[m[32mclass DaftarBelajarController extends Controller[m
+[32m+[m[32m{[m
+[32m+[m[32m  public function simpan(Request $request)[m
+[32m+[m[32m{[m
+[32m+[m[32m    $request->validate([[m
+[32m+[m[32m        'selected_materis' => 'required|array',[m
+[32m+[m[32m        'selected_materis.*' => 'exists:materis,id'[m
+[32m+[m[32m    ]);[m
+[32m+[m
+[32m+[m[32m    $user = Auth::user();[m
+[32m+[m
+[32m+[m[32m    foreach ($request->selected_materis as $materiId) {[m
+[32m+[m[32m        if (!$user->materiDipelajari()->where('materi_id', $materiId)->exists()) {[m
+[32m+[m[32m            $user->materiDipelajari()->attach($materiId, [[m
+[32m+[m[32m                'status' => 'belum',[m
+[32m+[m[32m                'progress' => '0%',[m
+[32m+[m[32m            ]);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    return back()->with('success', 'Materi berhasil ditambahkan ke daftar belajar.');[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mpublic function show($id)[m
+[32m+[m[32m{[m
+[32m+[m[32m$pengajar = User::with('materis')->findOrFail($id);[m
+[32m+[m[32m$user = Auth::user();[m
+[32m+[m[32m//ambl id materi yg sdh ditambah ke daftar belajar[m
+[32m+[m[32m$materiDipilihUser = $user->materiDipelajari()->pluck('materi_id')->toArray();[m
+[32m+[m[32mreturn view('detail', compact('pengajar', 'materiDipilihUser'));[m
+[32m+[m[32m}[m
+[32m+[m[32mpublic function index()[m
+[32m+[m[32m{[m
+[32m+[m[32m    $user = Auth::user();[m
+[32m+[m[32m    $materis = $user->materiDipelajari()[m
+[32m+[m[32m    ->wherePivot('status', 'belum')[m
+[32m+[m[32m    ->with('pengajar')[m
+[32m+[m[32m    ->get();[m
+[32m+[m
+[32m+[m[32m    return view('kelas', compact('materis'));[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/app/Http/Controllers/ForumDiskusiController.php b/app/Http/Controllers/ForumDiskusiController.php[m
+[1mdeleted file mode 100644[m
+[1mindex cab0381..0000000[m
+[1m--- a/app/Http/Controllers/ForumDiskusiController.php[m
+[1m+++ /dev/null[m
+[36m@@ -1,27 +0,0 @@[m
+[31m-<?php[m
+[31m-[m
+[31m-namespace App\Http\Controllers;[m
+[31m-[m
+[31m-use App\Models\ForumDiskusi;[m
+[31m-use App\Models\Materi;[m
+[31m-use Illuminate\Http\Request;[m
+[31m-use Illuminate\Support\Facades\Auth;[m
+[31m-[m
+[31m-class ForumDiskusiController extends Controller[m
+[31m-{[m
+[31m-    public function store(Request $request)[m
+[31m-    {[m
+[31m-        $request->validate([[m
+[31m-            'materi_id' => 'required|exists:materis,id',[m
+[31m-            'pesan' => 'required|string',[m
+[31m-        ]);[m
+[31m-[m
+[31m-        ForumDiskusi::create([[m
+[31m-            'materi_id' => $request->materi_id,[m
+[31m-            'user_id' => Auth::id(),[m
+[31m-            'pesan' => $request->pesan,[m
+[31m-        ]);[m
+[31m-[m
+[31m-        return back()->with('success', 'Pesan berhasil dikirim');[m
+[31m-    }[m
+[31m-}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/Http/Controllers/MateriController.php b/app/Http/Controllers/MateriController.php[m
+[1mindex 835a927..120e2ab 100644[m
+[1m--- a/app/Http/Controllers/MateriController.php[m
+[1m+++ b/app/Http/Controllers/MateriController.php[m
+[36m@@ -3,64 +3,191 @@[m
+ namespace App\Http\Controllers;[m
+ [m
+ use App\Models\Materi;[m
+[32m+[m[32muse App\Models\User;[m
+ use Illuminate\Http\Request;[m
+[32m+[m[32muse Illuminate\Support\Facades\Auth;[m
+[32m+[m[32muse Illuminate\Support\Facades\Storage;[m
+[32m+[m
+[32m+[m
+ [m
+ class MateriController extends Controller[m
+ {[m
+[31m-    //  Tampilkan semua materi[m
+     public function index()[m
+     {[m
+[31m-        $materis = Materi::latest()->get();[m
+[31m-        return view('materi', compact('materis')); //ganti dari file blade ('materi') sesuaikan file blade[m
+[32m+[m[32m        // Ambil semua materi berdasarkan pengajar yang login[m
+[32m+[m[32m        $materis = Materi::where('pengajar_id', Auth::id())[m
+[32m+[m[32m                        ->orderBy('created_at', 'desc')[m
+[32m+[m[32m                        ->get();[m
+[32m+[m[41m        [m
+[32m+[m[32m         $jumlahMateri = $materis->count();[m
+[32m+[m[41m        [m
+[32m+[m[32m        return view('pengajar.materi.index-materi-pengajar', compact('materis', 'jumlahMateri'));[m
+     }[m
+ [m
+[31m-    // Tampilkan detail satu materi[m
+[31m-    public function show($id)[m
+[32m+[m[32m    public function create()[m
+     {[m
+[31m-        $materi = Materi::findOrFail($id);[m
+[31m-        return view('materi', compact('materi'));[m
+[32m+[m[32m        return view('pengajar.materi.create-materi');[m
+     }[m
+ [m
+[31m-    // Tambah materi (untuk pengajar)[m
+     public function store(Request $request)[m
+     {[m
+[31m-        $validated = $request->valid

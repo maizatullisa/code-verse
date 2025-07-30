@@ -79,7 +79,7 @@
         </div>
         <h3 class="text-lg font-semibold text-gray-800">Mulai Diskusi Baru</h3>
       </div>
-      
+
       <form action="{{ isset($materi) ? route('diskusi.store', $materi->id) : '#' }}" method="POST" class="space-y-4">
         @csrf
         <div class="relative">
@@ -184,9 +184,9 @@
                   <i class="ph ph-chat-circle"></i>
                   <span class="text-sm font-medium">Balas ({{ $diskusi->balasan->count() }})</span>
                 </button>
-                <button class="flex items-center space-x-2 text-gray-500 hover:text-red-500 hover:bg-red-50 px-3 py-1 rounded-lg transition-all duration-200">
+                <a href="{{ route('forum.diskusi.like', $diskusi) }}" class="flex items-center space-x-2 text-gray-500 hover:text-red-500 hover:bg-red-50 px-3 py-1 rounded-lg transition-all duration-200">
                   <i class="ph ph-heart"></i>
-                  <span class="text-sm font-medium">Suka (5)</span>
+                  <span class="text-sm font-medium">Suka {{ $diskusi->diskusiSukas->count() }}</span>
                 </button>
                 <button class="flex items-center space-x-2 text-gray-500 hover:text-amber-500 hover:bg-amber-50 px-3 py-1 rounded-lg transition-all duration-200">
                   <i class="ph ph-bookmark-simple"></i>

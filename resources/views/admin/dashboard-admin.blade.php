@@ -51,7 +51,7 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">123</div>
+                        <div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ $totalSiswa }}</div>
                         <div class="text-sm text-gray-500">+12 this month</div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-2xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors duration-300">45</div>
+                        <div class="text-2xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors duration-300">{{ $totalPengajar }}</div>
                         <div class="text-sm text-gray-500">+3 this month</div>
                     </div>
                 </div>

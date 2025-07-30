@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+   //admin-dasboard
    public function index()//menampilkan semua users
    {
     $users = User::all();
-    return view('admin', compact('users'));
+    $totalSiswa = User::where('role', 'siswa')->count();
+    $totalPengajar = User::where('role', 'pengajar')->count();
+    return view('admin.dashboard-admin', compact('users', 'totalSiswa', 'totalPengajar'));
    }
+
+   
    public function edit(User $user)
    {
     return view('admin', compact('user'));
@@ -27,5 +32,6 @@ class AdminController extends Controller
     $user->delete();
     return back();
    }
+   
 
 }

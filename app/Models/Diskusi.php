@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diskusi extends Model
 {
-    use HasFactory;
 
     protected $table = 'diskusi';
 
@@ -27,5 +26,9 @@ class Diskusi extends Model
     public function balasan()
     {
         return $this->hasMany(BalasanDiskusi::class, 'diskusi_id');
+    }
+
+    public function diskusiSukas(){
+        return $this->hasMany(DiskusiSuka::class, 'diskusi_id');
     }
 }

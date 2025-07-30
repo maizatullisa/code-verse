@@ -11,134 +11,68 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    public function index()
+       public function index()
     {
-        $quizzes= Quiz::with('materi')->get();
-        return view('quiz', compact('quizzes'));
+        // Menampilkan semua quiz milik pengajar saat ini
+        $quizzes = Quiz::where('pengajar_id', Auth::id())->withCount('questions')->get();
+
+        return view('pengajar.buat-quiz-pengajar', compact('quizzes'));
     }
 
-    //simpan quiz baru dengan 10 pertanyaan DAN masing2 4 pilihan
+    public function create()
+    {
+        return view('pengajar.buat-quiz-pengajar');
+    }
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'materi_id' => 'required|exists:materis,id',
-            'questions' => 'required|array|size:10',
-            'questions.*.text' => 'required|string',
-            'questions.*.options' => 'required|array|size:4',
-            'questions.*.options.*.text' => 'required|string',
-            'questions.*.correct_option' => 'required|integer|min:0|max:3', // 0-3 index dari 4 opsi
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
         ]);
 
         $quiz = Quiz::create([
-            'materi_id' => $validated['materi_id'],
+            'pengajar_id' => Auth::id(),
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
         ]);
 
-        
-        foreach ($validated['questions'] as $q) {
-            $question = QuizQuestion::create([
-                'quiz_id' => $quiz->id,
-                'question_text' => $q['text'],
-            ]);
+        return redirect()->back()->with('success', 'Quiz berhasil dibuat.');
+    }
 
-            foreach ($q['options'] as $index => $option) {
+    public function addQuestion(Request $request, $quizId)
+    {
+        $request->validate([
+            'pertanyaan' => 'required|string',
+            'tipe' => 'required|in:pilihan_ganda,isian',
+            'opsi.*.jawaban' => 'required_if:tipe,pilihan_ganda',
+        ]);
+
+        $question = QuizQuestion::create([
+            'quiz_id' => $quizId,
+            'pertanyaan' => $request->pertanyaan,
+            'tipe' => $request->tipe,
+        ]);
+
+        if ($request->tipe === 'pilihan_ganda' && $request->has('opsi')) {
+            foreach ($request->opsi as $opsi) {
                 QuizOption::create([
                     'question_id' => $question->id,
-                    'option_text' => $option['text'],
-                    'is_correct' => ($index === $q['correct_option']),
+                    'jawaban' => $opsi['jawaban'],
+                    'is_correct' => isset($opsi['is_correct']) ? true : false,
                 ]);
             }
         }
-        return redirect()->back()->with('success', 'Kuis berhasil ditambahkan');
+
+        return redirect()->back()->with('success', 'Pertanyaan berhasil ditambahkan.');
     }
-    // Tampilkan quiz detail berdasarkan materi
-    public function showByMateri($materiId)
-    {
-        $quiz = Quiz::with('questions.answerOptions')->where('materi_id', $materiId)->firstOrFail();
-        return view('quiz', compact('quiz'));
-    }
+
     public function destroy($id)
     {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->questions()->each(function ($question) {
-        $question->answerOptions()->delete();
-        });
-        $quiz->questions()->delete();
+        $quiz = Quiz::where('id', $id)->where('pengajar_id', Auth::id())->firstOrFail();
         $quiz->delete();
 
-        return redirect()->back()->with('success', 'Kuis berhasil dihapus');
+        return redirect()->back()->with('success', 'Quiz berhasil dihapus.');
     }
-
-        public function submit(Request $request, $quizId)
-    {
-        $quiz = Quiz::with('questions.answerOptions')->findOrFail($quizId);
-
-        $validated = $request->validate([
-            'answers' => 'required|array',
-            'answers.*' => 'required|exists:quiz_options,id',
-        ]);
-
-        foreach ($validated['answers'] as $questionId => $selectedOptionId) {
-            QuizAnswer::updateOrCreate(
-                [
-                    'user_id' => auth()->id(),
-                    'quiz_id' => $quiz->id,
-                    'question_id' => $questionId,
-                ],
-                [
-                    'selected_option_id' => $selectedOptionId,
-                ]
-            );
-        }
-
-       
-    // Hitung skor langsung
-    $score = 0;
-    foreach ($quiz->questions as $question) {
-        $selected = $validated['answers'][$question->id] ?? null;
-        $correctOption = $question->answerOptions->firstWhere('is_correct', true);
-        if ($correctOption && $selected == $correctOption->id) {
-            $score++;
-        }
-    }
-
-    return redirect()->back()->with([
-        'success' => 'Jawaban kamu berhasil dikumpulkan!',
-        'score' => $score,
-        'total' => $quiz->questions->count()
-    ]);
-    }
-
-            public function results($quizId)
-        {
-            $quiz = Quiz::with(['questions.answerOptions', 'answers.user'])->findOrFail($quizId);
-
-            // Kelompokkan jawaban berdasarkan siswa
-            $grouped = $quiz->answers->groupBy('user_id');
-
-            $results = [];
-
-            foreach ($grouped as $userId => $answers) {
-                $user = $answers->first()->user;
-                $score = 0;
-
-                foreach ($quiz->questions as $question) {
-                    $answer = $answers->firstWhere('question_id', $question->id);
-                    $correct = $question->answerOptions->firstWhere('is_correct', true);
-
-                    if ($answer && $correct && $answer->selected_option_id == $correct->id) {
-                        $score++;
-                    }
-                }
-
-                $results[] = [
-                    'user' => $user,
-                    'score' => $score,
-                    'total' => $quiz->questions->count(),
-                ];
-            }
-
-            return view('quiz.results', compact('quiz', 'results'));
-        }
-
 
 }   
