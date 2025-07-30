@@ -611,6 +611,7 @@
               class="flex justify-start items-center gap-3 pb-6 border-b border-color24 border-dashed"
             >
               <img src="assets/images/user_sidebar.png" alt="" />
+              {{--
               <div class="">
                 <p class="text-2xl font-semibold">
                 {{ $user->first_name }}<i class="ph-fill ph-seal-check text-p1"></i>
@@ -618,7 +619,7 @@
                 <p class="text-xs">
                   <span class="font-semibold">ID :</span>{{ $user->id }}
                 </p>
-              </div>
+              </div> --}}
             </div>
             <div class="flex justify-between items-center pt-6">
               <div class="flex justify-start items-start gap-2">

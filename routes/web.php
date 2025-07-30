@@ -263,6 +263,11 @@ Route::get('/belajar/materi-belum', [DaftarBelajarController::class, 'index'])->
 
 Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
 
+Route::get('/pengajar/quiz/soal/create', function () {
+    return view('pengajar.quiz.buat-soal-quiz-pengajar');
+})->name('pengajar.quiz.soal.create');
+
+
 // Forum - forum diskusi pengajar
 Route::get('/pengajar/forum/{materi}', [DiskusiController::class, 'materiDiskusi'])->name('pengajar.forum.show');
 // Forum untuk materi
@@ -284,3 +289,23 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::post('/quiz/{quiz}/add-question', [QuizController::class, 'addQuestion'])->name('quiz.addQuestion');
     Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 });
+
+//basicsquoz
+Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
+Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
+
+
+// DESKTOP 
+// MASUK & REGISTER
+Route::get('/desktop/lorek-desktop', function () {
+    return view('desktop.lorek-desktop');
+ })->name('desktop.lorek-desktop');
+
+//PAGES LANDING
+Route::get('/desktop/pages/landing-desktop', function () {
+    return view('desktop.pages.landing-desktop');
+})->name('desktop.landing-desktop');
+
+
+
+

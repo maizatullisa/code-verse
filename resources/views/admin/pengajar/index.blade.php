@@ -12,9 +12,6 @@
                 <p class="text-gray-600 text-lg">Kelola data pengajar dengan mudah</p>
             </div>
             <div class="flex space-x-3">
-                <button class="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-                    <i class="fas fa-plus mr-2"></i>Tambah Pengajar
-                </button>
                 <button class="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200">
                     <i class="fas fa-download mr-2"></i>Export
                 </button>

@@ -1,7 +1,7 @@
 @extends('pengajar.layouts.navbar-pengajar')
 
 @section('content')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
 <div class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-12 px-4">
   <div class="max-w-4xl mx-auto">
@@ -125,7 +125,7 @@
 
           <!-- Submit Button -->
           <div class="pt-8">
-            <a href="{{ route('pengajar.soal.create') }}">
+            <a href="{{ route('pengajar.quiz.soal.create') }}">
             <button type="button" 
                     class="w-full group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-5 px-8 rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-purple-400/50">
               
@@ -147,43 +147,7 @@
     </div>
 
     <!-- Additional Info Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-      <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-        <div class="flex items-center mb-3">
-          <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-          </div>
-          <h3 class="text-white font-semibold ml-3">Cepat & Mudah</h3>
-        </div>
-        <p class="text-white/60 text-sm">Buat kuis dalam hitungan menit dengan antarmuka yang intuitif</p>
-      </div>
-      
-      <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-        <div class="flex items-center mb-3">
-          <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-            </svg>
-          </div>
-          <h3 class="text-white font-semibold ml-3">Fleksibel</h3>
-        </div>
-        <p class="text-white/60 text-sm">Dukung berbagai tipe soal sesuai kebutuhan pembelajaran</p>
-      </div>
-      
-      <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-        <div class="flex items-center mb-3">
-          <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-            </svg>
-          </div>
-          <h3 class="text-white font-semibold ml-3">Analitik</h3>
-        </div>
-        <p class="text-white/60 text-sm">Pantau progress dan hasil belajar siswa secara real-time</p>
-      </div>
-    </div>
+
   </div>
 </div>
 
