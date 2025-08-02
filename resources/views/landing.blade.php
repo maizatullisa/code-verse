@@ -83,14 +83,14 @@
             </div>
 
             <div class="flex justify-between items-center px-6">
-              <a href="{{ url(path: '/masuk')}}"
+              <a href="{{ url(path: '/masuk-mobile')}}"
                 class="text-p2 font-semibold dark:text-p1"
                 >Skip</a
               >
               <div class="nextButton">
                 <div class="ara-next">
                   <button
-                        onclick="window.location.href='{{ url(path: '/masuk')}}';"
+                        onclick="window.location.href='{{ url(path: '/masuk-mobile')}}';"
                         class="text-white flex justify-center items-center bg-p2 rounded-full text-2xl p-3.5"
                       >
                         <i class="ph ph-arrow-right"></i>

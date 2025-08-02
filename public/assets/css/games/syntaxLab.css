@@ -1,0 +1,46 @@
+.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+        .drop-zone {
+            min-height: 200px;
+            transition: all 0.3s ease;
+        }
+        .drop-zone.drag-over {
+            background-color: #1e40af;
+            border-color: #3b82f6;
+            border-width: 3px;
+            border-style: dashed;
+        }
+        .code-block {
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+        .code-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        .dropped-block {
+            animation: dropIn 0.3s ease-out;
+        }
+        @keyframes dropIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .success-glow {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }

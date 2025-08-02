@@ -478,6 +478,11 @@
                                             class="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">
                                         Konfirmasi Password
                                     </button>
+
+                                    <button onclick="showLogin()" 
+                                        class="text-primary hover:text-primary-dark font-bold underline ml-1 transition-colors duration-300">
+                                        Kembali Ke Login 
+                                    </button>
                                 </form>
                             </div>
                     </div> 

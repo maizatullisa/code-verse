@@ -723,8 +723,7 @@
                 <i class="ph ph-arrow-right"></i>
               </div>
             </a>
-            <a
-              href="master-medal.html"
+             <a href="{{ url('/games/pilih-game') }}"
               class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
             >
               <div class="flex justify-start items-center gap-3">
@@ -733,7 +732,7 @@
                 >
                   <i class="ph ph-medal"></i>
                 </div>
-                <p class="font-semibold dark:text-white">Quiz</p>
+                <p class="font-semibold dark:text-white">Game</p>
               </div>
               <div
                 class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
@@ -777,23 +776,6 @@
                 <i class="ph ph-arrow-right"></i>
               </div>
             </a>
-            <div
-              class="flex justify-between items-center py-3 px-4 border-b border-dashed border-color21 dark:bg-color1 dark:border-color24"
-            >
-              <div class="flex justify-start items-center gap-3">
-                <div
-                  class="flex justify-center items-center p-2 rounded-full border bg-color16 border-color14 text-lg !leading-none text-p2 dark:bg-bgColor14 dark:border-bgColor16 dark:text-p1"
-                >
-                  <i class="ph ph-shield"></i>
-                </div>
-                <p class="font-semibold dark:text-white">Game Rules</p>
-              </div>
-              <div
-                class="flex justify-center items-center rounded-full text-p2 dark:text-p1"
-              >
-                <i class="ph ph-arrow-right"></i>
-              </div>
-            </div>
             <button
               class="flex justify-between items-center py-3 px-4 dark:bg-color1 withdrawModalOpenButton"
             >

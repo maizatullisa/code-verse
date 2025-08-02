@@ -73,12 +73,12 @@ Route::get('/admin/sertifikat', function () {
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 //PERTAMA
-Route::get('/', function(){
+Route::get('/landing-mobile', function(){
     return view(view:'landing');
 })->name(name:'landing');
 
 /// Halaman awal: login
-Route::get('/masuk', function () {
+Route::get('/masuk-mobile', function () {
     return view('masuk');
 })->name('masuk');
 
@@ -115,22 +115,26 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 /// Redirect jika akses GET ke /login
 
-/// Halaman setelah login berhasil DIA AKAN KE HOME
-Route::get('/home', function () {
-$user = Auth::user(); // ambil user login
-return view('home', compact('user'));
-})->middleware('auth')->name('home');
+/// Halaman setelah login berhasil DIA AKAN KE HOME INI AKU COMM DULU YA 
+// Route::get('/home-mobile', function () {
+// $user = Auth::user(); // ambil user login
+// return view('home', compact('user'));
+// })->middleware('auth')->name('home-mobile');
 
-Route::get('/home', function () {
- $user = Auth::user(); // ambil user login
-return view('home', compact('user'));
-})->middleware('auth')->name('home');
+// Route::get('/home', function () {
+//  $user = Auth::user(); // ambil user login
+// return view('home', compact('user'));
+// })->middleware('auth')->name('home');
 
+// Route::get('/profile', function () {
+//     $user = Auth::user(); // ambil user login
+//     return view('my-profile', compact('user'));
+// })->middleware('auth')->name('profile');
 
-Route::get('/profile', function () {
-    $user = Auth::user(); // ambil user login
-    return view('my-profile', compact('user'));
-})->middleware('auth')->name('profile');
+// ROUTE DUMMY 
+Route::get('/home-mobile', function(){
+    return view('home');
+})->name('home-mobile');
 
 
 // SEARCH
@@ -296,16 +300,44 @@ Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->nam
 
 
 // DESKTOP 
-// MASUK & REGISTER
-Route::get('/desktop/lorek-desktop', function () {
-    return view('desktop.lorek-desktop');
- })->name('desktop.lorek-desktop');
-
 //PAGES LANDING
 Route::get('/desktop/pages/landing-desktop', function () {
     return view('desktop.pages.landing-desktop');
 })->name('desktop.landing-desktop');
 
+// MASUK & REGISTER
+Route::get('/desktop/lorek-desktop', function () {
+    return view('desktop.lorek-desktop');
+ })->name('desktop.lorek-desktop');
+
+//HOME DESKTOP
+Route::get('/desktop/dashboard-user-desktop', function () {
+    return view('desktop.dashboard-user-desktop');
+ })->name('desktop.dashboard-user-desktop');
 
 
+ //PILIH GAME 
+ Route::get('/games/pilih-game', function () {
+    return view('games.pilih-game');
+ })->name('games.pilih-game');
 
+ // GAME
+ //BIRD FLY
+Route::get('/games/bird', function () {
+    return view('games.bird');
+ })->name('games.bird');
+
+ // SYNTAX LAB
+Route::get('/games/syntaxLab', function () {
+    return view('games.syntaxLab');
+ })->name('games.syntaxLab');
+
+//LABIRIN 
+Route::get('/games/glitchmaze', function () {
+    return view('games.glitchmaze');
+ })->name('games.glitchmaze');
+
+//syntaxShow
+Route::get('/games/syntaxShowdown', function () {
+    return view('games.syntaxShowdown');
+ })->name('games.syntaxShowdown');
