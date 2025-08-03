@@ -316,6 +316,52 @@ Route::get('/desktop/dashboard-user-desktop', function () {
  })->name('desktop.dashboard-user-desktop');
 
 
+ //KELAS DESKTOP SEE ALLL
+ // KELAS DITAWARKAN
+Route::get('/desktop/pages/kelas/kelas-ditawarkan', function () {
+    return view('desktop.pages.kelas.kelas-ditawarkan');
+ })->name('desktop.pages.kelas.kelas-ditawarkan');
+
+ //KELAS DI AMBIL
+Route::get('/desktop/pages/kelas/kelas-diambil', function () {
+    return view('desktop.pages.kelas.kelas-diambil');
+ })->name('desktop.pages.kelas.kelas-diambil');
+
+ //KELAS SELESAI
+Route::get('/desktop/pages/kelas/kelas-selesai', function () {
+    return view('desktop.pages.kelas.kelas-selesai');
+ })->name('desktop.pages.kelas.kelas-selesai');
+
+ //KELAS DETAIL
+Route::get('/desktop/pages/kelas/kelas-detail', function () {
+    return view('desktop.pages.kelas.kelas-detail');
+ })->name('desktop.pages.kelas.kelas-detail');
+
+ //KELAS PENDAFTARAN
+ Route::get('/desktop/pages/kelas/kelas-pendaftaran', function () {
+    return view('desktop.pages.kelas.kelas-pendaftaran');
+ })->name('desktop.pages.kelas.kelas-pendaftaran');
+
+ // FORUM DISKUSI
+  Route::get('/desktop/pages/forum/forum-siswa', function () {
+    return view('desktop.pages.forum.forum-siswa');
+ })->name('desktop.pages.forum.forum-siswa');
+
+ //KELAS MATERI
+Route::get('/desktop/pages/kelas/kelas-materi', function () {
+    return view('desktop.pages.kelas.kelas-materi');
+ })->name('desktop.pages.kelas.kelas-materi');
+
+ //KELAS QUIZ
+Route::get('/desktop/pages/kelas/kelas-quiz', function () {
+    return view('desktop.pages.kelas.kelas-quiz');
+ })->name('desktop.pages.kelas.kelas-quiz');
+ 
+//HELP AI
+Route::get('/desktop/help-ai', function () {
+    return view('desktop.help-ai');
+ })->name('desktop.help-ai');
+
  //PILIH GAME 
  Route::get('/games/pilih-game', function () {
     return view('games.pilih-game');
