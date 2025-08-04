@@ -1,0 +1,98 @@
+.bg-p1 { background-color: #FF710F; }
+        .bg-p2 { background-color: #6C5CE7; }
+        .bg-p3 { background-color: #A29BFE; }
+        .text-p1 { color: #FF710F; }
+        .text-p2 { color: #6C5CE7; }
+        
+        .blur-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-content {
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        
+        .slide-content.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .floating-icon {
+            animation: bounce 3s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .pagination-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pagination-dot.active {
+            background: #FF710F;
+            transform: scale(1.2);
+        }
+        
+        .next-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+        }
+        
+        .skip-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .skip-btn:hover {
+            transform: translateX(5px);
+        }

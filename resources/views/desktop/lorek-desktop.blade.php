@@ -492,6 +492,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets/js/logrek.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/logrek.js') }}"></script>
 </body>
 </html>

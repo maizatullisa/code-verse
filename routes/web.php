@@ -29,7 +29,12 @@ use function PHPUnit\Framework\returnSelf;
 
 
 // MOBILE
-// ADM
+// ADM LOGIN
+Route::get('/admin/login', function () {
+    return view('admin.login-admin');
+})->name('login-admin');
+
+// ADM 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
 //admin-user
@@ -301,8 +306,8 @@ Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->nam
 
 // DESKTOP 
 //PAGES LANDING
-Route::get('/desktop/pages/landing-desktop', function () {
-    return view('desktop.pages.landing-desktop');
+Route::get('/desktop/landing-desktop', function () {
+    return view('desktop.landing-desktop');
 })->name('desktop.landing-desktop');
 
 // MASUK & REGISTER
@@ -311,44 +316,44 @@ Route::get('/desktop/lorek-desktop', function () {
  })->name('desktop.lorek-desktop');
 
 //HOME DESKTOP
-Route::get('/desktop/dashboard-user-desktop', function () {
+Route::get('/desktop/home-desktop', function () {
     return view('desktop.dashboard-user-desktop');
  })->name('desktop.dashboard-user-desktop');
 
 
  //KELAS DESKTOP SEE ALLL
  // KELAS DITAWARKAN
-Route::get('/desktop/pages/kelas/kelas-ditawarkan', function () {
+Route::get('/desktop/kelas-ditawarkan', function () {
     return view('desktop.pages.kelas.kelas-ditawarkan');
  })->name('desktop.pages.kelas.kelas-ditawarkan');
 
  //KELAS DI AMBIL
-Route::get('/desktop/pages/kelas/kelas-diambil', function () {
+Route::get('/desktop/kelas-diambil', function () {
     return view('desktop.pages.kelas.kelas-diambil');
  })->name('desktop.pages.kelas.kelas-diambil');
 
  //KELAS SELESAI
-Route::get('/desktop/pages/kelas/kelas-selesai', function () {
+Route::get('/desktop/kelas-selesai', function () {
     return view('desktop.pages.kelas.kelas-selesai');
  })->name('desktop.pages.kelas.kelas-selesai');
 
  //KELAS DETAIL
-Route::get('/desktop/pages/kelas/kelas-detail', function () {
+Route::get('/desktop/kelas-detail', function () {
     return view('desktop.pages.kelas.kelas-detail');
  })->name('desktop.pages.kelas.kelas-detail');
 
  //KELAS PENDAFTARAN
- Route::get('/desktop/pages/kelas/kelas-pendaftaran', function () {
+ Route::get('/desktop/kelas-pendaftaran', function () {
     return view('desktop.pages.kelas.kelas-pendaftaran');
  })->name('desktop.pages.kelas.kelas-pendaftaran');
 
  // FORUM DISKUSI
-  Route::get('/desktop/pages/forum/forum-siswa', function () {
+  Route::get('/desktop/forum-siswa', function () {
     return view('desktop.pages.forum.forum-siswa');
  })->name('desktop.pages.forum.forum-siswa');
 
  //KELAS MATERI
-Route::get('/desktop/pages/kelas/kelas-materi', function () {
+Route::get('/desktop/kelas-materi', function () {
     return view('desktop.pages.kelas.kelas-materi');
  })->name('desktop.pages.kelas.kelas-materi');
 

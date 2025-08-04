@@ -200,21 +200,15 @@
                 imageObserver.observe(img);
             });
         }
-
-        // Dark mode toggle (if needed)
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
             localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
         }
 
-        // Load saved dark mode preference
         if (localStorage.getItem('darkMode') === 'true') {
             document.documentElement.classList.add('dark');
         }
-
-        // Progress tracking
         function updateProgress() {
-            // Simulate progress updates
             const progressBar = document.querySelector('.progress-bar');
             const progressText = document.querySelector('.progress-text');
             
