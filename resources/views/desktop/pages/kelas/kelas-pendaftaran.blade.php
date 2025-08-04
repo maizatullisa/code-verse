@@ -496,7 +496,7 @@
             
             <div class="space-y-3">
                 <button id="accessCourseBtn" class="w-full bg-gradient-to-r from-p2 to-p3 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-all">
-                    <a href="{{ url('/desktop/pages/forum/forum-siswa') }}"</a>
+                    <a href="{{ url('/desktop/forum-siswa') }}"</a>
                     Mulai Belajar Sekarang dan gabung ke forum
                 </button>
                 <button id="goToDashboardBtn" class="w-full border border-gray-300 text-gray-600 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-all">

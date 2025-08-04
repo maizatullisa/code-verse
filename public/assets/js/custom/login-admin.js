@@ -1,4 +1,4 @@
-        // State management
+  
         let currentStep = 1;
         let countdownTimer = null;
 
@@ -231,8 +231,8 @@
             // Clear previous errors
             hideError('otp');
             
-            if (otp.length !== 6) {
-                showError('otp', 'Masukkan semua 6 digit kode verifikasi');
+            if (otp.length !== 4) {
+                showError('otp', 'Masukkan sesuai dengan kode yng di kirim');
                 return;
             }
             

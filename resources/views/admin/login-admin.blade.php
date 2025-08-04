@@ -63,8 +63,8 @@
                             <i class="ph ph-shield-check text-blue-400 text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-base text-white">Enterprise Security</h3>
-                            <p class="text-slate-300 text-xs">Multi-layer protection system</p>
+                            <h3 class="font-bold text-base text-white">Keamanan</h3>
+                            <p class="text-slate-300 text-xs">Sistem perlindungan multi-lapis</p>
                         </div>
                     </div>
                     
@@ -73,8 +73,8 @@
                             <i class="ph ph-chart-line text-purple-400 text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-base text-white">Real-time Analytics</h3>
-                            <p class="text-slate-300 text-xs">Comprehensive system monitoring</p>
+                            <h3 class="font-bold text-base text-white">Analisis langsung</h3>
+                            <p class="text-slate-300 text-xs">Pemantauan sistem yang komprehensif</p>
                         </div>
                     </div>
                     
@@ -83,8 +83,8 @@
                             <i class="ph ph-users text-green-400 text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-base text-white">User Management</h3>
-                            <p class="text-slate-300 text-xs">Complete access control</p>
+                            <h3 class="font-bold text-base text-white">Manajemen Pengguna</h3>
+                            <p class="text-slate-300 text-xs">Kontrol akses lengkap</p>
                         </div>
                     </div>
                 </div>
@@ -93,15 +93,15 @@
                 <div class="grid grid-cols-3 gap-3 text-center">
                     <div class="p-3 rounded-lg bg-white bg-opacity-5 border border-white border-opacity-10 hover:bg-opacity-10 transition-colors">
                         <div class="text-xl font-black text-white mb-1">99.9%</div>
-                        <div class="text-slate-400 text-xs font-medium">Uptime</div>
+                        <div class="text-slate-400 text-xs font-medium">Waktu aktif</div>
                     </div>
                     <div class="p-3 rounded-lg bg-white bg-opacity-5 border border-white border-opacity-10 hover:bg-opacity-10 transition-colors">
                         <div class="text-xl font-black text-white mb-1">24/7</div>
-                        <div class="text-slate-400 text-xs font-medium">Support</div>
+                        <div class="text-slate-400 text-xs font-medium">Dukungan</div>
                     </div>
                     <div class="p-3 rounded-lg bg-white bg-opacity-5 border border-white border-opacity-10 hover:bg-opacity-10 transition-colors">
                         <div class="text-xl font-black text-white mb-1">256-bit</div>
-                        <div class="text-slate-400 text-xs font-medium">Encryption</div>
+                        <div class="text-slate-400 text-xs font-medium">Enskripsi</div>
                     </div>
                 </div>
 
@@ -240,8 +240,6 @@
                                 <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp2">
                                 <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp3">
                                 <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp4">
-                                <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp5">
-                                <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp6">
                             </div>
                             <div class="text-red-500 text-xs text-center hidden" id="otpError"></div>
                         </div>

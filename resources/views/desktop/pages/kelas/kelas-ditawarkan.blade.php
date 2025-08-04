@@ -82,7 +82,7 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <button class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90">
-                                <a href="{{ url('/desktop/pages/kelas/kelas-pendaftaran') }}"</a>
+                                <a href="{{ url('/desktop/kelas-pendaftaran') }}"</a>
                                 Daftar
                             </button>
                             <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10">

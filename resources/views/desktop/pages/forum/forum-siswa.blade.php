@@ -101,7 +101,7 @@
                 <div class="flex-shrink-0">
                     <button class="bg-white/20 hover:bg-white/30 backdrop-blur-lg text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2">
                         <i class="ph ph-book-open"></i>
-                        <a href="{{ url('/desktop/pages/kelas/kelas-materi') }}"</a>
+                        <a href="{{ url('/desktop/kelas-materi') }}"</a>
                         <span>Lihat Materi</span>
                     </button>
                 </div>
