@@ -28,44 +28,35 @@
                         </svg>
                         Export
                     </button>
-                    <button class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Tambah User
-                    </button>
                 </div>
             </div>
         </div>
 
         <!-- Search and Filter Section -->
         <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 lg:space-x-4">
-                <!-- Search Bar -->
-                <div class="relative flex-1 max-w-md">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+            <form method="GET" action="{{ route('admin.user.index') }}">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 lg:space-x-4">
+                    <!-- Search Bar -->
+                    <div class="relative flex-1 max-w-md">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input type="text" 
+                            name="search"
+                            placeholder="Cari siswa..." 
+                            value="{{ request('search') }}"
+                            id="searchInput"
+                            class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
+                        <input type="hidden" name="per_page" value="{{ request('per_page', 10) }}">
                     </div>
-                    <input type="text" placeholder="Cari nama atau email..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                </div>
-                
-                <!-- Filter Buttons -->
-                <div class="flex items-center space-x-2">
-                    <button class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors font-medium">
-                        Semua
-                    </button>
-                    <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                        Admin
-                    </button>
-                    <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                        User
+                    <button type="submit" class="px-4 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors">
+                        Cari
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
-
         <!-- Table Card -->
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
             <!-- Table Header -->
@@ -74,20 +65,10 @@
                     <div class="flex items-center">
                         <h3 class="text-lg font-semibold text-gray-800">Daftar Users</h3>
                         <span class="ml-3 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
-                            {{ $totalUser }}
+                            {{ $totalSiswa }}
                         </span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <button class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                        <button class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -123,11 +104,6 @@
                                 </div>
                             </th>
 
-                             <!--ROLE-->
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Role
-                            </th>
-
                              <!-- sTATUS
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                 Status
@@ -145,7 +121,7 @@
                         <tr class="hover:bg-gray-50 transition-colors duration-200">
                             <!-- No -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $index + 1 }}
+                                {{ ($users->currentPage() - 1) * $users->perPage() + $index + 1 }}
                             </td>
                             
                             <!-- Nama -->
@@ -165,16 +141,6 @@
                             <!-- Email -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $user->email }}</div>
-                            </td>
-                            
-                            <!-- Role -->
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    @if($user->role == 'admin') bg-red-100 text-red-800
-                                    @elseif($user->role == 'pengajar') bg-blue-100 text-blue-800
-                                    @else bg-green-100 text-green-800 @endif">
-                                    {{ ucfirst($user->role) }}
-                                </span>
                             </td>
                             
                             <!-- Status
@@ -198,7 +164,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                            <td colspan="4" class="px-6 py-12 text-center text-gray-500">
                                 Tidak ada data user
                             </td>
                         </tr>
@@ -208,32 +174,59 @@
                 </table>
             </div>
 
-            <!-- Table Footer -->
-            <div class="bg-white px-6 py-4 border-t border-gray-200">
+                        <!-- Pagination -->
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
                 <div class="flex items-center justify-between">
-                    <div class="text-sm text-gray-700">
-                        Menampilkan <span class="font-medium">1</span> hingga <span class="font-medium">3</span> dari <span class="font-medium">125</span> hasil
+                    <div class="flex items-center text-sm text-gray-700">
+                        <span>Menampilkan</span>
+                        <select class="mx-2 border border-gray-300 rounded px-2 py-1" onchange="changePerPage(this.value)">
+                            <option value="10" {{ request('per_page') == 10 || !request('per_page') ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                        </select>
+                        <span>dari {{ $users->total() }} Siswa</span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <button class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50" disabled>
-                            Previous
-                        </button>
-                        <button class="px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
-                            1
-                        </button>
-                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                            2
-                        </button>
-                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                            3
-                        </button>
-                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                            Next
-                        </button>
+                        @if ($users->onFirstPage())
+                            <span class="px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed">
+                                ‹
+                            </span>
+                        @else
+                            <a href="{{ $users->previousPageUrl() }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                                ‹
+                            </a>
+                        @endif
+
+                        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                            @if ($page == $users->currentPage())
+                                <span class="px-3 py-2 bg-indigo-600 text-white rounded-lg">{{ $page }}</span>
+                            @else
+                                <a href="{{ $url }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        @if ($users->hasMorePages())
+                            <a href="{{ $users->nextPageUrl() }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                                ›
+                            </a>
+                        @else
+                            <span class="px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed">
+                                ›
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function changePerPage(value) {
+    const url = new URL(window.location);
+    url.searchParams.set('per_page', value);
+    url.searchParams.delete('page');
+    window.location.href = url.toString();
+}
+</script>
 @endsection

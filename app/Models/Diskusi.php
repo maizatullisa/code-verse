@@ -10,7 +10,7 @@ class Diskusi extends Model
     protected $table = 'diskusi';
 
     protected $fillable = [
-        'materi_id', 'user_id', 'konten', 'is_pinned', 'views'
+        'pengajar_id', 'materi_id', 'user_id', 'konten', 'is_pinned', 'views'
     ];
 
     public function materi()
@@ -30,5 +30,11 @@ class Diskusi extends Model
 
     public function diskusiSukas(){
         return $this->hasMany(DiskusiSuka::class, 'diskusi_id');
+    }
+
+    // Relationship
+    public function pengajar()
+    {
+        return $this->belongsTo(User::class, 'pengajar_id');
     }
 }

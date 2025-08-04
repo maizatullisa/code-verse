@@ -9,20 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::table('quiz_questions', function (Blueprint $table) {
-           $table->enum('tipe_soal', ['pilihan_ganda', 'isian'])->default('pilihan_ganda');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('timezone', ['WIB', 'WITA', 'WIT'])->default('WIB')->after('email');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::table('quiz_questions', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('timezone');
         });
     }
+
 };

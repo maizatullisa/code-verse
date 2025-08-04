@@ -37,6 +37,21 @@
             <div class="space-y-6">
               
               <!-- Judul Kuis -->
+              <div hidden class="group">
+                <label for="judul" class="block text-sm font-semibold text-white/90 mb-3 group-focus-within:text-blue-400 transition-colors">
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.99 1.99 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    Judul Kuis
+                  </span>
+                </label>
+                <input type="text" name="materi_id" id="materi_id" value="{{ $materi->id }}"
+                       class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:bg-white/20 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50 transition-all duration-300" 
+                       placeholder="Masukkan judul kuis yang menarik..." required>
+              </div>
+
+                    <!-- Judul Kuis -->
               <div class="group">
                 <label for="judul" class="block text-sm font-semibold text-white/90 mb-3 group-focus-within:text-blue-400 transition-colors">
                   <span class="flex items-center">
@@ -50,6 +65,7 @@
                        class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:bg-white/20 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50 transition-all duration-300" 
                        placeholder="Masukkan judul kuis yang menarik..." required>
               </div>
+
 
               <!-- Jumlah Soal -->
               <div class="group">
@@ -79,7 +95,7 @@
                 <select name="tipe_soal" id="tipe_soal" 
                         class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl text-white focus:bg-white/20 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition-all duration-300" required>
                   <option value="" class="bg-gray-800 text-white">Pilih tipe soal...</option>
-                  <option value="Pilihan Ganda" class="bg-gray-800 text-white">📝 Pilihan Ganda</option>
+                  <option value="pilihan_ganda" class="bg-gray-800 text-white">📝 Pilihan Ganda</option>
                   <option value="Isian" class="bg-gray-800 text-white">✏️ Isian</option>
                 </select>
               </div>
@@ -117,7 +133,7 @@
                         class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl text-white focus:bg-white/20 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 transition-all duration-300" required>
                   <option value="" class="bg-gray-800 text-white">Pilih status...</option>
                   <option value="aktif" class="bg-gray-800 text-white">✅ Aktif</option>
-                  <option value="tidak aktif" class="bg-gray-800 text-white">⏸️ Tidak Aktif</option>
+                  <option value="tdk aktif" class="bg-gray-800 text-white">⏸️ Tidak Aktif</option>
                 </select>
               </div>
             </div>
@@ -125,8 +141,8 @@
 
           <!-- Submit Button -->
           <div class="pt-8">
-            <a href="{{ route('pengajar.quiz.soal.create') }}">
-            <button type="button" 
+            <!-- <a href="{{ route('pengajar.quiz.soal.create') }}"> -->
+            <button type="submit" 
                     class="w-full group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-5 px-8 rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-purple-400/50">
               
               <span class="relative z-10 flex items-center justify-center text-lg">
@@ -135,7 +151,7 @@
                 </svg>
                 Buat Kuis Sekarang
               </span>
-              </a>
+              <!-- </a> -->
               
               <!-- Hover Effect -->
               <div class="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

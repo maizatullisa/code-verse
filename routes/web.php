@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminKelasController;
+use App\Http\Controllers\AdminPengajarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,7 @@ use App\Http\Controllers\BalasanDiskusiController;
 use App\Http\Controllers\PengajarDashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
+
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -35,7 +38,10 @@ Route::get('/admin/login', function () {
 })->name('login-admin');
 
 // ADM 
+// ADM DASHBOARD 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/user/create', [AdminController::class, 'create'])->name('admin.user.create');
+Route::post('/admin/user', [AdminController::class, 'store'])->name('admin.users.store');
 
 //admin-user
 Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
@@ -47,13 +53,21 @@ Route::get('/admin/user/show', function () {
     return view('admin.user.show');
 })->name('admin.user.show');
 
-Route::get('/admin/pengajar', function () {
-    return view('admin.pengajar.index');
-})->name('admin.pengajar.index');
+//pengajar
+// Route::get('/admin/pengajar', function () {
+//     return view('admin.pengajar.index');
+// })->name('admin.pengajar.index');
+Route::get('/admin/pengajar', [AdminPengajarController::class, 'index'])->name('admin.pengajar.index');
+Route::get('admin/pengajar/{user}/edit', [AdminPengajarController::class, 'edit'])->name('admin.pengajar.edit');
+Route::put('/admin/pengajar/{user}', [AdminPengajarController::class, 'update'])->name('admin.pengajar.update');
+Route::delete('/admin/pengajar/{user}', [AdminPengajarController::class, 'destroy'])->name('admin.pengajar.destroy');
 
-Route::get('/admin/kelas', function () {
-    return view('admin.kelas.index');
-})->name('admin.kelas.index');
+//kelas
+// Route::get('/admin/kelas', function () {
+// return view('admin.kelas.index');
+// })->name('admin.kelas.index');
+//KELAS
+Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
 
 Route::get('/admin/kelas/create', function () {
     return view('admin.kelas.create-kelas');
@@ -218,6 +232,7 @@ Route::get('/quiz-5', function(){
 // DASHBOARD PENGAJAR
 Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
 
+
 // Materi - list semua materi pengajar
 
 Route::get('/pengajar/materi', function () {
@@ -240,19 +255,23 @@ Route::get('/pengajar/materi/{materi}/edit', [MateriController::class, 'edit'])-
 Route::put('/pengajar/materi/{materi}', [MateriController::class, 'update'])->name('pengajar.materi.update');
 //  Materi - hapus materi
 Route::delete('/pengajar/materi/{materi}', [MateriController::class, 'destroy'])->name('pengajar.materi.destroy');
-
+ 
 
 // Quiz - pengajar melihat dan mengelola quiz
 
-Route::get('/pengajar/quiz', function () {
-     return view('pengajar.quiz.index-quiz-pengajar');
-})->name('pengajar.quiz.index');
+// Route::get('/pengajar/quiz', function () {
+// return view('pengajar.quiz.index-quiz-pengajar');
+// })->name('pengajar.quiz.index');
 
+Route::get('/pengajar/quiz', [QuizController::class, 'listQuiz'])->name('pengajar.quiz.listquiz');
 
+Route::get('/pengajar/quiz/{materi}', [QuizController::class, 'create'])->name('pengajar.quiz.create');
+Route::get('/pengajar/quiz/question/create/{quiz_id}',[QuizController::class,'createQuizQuestion'])->name('pengajar.quiz.question.create');
+Route::post('/pengajar/quiz/question/store',[QuizController::class,'storeQuestion'])->name('pengajar.quiz.question.store');
 //QUIZ - TAMBAH QUIZ DESKRIPSI
-Route::get('/pengajar/quiz/create', function () {
-    return view('pengajar.quiz.buat-quiz-pengajar');
-})->name('pengajar.quiz.create');
+// Route::get('/pengajar/quiz/create', function () {
+//     return view('pengajar.quiz.buat-quiz-pengajar');
+// })->name('pengajar.quiz.create');
 
 //QUIZ - TAMBAH SOAL 
 Route::get('/pengajar/soal/create', function () {
@@ -291,7 +310,7 @@ Route::get('/pengajar/forum/like/{diskusi}', [DiskusiController::class, 'diskusi
 //QUIZ
 
 // Semua route quiz untuk pengajar, dengan middleware auth dan role pengajar
-Route::middleware(['auth', 'role:pengajar'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::post('/quiz', [QuizController::class, 'store'])->name('quiz.store');
     

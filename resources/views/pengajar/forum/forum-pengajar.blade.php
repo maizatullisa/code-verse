@@ -168,8 +168,6 @@
                 <i class="ph ph-clock"></i>
                 <span>{{ $diskusi->created_at->diffForHumans() }}</span>
                 <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
-                <i class="ph ph-eye"></i>
-                <span>12 views</span>
               </div>
             </div>
             
@@ -189,19 +187,10 @@
                   <span class="text-sm font-medium">Suka {{ $diskusi->diskusiSukas->count() }}</span>
                 </button>
                 <button class="flex items-center space-x-2 text-gray-500 hover:text-amber-500 hover:bg-amber-50 px-3 py-1 rounded-lg transition-all duration-200">
-                  <i class="ph ph-bookmark-simple"></i>
-                  <span class="text-sm font-medium">Simpan</span>
                 </button>
               </div>
               
-              <div class="flex items-center space-x-2">
-                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="Share">
-                  <i class="ph ph-share-network"></i>
-                </button>
-                <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="More options">
-                  <i class="ph ph-dots-three-vertical"></i>
-                </button>
-              </div>
+
             </div>
 
             <!-- Replies Section -->

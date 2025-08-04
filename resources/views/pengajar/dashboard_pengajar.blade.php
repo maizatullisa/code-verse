@@ -35,8 +35,8 @@
     <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/30">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-sm font-medium text-gray-600 mb-1">Quiz Aktif</p>
-          <p class="text-2xl font-bold text-gray-900">12</p>
+          <p class="text-sm font-medium text-gray-600 mb-1">Total Quiz</p>
+          <p class="text-2xl font-bold text-gray-900">{{ $total_quiz }}</p>
         </div>
         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
           📝
@@ -84,7 +84,7 @@
     </a>
 
     <!-- Quiz Card -->
-    <a href="{{ route('pengajar.quiz.index') }}" 
+    <a href="{{ route('pengajar.quiz.listquiz') }}" 
        class="group bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-500 hover:-translate-y-2 block">
       <div class="flex items-center justify-between mb-6">
         <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-green-500/25">

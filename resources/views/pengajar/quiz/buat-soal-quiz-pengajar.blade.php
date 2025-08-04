@@ -52,22 +52,26 @@
               Tipe Soal
             </span>
           </label>
-          <div class="flex space-x-4">
-            <button type="button" onclick="setTipeSoal('pilihan_ganda')" 
-                    class="tipe-btn active bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              Pilihan Ganda
-            </button>
-            <button type="button" onclick="setTipeSoal('isian')" 
-                    class="tipe-btn bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center border border-white/20">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-              </svg>
-              Isian
-            </button>
-          </div>
+          
+         <div class="flex space-x-4">
+            @if($quiz->tipe_soal== 'pilihan_ganda')
+                <button type="button" onclick="setTipeSoal('pilihan_ganda')"
+                        class="tipe-btn active bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Pilihan Ganda
+                </button>
+            @else
+                <button type="button" onclick="setTipeSoal('isian')"
+                        class="tipe-btn bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center border border-white/20">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Isian
+                </button>
+            @endif
+        </div>
           <input type="hidden" name="tipe_soal" value="pilihan_ganda" id="tipe-soal-input">
         </div>
 
@@ -394,7 +398,7 @@ function submitAllSoal() {
     // Create form to submit all questions
     const submitForm = document.createElement('form');
     submitForm.method = 'POST';
-    submitForm.action = '#';
+    submitForm.action = '/pengajar/quiz/question/store';
     
     // Add CSRF token
     const csrfInput = document.createElement('input');

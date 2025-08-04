@@ -6,43 +6,47 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminUserController extends Controller
+class AdminPengajarController extends Controller
 {
     public function index(Request $request)
-   {
-    $perPage = $request->get('per_page', 10);
-    $search = $request->get('search');
-    //ambil data user
-   $query = User::where('role', 'siswa')
+    {
+        $perPage = $request->get('per_page', 10);
+        $search = $request->get('search');
+        
+        //ambil data user
+        $query = User::where('role', 'pengajar')
                     ->select('id', 'first_name', 'email', 'created_at')
                     ->oldest();
-    //search
-    if ($search) {
+                    
+        //search
+        if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('first_name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
         });
     }
-    //pagination
-     $users = $query->paginate($perPage);    
-    //preserve query parameters untuk pagination
-    $users->appends($request->query());
+        //pagination
+        $users = $query->paginate($perPage);
+        
+        //preserve query parameters untuk pagination
+        $users->appends($request->query());
 
-    $totalSiswa = User::where('role', 'siswa')->count();
-    return view('admin.user.index', compact('users', 'totalSiswa', ));
-   }
-   //edit
+        $totalPengajar = User::where('role', 'pengajar')->count();
+        return view('admin.pengajar.index', compact('users', 'totalPengajar'));
+    }
+
+    //edit
    public function edit(User $user)
-{
-    return view('admin.user.edit', compact('user'));
-}
+    {
+        return view('admin.pengajar.edit', compact('user'));
+    }
    //update/update user
    public function update(Request $request, User $user)
     {
         $request->validate([
             'first_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'role' => 'required|in:admin,pengajar,siswa',
+            'role' => 'required|in:pengajar',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
@@ -59,7 +63,7 @@ class AdminUserController extends Controller
 
         $user->update($userData);
 
-        return redirect()->route('admin.user.index')
+        return redirect()->route('admin.pengajar.index')
                         ->with('success', 'User berhasil diperbarui!');
     }
 
@@ -68,17 +72,15 @@ class AdminUserController extends Controller
     {
         // Cegah admin menghapus dirinya sendiri
         if ($user->id === auth()->id()) {
-            return redirect()->route('admin.user.index')
+            return redirect()->route('admin.pengajar.index')
                             ->with('error', 'Anda tidak bisa menghapus akun sendiri!');
         }
 
         $user->delete();
 
-        return redirect()->route('admin.user.index')
+        return redirect()->route('admin.pengajar.index')
                         ->with('success', 'User berhasil dihapus!');
     }
-
-    //user kalo di 
 
 
 }

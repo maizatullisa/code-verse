@@ -188,14 +188,6 @@
           <span class="nav-text">Materi</span>
         </a>
 
-        <a href="{{ route('pengajar.quiz.index') }}" 
-           class="nav-item @if(request()->is('pengajar/quiz*')) active @endif">
-          <div class="nav-icon">
-            <i class="ph ph-question text-lg"></i>
-          </div>
-          <span class="nav-text">Quiz</span>
-        </a>
-
         <a href="#" 
            class="nav-item @if(request()->is('pengajar/forum*')) active @endif">
           <div class="nav-icon">

@@ -19,79 +19,18 @@
         </div>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-                    <i class="fas fa-users text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Total Pengajar</p>
-                    <p class="text-2xl font-bold text-gray-900">245</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
-                    <i class="fas fa-user-check text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Aktif</p>
-                    <p class="text-2xl font-bold text-gray-900">198</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
-                    <i class="fas fa-user-clock text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Pending</p>
-                    <p class="text-2xl font-bold text-gray-900">32</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
-            <div class="flex items-center">
-                <div class="p-3 rounded-full bg-red-100 text-red-600 mr-4">
-                    <i class="fas fa-user-times text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Non-Aktif</p>
-                    <p class="text-2xl font-bold text-gray-900">15</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Search and Filter Section -->
     <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
         <div class="flex flex-col md:flex-row gap-4">
             <div class="flex-1">
                 <div class="relative">
                     <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Cari pengajar..." class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
+                    <input type="text" 
+                        placeholder="Cari pengajar..." 
+                        value="{{ request('search') }}"
+                        id="searchInput"
+                        class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
                 </div>
-            </div>
-            <div class="flex gap-3">
-                <select class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
-                    <option>Semua Status</option>
-                    <option>Aktif</option>
-                    <option>Non-Aktif</option>
-                    <option>Pending</option>
-                </select>
-                <select class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
-                    <option>Semua Departemen</option>
-                    <option>Teknologi Informasi</option>
-                    <option>Manajemen</option>
-                    <option>Akuntansi</option>
-                </select>
             </div>
         </div>
     </div>
@@ -103,123 +42,162 @@
                 <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
                     <tr>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                            No
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Pengajar
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Kontak
-                        </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Departemen
-                        </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Status
+                            Email
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Bergabung
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            Aksi
-                        </th>
+                      <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Aksi
+                    </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Loop data pengajar -->
-                    @forelse($teachers ?? [] as $teacher)
-                    <tr class="hover:bg-gray-50 transition-colors duration-200">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <input type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                        @forelse($users as $index => $user)
+                        <tr class="hover:bg-gray-50 transition-colors duration-200">
+                            
+                        <!-- No -->
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ ($users->currentPage() - 1) * $users->perPage() + $index + 1 }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-12 w-12">
-                                    <img class="h-12 w-12 rounded-full object-cover ring-2 ring-gray-200" src="https://ui-avatars.com/api/?name={{ urlencode($teacher->name ?? 'Teacher') }}&color=6366f1&background=e0e7ff" alt="">
+                            
+                            <!-- Nama -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <div class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
+                                            <span class="text-sm font-medium text-white">{{ substr($user->first_name, 0, 1) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">{{ $user->first_name }}</div>
+                                    </div>
                                 </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-semibold text-gray-900">{{ $teacher->name ?? 'Nama Pengajar' }}</div>
-                                    <div class="text-sm text-gray-500">ID: {{ $teacher->id ?? '001' }}</div>
+                            </td>
+                            
+                            <!-- Email -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ $user->email }}</div>
+                            </td>
+                            
+                            <!-- Status-->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @php
+                                    $timezones = [
+                                        'WIB' => 'Asia/Jakarta',   // UTC+7
+                                        'WITA' => 'Asia/Makassar', // UTC+8  
+                                        'WIT' => 'Asia/Jayapura'   // UTC+9
+                                    ];
+                                    $tz = $timezones[$user->timezone ?? 'WIB'];
+                                @endphp
+                                <div class="text-sm">
+                                    <div class="font-medium text-gray-900">
+                                        {{ $user->created_at->setTimezone($tz)->format('d F Y') }}
+                                    </div>
+                                    <div class="text-gray-500 text-xs">
+                                        {{ $user->created_at->setTimezone($tz)->format('H:i') }} {{ $user->timezone ?? 'WIB' }}
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $teacher->email ?? 'teacher@example.com' }}</div>
-                            <div class="text-sm text-gray-500">{{ $teacher->phone ?? '+62 812-3456-7890' }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
-                                {{ $teacher->department ?? 'Teknologi Informasi' }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
-                                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 mt-0.5"></span>
-                                {{ $teacher->status ?? 'Aktif' }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $teacher->created_at ? $teacher->created_at->format('d M Y') : '15 Jan 2024' }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <div class="flex items-center justify-end space-x-2">
-                                <button class="text-indigo-600 hover:text-indigo-900 p-2 hover:bg-indigo-50 rounded-lg transition-colors duration-200">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="text-green-600 hover:text-green-900 p-2 hover:bg-green-50 rounded-lg transition-colors duration-200">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="px-6 py-12 text-center">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-users text-4xl text-gray-300 mb-4"></i>
-                                <h3 class="text-lg font-medium text-gray-900 mb-2">Belum ada data pengajar</h3>
-                                <p class="text-gray-500 mb-4">Mulai dengan menambahkan pengajar pertama</p>
-                                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200">
-                                    Tambah Pengajar
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Pagination -->
+                            </td>
+                            <!-- Aksi -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-3">
+                            <a href="{{ route('admin.pengajar.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <form action="{{ route('admin.pengajar.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                                Tidak ada data user
+                            </td>
+                        </tr>
+                        @endforelse
+                        <!-- Loop data user di sini -->
+                               </tbody>
+                </table>
+            </div>
+            
+        <!--SEARCH-->
+        <script>
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            clearTimeout(this.searchTimeout);
+            this.searchTimeout = setTimeout(() => {
+                const url = new URL(window.location);
+                if (e.target.value.trim()) {
+                    url.searchParams.set('search', e.target.value.trim());
+                } else {
+                    url.searchParams.delete('search');
+                }
+                url.searchParams.delete('page');
+                window.location.href = url.toString();
+            }, 500);
+        });
+        </script>
+       <!-- Pagination -->
         <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
             <div class="flex items-center justify-between">
                 <div class="flex items-center text-sm text-gray-700">
                     <span>Menampilkan</span>
-                    <select class="mx-2 border border-gray-300 rounded px-2 py-1">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
+                    <select class="mx-2 border border-gray-300 rounded px-2 py-1" onchange="changePerPage(this.value)">
+                        <option value="10" {{ request('per_page') == 10 || !request('per_page') ? 'selected' : '' }}>10</option>
+                        <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                        <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
                     </select>
-                    <span>dari 245 data</span>
+                    <span>dari {{ $users->total() }} Pengajar</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="px-3 py-2 bg-indigo-600 text-white rounded-lg">1</button>
-                    <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">2</button>
-                    <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">3</button>
-                    <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    @if ($users->onFirstPage())
+                        <span class="px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                    @else
+                        <a href="{{ $users->previousPageUrl() }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    @endif
+
+                    @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                        @if ($page == $users->currentPage())
+                            <span class="px-3 py-2 bg-indigo-600 text-white rounded-lg">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    @if ($users->hasMorePages())
+                        <a href="{{ $users->nextPageUrl() }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    @else
+                        <span class="px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed">
+                            <i class="fas fa-chevron-right"></i>
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+<script>
+function changePerPage(value) {
+    const url = new URL(window.location);
+    url.searchParams.set('per_page', value);
+    url.searchParams.delete('page');
+    window.location.href = url.toString();
+}
+</script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 

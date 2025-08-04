@@ -30,7 +30,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium">Total Kelas</p>
-                        <p class="text-3xl font-bold text-blue-600 mt-2">12</p>
+                        <p class="text-3xl font-bold text-blue-600 mt-2">{{ $totalMateri }}</p>
                     </div>
                     <div class="bg-blue-100 p-3 rounded-xl">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,7 +43,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium">Kelas Aktif</p>
-                        <p class="text-3xl font-bold text-green-600 mt-2">10</p>
+                        <p class="text-3xl font-bold text-green-600 mt-2">{{ $totalMateri }}</p>
                     </div>
                     <div class="bg-green-100 p-3 rounded-xl">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium">Total Siswa</p>
-                        <p class="text-3xl font-bold text-cyan-600 mt-2">324</p>
+                        <p class="text-3xl font-bold text-cyan-600 mt-2">{{ $totalSiswa }}</p>
                     </div>
                     <div class="bg-cyan-100 p-3 rounded-xl">
                         <svg class="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-medium">Pengajar</p>
-                        <p class="text-3xl font-bold text-purple-600 mt-2">8</p>
+                        <p class="text-3xl font-bold text-purple-600 mt-2">{{ $totalPengajar }}</p>
                     </div>
                     <div class="bg-purple-100 p-3 rounded-xl">
                         <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -13,12 +13,19 @@ return new class extends Migration
     {
         Schema::create('quiz_questions', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
+        $table->foreignId('quiz_id');
         $table->text('pertanyaan');
+        $table->enum('tipe_soal', ['pilihan_ganda', 'isian']);
+        $table->string('pilihan_a')->nullable();
+        $table->string('pilihan_b')->nullable();
+        $table->string('pilihan_c')->nullable();
+        $table->string('pilihan_d')->nullable();
+        $table->string('jawaban_benar')->nullable(); // untuk pilgan
+        $table->text('jawaban_isian')->nullable();   // untuk isian
+        $table->integer('nomor_soal');
         $table->timestamps();
-        });
-
-    }
+    });
+}
 
     /**
      * Reverse the migrations.

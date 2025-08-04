@@ -52,7 +52,7 @@
                     </div>
                     <div class="text-right">
                         <div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ $totalSiswa }}</div>
-                        <div class="text-sm text-gray-500">+12 this month</div>
+                         <div class="text-sm text-gray-500">+{{ $todayRegistrations }} today</div>
                     </div>
                 </div>
                 
@@ -66,7 +66,7 @@
                         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                         <span class="text-xs text-gray-500">Active</span>
                     </div>
-                    <div class="text-xs text-green-600 font-medium">↗ +10.2%</div>
+                    <div class="text-xs text-green-600 font-medium"> {{ $weeklyGrowth >= 0 ? '↗' : '↘' }} {{ $weeklyGrowth >= 0 ? '+' : '' }}{{ $weeklyGrowth }}%</div>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-2xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">10</div>
+                        <div class="text-2xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">{{ $totalMateri }}</div>
                         <div class="text-sm text-gray-500">+2 this month</div>
                     </div>
                 </div>
@@ -155,32 +155,27 @@
                 </div>
                 
                 <div class="space-y-4">
+                     @forelse($recentActivities as $activity)
                     <div class="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 hover-lift cursor-pointer">
                         <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
                         <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-700">New user registered</p>
-                            <p class="text-xs text-gray-500">2 minutes ago</p>
+                            <p class="text-sm font-medium text-gray-700">{{ $activity['message'] ?? $activity }}</p>
+                            <p class="text-xs text-gray-500">{{ $activity['time'] ?? 'Just now' }}</p>
                         </div>
                     </div>
-                    
-                    <div class="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 hover-lift cursor-pointer">
-                        <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                        <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-700">Course completed</p>
-                            <p class="text-xs text-gray-500">15 minutes ago</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 hover-lift cursor-pointer">
-                        <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-                        <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-700">New quiz created</p>
-                            <p class="text-xs text-gray-500">1 hour ago</p>
+                    @empty
+                      <div class="flex items-center justify-center py-8">
+                            <div class="text-center">
+                                <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <p class="text-sm text-gray-500">No recent activity</p>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
         
         <!-- Quick Actions -->
         <div class="bg-white/90 glass-effect p-6 rounded-2xl ios-shadow border border-white/20 relative overflow-hidden">
@@ -196,6 +191,7 @@
                     </div>
                 </div>
                 
+                <a href="{{ route('admin.user.create') }}"></a>
                 <div class="grid grid-cols-2 gap-3">
                     <button class="group p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-100/50 hover-lift transition-all duration-300">
                         <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 ios-shadow">
@@ -205,25 +201,6 @@
                         </div>
                         <p class="text-sm font-medium text-gray-700">Add User</p>
                     </button>
-                    
-                    <button class="group p-4 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border border-emerald-100/50 hover-lift transition-all duration-300">
-                        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 ios-shadow">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                            </svg>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700">New Course</p>
-                    </button>
-                    
-                    <button class="group p-4 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 border border-purple-100/50 hover-lift transition-all duration-300">
-                        <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 ios-shadow">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                            </svg>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700">Create Quiz</p>
-                    </button>
-                    
                     <button class="group p-4 rounded-xl bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 border border-yellow-100/50 hover-lift transition-all duration-300">
                         <div class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 ios-shadow">
                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
