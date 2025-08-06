@@ -15,6 +15,7 @@ use App\Http\Controllers\BalasanDiskusiController;
 use App\Http\Controllers\PengajarDashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\GeminiController;
 
 
 use function PHPUnit\Framework\returnSelf;
@@ -193,9 +194,9 @@ Route::get('/notification', function(){
 
 
 //NAVBAR BAWAH
-Route::get('/box', function (){
-    return view(view:'chat-box');
-})->name(name:'box');
+Route::get('/help-mobile', function (){
+    return view(view:'help-ai-mobile');
+})->name(name:'help-mobile');
 //LIBRARY
 Route::get('/library', function(){
     return view(view:'library');
@@ -385,6 +386,8 @@ Route::get('/desktop/pages/kelas/kelas-quiz', function () {
 Route::get('/desktop/help-ai', function () {
     return view('desktop.help-ai');
  })->name('desktop.help-ai');
+
+ Route::post('/gemini/ask', [GeminiController::class, 'ask']);
 
  //PILIH GAME 
  Route::get('/games/pilih-game', function () {

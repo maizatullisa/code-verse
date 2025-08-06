@@ -55,21 +55,52 @@
                             <!-- Orbiting Elements -->
                             <div class="absolute inset-0 animate-spin" style="animation-duration: 20s;">
                                 <!-- User Avatars and Icons around the circle -->
-                                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8">
-                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+                                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <div class="w-20 h-20 rounded-full bg-white shadow-lg overflow-hidden border-2 border-white">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" alt="laravel" class="w-full h-full object-contain">
                                     </div>
                                 </div>
+
                                 
                                 <div class="absolute top-1/4 right-0 transform translate-x-8 -translate-y-1/2">
-                                    <div class="w-12 h-12 bg-orange-400 rounded-lg flex items-center justify-center shadow-lg">
+                                    <div class="w-20 h-20 bg-orange-400 rounded-lg flex items-center justify-center shadow-lg">
                                         <i class="ph ph-diamond text-white text-xl"></i>
                                     </div>
                                 </div>
                                 
                                 <div class="absolute bottom-1/4 right-0 transform translate-x-8 translate-y-1/2">
                                     <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
-                                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b789?w=64&h=64&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" alt="bd" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-1/4 right-0 transform translate-x-8 translate-y-1/2">
+                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" alt="vue" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-1/4 right-0 transform translate-x-8 translate-y-1/2">
+                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg" alt="next" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-1/4 right-0 transform translate-x-8 translate-y-1/2">
+                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="html" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-1/4 right-0 transform translate-x-8 translate-y-1/2">
+                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="css" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-1/4 right-0 transform translate-x-8 translate-y-1/2">
+                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="js" class="w-full h-full object-cover">
                                     </div>
                                 </div>
                                 
@@ -80,8 +111,8 @@
                                 </div>
                                 
                                 <div class="absolute bottom-1/4 left-0 transform -translate-x-8 translate-y-1/2">
-                                    <div class="w-16 h-16 rounded-full bg-white shadow-lg overflow-hidden">
-                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+                                    <div class="w-20 h-20 rounded-full bg-white shadow-lg overflow-hidden border-2 border-white">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="react" class="w-full h-full object-cover">
                                     </div>
                                 </div>
                                 
@@ -143,9 +174,9 @@
                               <a href="{{ url('/desktop/lorek-desktop') }}"></a>
                                 Skip
                             </button>
-                            <button id="nextBtn" class="next-btn bg-p2 text-white rounded-full p-4 text-2xl shadow-lg">
+                            <button onclick="nextSlide()"
+                            id="nextBtn" class="next-btn bg-p2 text-white rounded-full p-4 text-2xl shadow-lg">
                                 <i class="ph ph-arrow-right"></i>
-                                <a href="{{ url('/desktop/lorek-desktop') }}"></a>
                             </button>
                         </div>
                     </div>

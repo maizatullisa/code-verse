@@ -581,7 +581,7 @@
           </p>
         </a>
         <a
-            href="{{ url('/box') }}"
+            href="{{ url('/help-mobile') }}"
           class="flex justify-center items-center text-center flex-col gap-1"
         >
           <div
