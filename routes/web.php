@@ -231,8 +231,17 @@ Route::get('/quiz-5', function(){
 //rute pengajar
 //forumdiskusi 
 // DASHBOARD PENGAJAR
-Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
+//Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
 
+// ROUTER DUMMY DASHBOARD PENGAJAR
+Route::get('/pengajar/dashboard', function () {
+    return view('pengajar.dashboard_pengajar');
+})->name('pengajar.dashboard_pengajar');
+
+//BUAT KELAS 
+Route::get('/pengajar/buat-kelas', function () {
+    return view('pengajar.materi.buat-kelas');
+})->name('pengajar.materi.buat-kelas');
 
 // Materi - list semua materi pengajar
 
@@ -240,22 +249,22 @@ Route::get('/pengajar/materi', function () {
     return view('pengajar.materi.index-materi-pengajar');
 })->name('pengajar.materi.index');
 
-Route::get('/pengajar/materi', [MateriController::class, 'index'])->name('pengajar.materi.index');
+//Route::get('/pengajar/materi', [MateriController::class, 'index'])->name('pengajar.materi.index');
 // Materi - form tambah materi
-Route::get('/pengajar/materi/create', function () {
-    return view('pengajar.materi.buat-materi-pengajar');
-})->name('pengajar.materi.create');
+// Route::get('/pengajar/materi/create', function () {
+//     return view('pengajar.materi.buat-materi-pengajar');
+// })->name('pengajar.materi.create');
 
-Route::post('/pengajar/materi/create', [MateriController::class, 'store'])->name('pengajar.materi.store');
+// Route::post('/pengajar/materi/create', [MateriController::class, 'store'])->name('pengajar.materi.store');
 
-//  Materi - detail materi
-Route::get('/pengajar/materi/{materi}', [MateriController::class, 'show'])->name('pengajar.materi.show');
-//  Materi - edit materi
-Route::get('/pengajar/materi/{materi}/edit', [MateriController::class, 'edit'])->name('pengajar.materi.edit');
-//  Materi - update materi
-Route::put('/pengajar/materi/{materi}', [MateriController::class, 'update'])->name('pengajar.materi.update');
-//  Materi - hapus materi
-Route::delete('/pengajar/materi/{materi}', [MateriController::class, 'destroy'])->name('pengajar.materi.destroy');
+// //  Materi - detail materi
+// Route::get('/pengajar/materi/{materi}', [MateriController::class, 'show'])->name('pengajar.materi.show');
+// //  Materi - edit materi
+// Route::get('/pengajar/materi/{materi}/edit', [MateriController::class, 'edit'])->name('pengajar.materi.edit');
+// //  Materi - update materi
+// Route::put('/pengajar/materi/{materi}', [MateriController::class, 'update'])->name('pengajar.materi.update');
+// //  Materi - hapus materi
+// Route::delete('/pengajar/materi/{materi}', [MateriController::class, 'destroy'])->name('pengajar.materi.destroy');
  
 
 // Quiz - pengajar melihat dan mengelola quiz
@@ -340,6 +349,15 @@ Route::get('/desktop/home-desktop', function () {
     return view('desktop.dashboard-user-desktop');
  })->name('desktop.dashboard-user-desktop');
 
+//HOME REKOM MATERI 
+Route::get('/desktop/rekomendasi-materi', function () {
+    return view('desktop.pages.materi.rekomendasi-materi');
+ })->name('desktop.pages.materi.rekomendasi-materi');
+
+ //HOME MATERI BELAJAR
+ Route::get('/desktop/belajar-materi', function () {
+    return view('desktop.pages.materi.belajar-materi');
+ })->name('desktop.pages.materi.belajar-materi');
 
  //KELAS DESKTOP SEE ALLL
  // KELAS DITAWARKAN

@@ -153,7 +153,7 @@ function showTyping() {
                         <div class="w-2 h-2 bg-p1 rounded-full typing-indicator" style="animation-delay: 0.2s"></div>
                         <div class="w-2 h-2 bg-p1 rounded-full typing-indicator" style="animation-delay: 0.4s"></div>
                     </div>
-                    <span class="text-sm text-gray-500 ml-2">zizi lagi mikir...</span>
+                    <span class="text-sm text-gray-500 ml-2">Wait, zizi lagi ngetik...</span>
                 </div>
             </div>
         </div>

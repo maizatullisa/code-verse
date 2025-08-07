@@ -172,7 +172,8 @@
       </div>
 
       <nav style="padding: 0 0 32px 0;">
-        <a href="{{ route('pengajar.dashboard') }}" 
+        <a href="{{ url('pengajar/dashboard') }}"
+        {{--<a href="{{ route('pengajar/dashboard') }}"--}}
            class="nav-item @if(request()->is('pengajar/dashboard')) active @endif">
           <div class="nav-icon">
             <i class="ph ph-house text-lg"></i>
@@ -180,12 +181,14 @@
           <span class="nav-text">Dashboard</span>
         </a>
 
-        <a href="{{ route('pengajar.materi.index') }}" 
-           class="nav-item @if(request()->is('pengajar/materi*')) active @endif">
+        <a href="{{ url('/pengajar/buat-kelas') }}"
+        {{--<a href="{{ route('pengajar.materi.index') }}"--}}
+         {{-- class="nav-item @if(request()->is('pengajar/materi*')) active @endif">--}}
+          class="nav-item @if(request()->is('/pengajar/buat-kelas')) active @endif">
           <div class="nav-icon">
             <i class="ph ph-book-open text-lg"></i>
           </div>
-          <span class="nav-text">Materi</span>
+          <span class="nav-text">Kelas</span>
         </a>
 
         <a href="#" 
