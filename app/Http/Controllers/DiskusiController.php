@@ -20,7 +20,9 @@ class DiskusiController extends Controller
 
     public function store(Request $request, $materiId)
     {
-        
+        $materi = Materi::findOrFail($materiId);
+        $pengajarId = $materi->pengajar_id;
+
         $request->validate([
             'konten' => 'required|string'
         ]);
@@ -28,7 +30,8 @@ class DiskusiController extends Controller
         Diskusi::create([
             'materi_id' => $materiId,
             'user_id' => Auth::id(),
-            'konten' => $request->konten
+            'konten' => $request->konten,
+            'pengajar_id' => $pengajarId
         ]);
 
         return redirect()->back()->with('success', 'Diskusi berhasil ditambahkan.');

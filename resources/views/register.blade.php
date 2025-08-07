@@ -42,6 +42,7 @@
     <!-- Form -->
     <form action="{{ route('register') }}" method="POST" class="relative z-20 mt-10">
         @csrf
+        <input type="hidden" name="device" value="mobile">
         <div class="bg-white py-8 px-6 rounded-xl dark:bg-color10">
             <div class="pt-2">
                 <label class="text-sm font-semibold pb-2 block">Nama</label>
@@ -102,7 +103,7 @@
     <div class="relative z-10">
         <p class="text-sm font-semibold text-center pt-5">
             Sudah punya akun?
-            <a href="{{ url('masuk') }}" class="text-p2 dark:text-p1">Klik</a> disini
+            <a href="{{ url('masuk-mobile') }}" class="text-p2 dark:text-p1">Klik</a> disini
         </p>
     </div>
 </div>

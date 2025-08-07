@@ -152,8 +152,12 @@
                             </div>
 
                             <!-- Login Form -->
-                            <form class="space-y-6">
+                            <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                                @csrf
                                 
+                                <!-- Input hidden untuk deteksi device -->
+                                <input type="hidden" name="device" value="desktop">
+                                                            
                                 <!-- Email Field -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
@@ -239,10 +243,11 @@
                             </div>
 
                             <!-- Register Form -->
-                            <form class="space-y-6">
+                              <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                                     @csrf
                                 
                                 <div class="space-y-5 max-h-[50vh] lg:max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                                    
+
                                     <!-- Name Field -->
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
@@ -316,6 +321,8 @@
                                         </select>
                                     </div>
 
+                                     <input type="hidden" name="device" value="desktop">
+
                                     <!-- Terms Checkbox -->
                                     <div>
                                         <label class="flex items-start gap-3 cursor-pointer group">
@@ -364,7 +371,6 @@
                                     </div>
                                 </div>
 
-                                <form class="space-y-6">
                                     <!-- Email Field -->
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>

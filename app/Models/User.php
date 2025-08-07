@@ -24,6 +24,7 @@ class User extends Authenticatable
         'gender',
         'role',
         'timezone',
+        'email_verified_at'
     ];
 
     /**
@@ -45,6 +46,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+     public function markEmailAsVerified()
+    {
+        return $this->update(['email_verified_at' => now()]);
+    }
+
+      public function hasVerifiedEmail()
+    {
+        return !is_null($this->email_verified_at);
+    }
+
+        // Method untuk admin
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+    
     public function materis()
     {
         return $this->hasMany(Materi::class, 'pengajar_id');

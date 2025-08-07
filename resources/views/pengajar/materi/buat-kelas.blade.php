@@ -29,7 +29,7 @@
       </div>
     </div>
     
-    <a href="{{ route('/pengajar/dashboard') }}" 
+    <a href="{{ route('pengajar.dashboard') }}" 
        class="bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -41,9 +41,7 @@
 
 <!-- Main Form -->
 <div class="max-w-4xl mx-auto">
-  <form action="{{ route('pengajar.kelas.store') }}" method="POST" enctype="multipart/form-data" id="createClassForm">
-    @csrf
-    
+
     <!-- Step Progress -->
     <div class="mb-8">
       <div class="flex items-center justify-between mb-4">
@@ -322,7 +320,7 @@
       </div>
     </div>
 
-  </form>
+
 </div>
 
 <script>

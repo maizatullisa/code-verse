@@ -85,7 +85,7 @@
                     </div>
                     <div class="text-right">
                         <div class="text-2xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors duration-300">{{ $totalPengajar }}</div>
-                        <div class="text-sm text-gray-500">+3 this month</div>
+                        <div class="text-sm text-gray-500">+{{ $todayPengajarRegistrations ?? 0 }} today</div>
                     </div>
                 </div>
                 
@@ -99,7 +99,7 @@
                         <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
                         <span class="text-xs text-gray-500">Available</span>
                     </div>
-                    <div class="text-xs text-emerald-600 font-medium">↗ +7.1%</div>
+                    <div class="text-xs text-emerald-600 font-medium">{{ $pengajarWeeklyGrowth >= 0 ? '↗' : '↘' }} {{ $pengajarWeeklyGrowth >= 0 ? '+' : '' }}{{ $pengajarWeeklyGrowth }}%</div>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="text-right">
                         <div class="text-2xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">{{ $totalMateri }}</div>
-                        <div class="text-sm text-gray-500">+2 this month</div>
+                        <div class="text-sm text-gray-500">+{{ $todayMateriCreated ?? 0 }} today</div>
                     </div>
                 </div>
                 
@@ -132,7 +132,7 @@
                         <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
                         <span class="text-xs text-gray-500">Running</span>
                     </div>
-                    <div class="text-xs text-purple-600 font-medium">↗ +25.0%</div>
+                    <div class="text-xs text-purple-600 font-medium">{{ $materiWeeklyGrowth >= 0 ? '↗' : '↘' }} {{ $materiWeeklyGrowth >= 0 ? '+' : '' }}{{ $materiWeeklyGrowth }}%</div>
                 </div>
             </div>
         </div>
@@ -176,6 +176,51 @@
                         </div>
                     </div>
                 </div>
+
+                     <!-- Quick Stats -->
+            <div class="bg-white/90 glass-effect p-6 rounded-2xl ios-shadow border border-white/20 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-200/20 to-teal-200/20 rounded-full blur-2xl transform translate-x-12 -translate-y-12"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Quick Stats</h3>
+                        <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center ios-shadow">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-700">Monthly Registrations</span>
+                            </div>
+                            <span class="text-lg font-bold text-green-600">{{ $monthlyRegistrations ?? 0 }}</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-orange-50 to-amber-50">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-700">Weekly Growth</span>
+                            </div>
+                            <span class="text-lg font-bold {{ ($weeklyGrowth ?? 0) >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                {{ ($weeklyGrowth ?? 0) >= 0 ? '+' : '' }}{{ $weeklyGrowth ?? 0 }}%
+                            </span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span class="text-sm font-medium text-gray-700">Total User</span>
+                            </div>
+                            <span class="text-lg font-bold text-blue-600">{{ ($totalSiswa ?? 0) + ($totalPengajar ?? 0) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Quick Actions -->
         <div class="bg-white/90 glass-effect p-6 rounded-2xl ios-shadow border border-white/20 relative overflow-hidden">

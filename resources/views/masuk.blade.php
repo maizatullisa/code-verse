@@ -52,6 +52,7 @@
       <!-- Sign In Form Start -->
       <form action="{{ route('login') }}" method="POST" class="relative z-10">
       @csrf
+      <input type="hidden" name="device" value="mobile">
         <div class="bg-white py-8 px-6 rounded-xl mt-12 dark:bg-color10">
           <div class="flex justify-between items-center">
             <a href="{{ url('/home') }}"

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
     public function register(Request $request)
     {
         $request->validate([
@@ -26,9 +27,12 @@ class AuthController extends Controller
             'gender' => $request->gender,
             'role' => $request->role,
         ]);
-
-        return redirect('/berhasil')->with('success', 'Registrasi berhasil!');
-    }
+           $device = $request->input('device');
+           // ahkan ke halaman berhasil sesuai device
+            return $device === 'mobile'
+                ? redirect('berhasil')->with('success', 'Registrasi berhasil!')
+                : redirect('/desktop/lorek-desktop')->with('success', 'Registrasi berhasil! Silakan login.');
+        }
 
             public function login(Request $request)
             {
@@ -40,13 +44,18 @@ class AuthController extends Controller
                 if (Auth::attempt($credentials)) {
                     $request->session()->regenerate();
 
-                    // Redirect berdasarkan role
-                    if (auth()->user()->role == 'admin') {
+                    $user = auth()->user();
+                    $device = $request->input('device'); // mobile atau desktop
+
+                    // Redirect berdasarkan role dan device
+                    if ($user->role === 'admin') {
                         return redirect('/admin/dashboard');
-                    } elseif (auth()->user()->role == 'pengajar') {
+                    } elseif ($user->role === 'pengajar') {
                         return redirect('/pengajar/dashboard');
                     } else {
-                        return redirect()->route('profile');//aku ubah home
+                        return $device === 'mobile'
+                            ? redirect()->route('home-mobile')
+                            : redirect()->route('desktop.dashboard-user-desktop');
                     }
                 }
 
@@ -54,6 +63,7 @@ class AuthController extends Controller
                     'email' => 'Email atau password salah.',
                 ]);
             }
+
 
 }
 

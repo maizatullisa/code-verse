@@ -1,6 +1,7 @@
   
         let currentStep = 1;
         let countdownTimer = null;
+        let tempToken = null; 
 
         // Utility functions
         function showStep(stepNumber) {

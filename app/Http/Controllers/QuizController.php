@@ -29,7 +29,8 @@ class QuizController extends Controller
 
     public function store(Request $request)
     {
-        // $quizzes = Quiz::where('pengajar_id', Auth::id())->withCount('questions')->get();
+        // \\\\\$quizzes = Quiz::where('pengajar_id', Auth::id())->withCount('questions')->get();
+        
 
        $quiz = Quiz::create([
             'materi_id'     => $request->materi_id,
@@ -72,16 +73,53 @@ class QuizController extends Controller
         return redirect()->route('pengajar.quiz.listquiz');
     }
 
+    // public function listQuiz()
+    // {   
+        
+    //     $pengajarId = auth()->id();
+    //     $materiId = auth()->id();
+    //     $data = [
+    //         'total_soal'        => QuizQuestion::count(),
+    //         'total_quiz'        => Quiz::count(),
+    //         'total_quiz_aktif'  => Quiz::where('status', 'aktif')->count(),
+    //         'quizzes'           => Quiz::latest()->get(),
+    //     ];
+    //     return view('pengajar.quiz.index-quiz-pengajar', $data);
+    // }
+
     public function listQuiz()
-    {   
-        $data = [
-            'total_soal'        => QuizQuestion::count(),
-            'total_quiz'        => Quiz::count(),
-            'total_quiz_aktif'  => Quiz::where('status', 'aktif')->count(),
-            'quizzes'           => Quiz::latest()->get(),
-        ];
-        return view('pengajar.quiz.index-quiz-pengajar', $data);
-    }
+{
+    $pengajarId = auth()->id(); // ambilID pengajar login
+
+    $data = [
+        //total soal dari quiz milik pengajer
+        'total_soal' => QuizQuestion::whereHas('quiz.materi', function ($query) use ($pengajarId) {
+            $query->where('pengajar_id', $pengajarId);
+        })->count(),
+
+        //total quiz yang dibuat pengajar (melalui materi)?
+        'total_quiz' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
+            $query->where('pengajar_id', $pengajarId);
+        })->count(),
+
+        // quiz aktif dari pengajar??? ad brp
+        'total_quiz_aktif' => Quiz::where('status', 'aktif')
+            ->whereHas('materi', function ($query) use ($pengajarId) {
+                $query->where('pengajar_id', $pengajarId);
+            })->count(),
+
+        // ambl semwa quiz milik pengajar (untuk ditampilkan)
+        'quizzes' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
+                $query->where('pengajar_id', $pengajarId);
+            })
+            ->with('materi') //ambil info materi 
+            ->latest()
+            ->get(),
+    ];
+
+    return view('pengajar.quiz.index-quiz-pengajar', $data);
+}
+
 
     
 

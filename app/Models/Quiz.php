@@ -8,12 +8,14 @@ class Quiz extends Model
 {
     protected $guarded = [];
 
-    public function questions(){
-    return $this->hasMany(QuizQuestion::class);
+        public function questions(){
+        return $this->hasMany(QuizQuestion::class);
     }
 
-     public function pengajar()
+        public function materi()
     {
-        return $this->belongsTo(User::class, 'pengajar_id');
+        return $this->belongsTo(Materi::class);
     }
+
+
 }

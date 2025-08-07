@@ -10,7 +10,7 @@
       </div>
       <div class="flex-1">
         <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
-          {{-- Hai, {{ Auth::user()->first_name ?? 'siapapun itu' }} --}}
+           Hai, {{ Auth::user()->first_name ?? 'siapapun itu' }} 
         </h1>
         <p class="text-gray-600 text-base md:text-lg leading-relaxed">
           Selamat datang di dashboard pengajar. Mari berbagi ilmu dan inspirasi kepada siswa-siswa kita! 🌟
@@ -25,7 +25,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-600 mb-1">Total Materi</p>
-          {{--<p class="text-2xl font-bold text-gray-900">{{ $totalMateri }}</p>--}}
+          <p class="text-2xl font-bold text-gray-900">{{ $totalMateri }}</p>
         </div>
         <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
           📚
@@ -36,7 +36,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-600 mb-1">Total Quiz</p>
-          {{--<p class="text-2xl font-bold text-gray-900">{{ $total_quiz }}</p>--}}
+          <p class="text-2xl font-bold text-gray-900">{{ $total_quiz }}</p>
         </div>
         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
           📝
@@ -47,7 +47,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-600 mb-1">Diskusi Baru</p>
-          {{--<p class="text-2xl font-bold text-gray-900">{{ $totalDiskusi }}</p>--}}
+          <p class="text-2xl font-bold text-gray-900">{{ $totalDiskusi }}</p>
         </div>
         <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
           💬

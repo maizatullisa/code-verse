@@ -36,6 +36,7 @@ class Materi extends Model
     {
         return $this->belongsTo(User::class, 'pengajar_id');
     }
+    
 
     // Relationship with Quiz
     public function quiz()

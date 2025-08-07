@@ -54,10 +54,10 @@
 
                     <!-- Add New Quiz Button -->
 
-                    <button type="button" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
+                    <!-- <button type="button" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
                         <i class="ph-fill ph-plus-circle text-lg"></i>
                         <span>Buat Kuis Baru</span>
-                    </button>
+                    </button> -->
 
 
                 </div>
