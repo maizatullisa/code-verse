@@ -39,7 +39,7 @@ Route::get('/admin/login', function () {
 })->name('login-admin');
 
 // ADM 
-// ADM DASHBOARD 
+// ADM DASHBOARD INI AKU COMMENT DULU YAHHH NANTI KALAU UDAH SELESAI BISA DI UNCOMM
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/user/create', [AdminController::class, 'create'])->name('admin.user.create');
 Route::post('/admin/user', [AdminController::class, 'store'])->name('admin.users.store');
@@ -53,6 +53,14 @@ Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->n
 Route::get('/admin/user/show', function () {
     return view('admin.user.show');
 })->name('admin.user.show');
+
+
+//  ADM ROADMAP
+Route::get('/admin/roadmap', function () {
+    return view('admin.roadmap.roadmap-adm');
+})->name('admin.roadmap.roadmap-adm');
+
+
 
 //pengajar
 // Route::get('/admin/pengajar', function () {
@@ -68,27 +76,28 @@ Route::delete('/admin/pengajar/{user}', [AdminPengajarController::class, 'destro
 // return view('admin.kelas.index');
 // })->name('admin.kelas.index');
 //KELAS
-Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
+// Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
 
-Route::get('/admin/kelas/create', function () {
-    return view('admin.kelas.create-kelas');
-})->name('admin.kelas.create');
+// Route::get('/admin/kelas/create', function () {
+//     return view('admin.kelas.create-kelas');
+// })->name('admin.kelas.create');
 
-Route::get('/admin/kelas/edit', function () {
-    return view('admin.kelas.edit');
-})->name('admin.kelas.edit');
+// Route::get('/admin/kelas/edit', function () {
+//     return view('admin.kelas.edit');
+// })->name('admin.kelas.edit');
 
-Route::get('/admin/modul', function () {
-    return view('admin.modul.index');
-})->name('admin.modul.index');
+// Route::get('/admin/modul', function () {
+//     return view('admin.modul.index');
+// })->name('admin.modul.index');
 
-Route::get('/admin/quiz', function () {
-    return view('admin.quiz.index');
-})->name('admin.quiz.index');
+// Route::get('/admin/quiz', function () {
+//     return view('admin.quiz.index');
+// })->name('admin.quiz.index');
 
-Route::get('/admin/sertifikat', function () {
-    return view('admin.sertifikat.index');
-})->name('admin.sertifikat.index');
+// Route::get('/admin/sertifikat', function () {
+//     return view('admin.sertifikat.index');
+// })->name('admin.sertifikat.index');
+
 //google auth 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
@@ -292,9 +301,9 @@ Route::get('/materi', [MateriController::class, 'materi'])->name('materi');
 Route::get('/materi/pengajar/{id}', [MateriController::class, 'showByPengajar'])->name('materi.showByPengajar');
 
 //daftar belajar
-Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])
-    ->middleware('auth')
-    ->name('daftar-belajar.simpan');
+// Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])
+//     ->middleware('auth')
+//     ->name('daftar-belajar.simpan');
 
 //KELAS
 Route::get('/belajar/materi-belum', [DaftarBelajarController::class, 'index'])->name('belajar.materi-belum');
@@ -320,13 +329,13 @@ Route::get('/pengajar/forum/like/{diskusi}', [DiskusiController::class, 'diskusi
 //QUIZ
 
 // Semua route quiz untuk pengajar, dengan middleware auth dan role pengajar
-Route::middleware(['auth'])->group(function () {
-    Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
-    Route::post('/quiz', [QuizController::class, 'store'])->name('quiz.store');
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+//     Route::post('/quiz', [QuizController::class, 'store'])->name('quiz.store');
     
-    Route::post('/quiz/{quiz}/add-question', [QuizController::class, 'addQuestion'])->name('quiz.addQuestion');
-    Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
-});
+//     Route::post('/quiz/{quiz}/add-question', [QuizController::class, 'addQuestion'])->name('quiz.addQuestion');
+//     Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.destroy');
+// });
 
 //basicsquoz
 Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
@@ -411,6 +420,16 @@ Route::get('/desktop/help-ai', function () {
     return view('desktop.help-ai');
  })->name('desktop.help-ai');
 
+ // ROADMAP INDEX
+ Route::get('/desktop/index-roadmap', function () {
+    return view('desktop.roadmap.index-roadmap-user');
+ })->name('desktop.roadmap.index-roadmap-user');
+
+ //INDEX DETAIL
+  Route::get('/desktop/detail-roadmap', function () {
+    return view('desktop.roadmap.detail-roadmap');
+ })->name('esktop.roadmap.detail-roadmap');
+
  Route::post('/gemini/ask', [GeminiController::class, 'ask']);
 
  //PILIH GAME 
@@ -438,3 +457,8 @@ Route::get('/games/glitchmaze', function () {
 Route::get('/games/syntaxShowdown', function () {
     return view('games.syntaxShowdown');
  })->name('games.syntaxShowdown');
+
+
+
+
+ //DUMMY BIARBISA MASUK

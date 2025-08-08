@@ -11,12 +11,12 @@
                 <p class="text-sm {{ Request::is('desktop/home-desktop') ? 'text-white' : 'text-white/70' }} font-semibold">Beranda</p>
             </a>
 
-            <!-- Library -->
-            <a href="{{ url('/desktop/pages/materi/materi-reviews') }}" class="flex flex-col items-center gap-2 group">
-                <div class="{{ Request::is('desktop/pages/materi/*') ? 'bg-p1 scale-110' : 'bg-white' }} p-4 rounded-full transition-transform group-hover:scale-110">
-                    <i class="ph ph-squares-four text-2xl {{ Request::is('desktop/pages/materi/*') ? 'text-white' : 'text-black' }}"></i>
+            <!-- ROADMAP -->
+            <a href="{{ url('/desktop/index-roadmap') }}" class="flex flex-col items-center gap-2 group">
+                <div class="{{ Request::is('/desktop/index-roadmap*') ? 'bg-p1 scale-110' : 'bg-white' }} p-4 rounded-full transition-transform group-hover:scale-110">
+                    <i class="ph ph-squares-four text-2xl {{ Request::is('/desktop/index-roadmap*') ? 'text-white' : 'text-black' }}"></i>
                 </div>
-                <p class="text-sm {{ Request::is('desktop/pages/materi/*') ? 'text-white' : 'text-white/70' }} font-semibold">Library</p>
+                <p class="text-sm {{ Request::is('/desktop/index-roadmap*') ? 'text-white' : 'text-white/70' }} font-semibold">Roadmap</p>
             </a>
 
             <!-- Kelas AKU GANTI -->
