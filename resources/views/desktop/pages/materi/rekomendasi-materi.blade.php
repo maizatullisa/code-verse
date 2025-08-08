@@ -23,10 +23,10 @@
     </div>
 
     <!-- Filter Section -->
-    <div class="max-w-6xl mx-auto px-6 py-6">
+    <div class="max-w-6xl mx-auto px-6 py-6 text-black">
         <div class="flex flex-wrap items-center gap-4 mb-6">
             <div class="flex items-center gap-2">
-                <span class="text-gray-700 font-medium">Filter:</span>
+                <span class="text-black font-medium">Filter:</span>
                 <select class="bg-white border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option>Semua Level</option>
                     <option>Pemula</option>
@@ -65,10 +65,7 @@
                         <div class="bg-white bg-opacity-20 px-3 py-1 rounded-full">
                             <span class="text-sm font-semibold">Level 1</span>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <i class="ph-fill ph-star text-yellow-400"></i>
-                            <span class="text-sm font-medium">4.8</span>
-                        </div>
+                        
                     </div>
                     <h3 class="text-xl font-bold mb-2">Dasar-Dasar HTML & CSS</h3>
                     <p class="text-blue-100 text-sm">Pelajari fondasi web development dengan HTML dan CSS</p>
@@ -112,10 +109,6 @@
                     <div class="flex justify-between items-start mb-4">
                         <div class="bg-white bg-opacity-20 px-3 py-1 rounded-full">
                             <span class="text-sm font-semibold">Level 2</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="ph-fill ph-star text-yellow-400"></i>
-                            <span class="text-sm font-medium">4.9</span>
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2">JavaScript untuk Pemula</h3>
@@ -161,10 +154,6 @@
                         <div class="bg-white bg-opacity-20 px-3 py-1 rounded-full">
                             <span class="text-sm font-semibold">Level 3</span>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <i class="ph-fill ph-star text-yellow-400"></i>
-                            <span class="text-sm font-medium">4.7</span>
-                        </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2">React.js Fundamental</h3>
                     <p class="text-purple-100 text-sm">Bangun aplikasi web modern dengan React.js</p>
@@ -208,10 +197,6 @@
                     <div class="flex justify-between items-start mb-4">
                         <div class="bg-white bg-opacity-20 px-3 py-1 rounded-full">
                             <span class="text-sm font-semibold">Level 2</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="ph-fill ph-star text-yellow-400"></i>
-                            <span class="text-sm font-medium">4.6</span>
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Python untuk Data Science</h3>
@@ -257,10 +242,6 @@
                         <div class="bg-white bg-opacity-20 px-3 py-1 rounded-full">
                             <span class="text-sm font-semibold">Level 3</span>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <i class="ph-fill ph-star text-yellow-400"></i>
-                            <span class="text-sm font-medium">4.9</span>
-                        </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Node.js & Express</h3>
                     <p class="text-red-100 text-sm">Backend development dengan Node.js dan Express</p>
@@ -304,10 +285,6 @@
                     <div class="flex justify-between items-start mb-4">
                         <div class="bg-white bg-opacity-20 px-3 py-1 rounded-full">
                             <span class="text-sm font-semibold">Level 4</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="ph-fill ph-star text-yellow-400"></i>
-                            <span class="text-sm font-medium">4.8</span>
                         </div>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Machine Learning Basics</h3>

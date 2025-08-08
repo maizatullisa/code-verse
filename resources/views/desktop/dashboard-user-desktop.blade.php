@@ -98,9 +98,9 @@
         <div class="flex justify-between items-center mb-8">
             <div class="flex items-center gap-3">
                 <i class="ph-fill ph-trophy text-2xl text-blue-600"></i>
-                <h3 class="text-2xl font-semibold text-gray-800">Rekomendasi Materi</h3>
+                <h3 class="text-2xl font-semibold text-gray-800">Rekomendasi Kelas</h3>
             </div>
-            <a href="{{ url('/desktop/rekomendasi-materi') }}" class="text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors">Lihat Semua</a>
+            <a href="{{ url('/desktop/kelas-ditawarkan') }}" class="text-blue-600 font-semibold text-lg hover:text-blue-700 transition-colors">Lihat Semua</a>
         </div>
         
         <div class="max-w-4xl mx-auto">

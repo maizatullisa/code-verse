@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Kelas - React JS Fundamental</title>
+    <title>Pendaftaran Kelas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script>
@@ -30,7 +30,7 @@
                     </button>
                     <div>
                         <h1 class="font-bold text-lg text-gray-800">Pendaftaran Kelas</h1>
-                        <p class="text-sm text-gray-600">React JS Fundamental</p>
+                        <p class="text-sm text-gray-600" id="course-title-header">Loading...</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -105,23 +105,23 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Pengalaman Programming</label>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Pengalaman di Bidang Ini</label>
                                 <div class="space-y-3">
                                     <label class="flex items-center gap-3">
                                         <input type="radio" name="experience" value="beginner" class="text-p2 focus:ring-p2">
-                                        <span class="text-gray-700">Pemula (belum pernah programming)</span>
+                                        <span class="text-gray-700">Pemula (belum pernah belajar)</span>
                                     </label>
                                     <label class="flex items-center gap-3">
                                         <input type="radio" name="experience" value="basic" class="text-p2 focus:ring-p2">
-                                        <span class="text-gray-700">Dasar (pernah belajar HTML/CSS/JS)</span>
+                                        <span class="text-gray-700">Dasar (pernah belajar sedikit)</span>
                                     </label>
                                     <label class="flex items-center gap-3">
                                         <input type="radio" name="experience" value="intermediate" class="text-p2 focus:ring-p2">
-                                        <span class="text-gray-700">Menengah (sudah pernah buat project sederhana)</span>
+                                        <span class="text-gray-700">Menengah (sudah pernah praktek)</span>
                                     </label>
                                     <label class="flex items-center gap-3">
                                         <input type="radio" name="experience" value="advanced" class="text-p2 focus:ring-p2">
-                                        <span class="text-gray-700">Advanced (sudah bekerja sebagai developer)</span>
+                                        <span class="text-gray-700">Advanced (sudah berpengalaman)</span>
                                     </label>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Motivasi Mengikuti Kelas</label>
                                 <textarea name="motivation" rows="4" 
                                           class="text-black w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-p2 focus:ring-2 focus:ring-p2/20"
-                                          placeholder="Ceritakan motivasi Anda mengikuti kelas React JS ini..."></textarea>
+                                          placeholder="Ceritakan motivasi Anda mengikuti kelas ini..."></textarea>
                             </div>
                         </form>
                     </div>
@@ -149,83 +149,7 @@
 
                         <form id="preferences-form" class="space-y-6">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-4">Jadwal Belajar Preferensi *</label>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <label class="border border-gray-300 rounded-lg p-4 cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="schedule" value="weekday" class="sr-only">
-                                        <div class="flex items-center gap-3">
-                                            <i class="ph ph-sun text-2xl text-p2"></i>
-                                            <div>
-                                                <div class="font-semibold text-gray-800">Hari Kerja</div>
-                                                <div class="text-sm text-gray-600">Senin - Jumat, siang/sore</div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label class="border border-gray-300 rounded-lg p-4 cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="schedule" value="weekend" class="sr-only">
-                                        <div class="flex items-center gap-3">
-                                            <i class="ph ph-calendar text-2xl text-p2"></i>
-                                            <div>
-                                                <div class="font-semibold text-gray-800">Weekend</div>
-                                                <div class="text-sm text-gray-600">Sabtu - Minggu, kapan saja</div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label class="border border-gray-300 rounded-lg p-4 cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="schedule" value="evening" class="sr-only">
-                                        <div class="flex items-center gap-3">
-                                            <i class="ph ph-moon text-2xl text-p2"></i>
-                                            <div>
-                                                <div class="font-semibold text-gray-800">Malam Hari</div>
-                                                <div class="text-sm text-gray-600">Setelah jam 19:00</div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label class="border border-gray-300 rounded-lg p-4 cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="schedule" value="flexible" class="sr-only">
-                                        <div class="flex items-center gap-3">
-                                            <i class="ph ph-clock text-2xl text-p2"></i>
-                                            <div>
-                                                <div class="font-semibold text-gray-800">Fleksibel</div>
-                                                <div class="text-sm text-gray-600">Kapan saja ada waktu</div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-4">Tipe Pembelajar *</label>
-                                <div class="space-y-3">
-                                    <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="learning_type" value="visual" class="text-p2 focus:ring-p2">
-                                        <i class="ph ph-eye text-xl text-p2"></i>
-                                        <div>
-                                            <div class="font-semibold text-gray-800">Visual Learner</div>
-                                            <div class="text-sm text-gray-600">Lebih suka belajar melalui video dan diagram</div>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="learning_type" value="hands-on" class="text-p2 focus:ring-p2">
-                                        <i class="ph ph-code text-xl text-p2"></i>
-                                        <div>
-                                            <div class="font-semibold text-gray-800">Hands-on Learner</div>
-                                            <div class="text-sm text-gray-600">Belajar sambil praktek coding langsung</div>
-                                        </div>
-                                    </label>
-                                    <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-p2 has-[:checked]:border-p2 has-[:checked]:bg-p2/5">
-                                        <input type="radio" name="learning_type" value="reading" class="text-p2 focus:ring-p2">
-                                        <i class="ph ph-book text-xl text-p2"></i>
-                                        <div>
-                                            <div class="font-semibold text-gray-800">Reading Learner</div>
-                                            <div class="text-sm text-gray-600">Lebih suka membaca dokumentasi dan artikel</div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-4">Fitur yang Diinginkan</label>
+                                <label class="block text-sm font-semibold text-gray-700 mb-4">Benefit yang Diinginkan</label>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <label class="flex items-center gap-3">
                                         <input type="checkbox" name="features[]" value="mentoring" class="text-p2 focus:ring-p2 rounded">
@@ -258,32 +182,32 @@
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Target Setelah Menyelesaikan Kelas</label>
                                 <textarea name="goals" rows="3" 
                                           class="text-black w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-p2 focus:ring-2 focus:ring-p2/20"
-                                          placeholder="Contoh: Ingin bekerja sebagai Frontend Developer, membuat startup sendiri, dll..."></textarea>
+                                          placeholder="Ceritakan target dan harapan Anda setelah menyelesaikan kelas ini..."></textarea>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- Step 3: Konfirmasi & Daftar Gratis -->
+                <!-- Step 3: Konfirmasi & Daftar -->
                 <div class="step-content hidden" id="step-3">
                     <div class="bg-white rounded-xl shadow-lg p-8">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="bg-p2 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">3</div>
                             <div>
                                 <h2 class="font-bold text-xl text-gray-800">Konfirmasi Pendaftaran</h2>
-                                <p class="text-gray-600 text-sm">Kelas ini GRATIS! Konfirmasi data Anda untuk menyelesaikan pendaftaran</p>
+                                <p class="text-gray-600 text-sm">Konfirmasi data Anda untuk menyelesaikan pendaftaran</p>
                             </div>
                         </div>
 
-                        <!-- Special Offer Banner -->
-                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 mb-6">
+                        <!-- Special Offer Banner (conditional) -->
+                        <div id="offer-banner" class="hidden bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 mb-6">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
                                     <i class="ph ph-gift text-white text-xl"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-green-800">Kelas Gratis Terbatas!</h3>
-                                    <p class="text-green-700 text-sm">Anda mendapat akses penuh ke kelas React JS Fundamental tanpa biaya apapun. Terbatas untuk 100 siswa pertama!</p>
+                                    <p class="text-green-700 text-sm">Anda mendapat akses penuh ke kelas ini tanpa biaya apapun. Terbatas untuk peserta pertama!</p>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +248,7 @@
                                     <a href="#" class="text-p2 hover:underline">Syarat & Ketentuan</a> 
                                     serta 
                                     <a href="#" class="text-p2 hover:underline">Kebijakan Privasi</a>
-                                    yang berlaku. Saya memahami bahwa kelas ini gratis dan berkomitmen mengikuti pembelajaran dengan baik.
+                                    yang berlaku. Saya berkomitmen mengikuti pembelajaran dengan baik.
                                 </div>
                             </label>
                         </div>
@@ -335,39 +259,16 @@
                                 <input type="checkbox" id="newsletter-checkbox" class="mt-1 text-p2 focus:ring-p2 rounded" checked>
                                 <div class="text-sm text-gray-700">
                                     <span class="font-medium">Langganan Newsletter</span><br>
-                                    Dapatkan update kelas terbaru, tips programming, dan penawaran khusus lainnya via email.
+                                    Dapatkan update kelas terbaru, tips pembelajaran, dan penawaran khusus lainnya via email.
                                 </div>
                             </label>
                         </div>
 
-                        <!-- Free Access Benefits -->
-                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                            <h4 class="font-semibold text-blue-800 mb-3">Yang Anda Dapatkan GRATIS:</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-blue-700">
-                                <div class="flex items-center gap-2">
-                                    <i class="ph ph-check text-green-600"></i>
-                                    <span>24 Video Pembelajaran</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ph ph-check text-green-600"></i>
-                                    <span>15 Materi Bacaan</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ph ph-check text-green-600"></i>
-                                    <span>Akses Forum Diskusi</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ph ph-check text-green-600"></i>
-                                    <span>Sertifikat Digital</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ph ph-check text-green-600"></i>
-                                    <span>Akses Seumur Hidup</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="ph ph-check text-green-600"></i>
-                                    <span>Project-Based Learning</span>
-                                </div>
+                        <!-- Course Benefits -->
+                        <div id="course-benefits" class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                            <h4 class="font-semibold text-blue-800 mb-3">Yang Anda Dapatkan:</h4>
+                            <div id="benefits-list" class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-blue-700">
+                                <!-- Benefits will be loaded dynamically -->
                             </div>
                         </div>
                     </div>
@@ -378,87 +279,65 @@
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
                     <div class="flex items-center gap-4 mb-6">
-                        <img src="https://via.placeholder.com/64x64/3B82F6/FFFFFF?text=React" 
-                             alt="React JS Fundamental" 
+                        <img id="course-image" 
+                             src="https://via.placeholder.com/64x64/3B82F6/FFFFFF?text=Course" 
+                             alt="Course Image" 
                              class="w-16 h-16 rounded-lg object-cover">
                         <div>
-                            <h3 class="font-bold text-gray-800">React JS Fundamental</h3>
-                            <p class="text-sm text-gray-600">by John Doe</p>
+                            <h3 id="course-title" class="font-bold text-gray-800">Loading...</h3>
+                            <p id="course-instructor" class="text-sm text-gray-600">by Instructor</p>
                             <div class="flex items-center gap-1 mt-1">
-                                <span class="text-yellow-400">⭐⭐⭐⭐⭐</span>
-                                <span class="text-xs text-gray-500">4.8 (124)</span>
+                                <span id="course-rating" class="text-yellow-400">⭐⭐⭐⭐⭐</span>
+                                <span id="course-reviews" class="text-xs text-gray-500">0 reviews</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="text-center mb-6">
-                        <div class="text-3xl font-bold text-green-600 mb-2">GRATIS</div>
-                        <div class="text-sm text-gray-500 line-through">Rp 999.000</div>
-                        <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium mt-2">
-                            Hemat 100%
+                        <div id="course-price" class="text-3xl font-bold text-p2 mb-2">Loading...</div>
+                        <div id="course-original-price" class="text-sm text-gray-500 line-through hidden">Rp 0</div>
+                        <div id="course-discount" class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium mt-2 hidden">
+                            Diskon 0%
                         </div>
                     </div>
 
-                    <div class="space-y-3 text-sm text-gray-600 mb-6">
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-clock text-gray-400"></i>
-                            <span>8 minggu pembelajaran</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-video text-gray-400"></i>
-                            <span>24 video pembelajaran</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-file-text text-gray-400"></i>
-                            <span>15 materi bacaan</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-certificate text-gray-400"></i>
-                            <span>Sertifikat completion</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-infinity text-gray-400"></i>
-                            <span>Akses seumur hidup</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="ph ph-users text-gray-400"></i>
-                            <span>Forum diskusi</span>
-                        </div>
+                    <div id="course-details" class="space-y-3 text-sm text-gray-600 mb-6">
+                        <!-- Course details will be loaded dynamically -->
                     </div>
 
-                    <!-- Countdown Timer -->
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                    <!-- Countdown Timer (conditional) -->
+                    <div id="countdown-timer" class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 hidden">
                         <div class="text-center">
                             <div class="text-xs text-red-600 font-medium mb-2">Penawaran Terbatas!</div>
                             <div class="grid grid-cols-4 gap-2 text-center">
                                 <div class="bg-red-600 text-white rounded p-2">
-                                    <div class="text-lg font-bold" id="days">07</div>
+                                    <div class="text-lg font-bold" id="days">00</div>
                                     <div class="text-xs">Hari</div>
                                 </div>
                                 <div class="bg-red-600 text-white rounded p-2">
-                                    <div class="text-lg font-bold" id="hours">23</div>
+                                    <div class="text-lg font-bold" id="hours">00</div>
                                     <div class="text-xs">Jam</div>
                                 </div>
                                 <div class="bg-red-600 text-white rounded p-2">
-                                    <div class="text-lg font-bold" id="minutes">45</div>
+                                    <div class="text-lg font-bold" id="minutes">00</div>
                                     <div class="text-xs">Menit</div>
                                 </div>
                                 <div class="bg-red-600 text-white rounded p-2">
-                                    <div class="text-lg font-bold" id="seconds">12</div>
+                                    <div class="text-lg font-bold" id="seconds">00</div>
                                     <div class="text-xs">Detik</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Student Count -->
-                    <div class="text-center text-sm text-gray-600">
+                    <!-- Student Count (conditional) -->
+                    <div id="student-count" class="text-center text-sm text-gray-600 hidden">
                         <div class="flex items-center justify-center gap-2 mb-2">
                             <i class="ph ph-users text-green-600"></i>
-                            <span><strong>67</strong> dari <strong>100</strong> slot terisi</span>
+                            <span><strong id="current-students">0</strong> dari <strong id="max-students">0</strong> slot terisi</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-green-500 h-2 rounded-full" style="width: 67%"></div>
+                            <div id="student-progress" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
                 </div>
@@ -479,7 +358,7 @@
                 </button>
                 <button id="submitBtn" class="hidden bg-green-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition-all flex items-center gap-2">
                     <i class="ph ph-check"></i>
-                    <span>Daftar GRATIS Sekarang!</span>
+                    <span id="submit-text">Daftar Sekarang!</span>
                 </button>
             </div>
         </div>
@@ -492,12 +371,11 @@
                 <i class="ph ph-check text-white text-3xl"></i>
             </div>
             <h3 class="text-2xl font-bold text-gray-800 mb-2">Selamat! 🎉</h3>
-            <p class="text-gray-600 mb-6">Pendaftaran Anda berhasil! Anda sekarang memiliki akses penuh ke kelas React JS Fundamental.</p>
+            <p class="text-gray-600 mb-6">Pendaftaran Anda berhasil! Anda sekarang memiliki akses ke kelas yang dipilih.</p>
             
             <div class="space-y-3">
                 <button id="accessCourseBtn" class="w-full bg-gradient-to-r from-p2 to-p3 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-all">
-                    <a href="{{ url('/desktop/forum-siswa') }}"</a>
-                    Mulai Belajar Sekarang dan gabung ke forum
+                    Mulai Belajar Sekarang
                 </button>
                 <button id="goToDashboardBtn" class="w-full border border-gray-300 text-gray-600 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-all">
                     Ke Dashboard

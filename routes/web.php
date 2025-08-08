@@ -360,6 +360,12 @@ Route::get('/desktop/rekomendasi-materi', function () {
  })->name('desktop.pages.materi.belajar-materi');
 
  //KELAS DESKTOP SEE ALLL
+ //KELAS INDEX
+Route::get('/desktop/kelas-index', function () {
+    return view('desktop.pages.kelas.kelas-index');
+ })->name('desktop.pages.kelas.kelas-index');
+
+
  // KELAS DITAWARKAN
 Route::get('/desktop/kelas-ditawarkan', function () {
     return view('desktop.pages.kelas.kelas-ditawarkan');

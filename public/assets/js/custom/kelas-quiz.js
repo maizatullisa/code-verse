@@ -112,7 +112,7 @@ function hideExitConfirm() {
 
 function exitQuiz() {
     clearInterval(timerInterval);
-    window.location.href = 'kelas-detail'; // Back to class detail
+    window.location.href = '/desktop/kelas-materi'; 
 }
 
 function showCompleteModal() {
