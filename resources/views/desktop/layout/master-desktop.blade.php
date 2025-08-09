@@ -61,15 +61,22 @@
                         <i class="ph ph-list"></i>
                     </button>
                     @endif
+                    
+                    {{-- Back button khusus untuk halaman user-desktop --}}
+                    @if(Request::is('desktop/user-desktop') || Request::is('desktop/user-desktop/*'))
+                    <a href="{{ url('/desktop/home-desktop') }}" class="text-white hover:text-gray-300 transition-colors duration-200 mr-2">
+                        <i class="ph ph-arrow-left text-3xl"></i>
+                    </a>
+                    @endif
+                    
                     <h2 class="text-3xl font-semibold text-white">@yield('page-title', 'Code Verse')</h2>
                 </div>
                 <div class="flex justify-start items-center gap-4">
-                    <button class="text-white border border-color24 p-3 rounded-full bg-color24 hover:bg-white/20">
-                        <i class="ph ph-bell text-xl"></i>
-                    </button>
-                    <button class="text-white border border-color24 p-3 rounded-full bg-color24 hover:bg-white/20">
+                    @if(!Request::is('desktop/user-desktop') && !Request::is('desktop/user-desktop/*'))
+                    <a href="{{ url('/desktop/user-desktop') }}" class="text-white border border-color24 p-3 rounded-full bg-color24 hover:bg-white/20 transition-colors duration-200">
                         <i class="ph ph-user text-xl"></i>
-                    </button>
+                    </a>
+                    @endif
                 </div>
             </div>
 
