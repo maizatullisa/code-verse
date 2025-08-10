@@ -42,21 +42,26 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 
 // Landing Page
 Route::get('/landing-mobile', function(){
-    return view('landing');
-})->name('landing');
+    return view('mobile.landing-mobile');
+})->name('mobile.landing');
 
 // LOGIN & REGISTER
 Route::get('/masuk-mobile', function () {
-    return view('masuk');
-})->name('masuk');
+    return view('mobile.auth.masuk');
+})->name('mobile.auth.masuk');
 
-Route::get('/register', function () {
-    return view('register'); 
-})->name('register');
+Route::get('/register-mobile', function () {
+    return view('mobile.auth.register'); 
+})->name('mobile.auth.register');
 
 Route::get('/berhasil', function () {
-    return view('berhasil'); 
-})->name('berhasil');
+    return view('mobile.auth.berhasil'); 
+})->name('mobile.auth.berhasil');
+
+//USER PATH DUMMY 
+Route::get('/user-mobile', function(){
+    return view('mobile.user-mobile');
+})->name('mobile.user-mobile');
 
 // AUTH AKSI
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -64,20 +69,20 @@ Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 
 // PASSWORD RESET
 Route::get('/pw', function () {
-    return view('lupa-pw');
-})->name('pw');
+    return view('mobile.auth.lupa-pw');
+})->name('mobile.auth.lupa-pw');
 
 Route::get('/bikin-pw', function () {
-    return view('bikin-pw');
-})->name('bikin-pw');
+    return view('mobile.auth.bikin-pw');
+})->name('mobile.auth.bikin-pw');
 
 Route::get('/otp', function () {
-    return view('veriv-otp');
-})->name('otp');
+    return view('mobile.auth.veriv-otp');
+})->name('mobile.auth.otp');
 
 Route::get('/pw-baru', function () {
-    return view('pw-baru-sukses');
-})->name('pw-baru');
+    return view('.mobile.auth.pw-baru-sukses');
+})->name('mobile.auth.pw-baru');
 
 /*
 |--------------------------------------------------------------------------
@@ -123,8 +128,8 @@ Route::get('/admin/roadmap', function () {
 
 // HOME
 Route::get('/home-mobile', function(){
-    return view('home');
-})->name('home-mobile');
+    return view('mobile.home-mobile');
+})->name('mobile.home-mobile');
 
 // CARI
 Route::get('/search-result', function(){
@@ -155,12 +160,16 @@ Route::get('/notification', function(){
 
 // Navigation Pages
 Route::get('/help-mobile', function (){
-    return view('help-ai-mobile');
-})->name('help-mobile');
+    return view('mobile.help-ai-mobile');
+})->name('mobile.help-ai-mobile');
 
-Route::get('/library', function(){
-    return view('library');
-})->name('library');
+Route::get('/roadmap-mobile', function(){
+    return view('mobile.roadmap.index-roadmap-mobile');
+})->name('mobile.roadmap.index-roadmap-mobile');
+
+Route::get('/detail-roadmap-mobile', function(){
+    return view('mobile.roadmap.detail-roadmap-mobile');
+})->name('mobile.roadmap.detail-roadmap-mobile');
 
 /*
 |--------------------------------------------------------------------------
@@ -385,13 +394,13 @@ Route::post('/gemini/ask', [GeminiController::class, 'ask']);
 // Commented routes yang mungkin akan digunakan nanti:
 // Route::get('/home-mobile', function () {
 //     $user = Auth::user();
-//     return view('home', compact('user'));
+//     return view('mobile.home-mobile', compact('user'));
 // })->middleware('auth')->name('home-mobile');
 
-// Route::get('/profile', function () {
+// Route::get('/user-mobile', function () {
 //     $user = Auth::user();
-//     return view('my-profile', compact('user'));
-// })->middleware('auth')->name('profile');
+//     return view('mobile.user-mobile', compact('user'));
+// })->middleware('auth')->name('user-mobile');
 
 // Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])
 //     ->middleware('auth')
