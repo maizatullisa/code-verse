@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,22 +11,51 @@ use Illuminate\Support\Facades\Storage;
 
 class MateriController extends Controller
 {
-    public function index()
-    {
-        // Ambil semua materi berdasarkan pengajar yang login
-        $materis = Materi::where('pengajar_id', Auth::id())
-                        ->orderBy('created_at', 'desc')
-                        ->get();
-        
-         $jumlahMateri = $materis->count();
-        
-        return view('pengajar.materi.index-materi-pengajar', compact('materis', 'jumlahMateri'));
-    }
+    //     public function index()
+    // {
+    //     // Ambil semua materi milik pengajar yang sedang login
+    //     $materis = Materi::whereHas('kelas', function ($query) {
+    //         $query->where('pengajar_id', Auth::id());
+    //     })->orderBy('created_at', 'desc')->get();
 
-    public function create()
-    {
-        return view('pengajar.materi.create-materi');
-    }
+    //     $jumlahMateri = $materis->count();
+
+    //     return view('pengajar.materi.index-materi-pengajar', compact('materis', 'jumlahMateri'));
+    // }
+            public function index($kelasId)
+            {
+                $kelas = Kelas::findOrFail($kelasId);
+
+                $materis = Materi::where('kelas_id', $kelasId)
+                    ->whereHas('kelas', function ($query) {
+                        $query->where('pengajar_id', Auth::id());
+                    })
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+                $jumlahMateri = $materis->count();
+
+                return view('pengajar.materi.index-materi-pengajar', compact('materis', 'jumlahMateri', 'kelas'));
+            }
+
+
+
+    
+
+        public function create($kelasId = null)
+        {
+            $kelas = null;
+            $allKelas = Kelas::where('pengajar_id', Auth::id())->get();
+
+            if ($kelasId) {
+                $kelas = Kelas::findOrFail($kelasId);
+                if ($kelas->pengajar_id !== Auth::id()) {
+                    abort(403, 'Anda tidak memiliki akses ke kelas ini.');
+                }
+            }
+            
+            return view('pengajar.materi.buat-materi-pengajar', compact('kelas', 'allKelas'));
+        }
 
     public function store(Request $request)
     {
@@ -36,7 +66,8 @@ class MateriController extends Controller
             'level' => 'nullable|in:beginner,intermediate,advanced',
             'file' => 'required|file|mimes:pdf,doc,docx,ppt,pptx,mp4,avi,mkv|max:51200', // 50MB
             'rangkuman' => 'nullable|string',
-            'status' => 'required|in:draft,published'
+            'status' => 'required|in:draft,published',
+            'kelas_id' => 'nullable|exists:kelas,id'
         ]);
 
         $filePath = null;
@@ -68,16 +99,27 @@ class MateriController extends Controller
             'rangkuman' => $request->rangkuman,
             'status' => $status,
             'pengajar_id' => Auth::id(),
+            'kelas_id' => $request->kelas_id
         ]);
 
         $message = $status === 'draft' ? 'Materi berhasil disimpan sebagai draft!' : 'Materi berhasil dipublikasikan!';
         
+        if ($request->kelas_id) {
+        return redirect()->route('pengajar.kelas.show', $request->kelas_id)
+                        ->with('success', $message);
+    }
         return redirect()->route('pengajar.materi.index')
                         ->with('success', $message);
     }
 
     public function show(Materi $materi)
     {
+            dd([
+        'materi_id' => $materi->id,
+        'pengajar_id_materi' => $materi->pengajar_id,
+        'user_login_id' => auth()->id(),
+    ]);
+        
         // Pastikan hanya pengajar yang membuat materi yang bisa melihat
         if ($materi->pengajar_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses ke materi ini.');
@@ -110,7 +152,8 @@ class MateriController extends Controller
             'level' => 'nullable|in:beginner,intermediate,advanced',
             'file' => 'nullable|file|mimes:pdf,doc,docx,ppt,pptx,mp4,avi,mkv|max:51200', // 50MB
             'rangkuman' => 'nullable|string',
-            'status' => 'required|in:draft,published'
+            'status' => 'required|in:draft,published',
+            'kelas_id' => 'nullable|exists:kelas,id'
         ]);
 
         $updateData = [
@@ -119,7 +162,8 @@ class MateriController extends Controller
             'deskripsi' => $request->deskripsi,
             'level' => $request->level,
             'rangkuman' => $request->rangkuman,
-            'status' => $request->status
+            'status' => $request->status,
+            'kelas_id' => $request->kelas_id
         ];
 
         //hndle file upload jika ada file baru
@@ -141,8 +185,14 @@ class MateriController extends Controller
 
         $materi->update($updateData);
 
+        if ($materi->kelas_id) {
+        return redirect()->route('pengajar.kelas.show', $materi->kelas_id)
+                    ->with('success', 'Materi berhasil diperbarui!');
+        }
+
         return redirect()->route('pengajar.materi.index')
                         ->with('success', 'Materi berhasil diperbarui!');
+ 
     }
 
     public function destroy(Materi $materi)
@@ -152,12 +202,21 @@ class MateriController extends Controller
             abort(403, 'Anda tidak memiliki akses untuk menghapus materi ini.');
         }
 
+        $kelasId = $materi->kelas_id;
+
+
         // Hapus file jika ada
         if ($materi->file_path && Storage::disk('public')->exists($materi->file_path)) {
             Storage::disk('public')->delete($materi->file_path);
         }
 
         $materi->delete();
+        //redirect berdasarkan apakah ada kelas_id atau tidak
+           if ($kelasId) {
+            return redirect()->route('pengajar.kelas.show', $kelasId)
+                            ->with('success', 'Materi berhasil dihapus!');
+        }
+
 
         return redirect()->route('pengajar.materi.index')
                         ->with('success', 'Materi berhasil dihapus!');
@@ -202,4 +261,19 @@ class MateriController extends Controller
 
         return view('detail', compact('pengajar'));
     }
+
+        public function materiPerKelas($kelasId)
+    {
+        $kelas = Kelas::where('id', $kelasId)
+                    ->where('pengajar_id', Auth::id())
+                    ->firstOrFail();
+
+        $materis = $kelas->materis()->latest()->get();
+        $jumlahMateri = $materis->count();
+
+        return view('pengajar.kelas.materi-per-kelas', compact('kelas', 'materis', 'jumlahMateri'));
+    }
+
+    
+
 }

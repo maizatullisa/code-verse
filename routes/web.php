@@ -16,6 +16,7 @@ use App\Http\Controllers\BalasanDiskusiController;
 use App\Http\Controllers\PengajarDashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\KelasController;
 
 
 use function PHPUnit\Framework\returnSelf;
@@ -252,22 +253,46 @@ Route::get('/quiz-5', function(){
 // DASHBOARD PENGAJAR
 Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
 
+
 Route::get('/pengajar/buat-kelas', function () {
     return view('pengajar.materi.buat-kelas');
 })->name('pengajar.materi.buat-kelas');
+
+// Route::get('/pengajar/index-kelas-pengajar', action: function () {
+//     return view('pengajar.materi.index-kelas-pengajar');
+// })->name('pengajar.materi.index-kelas-pengajar');
+
+// Dashboard Kelas
+Route::get('/pengajar/kelas', [KelasController::class, 'index'])->name('pengajar.materi.index-kelas-pengajar');
+// Form Buat Kelas
+Route::get('/pengajar/kelas/create', [KelasController::class, 'create'])->name('pengajar.kelas.create');
+// Simpan Kelas
+Route::post('/pengajar/kelas', [KelasController::class, 'store'])->name('pengajar.kelas.store');
+// Detail Kelas (Kelola - lihat materi dalam kelas)
+Route::get('/pengajar/kelas/{kelas}', [KelasController::class, 'show'])->name('pengajar.kelas.show');
+// Form Edit Kelas
+Route::get('/pengajar/kelas/{kelas}/edit', [KelasController::class, 'edit'])->name('pengajar.kelas.edit');
+// Update Kelas
+Route::put('/pengajar/kelas/{kelas}', [KelasController::class, 'update'])->name('pengajar.kelas.update');
+// Hapus Kelas
+Route::delete('/pengajar/kelas/{kelas}', [KelasController::class, 'destroy'])->name('pengajar.kelas.destroy');
+
 // Materi - list semua materi pengajar
+// Route::get('/pengajar/materi', function () {
+//     return view('pengajar.materi.index-materi-pengajar');
+// })->name('pengajar.materi.index');
+Route::get('/pengajar/kelas/{kelasId}/materi', [MateriController::class, 'index'])
+    ->name('pengajar.materi.index');
 
-Route::get('/pengajar/materi', function () {
-    return view('pengajar.materi.index-materi-pengajar');
-})->name('pengajar.materi.index');
 
-Route::get('/pengajar/materi', [MateriController::class, 'index'])->name('pengajar.materi.index');
 // Materi - form tambah materi
-Route::get('/pengajar/materi/create', function () {
-    return view('pengajar.materi.buat-materi-pengajar');
-})->name('pengajar.materi.create');
-
-Route::post('/pengajar/materi/create', [MateriController::class, 'store'])->name('pengajar.materi.store');
+// Route::get('/pengajar/materi/create', function () {
+//     return view('pengajar.materi.buat-materi-pengajar');
+// })->name('pengajar.materi.create');
+Route::get('/pengajar/materi/create/{kelasId?}', [MateriController::class, 'create'])
+    ->name('pengajar.materi.create');
+Route::post('/pengajar/materi/create/{kelasId?}', [MateriController::class, 'store'])
+    ->name('pengajar.materi.store');
 
 //  Materi - detail materi
 Route::get('/pengajar/materi/{materi}', [MateriController::class, 'show'])->name('pengajar.materi.show');

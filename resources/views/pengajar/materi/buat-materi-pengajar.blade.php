@@ -33,7 +33,21 @@
 <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-xl">
   <form action="#" method="POST" enctype="multipart/form-data" class="space-y-8">
     @csrf
-    
+    @if($kelas)
+    <!-- Jika dari kelas tertentu, hidden input -->
+    <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
+    <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+        <p class="text-blue-800">Membuat materi untuk kelas: <strong>{{ $kelas->nama_kelas }}</strong></p>
+    </div>
+    @else
+        <!-- Jika tidak, dropdown pilihan -->
+        <select name="kelas_id" class="...">
+            <option value="">Pilih Kelas (Opsional)</option>
+            @foreach($allKelas as $kelasOption)
+                <option value="{{ $kelasOption->id }}">{{ $kelasOption->nama_kelas }}</option>
+            @endforeach
+        </select>
+    @endif
     <!-- Judul Materi -->
     <div class="space-y-3">
       <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -201,7 +215,7 @@
 
     <!-- Action Buttons -->
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-gray-200">
-      <a href="{{ route('pengajar.materi.index') }}" 
+      <a href="{{ route('pengajar.materi.index', $kelas->id) }}"
          class="w-full sm:w-auto px-6 py-3 border border-gray-300 text-gray-700 rounded-2xl font-semibold hover:bg-gray-50 transition-all duration-300 text-center">
         ← Kembali ke Daftar
       </a>

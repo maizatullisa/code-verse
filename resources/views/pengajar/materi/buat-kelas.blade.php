@@ -41,412 +41,506 @@
 
 <!-- Main Form -->
 <div class="max-w-4xl mx-auto">
-
-    <!-- Step Progress -->
-    <div class="mb-8">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center space-x-4">
-          <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold step-indicator active" data-step="1">
-            1
-          </div>
-          <div class="hidden sm:block w-16 h-1 bg-gray-200 step-line"></div>
-          <div class="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center font-bold step-indicator" data-step="2">
-            2
-          </div>
-          <div class="hidden sm:block w-16 h-1 bg-gray-200 step-line"></div>
-          <div class="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center font-bold step-indicator" data-step="3">
-            3
-          </div>
+  <!-- Step Progress -->
+  <div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold step-indicator active" data-step="1">
+          1
         </div>
-        <div class="text-sm text-gray-500">
-          Step <span id="currentStep">1</span> of 3
+        <div class="hidden sm:block w-16 h-1 bg-gray-200 step-line"></div>
+        <div class="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center font-bold step-indicator" data-step="2">
+          2
+        </div>
+        <div class="hidden sm:block w-16 h-1 bg-gray-200 step-line"></div>
+        <div class="w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center font-bold step-indicator" data-step="3">
+          3
         </div>
       </div>
-      <div class="text-center">
-        <h2 id="stepTitle" class="text-xl font-semibold text-gray-800">Informasi Dasar Kelas</h2>
-        <p id="stepDescription" class="text-gray-600 mt-1">Isi informasi dasar tentang kelas yang akan Anda buat</p>
+      <div class="text-sm text-gray-500">
+        Step <span id="currentStep">1</span> of 3
       </div>
     </div>
-
-    <!-- Step 1: Basic Information -->
-    <div class="step-content active" id="step1">
-      <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-lg">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          <!-- Nama Kelas -->
-          <div class="md:col-span-2">
-            <label for="nama_kelas" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                </svg>
-                <span>Nama Kelas *</span>
-              </span>
-            </label>
-            <input type="text" 
-                   id="nama_kelas" 
-                   name="nama_kelas" 
-                   required
-                   class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 text-gray-800 placeholder-gray-400"
-                   placeholder="Contoh: Web Development Fundamentals">
-          </div>
-
-          <!-- Kategori -->
-          <div>
-            <label for="kategori" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                </svg>
-                <span>Kategori *</span>
-              </span>
-            </label>
-            <select id="kategori" 
-                    name="kategori" 
-                    required
-                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-purple-500 focus:ring-4 focus:ring-purple-500/20 transition-all duration-300 text-gray-800">
-              <option value="">Pilih Kategori</option>
-              <option value="programming">💻 Programming</option>
-              <option value="design">🎨 Design</option>
-              <option value="web">🌐 Web Development</option>
-              <option value="mobile">📱 Mobile Development</option>
-              <option value="data">📊 Data Science</option>
-              <option value="ai">🤖 Artificial Intelligence</option>
-              <option value="marketing">📈 Digital Marketing</option>
-              <option value="business">💼 Business</option>
-            </select>
-          </div>
-
-          <!-- Level -->
-          <div>
-            <label for="level" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                </svg>
-                <span>Level *</span>
-              </span>
-            </label>
-            <select id="level" 
-                    name="level" 
-                    required
-                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-green-500 focus:ring-4 focus:ring-green-500/20 transition-all duration-300 text-gray-800">
-              <option value="">Pilih Level</option>
-              <option value="beginner">🟢 Pemula</option>
-              <option value="intermediate">🟡 Menengah</option>
-              <option value="advanced">🔴 Lanjutan</option>
-            </select>
-          </div>
-
-          <!-- Deskripsi -->
-          <div class="md:col-span-2">
-            <label for="deskripsi" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
-                </svg>
-                <span>Deskripsi Kelas *</span>
-              </span>
-            </label>
-            <textarea id="deskripsi" 
-                      name="deskripsi" 
-                      rows="4" 
-                      required
-                      class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-gray-800 placeholder-gray-400 resize-none"
-                      placeholder="Jelaskan apa yang akan dipelajari dalam kelas ini, tujuan pembelajaran, dan manfaat yang akan didapat oleh peserta..."></textarea>
-          </div>
-
-        </div>
-      </div>
+    <div class="text-center">
+      <h2 id="stepTitle" class="text-xl font-semibold text-gray-800">Informasi Dasar Kelas</h2>
+      <p id="stepDescription" class="text-gray-600 mt-1">Isi informasi dasar tentang kelas yang akan Anda buat</p>
     </div>
+  </div>
 
-    <!-- Step 2: Additional Details -->
-    <div class="step-content" id="step2">
-      <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-lg">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          <!-- Durasi -->
-          <div>
-            <label for="durasi" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <span>Durasi Kelas</span>
-              </span>
-            </label>
-            <input type="text" 
-                   id="durasi" 
-                   name="durasi" 
-                   class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-500/20 transition-all duration-300 text-gray-800 placeholder-gray-400"
-                   placeholder="Contoh: 8 minggu, 20 jam">
-          </div>
-
-          <!-- Kapasitas -->
-          <div>
-            <label for="kapasitas" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
-                </svg>
-                <span>Kapasitas Maksimal</span>
-              </span>
-            </label>
-            <input type="number" 
-                   id="kapasitas" 
-                   name="kapasitas" 
-                   min="1"
-                   class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-pink-500 focus:ring-4 focus:ring-pink-500/20 transition-all duration-300 text-gray-800 placeholder-gray-400"
-                   placeholder="Contoh: 30">
-          </div>
-
-          <!-- Harga -->
-          <div>
-            <label for="harga" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
-                </svg>
-                <span>Harga</span>
-              </span>
-            </label>
-            <div class="relative">
-              <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">Rp</span>
-              <input type="number" 
-                     id="harga" 
-                     name="harga" 
-                     min="0"
-                     class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-yellow-500 focus:ring-4 focus:ring-yellow-500/20 transition-all duration-300 text-gray-800 placeholder-gray-400"
-                     placeholder="0">
-            </div>
-            <p class="text-xs text-gray-500 mt-2">Kosongkan atau isi 0 jika kelas gratis</p>
-          </div>
-
-          <!-- Status -->
-          <div>
-            <label for="status" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <span>Status Publikasi</span>
-              </span>
-            </label>
-            <select id="status" 
-                    name="status"
-                    class="w-full px-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 transition-all duration-300 text-gray-800">
-              <option value="draft">✏️ Draft</option>
-              <option value="published">📚 Published</option>
-            </select>
-          </div>
-
-          <!-- Cover Image -->
-          <div class="md:col-span-2">
-            <label for="cover_image" class="block text-sm font-semibold text-gray-700 mb-3">
-              <span class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                <span>Cover Kelas</span>
-              </span>
-            </label>
-            <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center hover:border-indigo-400 transition-colors duration-300">
-              <input type="file" 
-                     id="cover_image" 
-                     name="cover_image" 
-                     accept="image/*"
-                     class="hidden">
-              <div id="imagePreview" class="mb-4"></div>
-              <label for="cover_image" class="cursor-pointer">
-                <div class="flex flex-col items-center space-y-2">
-                  <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                  </svg>
-                  <span class="text-gray-600 font-medium">Click to upload cover image</span>
-                  <span class="text-gray-400 text-sm">PNG, JPG up to 2MB</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- Step 3: Preview & Confirm -->
-    <div class="step-content" id="step3">
-      <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-lg">
-        <div class="text-center mb-8">
-          <h3 class="text-2xl font-bold text-gray-800 mb-2">Preview Kelas</h3>
-          <p class="text-gray-600">Periksa kembali informasi kelas sebelum disimpan</p>
-        </div>
+  <!-- Step 1: Basic Information -->
+  <div class="step-content active" id="step1">
+    <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <div id="classPreview" class="space-y-6">
-          <!-- Preview will be populated by JavaScript -->
+        <!-- Form Section -->
+        <div class="md:col-span-2">
+          <!-- Alert Messages -->
+          @if(session('success'))
+          <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-xl flex items-center space-x-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>{{ session('success') }}</span>
+          </div>
+          @endif
+
+          @if($errors->any())
+          <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl">
+            <div class="flex items-center space-x-3 mb-3">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+              <span class="font-semibold">Terjadi kesalahan:</span>
+            </div>
+            <ul class="list-disc list-inside space-y-1">
+              @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
+
+          <form action="{{ route('pengajar.kelas.store') }}" method="POST" enctype="multipart/form-data" id="kelasForm">
+            @csrf
+
+            <!-- Basic Information -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+              
+              <!-- Nama Kelas -->
+              <div class="lg:col-span-2">
+                <label for="nama_kelas" class="block text-sm font-semibold text-gray-800 mb-2">
+                  Nama Kelas <span class="text-red-500">*</span>
+                </label>
+                <input type="text" 
+                       id="nama_kelas" 
+                       name="nama_kelas" 
+                       value="{{ old('nama_kelas') }}"
+                       placeholder="Contoh: Fullstack Web Development dengan Laravel"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300"
+                       required>
+                @error('nama_kelas')
+                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <!-- Kategori -->
+              <div>
+                <label for="kategori" class="block text-sm font-semibold text-gray-800 mb-2">
+                  Kategori <span class="text-red-500">*</span>
+                </label>
+                <select id="kategori" 
+                  name="kategori" 
+                  class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300"
+                  required>
+                  <option value="">Pilih Kategori</option>
+                  <option value="programming" {{ old('kategori') == 'programming' ? 'selected' : '' }}>💻 Programming</option>
+                  <option value="design" {{ old('kategori') == 'design' ? 'selected' : '' }}>🎨 Design</option>
+                  <option value="web" {{ old('kategori') == 'web' ? 'selected' : '' }}>🌐 Web Development</option>
+                  <option value="mobile" {{ old('kategori') == 'mobile' ? 'selected' : '' }}>📱 Mobile Development</option>
+                  <option value="data" {{ old('kategori') == 'data' ? 'selected' : '' }}>📊 Data Science</option>
+                  <option value="ai" {{ old('kategori') == 'ai' ? 'selected' : '' }}>🤖 Artificial Intelligence</option>
+                  <option value="marketing" {{ old('kategori') == 'marketing' ? 'selected' : '' }}>📈 Marketing</option>
+                  <option value="business" {{ old('kategori') == 'business' ? 'selected' : '' }}>💼 Business</option>
+                </select>
+                @error('kategori')
+                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <!-- Level -->
+              <div>
+                <label for="level" class="block text-sm font-semibold text-gray-800 mb-2">
+                  Level <span class="text-red-500">*</span>
+                </label>
+                <select id="level" 
+                        name="level" 
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300"
+                        required>
+                  <option value="">Pilih Level</option>
+                  <option value="beginner" {{ old('level') == 'beginner' ? 'selected' : '' }}>🟢 Pemula</option>
+                  <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>🟡 Menengah</option>
+                  <option value="advanced" {{ old('level') == 'advanced' ? 'selected' : '' }}>🔴 Lanjutan</option>
+                </select>
+                @error('level')
+                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+            </div>
+
+            <!-- Deskripsi -->
+            <div class="mb-8">
+              <label for="deskripsi" class="block text-sm font-semibold text-gray-800 mb-2">
+                Deskripsi Kelas <span class="text-red-500">*</span>
+              </label>
+              <textarea id="deskripsi" 
+                        name="deskripsi" 
+                        rows="4"
+                        placeholder="Jelaskan tentang kelas ini, apa yang akan dipelajari, dan tujuan pembelajaran..."
+                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 resize-none"
+                        required>{{ old('deskripsi') }}</textarea>
+              @error('deskripsi')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <!-- Additional Settings -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+              
+              <!-- Durasi -->
+              <div>
+                <label for="durasi" class="block text-sm font-semibold text-gray-800 mb-2">
+                  Durasi (Opsional)
+                </label>
+                <input type="text" 
+                       id="durasi" 
+                       name="durasi" 
+                       value="{{ old('durasi') }}"
+                       placeholder="Contoh: 12 minggu"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300">
+                @error('durasi')
+                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <!-- Kapasitas -->
+              <div>
+                <label for="kapasitas" class="block text-sm font-semibold text-gray-800 mb-2">
+                  Kapasitas Siswa (Opsional)
+                </label>
+                <input type="number" 
+                       id="kapasitas" 
+                       name="kapasitas" 
+                       value="{{ old('kapasitas') }}"
+                       placeholder="Contoh: 50"
+                       min="1"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300">
+                <p class="text-xs text-gray-500 mt-1">Kosongkan untuk kapasitas tidak terbatas</p>
+                @error('kapasitas')
+                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+              <!-- Harga -->
+              <div>
+                <label for="harga" class="block text-sm font-semibold text-gray-800 mb-2">
+                  Harga (Opsional)
+                </label>
+                <input type="number" 
+                       id="harga" 
+                       name="harga" 
+                       value="{{ old('harga') }}"
+                       placeholder="Contoh: 150000"
+                       min="0"
+                       step="1000"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300">
+                <p class="text-xs text-gray-500 mt-1">Kosongkan untuk kelas gratis</p>
+                @error('harga')
+                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+              </div>
+
+            </div>
+
+            <!-- Cover Image -->
+            <div class="mb-8">
+              <label for="cover_image" class="block text-sm font-semibold text-gray-800 mb-2">
+                Cover Image (Opsional)
+              </label>
+              <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-indigo-500 transition-all duration-300" id="dropZone">
+                <input type="file" 
+                       id="cover_image" 
+                       name="cover_image" 
+                       accept="image/jpeg,image/png,image/jpg"
+                       class="hidden">
+                <div id="uploadText">
+                  <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                  </svg>
+                  <p class="text-gray-600">Klik atau drag & drop gambar cover</p>
+                  <p class="text-xs text-gray-500 mt-1">PNG, JPG hingga 2MB</p>
+                </div>
+                <div id="imagePreview" class="hidden">
+                  <img id="previewImg" src="" alt="Preview" class="max-h-48 mx-auto rounded-lg">
+                  <p class="text-sm text-gray-600 mt-2" id="fileName"></p>
+                  <button type="button" onclick="removeImage()" class="text-red-500 text-sm mt-2 hover:text-red-700">
+                    Hapus Gambar
+                  </button>
+                </div>
+              </div>
+              @error('cover_image')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <!-- Status -->
+            <div class="mb-8">
+              <label for="status" class="block text-sm font-semibold text-gray-800 mb-2">
+                Status Kelas <span class="text-red-500">*</span>
+              </label>
+              <select id="status" 
+                      name="status" 
+                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300"
+                      required>
+                <option value="">Pilih Status</option>
+                <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>✏️ Draft (Belum Dipublikasi)</option>
+                <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>📚 Published (Sudah Dipublikasi)</option>
+              </select>
+              @error('status')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+              @enderror
+            </div>
+
+          </form>
         </div>
+
       </div>
     </div>
+  </div>
 
-    <!-- Navigation Buttons -->
-    <div class="flex justify-between items-center mt-8">
-      <button type="button" 
-              id="prevBtn" 
-              class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        <span>Sebelumnya</span>
-      </button>
+  <!-- Step 3: Preview & Confirm -->
+  <div class="step-content" id="step3">
+    <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-lg">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Preview Kelas</h3>
+        <p class="text-gray-600">Periksa kembali informasi kelas sebelum disimpan</p>
+      </div>
+      
+      <div id="classPreview" class="space-y-6 mb-8">
+        <!-- Preview will be populated by JavaScript -->
+      </div>
 
-      <div class="flex space-x-4">
+      <!-- Submit Actions di Step 3 -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6 border-t border-gray-200">
         <button type="button" 
-                id="nextBtn" 
-                class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-          <span>Selanjutnya</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-          </svg>
+                onclick="goToPreviousStep()"
+                class="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
+          ← Edit Kembali
         </button>
-
+        
         <button type="submit" 
-                id="submitBtn" 
-                class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hidden">
+                form="kelasForm"
+                class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
           </svg>
-          <span>Buat Kelas</span>
+          <span id="submitButtonText">Buat Kelas</span>
         </button>
       </div>
     </div>
+  </div>
 
+  <!-- Navigation Buttons -->
+  <div class="flex justify-between items-center mt-8">
+    <button type="button"
+       id="prevBtn" 
+       class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      <span>Sebelumnya</span>
+    </button>
+
+    <div class="flex space-x-4">
+      
+      <button type="button"
+         id="nextBtn" 
+         class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+        <span>Selanjutnya</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
 
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    let currentStep = 1;
-    const totalSteps = 3;
-    
-    const stepTitles = {
-        1: 'Informasi Dasar Kelas',
-        2: 'Detail Tambahan',
-        3: 'Preview & Konfirmasi'
-    };
-    
-    const stepDescriptions = {
-        1: 'Isi informasi dasar tentang kelas yang akan Anda buat',
-        2: 'Tambahkan detail lainnya untuk melengkapi kelas Anda',
-        3: 'Periksa kembali informasi kelas sebelum disimpan'
-    };
+function removeImage() {
+    document.getElementById('cover_image').value = '';
+    document.getElementById('imagePreview').classList.add('hidden');
+    document.getElementById('uploadText').classList.remove('hidden');
+}
 
-    function updateStepUI() {
-        // Update step indicators
-        document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
-            const stepNum = index + 1;
-            if (stepNum === currentStep) {
-                indicator.className = 'w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold step-indicator active';
-            } else if (stepNum < currentStep) {
-                indicator.className = 'w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold step-indicator completed';
-                indicator.innerHTML = '✓';
-            } else {
-                indicator.className = 'w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center font-bold step-indicator';
-                indicator.innerHTML = stepNum;
-            }
-        });
+// PINDAHKAN currentStep ke global scope
+let currentStep = 1;
+const totalSteps = 3;
 
-        // Update step content
-        document.querySelectorAll('.step-content').forEach((content, index) => {
-            content.classList.toggle('active', index + 1 === currentStep);
-        });
+function goToPreviousStep() {
+    if (currentStep > 1) {
+        currentStep--;
+        updateStepUI();
+    }
+}
 
-        // Update title and description
-        document.getElementById('currentStep').textContent = currentStep;
-        document.getElementById('stepTitle').textContent = stepTitles[currentStep];
-        document.getElementById('stepDescription').textContent = stepDescriptions[currentStep];
+const stepTitles = {
+    1: 'Informasi Dasar Kelas',
+    2: 'Detail Tambahan', 
+    3: 'Preview & Konfirmasi'
+};
 
-        // Update buttons
-        document.getElementById('prevBtn').disabled = currentStep === 1;
-        document.getElementById('nextBtn').style.display = currentStep === totalSteps ? 'none' : 'flex';
-        document.getElementById('submitBtn').style.display = currentStep === totalSteps ? 'flex' : 'none';
+const stepDescriptions = {
+    1: 'Isi informasi dasar tentang kelas yang akan Anda buat',
+    2: 'Tambahkan detail lainnya untuk melengkapi kelas Anda',
+    3: 'Periksa kembali informasi kelas sebelum disimpan'
+};
 
-        // Update step lines
-        document.querySelectorAll('.step-line').forEach((line, index) => {
-            if (index + 1 < currentStep) {
-                line.className = 'hidden sm:block w-16 h-1 bg-green-500 step-line';
-            } else {
-                line.className = 'hidden sm:block w-16 h-1 bg-gray-200 step-line';
-            }
-        });
-
-        // Generate preview if on step 3
-        if (currentStep === 3) {
-            generatePreview();
+function validateStep1() {
+    const requiredFields = ['nama_kelas', 'kategori', 'level', 'deskripsi', 'status'];
+    for (let field of requiredFields) {
+        const input = document.querySelector(`[name="${field}"]`);
+        if (!input || !input.value.trim()) {
+            alert(`Field ${field.replace('_', ' ')} harus diisi!`);
+            return false;
         }
     }
+    return true;
+}
 
-    function generatePreview() {
-        const formData = new FormData(document.getElementById('createClassForm'));
-        const previewContainer = document.getElementById('classPreview');
-        
-        const namaKelas = formData.get('nama_kelas') || 'Nama Kelas Belum Diisi';
-        const kategori = formData.get('kategori') || 'Kategori Belum Dipilih';
-        const level = formData.get('level') || 'Level Belum Dipilih';
-        const deskripsi = formData.get('deskripsi') || 'Deskripsi belum diisi';
-        const durasi = formData.get('durasi') || 'Tidak ditentukan';
-        const kapasitas = formData.get('kapasitas') || 'Tidak terbatas';
-        const harga = formData.get('harga') || '0';
-        const status = formData.get('status') || 'draft';
+function updateStepUI() {
+    // Update step indicators
+    document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        const stepNum = index + 1;
+        if (stepNum === currentStep) {
+            indicator.className = 'w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold step-indicator active';
+        } else if (stepNum < currentStep) {
+            indicator.className = 'w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold step-indicator completed';
+            indicator.innerHTML = '✓';
+        } else {
+            indicator.className = 'w-10 h-10 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center font-bold step-indicator';
+            indicator.innerHTML = stepNum;
+        }
+    });
 
-        const kategoriLabels = {
-            'programming': '💻 Programming',
-            'design': '🎨 Design',
-            'web': '🌐 Web Development',
-            'mobile': '📱 Mobile Development',
-            'data': '📊 Data Science',
-            'ai': '🤖 Artificial Intelligence',
-            'marketing': '📈 Digital Marketing',
-            'business': '💼 Business'
-        };
+    // Update step content
+    document.querySelectorAll('.step-content').forEach((content, index) => {
+        content.classList.toggle('active', index + 1 === currentStep);
+    });
 
-        const levelLabels = {
-            'beginner': '🟢 Pemula',
-            'intermediate': '🟡 Menengah',
-            'advanced': '🔴 Lanjutan'
-        };
+    // Update title and description
+    document.getElementById('currentStep').textContent = currentStep;
+    document.getElementById('stepTitle').textContent = stepTitles[currentStep];
+    document.getElementById('stepDescription').textContent = stepDescriptions[currentStep];
 
-        const statusLabels = {
-            'draft': '✏️ Draft',
-            'published': '📚 Published'
-        };
+    // Update buttons
+    document.getElementById('prevBtn').disabled = currentStep === 1;
+    document.getElementById('nextBtn').style.display = currentStep === totalSteps ? 'none' : 'flex';
 
-        previewContainer.innerHTML = `
-            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border-2 border-indigo-200">
-                <h4 class="text-xl font-bold text-gray-800 mb-4">${namaKelas}</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div class="space-y-2">
-                        <p><span class="font-semibold">Kategori:</span> ${kategoriLabels[kategori] || kategori}</p>
-                        <p><span class="font-semibold">Level:</span> ${levelLabels[level] || level}</p>
-                        <p><span class="font-semibold">Durasi:</span> ${durasi}</p>
-                        <p><span class="font-semibold">Kapasitas:</span> ${kapasitas} orang</p>
-                    </div>
-                    <div class="space-y-2">
-                        <p><span class="font-semibold">Harga:</span> ${harga == '0' ? 'Gratis' : 'Rp ' + new Intl.NumberFormat('id-ID').format(harga)}</p>
-                        <p><span class="font-semibold">Status:</span> ${statusLabels[status] || status}</p>
-                    </div>
+    // Update step lines
+    document.querySelectorAll('.step-line').forEach((line, index) => {
+        if (index + 1 < currentStep) {
+            line.className = 'hidden sm:block w-16 h-1 bg-green-500 step-line';
+        } else {
+            line.className = 'hidden sm:block w-16 h-1 bg-gray-200 step-line';
+        }
+    });
+
+    // Generate preview if on step 3
+    if (currentStep === 3) {
+        console.log('Generating preview...');
+        generatePreview();
+    }
+}
+
+function generatePreview() {
+    console.log('=== GENERATE PREVIEW START ===');
+    
+    const previewContainer = document.getElementById('classPreview');
+    
+    // Ambil element
+    const kategoriElement = document.querySelector('[name="kategori"]');
+    const levelElement = document.querySelector('[name="level"]');
+    const statusElement = document.querySelector('[name="status"]');
+    
+    // Debug info
+    console.log('Kategori element:', kategoriElement);
+    console.log('Kategori value:', kategoriElement?.value);
+    console.log('Kategori selectedIndex:', kategoriElement?.selectedIndex);
+    console.log('Level element:', levelElement);
+    console.log('Level value:', levelElement?.value);
+    console.log('Level selectedIndex:', levelElement?.selectedIndex);
+    
+    // Ambil nilai langsung
+    const namaKelas = document.querySelector('[name="nama_kelas"]')?.value || 'Nama Kelas Belum Diisi';
+    const deskripsi = document.querySelector('[name="deskripsi"]')?.value || 'Deskripsi belum diisi';
+    const durasi = document.querySelector('[name="durasi"]')?.value || 'Tidak ditentukan';
+    const kapasitas = document.querySelector('[name="kapasitas"]')?.value || 'Tidak terbatas';
+    const harga = document.querySelector('[name="harga"]')?.value || '0';
+    
+    // Ambil text dengan pengecekan yang lebih ketat
+    let kategoriText = 'Kategori Belum Dipilih';
+    if (kategoriElement && kategoriElement.selectedIndex > 0) {
+        kategoriText = kategoriElement.options[kategoriElement.selectedIndex].text;
+    }
+    
+    let levelText = 'Level Belum Dipilih';
+    if (levelElement && levelElement.selectedIndex > 0) {
+        levelText = levelElement.options[levelElement.selectedIndex].text;
+    }
+    
+    let statusText = 'Status Belum Dipilih';
+    if (statusElement && statusElement.selectedIndex > 0) {
+        statusText = statusElement.options[statusElement.selectedIndex].text;
+    }
+    
+    const status = statusElement?.value || '';
+    
+    console.log('Final values:');
+    console.log('Kategori Text:', kategoriText);
+    console.log('Level Text:', levelText);
+    console.log('Status Text:', statusText);
+
+    // Update submit button text
+    const submitBtn = document.getElementById('submitButtonText');
+    if (status === 'draft') {
+        submitBtn.textContent = 'Simpan sebagai Draft';
+    } else if (status === 'published') {
+        submitBtn.textContent = 'Buat & Publikasikan';
+    } else {
+        submitBtn.textContent = 'Buat Kelas';
+    }
+
+    previewContainer.innerHTML = `
+        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border-2 border-indigo-200">
+            <h4 class="text-xl font-bold text-gray-800 mb-4">${namaKelas}</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="space-y-2">
+                    <p><span class="font-semibold">Kategori:</span> ${kategoriText}</p>
+                    <p><span class="font-semibold">Level:</span> ${levelText}</p>
+                    <p><span class="font-semibold">Durasi:</span> ${durasi}</p>
+                    <p><span class="font-semibold">Kapasitas:</span> ${kapasitas} orang</p>
                 </div>
-                <div class="mt-4">
-                    <p class="font-semibold mb-2">Deskripsi:</p>
-                    <p class="text-gray-600 leading-relaxed">${deskripsi}</p>
+                <div class="space-y-2">
+                    <p><span class="font-semibold">Harga:</span> ${harga == '0' ? 'Gratis' : 'Rp ' + new Intl.NumberFormat('id-ID').format(harga)}</p>
+                    <p><span class="font-semibold">Status:</span> ${statusText}</p>
                 </div>
             </div>
-        `;
-    }
+            <div class="mt-4">
+                <p class="font-semibold mb-2">Deskripsi:</p>
+                <p class="text-gray-600 leading-relaxed">${deskripsi}</p>
+            </div>
+        </div>
+    `;
+    
+    console.log('=== GENERATE PREVIEW END ===');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing...');
 
     // Event listeners
     document.getElementById('nextBtn').addEventListener('click', function() {
+        console.log('Next button clicked, current step:', currentStep);
+        
+        if (currentStep === 1 && !validateStep1()) {
+            return;
+        }
+        
         if (currentStep < totalSteps) {
             currentStep++;
+            console.log('Moving to step:', currentStep);
             updateStepUI();
         }
     });
@@ -458,10 +552,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // // Test button untuk debug
+    // const testBtn = document.createElement('button');
+    // testBtn.textContent = 'Test Preview';
+    // testBtn.type = 'button';
+    // testBtn.className = 'bg-red-500 text-white px-4 py-2 rounded ml-4';
+    // testBtn.onclick = function() {
+    //     console.log('=== MANUAL TEST ===');
+    //     generatePreview();
+    // };
+    // document.getElementById('nextBtn').parentNode.appendChild(testBtn);
+
     // Image preview
     document.getElementById('cover_image').addEventListener('change', function(e) {
         const file = e.target.files[0];
         const preview = document.getElementById('imagePreview');
+        const uploadText = document.getElementById('uploadText');
         
         if (file) {
             const reader = new FileReader();
@@ -476,83 +582,44 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                     </div>
                 `;
+                preview.classList.remove('hidden');
+                uploadText.classList.add('hidden');
             };
             reader.readAsDataURL(file);
         }
     });
 
-    // Remove image function
-    window.removeImage = function() {
-        document.getElementById('cover_image').value = '';
-        document.getElementById('imagePreview').innerHTML = '';
-    };
-
-    // Form submission with redirect to index-materi
-    document.getElementById('createClassForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Show loading state
-        const submitBtn = document.getElementById('submitBtn');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = `
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Memproses...
-        `;
-        submitBtn.disabled = true;
-
-        // Simulate form submission (replace with actual form submission)
-        setTimeout(() => {
-            // Show success notification
-            showNotification('Kelas berhasil dibuat!', 'success');
-            
-            // Redirect to index-materi after 2 seconds
-            setTimeout(() => {
-                window.location.href = "{{ route('pengajar.materi.index') }}";
-            }, 2000);
-        }, 1500);
+    // Click to upload
+    document.getElementById('dropZone').addEventListener('click', function() {
+        document.getElementById('cover_image').click();
     });
 
-    // Notification function
-    function showNotification(message, type = 'success') {
-        const notification = document.createElement('div');
-        notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-2xl shadow-lg transform transition-all duration-500 ${
-            type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-        }`;
-        notification.innerHTML = `
-            <div class="flex items-center space-x-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    ${type === 'success' 
-                        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>'
-                        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
-                    }
-                </svg>
-                <span class="font-medium">${message}</span>
-            </div>
-        `;
+    // Drag and drop
+    document.getElementById('dropZone').addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('border-indigo-500');
+    });
+
+    document.getElementById('dropZone').addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.classList.remove('border-indigo-500');
+    });
+
+    document.getElementById('dropZone').addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('border-indigo-500');
         
-        document.body.appendChild(notification);
-        
-        // Animate in
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.style.transform = 'translateX(100%)';
-            setTimeout(() => {
-                document.body.removeChild(notification);
-            }, 500);
-        }, 3000);
-    }
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            document.getElementById('cover_image').files = files;
+            document.getElementById('cover_image').dispatchEvent(new Event('change'));
+        }
+    });
 
     // Initialize
     updateStepUI();
 
-    // Add some nice animations
+    // CSS
     const style = document.createElement('style');
     style.textContent = `
         .step-content {
@@ -585,32 +652,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         input:focus, select:focus, textarea:focus {
             outline: none;
-        }
-        
-        .form-group {
-            position: relative;
-        }
-        
-        .floating-label {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: white;
-            padding: 0 8px;
-            color: #6b7280;
-            transition: all 0.2s ease;
-            pointer-events: none;
-        }
-        
-        input:focus + .floating-label,
-        input:not(:placeholder-shown) + .floating-label,
-        select:focus + .floating-label,
-        textarea:focus + .floating-label,
-        textarea:not(:placeholder-shown) + .floating-label {
-            top: 0;
-            font-size: 12px;
-            color: #4f46e5;
         }
     `;
     document.head.appendChild(style);

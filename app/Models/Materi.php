@@ -22,7 +22,8 @@ class Materi extends Model
         'file_size',
         'rangkuman',
         'status',
-        'pengajar_id'
+        'pengajar_id',
+        'kelas_id'
     ];
 
     protected $casts = [
@@ -80,5 +81,9 @@ class Materi extends Model
     {
         return $this->hasMany(Diskusi::class);
     }
-
+    
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
 }

@@ -29,22 +29,25 @@
       </div>
     </div>
     
-    <a href="{{ route('pengajar.materi.create') }}" 
-       class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-      </svg>
-      <span>Tambah Materi</span>
+    <a href="{{ route('pengajar.materi.create', $kelas->id ) }}" 
+      class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        <span>Tambah Materi Pertama</span>
     </a>
+
+
+
   </div>
 </div>
 
 <!-- Materials List -->
 <div class="space-y-6">
-  {{--@forelse($materis as $materi--}}
+  @forelse($materis as $materi)
   <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300">
     <div class="flex flex-col lg:flex-row items-start justify-between gap-6">
-      {{--<div class="flex items-start space-x-4 flex-1">
+      <div class="flex items-start space-x-4 flex-1">
         <div class="w-16 h-16 bg-gradient-to-br 
           @if($materi->kategori == 'programming') from-orange-400 to-pink-500
           @elseif($materi->kategori == 'design') from-blue-400 to-purple-500  
@@ -108,11 +111,10 @@
             {{ Str::limit($materi->deskripsi, 150) }}
           </p>
         </div>
-      </div>--}}
+      </div>
       
       <div class="flex items-center space-x-3 lg:flex-shrink-0">
-        {{--<a href="{{ route('pengajar.materi.show', $materi) }}"--}}
-        <a href="{{ url('/desktop/lorek-desktop') }}"
+        <a href="{{ route('pengajar.materi.show', $materi) }}"
            class="bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-500 hover:to-emerald-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -158,7 +160,7 @@
       </div>
     </div>
   </div>
-  {{--@empty--}}
+  @empty
   <!-- Empty State -->
   <div class="text-center py-16">
     <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -168,15 +170,16 @@
     </div>
     <h3 class="text-xl font-semibold text-gray-800 mb-2">Belum ada materi</h3>
     <p class="text-gray-600 mb-6">Mulai dengan menambahkan materi pembelajaran pertama Anda</p>
-    <a href="{{ route('pengajar.materi.create') }}" 
-       class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+    <a href="{{ route('pengajar.materi.create', $kelas->id) }}" 
+      class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
       </svg>
       <span>Tambah Materi Pertama</span>
     </a>
+
   </div>
- {{-- @endforelse--}}
+ @endforelse
 </div>
 
 @endsection
