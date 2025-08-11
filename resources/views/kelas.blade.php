@@ -35,7 +35,7 @@
             <div class="flex justify-between items-center gap-3 pt-8 px-6">
                 <div class="flex justify-start items-center gap-3 bg-color24 border border-color24 p-4 rounded-full text-white w-full">
                     <i class="ph ph-magnifying-glass"></i>
-                    <input type="text" placeholder="Search Contest" class="bg-transparent outline-none placeholder:text-white w-full text-xs" />
+                    <input type="text" placeholder="Cari Materi" class="bg-transparent outline-none placeholder:text-white w-full text-xs" />
                 </div>
                 <div class="bg-color24 border border-color24 p-4 rounded-full text-white flex justify-center items-center">
                     <i class="ph ph-sliders-horizontal"></i>
@@ -201,25 +201,45 @@
                                                 <i class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"></i>
                                                 {{ $materi->pengajar->name ?? 'Tidak diketahui' }}
                                             </p>
-                                            <div class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18">
-                                                <div class="flex justify-start items-center">
-                                                    <div class="rounded-full bg-white p-0.5">
-                                                        <img src="assets/images/user-img-1.png" alt="" class="size-6 object-cover rounded-full" />
-                                                    </div>
-                                                    <div class="rounded-full bg-white p-0.5 -ml-2">
-                                                        <img src="assets/images/user-img-2.png" alt="" class="size-6 object-cover rounded-full" />
-                                                    </div>
-                                                    <div class="rounded-full bg-white p-0.5 -ml-2">
-                                                        <img src="assets/images/user-img-3.png" alt="" class="size-6 object-cover rounded-full" />
-                                                    </div>
-                                                    <div class="rounded-full bg-white p-0.5 -ml-2">
-                                                        <img src="assets/images/user-img-4.png" alt="" class="size-6 object-cover rounded-full" />
-                                                    </div>
-                                                    <div class="rounded-full bg-white p-0.5 -ml-2">
-                                                        <img src="assets/images/user-img-5.png" alt="" class="size-6 object-cover rounded-full" />
-                                                    </div>
-                                                </div>
-                                                <p>Public</p>
+                                        <div class="text-xs text-color5 flex justify-start items-center gap-2 dark:text-color18">
+                                    <div class="flex justify-start items-center">
+                                        <div class="rounded-full bg-white p-0.5">
+                                        <img
+                                            src="assets/images/user-img-1.png"
+                                            alt=""
+                                            class="size-6 object-cover rounded-full"
+                                        />
+                                        </div>
+                                        <div class="rounded-full bg-white p-0.5 -ml-2">
+                                        <img
+                                            src="assets/images/user-img-2.png"
+                                            alt=""
+                                            class="size-6 object-cover rounded-full"
+                                        />
+                                        </div>
+                                        <div class="rounded-full bg-white p-0.5 -ml-2">
+                                        <img
+                                            src="assets/images/user-img-3.png"
+                                            alt=""
+                                            class="size-6 object-cover rounded-full"
+                                        />
+                                        </div>
+                                        <div class="rounded-full bg-white p-0.5 -ml-2">
+                                        <img
+                                            src="assets/images/user-img-4.png"
+                                            alt=""
+                                            class="size-6 object-cover rounded-full"
+                                        />
+                                        </div>
+                                        <div class="rounded-full bg-white p-0.5 -ml-2">
+                                        <img
+                                            src="assets/images/user-img-5.png"
+                                            alt=""
+                                            class="size-6 object-cover rounded-full"
+                                        />
+                                        </div>
+                                    </div>
+                                    <p>Public</p>
                                             </div>
                                         </div>
                                     </div>
@@ -233,61 +253,42 @@
                     <!-- Tab Kelas Saya (New) -->
                     <div class="tab-content hiddenTab" id="tabFour_data">
                         <div class="flex flex-col gap-5">
-                            @if ($kelasDiambil->count())
-                                @foreach ($kelasDiambil as $kelas)
+                           @if ($kelasDiambil->count())
+                            @foreach ($kelasDiambil as $kelas)
                                 <a href="{{ route('daftar-belajar.pembelajaran', $kelas->id) }}" class="block">
-                                    <div class="bg-white p-3 rounded-xl border border-color21 dark:bg-color9 dark:border-color7 hover:shadow-lg transition-all duration-300">
-                                        <div class="flex justify-between items-center">
-                                            <div class="flex gap-3 items-center">
-                                                <!-- Progress Badge -->
-                                                <div class="py-2 px-3 text-white bg-p1 rounded-xl text-center shadow-sm">
-                                                    <p class="font-semibold text-sm leading-none">
-                                                        {{ $kelas->materis->where('pivot.status', 'selesai')->count() }}
-                                                    </p>
-                                                    <p class="text-[11px] leading-tight">
-                                                        / {{ $kelas->materis->count() }}
-                                                    </p>
-                                                </div>
-
-                                                <div>
-                                                    <!-- Nama Kelas -->
-                                                    <p class="font-semibold text-sm dark:text-white">
-                                                        {{ $kelas->nama_kelas }}
-                                                    </p>
-                                                    <!-- Nama Pengajar -->
-                                                    <p class="text-xs text-p1 font-medium mb-1 dark:text-p1">
-                                                        <i class="ph ph-user"></i> {{ $kelas->pengajar->first_name ?? $kelas->pengajar->name }}
-                                                    </p>
-                                                    <!-- Progress -->
-                                                    <div class="flex items-center gap-2 mt-2">
-                                                        <div class="bg-color21 rounded-full h-2 w-32 dark:bg-color7">
-                                                            @php
-                                                                $totalMateri = $kelas->materis->count();
-                                                                $selesaiMateri = $kelas->materis->where('pivot.status', 'selesai')->count();
-                                                                $progress = $totalMateri > 0 ? ($selesaiMateri / $totalMateri) * 100 : 0;
-                                                            @endphp
-                                                            <div class="bg-p1 h-2 rounded-full" style="width: {{ $progress }}%"></div>
-                                                        </div>
-                                                        <span class="text-xs text-color5 dark:text-color18">{{ number_format($progress, 0) }}%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <span class="text-white text-xs bg-p2 py-1.5 px-4 rounded-full dark:bg-p1">
-                                                    Mulai Belajar
-                                                </span>
-                                            </div>
+                                    <div class="bg-white p-3 rounded-xl flex justify-start items-center gap-4 border border-color21 dark:bg-color9 dark:border-color7 hover:shadow-lg transition-all duration-300">
+                                        <div class="relative rounded-lg overflow-hidden flex-shrink-0">
+                                            <img src="{{ $kelas->cover_image ? asset('storage/' . $kelas->cover_image) : asset('assets/images/library-favourite-img2.png') }}" 
+                                                alt="Cover Image" 
+                                                class="h-[100px] w-[140px] object-cover rounded-lg" />
+                                        </div>
+                                        <div class="flex flex-col justify-center">
+                                            <p class="font-semibold">{{ $kelas->nama_kelas }}</p>
+                                            <p class="text-bgColor18 text-xs flex justify-start items-center gap-1 pt-3 pb-2 dark:text-color18">
+                                                Capaian
+                                                <i class="ph-fill ph-dot-outline text-p1 text-xl !leading-none"></i>
+                                                {{ $kelas->progress ?? '100%' }}
+                                            </p>
+                                            <p class="text-xs text-color5 flex justify-start items-center gap-1 dark:text-color18">
+                                                <i class="ph ph-users-three text-base !leading-none"></i>
+                                                {{ $kelas->jumlah_siswa ?? '0' }} siswa
+                                            </p>
+                                        </div>
+                                        <div class="ml-auto flex items-center">
+                                            <span class="text-white text-xs bg-p2 py-1.5 px-3 rounded-full dark:bg-p1">
+                                                Belajar
+                                            </span>
                                         </div>
                                     </div>
                                 </a>
-                                @endforeach
-                            @else
-                                <div class="text-center py-12">
-                                    <p class="text-gray-400 text-lg italic">Anda belum mengambil kelas apapun.</p>
-                                    <a href="{{ route('materi') }}" class="text-p1 underline mt-2 inline-block">Lihat Materi Tersedia</a>
-                                </div>
-                            @endif
+                            @endforeach
+                        @else
+                            <div class="text-center py-12">
+                                <p class="text-gray-400 text-lg italic">Anda belum mengambil kelas apapun.</p>
+                                <a href="{{ route('materi') }}" class="text-p1 underline mt-2 inline-block">Lihat Materi Tersedia</a>
+                            </div>
+                        @endif
+
                         </div>
                     </div>
                 </div>

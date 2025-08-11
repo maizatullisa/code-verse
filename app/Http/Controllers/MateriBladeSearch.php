@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,15 +15,15 @@ class MateriBladeSearch extends Controller
         $search = $request->get('search');
         
         // Ambil data materi yang sudah dipublish dengan informasi pengajar
-        $query = Materi::where('status', 'published')
+        $query = Kelas::where('status', 'published')
                         ->with('pengajar')
-                        ->select('id', 'judul', 'kategori', 'deskripsi', 'level', 'pengajar_id', 'created_at')
+                        ->select('id', 'nama_kelas', 'kategori', 'deskripsi', 'level', 'pengajar_id', 'created_at')
                         ->orderBy('created_at', 'desc');
         
         // Search functionality
         if ($search) {
             $query->where(function($q) use ($search) {
-                $q->where('judul', 'like', '%' . $search . '%')
+                $q->where('nama_kelas', 'like', '%' . $search . '%')
                   ->orWhere('kategori', 'like', '%' . $search . '%')
                   ->orWhere('deskripsi', 'like', '%' . $search . '%');
             });
@@ -35,8 +36,8 @@ class MateriBladeSearch extends Controller
         $materis->appends($request->query());
         
         // Total materi yang dipublish
-        $totalMateri = Materi::where('status', 'published')->count();
+        $totalMateri = Kelas::where('status', 'published')->count();
         
-        return view('materi', compact('materis', 'totalMateri'));
+        return view('home', compact('kelas', 'totalKelas'));
     }
 }

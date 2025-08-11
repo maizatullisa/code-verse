@@ -152,6 +152,7 @@ Route::post('/masuk-mobile', [AuthController::class, 'login'])->name('login');
 /// Redirect jika akses GET ke /login
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME INI AKU COMM DULU YA 
+// Route::get('home-mobile', [MateriBladeSearch::class, 'index'])->name('home');
 Route::get('/home-mobile', function () {
 $user = Auth::user(); // ambil user login
 return view('home', compact('user'));

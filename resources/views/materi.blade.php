@@ -105,18 +105,18 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex gap-2">
+                                        <div class="flex gap-1">
                                             <!-- Form untuk tambah kelas ke daftar belajar -->
                                             <form action="{{ route('daftar-belajar.simpan') }}" method="POST" class="inline">
                                                 @csrf
                                                 <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
-                                                <button type="submit" class="text-white text-xs bg-green-600 py-1.5 px-3 rounded-full hover:bg-green-700 transition">
+                                                <button type="submit" class="text-black text-xs bg-green-600 py-1 px-2 rounded-full hover:bg-green-700 transition">
                                                     <i class="ph ph-check text-xs"></i> Ambil
                                                 </button>
                                             </form>
                                             
-                                            <a href="{{ route('materi.showByPengajar', $kelas->pengajar_id) }}" class="text-white text-xs bg-p2 py-1.5 px-4 rounded-full dark:bg-p1 hover:opacity-90 transition">
-                                                Lihat Semua
+                                            <a href="{{ route('materi.showByPengajar', $kelas->pengajar_id) }}" class="text-white text-xs bg-p1 py-1 px-2 rounded-full dark:bg-p1 hover:opacity-90 transition">
+                                                Lihat 
                                             </a>
                                         </div>
                                     </div>
