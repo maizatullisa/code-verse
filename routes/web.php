@@ -17,7 +17,7 @@ use App\Http\Controllers\PengajarDashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\KelasController;
-
+use App\Http\Controllers\MateriShowController;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -324,17 +324,23 @@ Route::post('/pengajar/quiz/question/store',[QuizController::class,'storeQuestio
 Route::get('/pengajar/soal/create', function () {
     return view('pengajar.quiz.buat-soal-pengajar');
 })->name('pengajar.soal.create');
-// siswa
-Route::get('/materi', [MateriController::class, 'materi'])->name('materi');
-Route::get('/materi/pengajar/{id}', [MateriController::class, 'showByPengajar'])->name('materi.showByPengajar');
 
-//daftar belajar
-Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])
-    ->middleware('auth')
-    ->name('daftar-belajar.simpan');
+// Routes untuk public (siswa/umum)
+Route::get('/materi', [MateriShowController::class, 'index'])->name('materi');
+Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
+Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); // optional route untuk detail per kelas
 
-//KELAS
-Route::get('/belajar/materi-belum', [DaftarBelajarController::class, 'index'])->name('belajar.materi-belum');
+
+
+// Routes untuk daftar belajar (perlu authentication)
+Route::middleware('auth')->group(function () {
+    Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])->name('daftar-belajar.simpan');
+    Route::get('/daftar-belajar', [DaftarBelajarController::class, 'index'])->name('daftar-belajar.index');
+    Route::get('/kelas-saya', [DaftarBelajarController::class, 'kelasSaya'])->name('daftar-belajar.kelas-saya');
+    Route::get('/pembelajaran/{kelas}', [DaftarBelajarController::class, 'pembelajaran'])->name('daftar-belajar.pembelajaran');
+    Route::post('/daftar-belajar/update-progress/{materi}', [DaftarBelajarController::class, 'updateProgress'])->name('daftar-belajar.update-progress');
+    Route::get('/pembelajaran/{kelasId}/materi/{materiId}', [DaftarBelajarController::class, 'viewMateri'])->name('pembelajaran.view-materi');
+});
 
 Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
 

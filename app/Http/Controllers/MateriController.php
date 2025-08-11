@@ -195,9 +195,9 @@ class MateriController extends Controller
  
     }
 
-    public function destroy(Materi $materi)
-    {
-        // Pastikan hanya pengajar yang membuat materi yang bisa hapus
+        public function destroy(Materi $materi)
+        {
+            // Pastikan hanya pengajar yang membuat materi yang bisa hapus
         if ($materi->pengajar_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses untuk menghapus materi ini.');
         }
@@ -218,61 +218,23 @@ class MateriController extends Controller
         }
 
 
-        return redirect()->route('pengajar.materi.index')
-                        ->with('success', 'Materi berhasil dihapus!');
-    }
+            return redirect()->route('pengajar.materi.index')
+                            ->with('success', 'Materi berhasil dihapus!');
+        }
 
-    // Method untuk halaman materi (tampilan per materi dengan checkbox)
-    public function materi()
-    {
-        // Ambil semua materi yang sudah dipublish dengan informasi pengajar
-        $materis = Materi::where('status', 'published')
-                        ->with('pengajar')
-                        ->orderBy('created_at', 'desc')
-                        ->get();
+       //method untuk halaman materi (tampilan per materi dengan checkbox)
+        public function materi()
+        {
+            // Ambil semua materi yang sudah dipublish dengan informasi pengajar
+            $materis = Materi::where('status', 'published')
+                            ->with('pengajar')
+                            ->orderBy('created_at', 'desc')
+                            ->get();
 
-        return view('materi', compact('materis'));
-    }
+            return view('materi', compact('materis'));
+        }
 
-    // Method untuk halaman materi per pengajar (jika masih diperlukan)
-    public function materiByPengajar()
-    {
-        // Ambil semua pengajar yang memiliki materi
-        $pengajars = User::where('role', 'pengajar')
-            ->whereHas('materis', function ($query) {
-                $query->where('status', 'published');
-            })
-            ->with(['materis' => function ($query) {
-                $query->where('status', 'published')->latest();
-            }])
-            ->withCount(['materis' => function ($query) {
-                $query->where('status', 'published');
-            }])
-            ->get();
-
-        return view('materi-by-pengajar', compact('pengajars'));
-    }
-
-    public function showByPengajar($id)
-    {
-        $pengajar = User::with(['materis' => function ($q) {
-            $q->where('status', 'published')->orderBy('created_at', 'desc');
-        }])->findOrFail($id);
-
-        return view('detail', compact('pengajar'));
-    }
-
-        public function materiPerKelas($kelasId)
-    {
-        $kelas = Kelas::where('id', $kelasId)
-                    ->where('pengajar_id', Auth::id())
-                    ->firstOrFail();
-
-        $materis = $kelas->materis()->latest()->get();
-        $jumlahMateri = $materis->count();
-
-        return view('pengajar.kelas.materi-per-kelas', compact('kelas', 'materis', 'jumlahMateri'));
-    }
+   ///////////////////////////////////////////////////////////////////////////////////////////
 
     
 
