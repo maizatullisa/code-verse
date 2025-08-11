@@ -346,7 +346,7 @@ Route::get('/desktop/detail-kosong', function () {
     return view('desktop.roadmap.detail-roadmap-kosong');
  })->name('desktop.roadmap.detail-roadmap-kosong');
 
-Route::get('/desktop/detail-kosong', function () {
+Route::get('/desktop/detail-desktop', function () {
     return view('desktop.roadmap.detail-roadmap');
  })->name('esktop.roadmap.detail-roadmap');
 

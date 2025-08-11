@@ -21,10 +21,8 @@
             <h2 class="text-2xl font-semibold text-white">Code Verse</h2>
         </div>
         <div class="flex justify-start items-center gap-2">
-            <a href="#" class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24">
-                <i class="ph ph-bell"></i>
-            </a>
-            <a href="{{ url('/...') }}" class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24">
+            
+            <a href="{{ url('/user-mobile') }}" class="text-white border border-color24 p-2 rounded-full flex justify-center items-center bg-color24">
                 <i class="ph ph-user"></i>
             </a>
         </div>

@@ -30,9 +30,11 @@
                     <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
                         <i class="ph ph-star mr-1"></i>Level: {{-- User level --}}
                     </span>
-                    <span class="bg-red-500/20 text-red-300 border border-red-500/30 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
-                        <i class="ph ph-fire mr-1"></i>Streak: {{-- User streak --}} hari
-                    </span>
+                    <a href="{{ url('/games/pilih-game') }}" 
+                        class="bg-red-500/20 text-red-300 border border-red-500/30 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center">
+                            <i class="ph ph-fire mr-1"></i> Game
+                    </a>
+
                 </div>
             </div>
 
