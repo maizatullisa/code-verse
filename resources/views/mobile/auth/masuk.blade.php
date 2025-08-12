@@ -131,7 +131,7 @@
 
         <p class="text-sm font-semibold text-center pt-5">
           Tidak Memiliki Akun?
-          <a href="{{ url('/register') }}" class="text-p2 dark:text-p1">Klik</a> Disini
+          <a href="{{ url('/register-mobile') }}" class="text-p2 dark:text-p1">Klik</a> Disini
         </p>
       </div>
       <!-- Sign In Form End -->

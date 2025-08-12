@@ -1,0 +1,81 @@
+ /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            animation: rippleEffect 0.6s ease-out;
+        }
+
+        @keyframes rippleEffect {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Focus styles */
+        textarea:focus,
+        input:focus,
+        select:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            .rounded-2xl {
+                border-radius: 1rem;
+            }
+            
+            .lg\\:rounded-3xl {
+                border-radius: 1.25rem;
+            }
+            
+            .p-6 {
+                padding: 1.25rem;
+            }
+            
+            .lg\\:p-8 {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .sticky {
+                position: static !important;
+            }
+            
+            .shadow-lg,
+            .shadow-xl {
+                box-shadow: none !important;
+            }
+            
+            .backdrop-blur-sm,
+            .backdrop-blur-xl {
+                backdrop-filter: none !important;
+            }
+        }

@@ -44,7 +44,7 @@
         <div class="flex justify-between items-center gap-4">
           <div class="flex justify-start items-center gap-4">
             <a
-              href="{{ url('/home') }}"
+              href="{{ url('/home-mobile') }}"
               class="bg-white size-8 rounded-full flex justify-center items-center text-xl dark:bg-color10"
             >
               <i class="ph ph-caret-left"></i>

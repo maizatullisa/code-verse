@@ -51,8 +51,8 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        <div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ $totalSiswa }}</div>
-                         <div class="text-sm text-gray-500">+{{ $todayRegistrations }} today</div>
+                        {{--<div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ $totalSiswa }}</div>--}}
+                        {{-- <div class="text-sm text-gray-500">+{{ $todayRegistrations }} today</div>--}}
                     </div>
                 </div>
                 
@@ -66,7 +66,7 @@
                         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                         <span class="text-xs text-gray-500">Active</span>
                     </div>
-                    <div class="text-xs text-green-600 font-medium"> {{ $weeklyGrowth >= 0 ? '↗' : '↘' }} {{ $weeklyGrowth >= 0 ? '+' : '' }}{{ $weeklyGrowth }}%</div>
+                    {{--<div class="text-xs text-green-600 font-medium"> {{ $weeklyGrowth >= 0 ? '↗' : '↘' }} {{ $weeklyGrowth >= 0 ? '+' : '' }}{{ $weeklyGrowth }}%</div>--}}
                 </div>
             </div>
         </div>

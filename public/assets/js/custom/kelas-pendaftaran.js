@@ -1,6 +1,7 @@
-// Global variables
+ // Global variables
         let currentStep = 1;
         const totalSteps = 3;
+        let courseData = null;
 
         // DOM elements
         const prevBtn = document.getElementById('prevBtn');
@@ -9,6 +10,134 @@
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
         const currentStepElement = document.getElementById('current-step');
+
+        // Initialize course data from URL parameters or localStorage
+        function initializeCourseData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('courseId');
+            
+            // Sample course data - in real app, fetch from API
+            const sampleCourseData = {
+                id: courseId || '1',
+                title: urlParams.get('title') || 'Kelas Programming',
+                instructor: urlParams.get('instructor') || 'Instructor',
+                image: urlParams.get('image') || 'https://via.placeholder.com/64x64/3B82F6/FFFFFF?text=Course',
+                rating: urlParams.get('rating') || '5.0',
+                reviews: urlParams.get('reviews') || '0',
+                price: urlParams.get('price') || 'Rp 500.000',
+                originalPrice: urlParams.get('originalPrice') || null,
+                discount: urlParams.get('discount') || null,
+                isFree: urlParams.get('isFree') === 'true',
+                duration: urlParams.get('duration') || '4 minggu pembelajaran',
+                videos: urlParams.get('videos') || '12 video pembelajaran',
+                materials: urlParams.get('materials') || '8 materi bacaan',
+                certificate: urlParams.get('certificate') !== 'false',
+                lifetime: urlParams.get('lifetime') !== 'false',
+                community: urlParams.get('community') !== 'false',
+                hasOffer: urlParams.get('hasOffer') === 'true',
+                hasCountdown: urlParams.get('hasCountdown') === 'true',
+                hasStudentCount: urlParams.get('hasStudentCount') === 'true',
+                currentStudents: parseInt(urlParams.get('currentStudents')) || 0,
+                maxStudents: parseInt(urlParams.get('maxStudents')) || 100,
+                benefits: [
+                    urlParams.get('duration') || '4 minggu pembelajaran',
+                    urlParams.get('videos') || '12 video pembelajaran', 
+                    urlParams.get('materials') || '8 materi bacaan',
+                    'Akses Forum Diskusi',
+                    'Sertifikat Digital',
+                    'Akses Seumur Hidup'
+                ]
+            };
+
+            courseData = sampleCourseData;
+            populateCourseInfo();
+        }
+
+        // Populate course information in the UI
+        function populateCourseInfo() {
+            if (!courseData) return;
+
+            // Header
+            document.getElementById('course-title-header').textContent = courseData.title;
+            document.title = `Pendaftaran Kelas - ${courseData.title}`;
+
+            // Sidebar course info
+            document.getElementById('course-title').textContent = courseData.title;
+            document.getElementById('course-instructor').textContent = `by ${courseData.instructor}`;
+            document.getElementById('course-image').src = courseData.image;
+            document.getElementById('course-image').alt = courseData.title;
+            
+            // Rating
+            const stars = '⭐'.repeat(Math.floor(parseFloat(courseData.rating)));
+            document.getElementById('course-rating').textContent = stars;
+            document.getElementById('course-reviews').textContent = `${courseData.rating} (${courseData.reviews})`;
+
+            // Price
+            if (courseData.isFree) {
+                document.getElementById('course-price').innerHTML = '<span class="text-green-600">GRATIS</span>';
+                document.getElementById('submit-text').textContent = 'Daftar GRATIS Sekarang!';
+                document.getElementById('offer-banner').classList.remove('hidden');
+            } else {
+                document.getElementById('course-price').textContent = courseData.price;
+                if (courseData.originalPrice) {
+                    document.getElementById('course-original-price').textContent = courseData.originalPrice;
+                    document.getElementById('course-original-price').classList.remove('hidden');
+                }
+                if (courseData.discount) {
+                    document.getElementById('course-discount').textContent = `Diskon ${courseData.discount}%`;
+                    document.getElementById('course-discount').classList.remove('hidden');
+                }
+            }
+
+            // Course details
+            const detailsContainer = document.getElementById('course-details');
+            detailsContainer.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-clock text-gray-400"></i>
+                    <span>${courseData.duration}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-video text-gray-400"></i>
+                    <span>${courseData.videos}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-file-text text-gray-400"></i>
+                    <span>${courseData.materials}</span>
+                </div>
+                ${courseData.certificate ? `<div class="flex items-center gap-2">
+                    <i class="ph ph-certificate text-gray-400"></i>
+                    <span>Sertifikat completion</span>
+                </div>` : ''}
+                ${courseData.lifetime ? `<div class="flex items-center gap-2">
+                    <i class="ph ph-infinity text-gray-400"></i>
+                    <span>Akses seumur hidup</span>
+                </div>` : ''}
+                ${courseData.community ? `<div class="flex items-center gap-2">
+                    <i class="ph ph-users text-gray-400"></i>
+                    <span>Forum diskusi</span>
+                </div>` : ''}
+            `;
+
+            // Benefits
+            const benefitsList = document.getElementById('benefits-list');
+            benefitsList.innerHTML = courseData.benefits.map(benefit => `
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-check text-green-600"></i>
+                    <span>${benefit}</span>
+                </div>
+            `).join('');
+
+            // Conditional elements
+            if (courseData.hasCountdown) {
+                document.getElementById('countdown-timer').classList.remove('hidden');
+                updateCountdown();
+            }
+
+            if (courseData.hasStudentCount) {
+                document.getElementById('student-count').classList.remove('hidden');
+                updateStudentCount();
+            }
+        }
 
         // Update progress
         function updateProgress() {
@@ -174,6 +303,12 @@
                 const loadingOverlay = document.getElementById('loadingOverlay');
                 loadingOverlay.classList.remove('hidden');
                 
+                // Collect form data
+                const formData = collectFormData();
+                
+                // Here you would send data to your backend
+                console.log('Form Data:', formData);
+                
                 // Simulate processing
                 setTimeout(() => {
                     loadingOverlay.classList.add('hidden');
@@ -182,20 +317,55 @@
                     const successModal = document.getElementById('successModal');
                     successModal.classList.remove('hidden');
                     
-                    showNotification('Selamat! Pendaftaran berhasil dan Anda mendapat akses GRATIS!', 'success');
+                    const message = courseData.isFree ? 
+                        'Selamat! Pendaftaran berhasil dan Anda mendapat akses GRATIS!' : 
+                        'Selamat! Pendaftaran berhasil! Silakan lakukan pembayaran untuk mengakses kelas.';
+                    showNotification(message, 'success');
                 }, 2000);
             }
         });
 
+        // Collect form data
+        function collectFormData() {
+            const personalForm = document.getElementById('personal-form');
+            const preferencesForm = document.getElementById('preferences-form');
+            
+            const formData = {
+                courseId: courseData.id,
+                courseTitle: courseData.title,
+                personalInfo: {
+                    fullName: personalForm.querySelector('[name="full_name"]').value,
+                    email: personalForm.querySelector('[name="email"]').value,
+                    whatsapp: personalForm.querySelector('[name="whatsapp"]').value,
+                    birthDate: personalForm.querySelector('[name="birth_date"]').value,
+                    education: personalForm.querySelector('[name="education"]').value,
+                    experience: personalForm.querySelector('[name="experience"]:checked')?.value,
+                    motivation: personalForm.querySelector('[name="motivation"]').value
+                },
+                preferences: {
+                    schedule: preferencesForm.querySelector('[name="schedule"]:checked')?.value,
+                    learningType: preferencesForm.querySelector('[name="learning_type"]:checked')?.value,
+                    features: Array.from(preferencesForm.querySelectorAll('[name="features[]"]:checked')).map(cb => cb.value),
+                    goals: preferencesForm.querySelector('[name="goals"]').value
+                },
+                agreements: {
+                    terms: document.getElementById('terms-checkbox').checked,
+                    newsletter: document.getElementById('newsletter-checkbox').checked
+                }
+            };
+            
+            return formData;
+        }
+
         // Success modal button handlers
         document.getElementById('accessCourseBtn').addEventListener('click', function() {
-            // Redirect to course forum
-            window.location.href = 'forum-siswa.html';
+            // Redirect to course or forum - you can customize this URL
+            window.location.href = `/course/${courseData.id}`;
         });
 
         document.getElementById('goToDashboardBtn').addEventListener('click', function() {
             // Redirect to dashboard
-            window.location.href = 'dashboard.html';
+            window.location.href = '/dashboard';
         });
 
         // Form validation enhancements
@@ -287,6 +457,17 @@
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
 
+        // Update student count
+        function updateStudentCount() {
+            if (!courseData.hasStudentCount) return;
+            
+            document.getElementById('current-students').textContent = courseData.currentStudents;
+            document.getElementById('max-students').textContent = courseData.maxStudents;
+            
+            const percentage = (courseData.currentStudents / courseData.maxStudents) * 100;
+            document.getElementById('student-progress').style.width = `${percentage}%`;
+        }
+
         // Close modal when clicking outside
         document.getElementById('successModal').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -330,12 +511,19 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            initializeCourseData();
             showStep(1);
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
+            
+            if (courseData.hasCountdown) {
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
             
             // Welcome message
             setTimeout(() => {
-                showNotification('Selamat datang! Daftar GRATIS dan mulai belajar React JS sekarang!', 'success');
+                const message = courseData.isFree ? 
+                    `Selamat datang! Daftar GRATIS untuk ${courseData.title} sekarang!` : 
+                    `Selamat datang! Mulai pendaftaran untuk ${courseData.title}`;
+                showNotification(message, 'success');
             }, 500);
         });
