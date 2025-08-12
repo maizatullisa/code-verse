@@ -190,33 +190,30 @@ Route::get('/register', function () {
     return view('register'); 
 })->name('register');
 
-Route::get('/berhasil', function () {
-    return view('berhasil'); 
-})->name('berhasil');
 
 /// Aksi kirim form register
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-/// Aksi kirim form login
-/// Halaman awal: login
-Route::get('/masuk-mobile', function () {
-    return view('masuk');
-})->name('masuk');
-Route::post('/masuk-mobile', [AuthController::class, 'login'])->name('login');
+// /// Aksi kirim form login
+// /// Halaman awal: login
+// Route::get('/masuk-mobile', function () {
+//     return view('masuk');
+// })->name('masuk');
+// Route::post('/masuk-mobile', [AuthController::class, 'login'])->name('login');
 
 
 /// Redirect jika akses GET ke /login
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME INI AKU COMM DULU YA 
 // Route::get('home-mobile', [MateriBladeSearch::class, 'index'])->name('home');
-Route::get('/home-mobile', function () {
-$user = Auth::user(); // ambil user login
-return view('home', compact('user'));
-})->middleware('auth')->name('home-mobile');
+// Route::get('/home-mobile', function () {
+// $user = Auth::user(); // ambil user login
+// return view('mobile.home.mobile', compact('user'));
+// })->middleware('auth')->name('home-mobile');
 
 Route::get('/home', function () {
  $user = Auth::user(); // ambil user login
-return view('home', compact('user'));
+return view('mobile.home-mobile', compact('user'));
 })->middleware('auth')->name('home');
 
 Route::get('/profile', function () {
@@ -237,9 +234,9 @@ Route::get('/profile', function () {
 // })->name('search-result');
 
 // HOME
-Route::get('/home-mobile', function(){
-    return view('mobile.home-mobile');
-})->name('mobile.home-mobile');
+// Route::get('/home-mobile', function(){
+//     return view('mobile.home-mobile');
+// })->name('mobile.home-mobile');
 
 // CARI
 Route::get('/search-result', function(){
@@ -251,11 +248,9 @@ Route::get('/pengajar', function(){
     return view('pengajar');
 })->name('pengajar');
 
-Route::get('/materi', function(){
-    return view('materi');
-})->name('materi');
-
-Route::get('/materi', [MateriBladeSearch::class, 'index'])->name('materi');
+// Route::get('/materi', function(){
+//     return view('materi');
+// })->name('materi');
 
 // ROUTE NAVBAR SAMPING KIRI (KOMPONEN DAN KAWAN KAWANNYA)
 // PENGATURAN START
@@ -451,8 +446,8 @@ Route::get('/pengajar/forum/like/{diskusi}', [DiskusiController::class, 'diskusi
 */
 
 // Materi
-Route::get('/materi', [MateriController::class, 'materi'])->name('materi');
-Route::get('/materi/pengajar/{id}', [MateriController::class, 'showByPengajar'])->name('materi.showByPengajar');
+// Route::get('/materi', [MateriController::class, 'materi'])->name('materi');
+// Route::get('/materi/pengajar/{id}', [MateriController::class, 'showByPengajar'])->name('materi.showByPengajar');
 // //basicsquoz
 // Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
 // Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
