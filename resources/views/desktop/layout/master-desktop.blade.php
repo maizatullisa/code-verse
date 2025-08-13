@@ -56,11 +56,7 @@
         <div class="relative z-10 pb-8">
             <div class="flex justify-between items-center gap-4 px-6 relative z-20 mb-6">
                 <div class="flex justify-start items-center gap-4">
-                    @if (!View::hasSection('hideSidebar'))
-                    <button class="sidebarModalOpenButton text-3xl text-white">
-                        <i class="ph ph-list"></i>
-                    </button>
-                    @endif
+                    
                     
                     {{-- Back button khusus untuk halaman user-desktop --}}
                     @if(Request::is('desktop/user-desktop') || Request::is('desktop/user-desktop/*'))
@@ -89,74 +85,9 @@
     @include('desktop.layout.navbar-bawah-desktop')
 
     <!-- Sidebar Modal -->
-    <div id="sidebarModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-80">
-        <div class="w-80 bg-white h-full overflow-y-auto">
-            <div class="bg-p2 text-white p-6">
-                <button onclick="closeSidebar()" class="absolute top-4 right-4 text-white hover:bg-white/20 p-2 rounded-full">
-                    <i class="ph ph-x text-xl"></i>
-                </button>
-                <div class="flex items-center gap-3 mb-6 pt-8">
-                    <img src="#" 
-                         alt="User" class="w-16 h-16 rounded-full" />
-                    <div>
-                        <h3 class="text-xl font-bold">Budi Santoso</h3>
-                        <p class="text-sm opacity-80">ID: 12345</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
-                    <div class="text-center">
-                        <p class="text-sm opacity-80">Rank</p>
-                        <p class="text-lg font-bold">420</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-sm opacity-80">Coins</p>
-                        <p class="text-lg font-bold">2,420</p>
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 space-y-2 text-black">
-                <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 ">
-                    <i class="ph ph-user text-xl text-p2"></i>
-                    <span class="font-medium">Profile</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-                    <i class="ph ph-bell text-xl text-p2"></i>
-                    <span class="font-medium">Notifikasi</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-                    <i class="ph ph-gear-six text-xl text-p2"></i>
-                    <span class="font-medium">Pengaturan</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-                    <i class="ph ph-chats-teardrop text-xl text-p2"></i>
-                    <span class="font-medium">Chat dengan Mentor</span>
-                </a>
-                <button class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-red-50 text-red-600">
-                    <i class="ph ph-sign-out text-xl"></i>
-                    <span class="font-medium">Logout</span>
-                </button>
-            </div>
-        </div>
-    </div>
+
 
     <script>
-        // Sidebar functionality
-        document.querySelector('.sidebarModalOpenButton').addEventListener('click', function() {
-            document.getElementById('sidebarModal').classList.remove('hidden');
-        });
-
-        function closeSidebar() {
-            document.getElementById('sidebarModal').classList.add('hidden');
-        }
-
-        // Close sidebar when clicking outside
-        document.getElementById('sidebarModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeSidebar();
-            }
-        });
-    </script>
-    
     @yield('scripts')
 </body>
 </html>

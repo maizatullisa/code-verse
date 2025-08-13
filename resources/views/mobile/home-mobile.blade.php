@@ -96,85 +96,20 @@
         </div>
 
         <div class="pt-12 px-6">
-          <div class="flex justify-between items-center">
-            <div class="flex justify-start items-center gap-2">
-              <i class="ph-fill text-xl ph-trophy text-p1"></i>
-              <h3 class="text-xl font-semibold">Rekomendasi Kelas</h3>
-            </div>
-            <a href="{{ url('/materi') }}" 
-              class="text-p1 font-semibold text-sm"
-              >Lihat Semua</a
-            >
-          </div>
-          <div class="pt-5">
-            <a href="{{ url('/detail') }}"
-              class="rounded-2xl overflow-hidden shadow2 block"
-            >
+         
+          <div class="pt-5 class="rounded-2xl overflow-hidden shadow2 block>
+            
+              
               <div
                 class="flex justify-between items-center py-3.5 px-5 bg-p2 bg-opacity-20 dark:bg-bgColor16"
               >
                 <div class="flex justify-start items-center gap-3">
-                  <p class="font-medium"> mulai</p>
-                  <div class="flex justify-start items-center gap-1">
-                    <p
-                      class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                    >
-                      05
-                    </p>
-                    <p class="text-p2 text-base font-semibold dark:text-white">
-                      :
-                    </p>
-                    <p
-                      class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                    >
-                      14
-                    </p>
-                    <p class="text-p2 text-base font-semibold dark:text-white">
-                      :
-                    </p>
-                    <p
-                      class="text-p2 text-[10px] py-0.5 px-1 bg-p2 bg-opacity-20 dark:text-p1 dark:bg-color24 rounded-md"
-                    >
-                      20
-                    </p>
-                  </div>
+                  <p class="font-medium"> Rekomendasi kelas</p>
+                  
                 </div>
                 <p class="text-xs text-p1"> Baca Instruksi</p>
               </div>
-              <div class="p-5 bg-white dark:bg-color10">
-                <div class="flex justify-start items-center gap-2">
-                  <div
-                    class="py-1 px-2 text-white bg-p2 rounded-lg dark:bg-p1 dark:text-black"
-                  >
-                    <p class="font-semibold text-xs">19 Jun</p>
-                    <p class="text-[10px]">04.32</p>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold text-sm">Quiz</p>
-                    <p class="text-xs">Dasar Dasar Pemrograman</p>
-                  </div>
-                </div>
-                <div
-                  class="flex justify-between items-center text-xs py-5 border-b border-dashed border-black border-opacity-10 dark:border-color24"
-                >
-                  <div class="">
-                    <p>Waktu Mksimal</p>
-                    <p class="font-semibold">5 min</p>
-                  </div>
-                  <div class="">
-                    <p>Soal</p>
-                    <p class="font-semibold">5</p>
-                  </div>
-                 
-                </div>
-                <div class="pt-5 flex justify-between items-center">
-                  <div class="flex justify-start items-center gap-1">
-                    <i class="ph ph-brain text-p2"></i>
-                    <p class="text-xs">Trivia Quiz</p>
-                  </div>
-                
-                </div>
-              </div>
+              
             </a>
           </div>
         </div>
@@ -481,11 +416,11 @@
               <img src="assets/images/user_sidebar.png" alt="" />
               <div class="">
                 <p class="text-2xl font-semibold">
-                {{ $user->first_name }}<i class="ph-fill ph-seal-check text-p1"></i>
+                {{--{{ $user->first_name }}<i class="ph-fill ph-seal-check text-p1"></i>
                 </p>
                 <p class="text-xs">
                   <span class="font-semibold">ID :</span>{{ $user->id }}
-                </p>
+                </p>--}}
               </div>
             </div>
             <div class="flex justify-between items-center pt-6">

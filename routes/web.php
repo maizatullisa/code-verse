@@ -211,10 +211,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // return view('mobile.home.mobile', compact('user'));
 // })->middleware('auth')->name('home-mobile');
 
-Route::get('/home', function () {
- $user = Auth::user(); // ambil user login
-return view('mobile.home-mobile', compact('user'));
-})->middleware('auth')->name('home');
+// DICOMMENT SAMA OYIN
+// Route::get('/home', function () {
+//  $user = Auth::user(); // ambil user login
+// return view('mobile.home-mobile', compact('user'));
+// })->middleware('auth')->name('home');
 
 Route::get('/profile', function () {
     $user = Auth::user(); // ambil user login
@@ -223,9 +224,9 @@ Route::get('/profile', function () {
 
 
 // ROUTE DUMMY 
-// Route::get('/home-mobile', function(){
-//     return view('home');
-// })->name('home-mobile');
+ Route::get('/home-mobile', function(){
+     return view('mobile.home-mobile');
+ })->name('home-mobile');
 
 
 // SEARCH
