@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/swiper.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="manifest.json" />
-    <title>Home</title>
+    <title>CodeVerse</title>
   <link href="style.css" rel="stylesheet"></head>
   <body class="-z-20">
     <div
@@ -38,7 +38,6 @@
         class="absolute bottom-0 right-0 bg-p3 blur-[220px] h-[174px] w-[149px]"
       ></div>
       <!-- ITEM SELESAI -->
-
       <!-- Page Title Start -->
       <div class="relative z-10 pb-20">
         <div class="flex justify-between items-center gap-4 px-6 relative z-20">

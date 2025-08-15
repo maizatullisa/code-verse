@@ -522,6 +522,17 @@ Route::get('/desktop/pages/kelas/kelas-quiz', function () {
     return view('desktop.pages.kelas.kelas-quiz');
  })->name('desktop.pages.kelas.kelas-quiz');
 
+
+ // DESKTOP FORM SERTIFIKAT
+ Route::get('/desktop/form-sertifikat', function () {
+    return view('desktop.pages.sertifikat.form-sertif');
+ })->name('desktop.pages.sertifikat.form-sertif');
+
+ //DESKTOP INDEX SERTTIF
+  Route::get('/desktop/sertifikat', function () {
+    return view('desktop.pages.sertifikat.index-sertif');
+ })->name('desktop.pages.sertifikat.index-sertif');
+
 // Desktop Forum
 Route::get('/desktop/forum-siswa', function () {
     return view('desktop.pages.forum.forum-siswa');
