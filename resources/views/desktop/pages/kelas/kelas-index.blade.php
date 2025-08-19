@@ -8,11 +8,11 @@
     <!-- Hero Section with Background -->
     <div class="bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 relative overflow-hidden mb-8">
         <div class="absolute inset-0 bg-black/20"></div>
-        <div class="absolute inset-0">
-            <div class="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
-            <div class="absolute bottom-10 right-10 w-24 h-24 bg-pink-300/20 rounded-full blur-lg"></div>
-            <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-yellow-300/15 rounded-full blur-md"></div>
-        </div>
+            <div class="absolute inset-0">
+                <div class="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+                <div class="absolute bottom-10 right-10 w-24 h-24 bg-pink-300/20 rounded-full blur-lg"></div>
+                   <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-yellow-300/15 rounded-full blur-md"></div>
+            </div>
         
         <div class="relative z-10 py-12 px-6">
             <div class="max-w-4xl mx-auto text-center text-white">
