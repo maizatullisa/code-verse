@@ -28,7 +28,7 @@
 
       <!-- Form Container -->
       <div class="relative z-10">
-        <form action="{{ route('quiz.store') }}" method="POST" class="space-y-8">
+        <form action="{{ route('pengajar.quiz.question.store') }}" method="POST" class="space-y-8">
           @csrf
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

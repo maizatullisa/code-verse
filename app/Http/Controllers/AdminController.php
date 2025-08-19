@@ -13,7 +13,13 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
-    public function index()//menampilkan semua users
+     /**
+     * tampilkan semua user
+     * Menampilkan 5 aktivitas recent user
+     * ++registrasi hari ini
+     * menampilkan statistik tambahan : registrasi hari ini, pertumbuhan per/minggu,dan +registrasi per/bln
+     */
+    public function index()
     {
         $users = User::all();
         $totalSiswa = User::where('role', 'siswa')->count();
@@ -45,22 +51,6 @@ class AdminController extends Controller
         $todayMateriCreated = Materi::whereDate('created_at', Carbon::today())
             ->count();
         
-        // //statistik bulanan untuk pengajar
-        // $monthlyPengajarRegistrations = User::where('role', 'pengajar')
-        //     ->whereMonth('created_at', Carbon::now()->month)
-        //     ->whereYear('created_at', Carbon::now()->year)
-        //     ->count();
-            
-        // //statistik bulanan untuk materi/kelas
-        // $monthlyMateriCreated = Materi::whereMonth('created_at', Carbon::now()->month)
-        //     ->whereYear('created_at', Carbon::now()->year)
-        //     ->count();
-            
-        // //statistik bulanan keseluruhan untuk quick stats
-        // $monthlyRegistrations = User::whereMonth('created_at', Carbon::now()->month)
-        //     ->whereYear('created_at', Carbon::now()->year)
-        //     ->count();
-        
         return view('admin.dashboard-admin', compact(
             'users', 
             'totalSiswa',
@@ -75,12 +65,13 @@ class AdminController extends Controller
             'pengajarWeeklyGrowth',
             'materiWeeklyGrowth',
             'monthlyRegistrations'
-            //  'monthlyPengajarRegistrations',
-            // 'monthlyMateriCreated',
         ));
     }
 
-    //ethod untuk mendapatkan recent activities
+    /**
+     * 
+     * menampilkan aktivitas terbaru jnb
+     */
     private function getRecentActivities()
     {
         //menggunakan tabel activity_logs
@@ -93,20 +84,6 @@ class AdminController extends Controller
         
 
         $activities = collect(); 
-        
-        // //registrations terbaru
-        // $newUsers = User::orderBy('created_at', 'desc')
-        //     ->limit(3)
-        //     ->get()
-        //     ->map(function($user) {
-        //         return [
-        //             'type' => 'user_registered',
-        //             'message' => "New user '{$user->first_name}' registered",
-        //             'time' => $user->created_at->diffForHumans(),
-        //             'icon' => 'user-plus',
-        //             'color' => 'blue'
-        //         ];
-        //     });
         
         // sswa terbaru
         $newSiswa = User::where('role', 'siswa')
@@ -124,19 +101,6 @@ class AdminController extends Controller
                 ];
             });
         
-        // //m terbaru
-        // $newMateri = Materi::orderBy('created_at', 'desc')
-        //     ->limit(2)
-        //     ->get()
-        //     ->map(function($materi) {
-        //         return [
-        //             'type' => 'materi_created',
-        //             'message' => "New material '{$materi->title}' created",
-        //             'time' => $materi->created_at->diffForHumans(),
-        //             'icon' => 'book-open',
-        //             'color' => 'emerald'
-        //         ];
-        //     });
         //pengajar terbaru
         $newPengajar = User::where('role', 'pengajar')
             ->orderBy('created_at', 'desc')
@@ -179,7 +143,10 @@ class AdminController extends Controller
 
     }
 
-    //method untuk menghitung pertumbuhan mingguan siswa y
+     /**
+     * 
+     * Menampilkan pertumbuhan  user, materi dan pengajar per minggu
+     */
     private function getWeeklyGrowth()
     {
         $thisWeek = User::whereBetween('created_at', [
@@ -237,13 +204,10 @@ class AdminController extends Controller
     $growth = round((($thisWeek - $lastWeek) / $lastWeek) * 100, 1);
     return min($growth, 100);
     }
-
-    // form tambah user
     public function create()
     {
-        return view('admin.user.create');
-    }
 
+    }
     // simpan user baru
     public function store(Request $request)
     {
@@ -269,7 +233,7 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'User berhasil ditambahkan.');
     }
 
-    // Method untuk logging aktivitas
+    // untuk logging aktivitas
     private function logActivity($type, $message)
     {
         //tbl activity
@@ -283,7 +247,7 @@ class AdminController extends Controller
         }
     }
     
-    //apiendpoint untuk emndpt aktivitas real-time (opsional)
+    //apiendpoint untuk emndpt aktivitas real-time
     public function getRecentActivitiesJson()
     {
         return response()->json($this->getRecentActivities());

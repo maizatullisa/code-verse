@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DiskusiSuka;
 use App\Models\Diskusi;
+use App\Models\Kelas;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,24 +12,25 @@ use Illuminate\Support\Facades\Auth;
 class DiskusiController extends Controller
 {
     
-    public function index($materiId)
+    public function index($kelasId)
     {
         
-        $materi = Materi::with('diskusi.user', 'diskusi.balasan.user')->findOrFail($materiId);
-        return view('pengajar.forum-pengajar', compact('materi'));
+        $kelas = Kelas::with('diskusi.user', 'diskusi.balasan.user')->findOrFail($kelasId);
+        return view('pengajar.forum.forum-pengajar', compact('kelas'));
     }
 
-    public function store(Request $request, $materiId)
+    public function store(Request $request, $kelasId)
     {
-        $materi = Materi::findOrFail($materiId);
-        $pengajarId = $materi->pengajar_id;
+        $kelas = Kelas::findOrFail($kelasId);
+        $pengajarId = $kelas->pengajar_id;
 
         $request->validate([
             'konten' => 'required|string'
         ]);
+    
 
         Diskusi::create([
-            'materi_id' => $materiId,
+            'kelas_id' => $kelasId,
             'user_id' => Auth::id(),
             'konten' => $request->konten,
             'pengajar_id' => $pengajarId
@@ -37,11 +39,11 @@ class DiskusiController extends Controller
         return redirect()->back()->with('success', 'Diskusi berhasil ditambahkan.');
     }
 
-    public function materiDiskusi($materiId)
+    public function materiDiskusi($kelasId)
     {
         
-        $materi = Materi::with('diskusi.user', 'diskusi.balasan.user')->findOrFail($materiId);
-        return view('pengajar.forum.forum-pengajar', compact('materi'));
+        $kelas = Kelas::with('diskusi.user', 'diskusi.balasan.user')->findOrFail($kelasId);
+        return view('pengajar.forum.forum-pengajar', compact('kelas'));
     }
     
     public function diskusiSuka($diskusiId)

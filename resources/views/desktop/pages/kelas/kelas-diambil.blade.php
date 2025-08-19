@@ -33,60 +33,7 @@
         </div>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="px-6 mb-12">
-        <div class="max-w-4xl mx-auto">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center">
-                            <i class="ph ph-graduation-cap text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold">Kelulusan</p>
-                            <p class="text-xs text-p2 pt-1">Lulus 70%</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
-                            <i class="ph ph-chart-line-up text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold">Hasil Belajar</p>
-                            <p class="text-xs text-p2 pt-1">naik 20%</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                            <i class="ph ph-check-circle text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold">Materi Selesai</p>
-                            <p class="text-xs text-p2 pt-1">2</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-r from-red-400 to-red-600 rounded-full flex items-center justify-center">
-                            <i class="ph ph-clock text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold">Belum Selesai</p>
-                            <p class="text-xs text-p2 pt-1">Que: 150</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Kelas List -->
     <div class="px-6 mb-20">

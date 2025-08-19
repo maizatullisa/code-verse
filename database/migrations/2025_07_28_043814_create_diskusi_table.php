@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('diskusi', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('materi_id'); // relasi ke materi
             $table->unsignedBigInteger('user_id');   // siapa yang posting
             $table->text('konten');                  // isi diskusi
             $table->boolean('is_pinned')->default(false); // apakah dipin

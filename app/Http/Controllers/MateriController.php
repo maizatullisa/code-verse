@@ -114,11 +114,11 @@ class MateriController extends Controller
 
     public function show(Materi $materi)
     {
-            dd([
-        'materi_id' => $materi->id,
-        'pengajar_id_materi' => $materi->pengajar_id,
-        'user_login_id' => auth()->id(),
-    ]);
+    //         dd([
+    //     'materi_id' => $materi->id,
+    //     'pengajar_id_materi' => $materi->pengajar_id,
+    //     'user_login_id' => auth()->id(),
+    // ]);
         
         // Pastikan hanya pengajar yang membuat materi yang bisa melihat
         if ($materi->pengajar_id !== Auth::id()) {

@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="manifest" href="{{ asset('manifest.json') }}" />
-    <title>Materi</title>
+    <title>Kelas</title>
     <link href="{{ asset('style.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -75,57 +75,161 @@
                     <div class="flex flex-col gap-4">
                         @if ($kelasList->count())
                             @foreach ($kelasList as $kelas)
-                            <a href="{{ route('materi.showByPengajar', $kelas->pengajar_id) }}" class="rounded-2xl overflow-hidden shadow2">
-                                <div class="p-6 bg-white dark:bg-color10 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                                    <div class="flex justify-between items-center">
-                                        <div class="flex gap-3 items-center">
-                                            {{-- Tanggal publish materi terbaru --}}
-                                            <div class="py-2 px-3 text-white bg-p2 rounded-xl dark:bg-p1 dark:text-black text-center shadow-sm">
-                                                <p class="font-semibold text-sm leading-none">
-                                                    {{ $kelas->materis->first()?->created_at?->format('d M') ?? '-' }}
-                                                </p>
-                                                <p class="text-[11px] leading-tight">
-                                                    {{ $kelas->materis->first()?->created_at?->format('H:i') ?? '' }}
-                                                </p>
-                                            </div>
-
-                                            <div>
-                                                {{-- Nama pengajar --}}
-                                                <p class="font-bold text-sm text-gray-800 dark:text-white tracking-wide">
-                                                    <i class="ph ph-user"></i> {{ $kelas->pengajar->first_name ?? $kelas->pengajar->name ?? 'Pengajar belum ada' }}
-                                                </p>
-                                                {{-- Nama kelas --}}
-                                                <p class="text-[13px] italic text-gray-600 dark:text-gray-300 truncate max-w-[200px]">
-                                                    {{ $kelas->nama_kelas }}
-                                                </p>
-                                                {{-- Jumlah materi --}}
-                                                <p class="text-xs text-gray-500 mt-1">
-                                                    📚 {{ $kelas->materis_count }} MATERI TERSEDIA
-                                                </p>
+                            <div class="rounded-2xl overflow-hidden shadow2">
+                                <div class="p-4 bg-white dark:bg-color10 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Cover Image with Date Badge -->
+                                        <div class="relative rounded-lg overflow-hidden flex-shrink-0">
+                                            @if($kelas->cover_image)
+                                                <img src="{{ asset('storage/' . $kelas->cover_image) }}" 
+                                                     alt="{{ $kelas->nama_kelas }}" 
+                                                     class="h-[75px] w-[100px] object-cover rounded-lg" />
+                                            @else
+                                                <img src="{{ asset('assets/images/library-favourite-img1.png') }}" 
+                                                     alt="{{ $kelas->nama_kelas }}" 
+                                                     class="h-[75px] w-[100px] object-cover rounded-lg" />
+                                            @endif
+                                            <!-- Date Badge -->
+                                            <div class="absolute bottom-1 right-1 bg-orange-500 text-white text-[9px] px-1.5 py-0.5 rounded-md shadow-sm font-medium">
+                                                {{ $kelas->created_at->format('d M') }}
                                             </div>
                                         </div>
-
-                                        <div class="flex gap-1">
+                                        
+                                        <div class="flex-1 min-w-0">
+                                            <!-- Class Name & Badge -->
+                                            <div class="flex items-center gap-1 mb-1">
+                                                <h4 class="font-semibold text-sm sm:text-base truncate">{{ $kelas->nama_kelas }}</h4>
+                                                <!-- <span class="bg-yellow-100 text-yellow-800 text-[9px] sm:text-[10px] px-1 sm:px-2 py-0.5 rounded-full font-medium whitespace-nowrap">Premium</span> -->
+                                            </div>
+                                            
+                                            <!-- Instructor Name -->
+                                            <p class="text-gray-600 text-xs sm:text-sm flex items-center gap-1 mb-2 dark:text-gray-300 truncate">
+                                                <i class="ph ph-user flex-shrink-0"></i>
+                                                <span class="truncate">{{ $kelas->pengajar->first_name ?? $kelas->pengajar->name ?? 'Pengajar belum ada' }}</span>
+                                            </p>
+                                            
+                                            <!-- Course Stats -->
+                                            <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-gray-500 mb-2 flex-wrap">
+                                                <!-- Siswa terdaftar (dari relasi enrollments jika ada) -->
+                                                <div class="flex items-center gap-1">
+                                                    <i class="ph ph-users-three"></i>
+                                                    <span>{{ $kelas->enrollments_count }} siswa</span>
+                                                </div>
+                                                <!-- Durasi dari database -->
+                                                @if($kelas->durasi)
+                                                <div class="flex items-center gap-1">
+                                                    <i class="ph ph-clock"></i>
+                                                    <span>{{ $kelas->durasi }}</span>
+                                                </div>
+                                                @endif
+                                                <!-- Jumlah materi -->
+                                                <div class="flex items-center gap-1">
+                                                    <i class="ph ph-book-open"></i>
+                                                    <span>{{ $kelas->materis_count }} Materi tersedia</span>
+                                                </div>
+                                                <!-- Kategori - sesuai gambar kedua -->
+                                                <div class="flex items-center gap-1">
+                                                    <i class="ph ph-tag"></i>
+                                                    <span class="lowercase">{{ $kelas->kategori }}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Pricing -->
+                                            <div class="flex items-center gap-1 sm:gap-2">
+                                                <!-- @if($kelas->harga > 0)
+                                                    <!-- Jika ada harga - warna hijau -->
+                                                    <!-- <span class="text-green-600 font-bold text-sm sm:text-base">
+                                                        Rp {{ number_format($kelas->harga, 0, ',', '.') }}K
+                                                    </span> -->
+                                                    <!-- Simulasi harga diskon -->
+                                                    <!-- @php
+                                                        $harga_original = $kelas->harga * 1.67;
+                                                        $diskon = round((($harga_original - $kelas->harga) / $harga_original) * 100);
+                                                    @endphp -->
+                                                    <!-- <span class="text-gray-400 line-through text-xs sm:text-sm">
+                                                        Rp {{ number_format($harga_original, 0, ',', '.') }}K
+                                                    </span>
+                                                    <span class="bg-red-100 text-red-600 text-[8px] sm:text-[10px] px-1 py-0.5 rounded-full">
+                                                        {{ $diskon }}% OFF
+                                                    </span>
+                                                @else -->
+                                                    <!-- Jika gratis -->
+                                                    <!-- <span class="text-green-600 font-bold text-sm sm:text-base">GRATIS</span>
+                                                @endif --> 
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Action Buttons -->
+                                        <div class="flex flex-col gap-1 sm:gap-2 flex-shrink-0">
+                                            <!-- Daftar Button -->
+                                            @if($kelas->harga > 0)
+                                                <button onclick="alert('Pembayaran kelas: {{ $kelas->nama_kelas }} - Rp {{ number_format($kelas->harga, 0, ',', '.') }}')" 
+                                                        class="bg-p2 text-white px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium hover:bg-p2/90 transition w-full">
+                                                    Bayar
+                                                </button>
+                                            @else
+                                                <button onclick="alert('Pendaftaran kelas gratis: {{ $kelas->nama_kelas }}')" 
+                                                        class="bg-p2 text-white px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium hover:bg-p2/90 transition w-full">
+                                                    Daftar
+                                                </button>
+                                            @endif
+                                            
                                             <!-- Form untuk tambah kelas ke daftar belajar -->
                                             <form action="{{ route('daftar-belajar.simpan') }}" method="POST" class="inline">
                                                 @csrf
                                                 <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
-                                                <button type="submit" class="text-black text-xs bg-green-600 py-1 px-2 rounded-full hover:bg-green-700 transition">
-                                                    <i class="ph ph-check text-xs"></i> Ambil
+                                                <button type="submit" class="border border-p2 text-p2 px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-medium hover:bg-p2/10 transition text-center">
+                                                    Ambil
                                                 </button>
+                                            
                                             </form>
                                             
-                                            <a href="{{ route('materi.showByPengajar', $kelas->pengajar_id) }}" class="text-white text-xs bg-p1 py-1 px-2 rounded-full dark:bg-p1 hover:opacity-90 transition">
+                                            <!-- Link untuk melihat materi berdasarkan pengajar -->
+                                            <a href="{{ route('materi.showByPengajar', $kelas->pengajar_id) }}" 
+                                               class="text-white text-[10px] sm:text-[11px] bg-p1 px-2 sm:px-3 py-1 rounded-full dark:bg-p1 hover:opacity-90 transition text-center">
                                                 Lihat 
                                             </a>
                                         </div>
                                     </div>
+
+                                    <!-- Course Description (Expandable) -->
+                                    @if($kelas->deskripsi)
+                                    <div class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                                        <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                                            <span class="line-clamp-2">{{ Str::limit($kelas->deskripsi, 100) }}</span>
+                                            @if(strlen($kelas->deskripsi) > 100)
+                                                <button onclick="toggleDescription(this)" 
+                                                        class="text-p2 hover:underline ml-1 text-xs">
+                                                    Selengkapnya
+                                                </button>
+                                                <div class="hidden full-description">
+                                                    <span>{{ $kelas->deskripsi }}</span>
+                                                    <button onclick="toggleDescription(this)" 
+                                                            class="text-p2 hover:underline ml-1 text-xs">
+                                                        Lebih sedikit
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
-                            </a>
+                            </div>
                             @endforeach
+
+                            <!-- Pagination jika diperlukan -->
+                            @if(method_exists($kelasList, 'hasPages') && $kelasList->hasPages())
+                                <div class="mt-6">
+                                    {{ $kelasList->links() }}
+                                </div>
+                            @endif
                         @else
                             <div class="text-center py-12">
-                                <p class="text-gray-400 text-lg italic">Belum ada kelas dengan materi yang dipublikasikan.</p>
+                                <div class="mb-4">
+                                    <i class="ph ph-book-open text-6xl text-gray-300"></i>
+                                </div>
+                                <h3 class="text-lg font-medium text-gray-500 mb-2">Belum Ada Kelas Tersedia</h3>
+                                <p class="text-gray-400 text-sm">Belum ada kelas dengan materi yang dipublikasikan.</p>
                             </div>
                         @endif
                     </div>
@@ -135,6 +239,36 @@
     </div>
 
     <!-- ==== js dependencies start ==== -->
+    <script>
+        // Function untuk toggle description
+        function toggleDescription(button) {
+            const container = button.closest('.border-t');
+            const shortDesc = container.querySelector('.line-clamp-2').parentElement;
+            const fullDesc = container.querySelector('.full-description');
+            
+            if (fullDesc.classList.contains('hidden')) {
+                shortDesc.style.display = 'none';
+                fullDesc.classList.remove('hidden');
+            } else {
+                shortDesc.style.display = 'block';
+                fullDesc.classList.add('hidden');
+            }
+        }
+
+        // Function untuk konfirmasi enrollment
+        function confirmEnrollment(kelasNama, harga) {
+            if (harga > 0) {
+                return confirm(`Apakah Anda yakin ingin mendaftar kelas "${kelasNama}" dengan biaya Rp ${new Intl.NumberFormat('id-ID').format(harga)}?`);
+            } else {
+                return confirm(`Apakah Anda yakin ingin mendaftar kelas gratis "${kelasNama}"?`);
+            }
+        }
+
+        // Add to wishlist confirmation
+        function confirmWishlist(kelasNama) {
+            return confirm(`Tambahkan "${kelasNama}" ke daftar keinginan?`);
+        }
+    </script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script defer src="{{ asset('index.js') }}"></script>
 </body>

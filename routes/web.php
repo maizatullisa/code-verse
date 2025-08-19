@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminKelasController;
 use App\Http\Controllers\AdminPengajarController;
+use App\Http\Controllers\ForumSiswa;
 use App\Http\Controllers\MateriBladeSearch;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MateriShowController;
 use App\Http\Controllers\GeminiController;
+use App\Http\Controllers\CourseEnrollmentController;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -127,6 +130,10 @@ Route::get('/admin/user/show', function () {
     return view('admin.user.show');
 })->name('admin.user.show');
 
+//rute kelas admin dashboard
+Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
+
+
 // ADMIN PENGAJAR DASHBBOARD MANAGEMEN
 Route::get('/admin/pengajar', [AdminPengajarController::class, 'index'])->name('admin.pengajar.index');
 Route::get('admin/pengajar/{user}/edit', [AdminPengajarController::class, 'edit'])->name('admin.pengajar.edit');
@@ -218,7 +225,7 @@ return view('mobile.home-mobile', compact('user'));
 
 Route::get('/profile', function () {
     $user = Auth::user(); // ambil user login
-    return view('my-profile', compact('user'));
+    return view('mobile.user-mobile', compact('user'));
 })->middleware('auth')->name('profile');
 
 
@@ -234,9 +241,9 @@ Route::get('/profile', function () {
 // })->name('search-result');
 
 // HOME
-// Route::get('/home-mobile', function(){
-//     return view('mobile.home-mobile');
-// })->name('mobile.home-mobile');
+Route::get('/home-mobile', function(){
+    return view('mobile.home-mobile');
+})->name('mobile.home-mobile');
 
 // CARI
 Route::get('/search-result', function(){
@@ -325,8 +332,8 @@ Route::get('/quiz-5', function(){
 Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
 
 // Basic Quiz (Controller-based)
-Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
-Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
+// Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
+// Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
 
 /*
 |--------------------------------------------------------------------------
@@ -335,9 +342,9 @@ Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->nam
 */
 
 // Pengajar Dashboard
-Route::get('/pengajar/dashboard', function () {
-    return view('pengajar.dashboard_pengajar');
-})->name('pengajar.dashboard_pengajar');
+// Route::get('/pengajar/dashboard', function () {
+//     return view('pengajar.dashboard_pengajar');
+// })->name('pengajar.dashboard_pengajar');
 
 // Pengajar Kelas Management
 Route::get('/pengajar/buat-kelas', function () {
@@ -433,9 +440,9 @@ Route::get('/pengajar/quiz/soal/create', function () {
 })->name('pengajar.quiz.soal.create');
 
 // Pengajar Forum Management
-Route::get('/pengajar/forum/{materi}', [DiskusiController::class, 'materiDiskusi'])->name('pengajar.forum.show');
-Route::get('/pengajar/materi/{materi}/forum', [DiskusiController::class, 'index'])->name('forum.pengajar');
-Route::post('/pengajar/materi/{materi}/diskusi', [DiskusiController::class, 'store'])->name('diskusi.store');
+Route::get('/pengajar/forum/{kelas}', [DiskusiController::class, 'materiDiskusi'])->name('pengajar.forum.show');
+Route::get('/pengajar/kelas/{kelas}/forum', [DiskusiController::class, 'index'])->name('forum.pengajar');
+Route::post('/pengajar/kelas/{kelas}/diskusi', [DiskusiController::class, 'store'])->name('diskusi.store');
 Route::post('/pengajar/diskusi/{diskusi}/balasan', [BalasanDiskusiController::class, 'store'])->name('balasan.store');
 Route::get('/pengajar/forum/like/{diskusi}', [DiskusiController::class, 'diskusiSuka'])->name('forum.diskusi.like');
 
@@ -474,6 +481,8 @@ Route::get('/desktop/lorek-desktop', function () {
     return view('desktop.user-desktop');
  })->name('desktop.user-desktop');
 
+ Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
+
 Route::get('/desktop/home-desktop', function () {
     return view('desktop.dashboard-user-desktop');
  })->name('desktop.dashboard-user-desktop');
@@ -493,13 +502,20 @@ Route::get('/desktop/kelas-index', function () {
     return view('desktop.pages.kelas.kelas-index');
  })->name('desktop.pages.kelas.kelas-index');
 
-Route::get('/desktop/kelas-ditawarkan', function () {
-    return view('desktop.pages.kelas.kelas-ditawarkan');
- })->name('desktop.pages.kelas.kelas-ditawarkan');
+ //kelasditawarkan
+// Route::get('/desktop/kelas-ditawarkan', function () {
+//     return view('desktop.pages.kelas.kelas-ditawarkan');
+//  })->name('desktop.pages.kelas.kelas-ditawarkan');
+
+Route::get('/desktop/kelas-ditawarkan', [MateriShowController::class, 'tampil'])->name('kelas.ditawarkan');
+// Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
+// Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
 
 Route::get('/desktop/kelas-diambil', function () {
     return view('desktop.pages.kelas.kelas-diambil');
  })->name('desktop.pages.kelas.kelas-diambil');
+
+//  Route::('/desktop/kelas-diambil',[CourseEnrollmentController::class, 'index'])->name('desktop.pages.kelas.kelas-diambil');
 
 Route::get('/desktop/kelas-selesai', function () {
     return view('desktop.pages.kelas.kelas-selesai');
@@ -509,9 +525,11 @@ Route::get('/desktop/kelas-detail', function () {
     return view('desktop.pages.kelas.kelas-detail');
  })->name('desktop.pages.kelas.kelas-detail');
 
-Route::get('/desktop/kelas-pendaftaran', function () {
-    return view('desktop.pages.kelas.kelas-pendaftaran');
- })->name('desktop.pages.kelas.kelas-pendaftaran');
+//  Route::post('/desktop/kelas-detail', [CourseEnrollmentController::class, 'index'])->name('kelas.detail');
+
+// Route::get('/desktop/kelas-pendaftaran', function () {
+//     return view('desktop.pages.kelas.kelas-pendaftaran');
+//  })->name('desktop.pages.kelas.kelas-pendaftaran');
 
 Route::get('/desktop/kelas-materi', function () {
     return view('desktop.pages.kelas.kelas-materi');
@@ -522,9 +540,19 @@ Route::get('/desktop/pages/kelas/kelas-quiz', function () {
  })->name('desktop.pages.kelas.kelas-quiz');
 
 // Desktop Forum
-Route::get('/desktop/forum-siswa', function () {
-    return view('desktop.pages.forum.forum-siswa');
- })->name('desktop.pages.forum.forum-siswa');
+// Route::get('/desktop/forum-siswa', function () {
+//     return view('desktop.pages.forum.forum-siswa');
+//  })->name('desktop.pages.forum.forum-siswa');
+
+// Contoh route di web.php
+Route::get('/desktop/forum-siswa/{kelasId}', [ForumSiswa::class, 'forumSiswa'])->name('forum.siswa');
+Route::get('/forum/{kelas}', [ForumSiswa::class, 'index'])
+    ->name('desktop.pages.forum.forum-siswa');
+Route::post('/desktop/kelas/{kelas}/diskusi', [ForumSiswa::class, 'store'])->name('forum.siswa.store');
+Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaDiskusi'])->name('forum.siswa.balas');
+Route::get('/desktop/forum/like/{diskusi}', [ForumSiswa::class, 'diskusiSuka'])->name('forum.siswa.like');
+Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaBalasan'])->name('forum.siswa.balas');
+    
 
 // Desktop Help AI
 Route::get('/desktop/help-ai', function () {
@@ -600,3 +628,27 @@ Route::post('/gemini/ask', [GeminiController::class, 'ask']);
 // Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])
 //     ->middleware('auth')
 //     ->name('daftar-belajar.simpan');
+    
+
+// Pendaftaran
+Route::get('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'create'])->name('desktop.pages.kelas.kelas-pendaftaran');
+
+Route::post('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'store'])
+    ->name('enrollments.store');
+
+
+
+// Route::post('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'store'])
+//     ->name('desktop.pages.kelas.kelas-pendaftaran.store');
+
+
+
+// List kelas yang diambil
+Route::get('/kelas-diambil', [CourseEnrollmentController::class, 'index'])
+    ->name('desktop.pages.kelas.kelas-diambil');
+// New routes for course enrollment
+// Route::get('/desktop/kelas-pendaftaran', function () {
+//     return view('desktop.pages.kelas.kelas-pendaftaran');
+//  })->name('desktop.pages.kelas.kelas-pendaftaran');
+
+

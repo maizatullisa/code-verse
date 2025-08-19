@@ -230,9 +230,9 @@
         </div>
         
         <div class="flex items-center gap-1">
-          <a href="{{ route('pengajar.kelas.edit', $kelasItem) }}" 
+         <a href="{{ route('forum.pengajar', $kelasItem->id) }}" 
              class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105">
-            Edit
+            Forum
           </a>
           <a href="{{ route('pengajar.kelas.show', $kelasItem->id) }}"
              class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105">

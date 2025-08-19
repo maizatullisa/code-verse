@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Materi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class MateriShowController extends Controller
 {
@@ -13,20 +15,16 @@ class MateriShowController extends Controller
      * Per card = per kelas, dengan info: nama pengajar, nama kelas, jumlah materi, tanggal published
      */
     public function index()
-    {
-        $kelasList = Kelas::where('status', 'published') // hanya kelas yang published
-            ->whereHas('materis', function ($query) {
-                $query->where('status', 'published');
-            })
-            ->with(['materis' => function ($query) {
-                $query->where('status', 'published')
-                      ->orderBy('created_at', 'desc');
-            }, 'pengajar'])
-            ->withCount(['materis' => function ($query) {
-                $query->where('status', 'published');
-            }])
-            ->orderBy('created_at', 'desc')
-            ->get();
+    {    $kelasList = Kelas::where('status', 'published')
+    ->with(['materis' => function ($query) {
+        $query->where('status', 'published')
+              ->orderBy('created_at', 'desc');
+    }, 'pengajar'])
+    ->withCount(['materis' => function ($query) {
+        $query->where('status', 'published');
+    } ])
+    ->orderBy('created_at', 'desc')
+    ->get();
 
         return view('materi', compact('kelasList'));
     }
@@ -81,5 +79,36 @@ class MateriShowController extends Controller
 
         return view('detail-kelas', compact('kelas'));
     }
+
+    /////Desktop
+       public function tampil()
+    {
+        // $kelasList = Kelas::where('status', 'published') // hanya kelas yang published
+        //     ->whereHas('materis', function ($query) {
+        //         $query->where('status', 'published');
+        //     })
+        //     ->with(['materis' => function ($query) {
+        //         $query->where('status', 'published')
+        //               ->orderBy('created_at', 'desc');
+        //     }, 'pengajar'])
+        //     ->withCount(['materis' => function ($query) {
+        //         $query->where('status', 'published');
+        //     }])
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
+        $kelasList = Kelas::where('status', 'published')
+                        ->with(['materis' => function ($query) {
+                        $query->where('status', 'published')
+                        ->orderBy('created_at', 'desc');
+            }, 'pengajar'])
+            ->withCount(['materis' => function ($query) {
+                $query->where('status', 'published');
+            }])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('desktop.pages.kelas.kelas-ditawarkan', compact('kelasList'));
+        }
+
+
 }
 

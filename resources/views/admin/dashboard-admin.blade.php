@@ -51,8 +51,8 @@
                         </svg>
                     </div>
                     <div class="text-right">
-                        {{--<div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ $totalSiswa }}</div>--}}
-                        {{-- <div class="text-sm text-gray-500">+{{ $todayRegistrations }} today</div>--}}
+                        <div class="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ $totalSiswa }}</div>
+                         <div class="text-sm text-gray-500">+{{ $todayRegistrations }} today</div>
                     </div>
                 </div>
                 

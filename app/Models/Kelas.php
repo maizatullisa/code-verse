@@ -1,7 +1,11 @@
 <?php
 
+
 namespace App\Models;
 
+use App\Models\Diskusi;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,4 +68,67 @@ class Kelas extends Model
     {
         return $this->kapasitas >= 9999 ? 'Tidak Terbatas' : $this->kapasitas . ' orang';
     }
+
+
+    /**
+ * Get the enrollments for the class
+ */
+
+    /**
+     * Get the users enrolled in this class
+     */
+    public function enrolledUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'enrollments')
+                    ->withPivot(['status', 'enrolled_at', 'completed_at', 'progress'])
+                    ->withTimestamps();
+    }
+
+    /**
+     * Get active enrollments count
+     */
+    public function getActiveEnrollmentsCountAttribute(): int
+    {
+        return $this->enrollments()->active()->count();
+    }
+
+    /**
+     * Get completed enrollments count (yang dapat sertifikat)
+     */
+    public function getCompletedEnrollmentsCountAttribute(): int
+    {
+        return $this->enrollments()->completed()->count();
+    }
+
+    /**
+     * Check if user is enrolled in this class
+     */
+    public function isUserEnrolled($userId): bool
+    {
+        return $this->enrollments()->where('user_id', $userId)->exists();
+    }
+
+    /**
+     * Get user enrollment status
+     */
+    public function getUserEnrollmentStatus($userId): ?string
+    {
+        $enrollment = $this->enrollments()->where('user_id', $userId)->first();
+        return $enrollment ? $enrollment->status : null;
+    }
+
+    /**
+     * Get user progress in this class
+     */
+    public function getUserProgress($userId): float
+    {
+        $enrollment = $this->enrollments()->where('user_id', $userId)->first();
+        return $enrollment ? $enrollment->progress : 0;
+    }
+    
+    public function diskusi()
+{
+    return $this->hasMany(Diskusi::class); // asumsinya satu kelas punya banyak diskusi
+}
+
 }

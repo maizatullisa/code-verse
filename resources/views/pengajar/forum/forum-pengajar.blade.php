@@ -80,7 +80,7 @@
         <h3 class="text-lg font-semibold text-gray-800">Mulai Diskusi Baru</h3>
       </div>
 
-      <form action="{{ isset($materi) ? route('diskusi.store', $materi->id) : '#' }}" method="POST" class="space-y-4">
+<form action="{{ route('diskusi.store', $kelas->id) }}" method="POST">
         @csrf
         <div class="relative">
           <textarea 
@@ -148,7 +148,8 @@
     <!-- Discussion Threads -->
     <div class="space-y-6">
       
-      @forelse(isset($materi) && $materi->diskusi ? $materi->diskusi : [] as $diskusi)
+      @forelse($kelas->diskusi as $diskusi)
+
       <!-- Thread -->
       <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in group">
         <div class="flex items-start space-x-4">
@@ -159,7 +160,7 @@
           <div class="flex-1 min-w-0">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
               <div class="flex items-center space-x-3">
-                <h4 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">{{ $diskusi->user->name }}</h4>
+                <h4 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">{{ $diskusi->user->email }}</h4>
                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
                   Siswa
                 </span>

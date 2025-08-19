@@ -54,7 +54,7 @@ class AuthController extends Controller
                         return redirect('/pengajar/dashboard');
                     } else {
                         return $device === 'mobile'
-                            ? redirect()->route('mobile.home-mobile')
+                            ? redirect()->route('home')
                             : redirect()->route('desktop.dashboard-user-desktop');
                     }
                 }
@@ -63,6 +63,7 @@ class AuthController extends Controller
                     'email' => 'Email atau password salah.',
                 ]);
             }
+
 
 
 }

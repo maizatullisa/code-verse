@@ -267,7 +267,7 @@ function saveCurrentSoal() {
         jawaban_benar: formData.get('jawaban_benar'),
         jawaban_isian: formData.get('jawaban_isian')
     };
-}
+}z
 
 function loadSoal(soalNumber) {
     if (soalData[soalNumber]) {

@@ -236,4 +236,6 @@ class DaftarBelajarController extends Controller
             
             return view('view-materi', compact('kelas', 'materi', 'allMateris', 'previousMateri', 'nextMateri', 'currentIndex'));
         }
+        //desktop
+        
     }

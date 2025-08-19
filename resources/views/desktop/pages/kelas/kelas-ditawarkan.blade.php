@@ -95,7 +95,7 @@
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center">
                 <p class="text-gray-600">
-                    Menampilkan <span id="totalResults" class="font-semibold text-p2">24</span> kelas tersedia
+                    Menampilkan <span id="totalResults" class="font-semibold text-p2">{{ $kelasList->count() }}</span> kelas tersedia
                 </p>
                 <div class="flex items-center gap-2">
                     <button onclick="toggleView('grid')" id="gridView" class="p-2 rounded-lg bg-p2 text-white">
@@ -109,529 +109,227 @@
         </div>
     </div>
 
+    <!-- Alert Messages -->
+    @if(session('success'))
+    <div class="max-w-4xl mx-auto px-6 mb-4">
+        <div class="p-4 bg-green-500 text-white rounded-lg shadow-lg">
+            <div class="flex items-center">
+                <i class="ph ph-check-circle text-xl mr-2"></i>
+                {{ session('success') }}
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if(session('info'))
+    <div class="max-w-4xl mx-auto px-6 mb-4">
+        <div class="p-4 bg-blue-500 text-white rounded-lg shadow-lg">
+            <div class="flex items-center">
+                <i class="ph ph-info text-xl mr-2"></i>
+                {{ session('info') }}
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Kelas List -->
     <div class="px-6 mb-20">
         <div class="max-w-4xl mx-auto">
             <div id="kelasList" class="space-y-4">
-                <!-- Kelas 1 - React JS -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="web" 
-                     data-level="beginner" 
-                     data-price="299000"
-                     onclick="goToDetailKelas('react-js-fundamental')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img1.png" 
-                                 alt="React JS Fundamental" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-green-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                New
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">React JS Fundamental</h4>
-                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">Premium</span>
+                @if ($kelasList->count())
+                    @foreach ($kelasList as $kelas)
+                    <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-[1.02] transition-all cursor-pointer" 
+                         data-category="programming" 
+                         data-level="beginner" 
+                         data-price="299000">
+                        <div class="flex items-center gap-4">
+                            <!-- Dummy Image with Date Badge -->
+                            <div class="relative rounded-lg overflow-hidden">
+                                 @if($kelas->cover_image)
+                               <img src="{{ asset('storage/' . $kelas->cover_image) }}" 
+                                     alt="{{ $kelas->nama_kelas }}" 
+                                     class="h-[100px] w-[140px] object-cover rounded-lg" />
+                                <p class="text-white bg-orange-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
+                                    {{ $kelas->materis->first()?->created_at?->format('d M') ?? 'New' }}
+                                </p>
+                                 @endif
                             </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                John Doe
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>156 siswa</span>
+                            
+                            <div class="flex-1">
+                                <!-- Class Name & Badge -->
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h4 class="font-semibold text-lg">{{ $kelas->nama_kelas }}</h4>
                                 </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>8 minggu</span>
+                                
+                                <!-- Instructor Name -->
+                                <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
+                                    <i class="ph ph-user"></i>
+                                    {{ $kelas->pengajar->first_name ?? $kelas->pengajar->name ?? 'Pengajar belum ada' }}
+                                </p>
+                                
+                                <!-- Course Stats -->
+                                <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
+                                    <div class="flex items-center gap-1">
+                                        <i class="ph ph-users-three"></i>
+                                        <span>156 siswa</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i class="ph ph-clock"></i>
+                                        <span>8 minggu</span>
+                                    </div>
+                                   
+                                    <div class="flex items-center gap-1">
+                                        <i class="ph ph-book-open"></i>
+                                        <span>{{ $kelas->materis_count }} materi</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.8 (124)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Pemula</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 299.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 499.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">40% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
+                                
+                                <!-- Pricing (Dummy)
+                                <div class="flex items-center gap-2">
+                                 <span class="text-p2 font-bold text-lg">Rp 299.000</span>
+                                 <span class="text-gray-400 line-through text-sm">Rp 499.000</span>
+                                  <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">40% OFF</span>
+                                  </div>
+                                    </div>
+                                     <div class="flex items-center gap-1 sm:gap-2"> -->
+                                                @if($kelas->harga > 0)
+                                                    <!-- Jika ada harga - warna hijau -->
+                                                    <span class="text-green-600 font-bold text-sm sm:text-base">
+                                                        Rp {{ number_format($kelas->harga, 0, ',', '.') }}K
+                                                    </span>
+                                                    <!-- Simulasi harga diskon -->
+                                                    @php
+                                                        $harga_original = $kelas->harga * 1.67;
+                                                        $diskon = round((($harga_original - $kelas->harga) / $harga_original) * 100);
+                                                    @endphp
+                                                    <span class="text-gray-400 line-through text-xs sm:text-sm">
+                                                        Rp {{ number_format($harga_original, 0, ',', '.') }}K
+                                                    </span>
+                                                    <span class="bg-red-100 text-red-600 text-[8px] sm:text-[10px] px-1 py-0.5 rounded-full">
+                                                        {{ $diskon }}% OFF
+                                                    </span>
+                                                @else
+                                                    <!-- Jika gratis -->
+                                                    <span class="text-green-600 font-bold text-sm sm:text-base">GRATIS</span>
+                                                @endif
+                                            </div>
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col gap-2">
+                                <!-- Dummy Daftar Button -->
+                              <button class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all" 
+                                onclick="event.stopPropagation(); window.location.href='{{ route('desktop.pages.kelas.kelas-pendaftaran', $kelas->id) }}'">
+                                 Daftar
                             </button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Kelas 2 - Laravel -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="web" 
-                     data-level="intermediate" 
-                     data-price="599000"
-                     onclick="goToDetailKelas('laravel-advanced')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img2.png" 
-                                 alt="Laravel Advanced" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-p1 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Hot
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">Laravel Advanced</h4>
-                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">Premium</span>
+                                
+                                <!-- Dummy Preview Button -->
+                                <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
+                                        onclick="event.stopPropagation(); alert('Preview kelas: {{ $kelas->nama_kelas }}')">
+                                    Preview
+                                </button>
                             </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                Jane Smith
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>89 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>12 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.9 (67)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Menengah</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 599.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 799.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">25% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Kelas 3 - Python Data Science -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="data" 
-                     data-level="beginner" 
-                     data-price="399000"
-                     onclick="goToDetailKelas('python-data-science')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img3.png" 
-                                 alt="Python for Data Science" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-purple-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Popular
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">Python for Data Science</h4>
-                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">Trending</span>
-                            </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                Dr. Alex Chen
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>234 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>10 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.7 (189)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Pemula</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 399.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 599.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">33% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Kelas 4 - Mobile Development -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="mobile" 
-                     data-level="advanced" 
-                     data-price="799000"
-                     onclick="goToDetailKelas('mobile-development')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img4.png" 
-                                 alt="Mobile App Development" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-indigo-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Trending
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">Mobile App Development</h4>
-                                <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full font-medium">Advanced</span>
-                            </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                Sarah Johnson
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>178 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>14 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.6 (145)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Lanjutan</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 799.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 999.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">20% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Kelas 5 - Vue.js -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="web" 
-                     data-level="beginner" 
-                     data-price="349000"
-                     onclick="goToDetailKelas('vuejs-complete')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img5.png" 
-                                 alt="Vue.js Complete Guide" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-blue-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Updated
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">Vue.js Complete Guide</h4>
-                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">Beginner</span>
-                            </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                Michael Brown
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>98 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>9 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.5 (76)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Pemula</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 349.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 449.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">22% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Kelas 6 - Node.js -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="web" 
-                     data-level="intermediate" 
-                     data-price="549000"
-                     onclick="goToDetailKelas('nodejs-backend')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img6.png" 
-                                 alt="Node.js Backend Development" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-red-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Limited
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">Node.js Backend Development</h4>
-                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">Intermediate</span>
-                            </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                David Wilson
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>45 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>11 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.9 (38)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Menengah</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 549.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 699.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">21% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <button class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all" onclick="event.stopPropagation(); goToDetailKelas('nodejs-backend')">
-                                Lihat Detail
-                            </button>
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" onclick="event.stopPropagation(); previewKelas('nodejs-backend')">
-                                Preview
-                            </button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Free Class Example -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="programming" 
-                     data-level="beginner" 
-                     data-price="0"
-                     onclick="goToDetailKelas('html-css-basics')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img7.png" 
-                                 alt="HTML & CSS Basics" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-green-600 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Free
-                            </p>
+                    @endforeach
+                @else
+                    <div class="text-center py-12">
+                        <div class="flex flex-col items-center">
+                            <i class="ph ph-books text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-400 text-lg italic">Belum ada kelas dengan materi yang dipublikasikan.</p>
+                            <p class="text-gray-300 text-sm mt-2">Silakan kembali lagi nanti untuk melihat kelas terbaru</p>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">HTML & CSS Basics</h4>
-                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">Gratis</span>
-                            </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                Emily Davis
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>567 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>6 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.4 (234)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Pemula</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-green-600 font-bold text-lg">Gratis</span>
-                                <span class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full">100% Free</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
-                            </button>
-                        </div>
-
                     </div>
-                </div>
-
-                <!-- UI/UX Design Course -->
-                <div class="kelas-card bg-white text-black p-4 rounded-xl shadow2 hover:transform hover:scale-105 transition-all cursor-pointer" 
-                     data-category="design" 
-                     data-level="beginner" 
-                     data-price="449000"
-                     onclick="goToDetailKelas('uiux-design-fundamentals')">
-                    <div class="flex items-center gap-4">
-                        <div class="relative rounded-lg overflow-hidden">
-                            <img src="assets/images/library-favourite-img8.png" 
-                                 alt="UI/UX Design Fundamentals" 
-                                 class="h-[100px] w-[140px] object-cover rounded-lg" />
-                            <p class="text-white bg-pink-500 absolute bottom-2 right-2 text-xs px-2 py-1 rounded-md">
-                                Creative
-                            </p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-lg">UI/UX Design Fundamentals</h4>
-                                <span class="bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full font-medium">Design</span>
-                            </div>
-                            <p class="text-gray-600 text-sm flex items-center gap-1 mb-3">
-                                Pengajar
-                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
-                                Lisa Anderson
-                            </p>
-                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-users-three"></i>
-                                    <span>312 siswa</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-clock"></i>
-                                    <span>8 minggu</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-star-fill text-yellow-400"></i>
-                                    <span>4.7 (198)</span>
-                                </div>
-                                <div class="flex items-center gap-1">
-                                    <i class="ph ph-graduation-cap"></i>
-                                    <span>Pemula</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-p2 font-bold text-lg">Rp 449.000</span>
-                                <span class="text-gray-400 line-through text-sm">Rp 599.000</span>
-                                <span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">25% OFF</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a href="{{ url('/desktop/kelas-pendaftaran') }}"
-                            class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90 transition-all">
-                                Daftar
-                            </a>
-
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
-                                Preview
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>
 
-    <!-- Load More Button -->
+    <!-- Load More Button (Hidden when no data) -->
+    @if ($kelasList->count() > 0)
     <div class="flex justify-center mb-20">
-        <button id="loadMoreBtn" class="bg-p2 text-white px-8 py-3 rounded-full font-medium hover:bg-p2/90 transition-all">
+        <button id="loadMoreBtn" class="bg-p2 text-white px-8 py-3 rounded-full font-medium hover:bg-p2/90 transition-all" onclick="alert('Load more functionality akan dikembangkan')">
             Muat Lebih Banyak
         </button>
     </div>
+    @endif
 @endsection
 
 @push('scripts')
+<script>
+// Toggle Filter Panel
+function toggleFilter() {
+    const panel = document.getElementById('filterPanel');
+    panel.classList.toggle('hidden');
+}
 
-<script src="{{ asset('assets/js/custom/kelas-ditawarkan.js') }}"></script>
+// Reset Filters
+function resetFilters() {
+    document.getElementById('levelFilter').value = '';
+    document.getElementById('priceFilter').value = '';
+    document.getElementById('sortFilter').value = 'newest';
+    
+    // Reset category buttons
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('bg-p2', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-300');
+    });
+    
+    // Set "Semua" as active
+    document.querySelector('[data-category="all"]').classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-300');
+    document.querySelector('[data-category="all"]').classList.add('bg-p2', 'text-white');
+}
+
+// Apply Filters (Dummy)
+function applyFilters() {
+    alert('Filter akan diterapkan. Fitur dalam pengembangan.');
+    toggleFilter(); // Hide panel after apply
+}
+
+// Toggle View (Grid/List)
+function toggleView(viewType) {
+    const gridBtn = document.getElementById('gridView');
+    const listBtn = document.getElementById('listView');
+    
+    if (viewType === 'grid') {
+        gridBtn.classList.add('bg-p2', 'text-white');
+        gridBtn.classList.remove('text-gray-400');
+        listBtn.classList.remove('bg-p2', 'text-white');
+        listBtn.classList.add('text-gray-400');
+    } else {
+        listBtn.classList.add('bg-p2', 'text-white');
+        listBtn.classList.remove('text-gray-400');
+        gridBtn.classList.remove('bg-p2', 'text-white');
+        gridBtn.classList.add('text-gray-400');
+    }
+    
+    // View toggle functionality akan dikembangkan
+    console.log('Switched to ' + viewType + ' view');
+}
+
+// Category Filter
+document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        // Remove active state from all buttons
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('bg-p2', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-300');
+        });
+        
+        // Add active state to clicked button
+        this.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-300');
+        this.classList.add('bg-p2', 'text-white');
+        
+        const category = this.getAttribute('data-category');
+        console.log('Selected category:', category);
+        
+        // Category filtering akan dikembangkan
+    });
+});
+
+// Search functionality (Dummy)
+document.getElementById('searchKelas').addEventListener('input', function() {
+    const searchTerm = this.value;
+    console.log('Searching for:', searchTerm);
+    // Search functionality akan dikembangkan
+});
+</script>
 @endpush

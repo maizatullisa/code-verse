@@ -317,14 +317,11 @@
                 class="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
           ← Edit Kembali
         </button>
-        
-        <button type="submit" 
-                form="kelasForm"
-                class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-          </svg>
-          <span id="submitButtonText">Buat Kelas</span>
+          <button type="submit"
+            id="submitButtonText"
+            form="kelasForm"
+            class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
+            Buat Kelas
         </button>
       </div>
     </div>

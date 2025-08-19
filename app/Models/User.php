@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -83,5 +85,48 @@ class User extends Authenticatable
     {
         return $this->hasMany(BalasanDiskusi::class);
     }
+
+        
+    /**
+     * Get the enrollments for the user
+     */
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(enrollment::class);
+    }
+
+    /**
+     * Get the classes that the user is enrolled in
+     */
+    public function enrolledClasses(): BelongsToMany
+    {
+        return $this->belongsToMany(Kelas::class, 'enrollments')
+                    ->withPivot(['status', 'enrolled_at', 'completed_at', 'progress'])
+                    ->withTimestamps();
+    }
+
+    /**
+     * Get active enrollments
+     */
+    public function activeEnrollments(): HasMany
+    {
+        return $this->enrollments()->active();
+    }
+
+    /**
+     * Get completed enrollments (for certificates)
+     */
+    public function completedEnrollments(): HasMany
+    {
+        return $this->enrollments()->completed();
+    }
+
+    //diskusi
+    // Di dalam model User
+    public function isPengajar()
+    {
+        return $this->role === 'pengajar'; 
+    }
+
     
 }
