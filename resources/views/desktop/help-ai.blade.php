@@ -1,8 +1,8 @@
 @extends('desktop.layout.master-desktop')
 
-@section('title', 'Help AI Assistant - Code Verse')
+@section('title', 'Help Zizi - Code Verse')
 
-@section('page-title', 'Help AI Assistant')
+@section('page-title', 'Hallo Zizi disini')
 @section('hideSidebar', true)
 @section('hideBottomNavbar', true)
 @section('content')
@@ -16,10 +16,10 @@
                     <i class="ph ph-robot text-3xl text-slate-700"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-semibold text-slate-900 mb-2">Zizi AI Assistant</h1>
+                    <h1 class="text-2xl font-semibold text-slate-900 mb-2">Zizi AI</h1>
                     <p class="text-slate-600 text-base leading-relaxed max-w-2xl">
-                        Hai! Saya Zizi, asisten AI yang siap membantu kamu belajar coding, 
-                        menyelesaikan masalah, atau memberikan motivasi. Mari belajar bersama! 
+                       Halo Aku Zizi aku yang akan temenin kamu belajar...
+                       mau tanya apa silahkan tanya yaa
                     </p>
                 </div>
             </div>
@@ -35,7 +35,7 @@
         <!-- Chat Messages Container -->
         <div class="h-[60vh] overflow-y-auto border border-slate-100 rounded-xl p-6 mb-6 bg-slate-50/30" id="chatContainer">
             <!-- Welcome Message -->
-            <div class="flex items-start gap-4 mb-6">
+            <!--<div class="flex items-start gap-4 mb-6">
                 <div class="bg-slate-200 p-3 rounded-xl flex-shrink-0">
                     <i class="ph ph-robot text-slate-700 text-xl"></i>
                 </div>
@@ -80,19 +80,12 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <!-- Input Area -->
         <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
             <div class="flex items-end gap-4">
-                <!-- Voice Button -->
-                <button onclick="toggleVoice()" 
-                        class="bg-white hover:bg-slate-50 p-4 rounded-xl transition-colors duration-200 border border-slate-200 group" 
-                        id="voiceBtn">
-                    <i class="ph ph-microphone text-slate-600 text-xl group-hover:text-slate-800 transition-colors"></i>
-                </button>
-                
                 <!-- Message Input -->
                 <div class="flex-1 bg-white rounded-xl border border-slate-200 focus-within:border-slate-400 transition-colors duration-200">
                     <textarea 

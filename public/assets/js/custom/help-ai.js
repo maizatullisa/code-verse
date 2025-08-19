@@ -219,59 +219,7 @@ function clearChat() {
     }
 }
 
-function toggleVoice() {
-    const btn = document.getElementById('voiceBtn');
-    const icon = btn.querySelector('i');
-    
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        addMessage('Browser lo belum support voice recognition nih! 😅', 'ai');
-        return;
-    }
-    
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    
-    recognition.lang = 'id-ID';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    
-    if (icon.classList.contains('ph-microphone')) {
-        icon.className = 'ph ph-stop text-red-500 text-2xl';
-        btn.classList.add('bg-red-100', 'border-red-300');
-        btn.classList.remove('border-gray-200');
-        
-        recognition.start();
-        
-        recognition.onresult = function(event) {
-            const transcript = event.results[0][0].transcript;
-            document.getElementById('messageInput').value = transcript;
-            
-            icon.className = 'ph ph-microphone text-gray-600 text-2xl group-hover:text-p1 transition-colors';
-            btn.classList.remove('bg-red-100', 'border-red-300');
-            btn.classList.add('border-gray-200');
-        };
-        
-        recognition.onerror = function(event) {
-            console.error('Speech recognition error:', event.error);
-            addMessage('Error pas voice recognition nih! Coba lagi 🎤', 'ai');
-            
-            icon.className = 'ph ph-microphone text-gray-600 text-2xl group-hover:text-p1 transition-colors';
-            btn.classList.remove('bg-red-100', 'border-red-300');
-            btn.classList.add('border-gray-200');
-        };
-        
-        recognition.onend = function() {
-            icon.className = 'ph ph-microphone text-gray-600 text-2xl group-hover:text-p1 transition-colors';
-            btn.classList.remove('bg-red-100', 'border-red-300');
-            btn.classList.add('border-gray-200');
-        };
-    } else {
-        recognition.stop();
-        icon.className = 'ph ph-microphone text-gray-600 text-2xl group-hover:text-p1 transition-colors';
-        btn.classList.remove('bg-red-100', 'border-red-300');
-        btn.classList.add('border-gray-200');
-    }
-}
+
 
 document.getElementById('messageInput').addEventListener('input', function() {
     this.style.height = 'auto';

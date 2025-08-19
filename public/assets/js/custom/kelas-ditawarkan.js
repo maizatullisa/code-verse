@@ -173,6 +173,10 @@
     //     window.open(`/desktop/kelas-pendaftaran${kelasId}/preview`, '_blank');
     // }
 
+    // function previewKelas(kelasId) {
+    //     window.open('/desktop/kelas-previews');
+    // }
+
     // Load more functionality
     document.getElementById('loadMoreBtn').addEventListener('click', function() {
         // Simulate loading more content

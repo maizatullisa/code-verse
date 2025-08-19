@@ -218,10 +218,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // return view('mobile.home.mobile', compact('user'));
 // })->middleware('auth')->name('home-mobile');
 
-Route::get('/home', function () {
- $user = Auth::user(); // ambil user login
-return view('mobile.home-mobile', compact('user'));
-})->middleware('auth')->name('home');
+// DICOMMENT SAMA OYIN
+// Route::get('/home', function () {
+//  $user = Auth::user(); // ambil user login
+// return view('mobile.home-mobile', compact('user'));
+// })->middleware('auth')->name('home');
 
 Route::get('/profile', function () {
     $user = Auth::user(); // ambil user login
@@ -230,9 +231,9 @@ Route::get('/profile', function () {
 
 
 // ROUTE DUMMY 
-// Route::get('/home-mobile', function(){
-//     return view('home');
-// })->name('home-mobile');
+ Route::get('/home-mobile', function(){
+     return view('mobile.home-mobile');
+ })->name('home-mobile');
 
 
 // SEARCH
@@ -511,6 +512,10 @@ Route::get('/desktop/kelas-ditawarkan', [MateriShowController::class, 'tampil'])
 // Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
 // Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
 
+ Route::get('/desktop/kelas-previews', function () {
+    return view('desktop.pages.kelas.kelas-previews');
+ })->name('desktop.pages.kelas.kelas-previews');
+
 Route::get('/desktop/kelas-diambil', function () {
     return view('desktop.pages.kelas.kelas-diambil');
  })->name('desktop.pages.kelas.kelas-diambil');
@@ -538,6 +543,17 @@ Route::get('/desktop/kelas-materi', function () {
 Route::get('/desktop/pages/kelas/kelas-quiz', function () {
     return view('desktop.pages.kelas.kelas-quiz');
  })->name('desktop.pages.kelas.kelas-quiz');
+
+
+ // DESKTOP FORM SERTIFIKAT
+ Route::get('/desktop/form-sertifikat', function () {
+    return view('desktop.pages.sertifikat.form-sertif');
+ })->name('desktop.pages.sertifikat.form-sertif');
+
+ //DESKTOP INDEX SERTTIF
+  Route::get('/desktop/sertifikat', function () {
+    return view('desktop.pages.sertifikat.index-sertif');
+ })->name('desktop.pages.sertifikat.index-sertif');
 
 // Desktop Forum
 // Route::get('/desktop/forum-siswa', function () {
@@ -598,6 +614,22 @@ Route::get('/games/glitchmaze', function () {
 Route::get('/games/syntaxShowdown', function () {
     return view('games.syntaxShowdown');
  })->name('games.syntaxShowdown');
+
+
+ // COBA JELAJAHI
+Route::get('/glossary', function (){
+    return view('desktop.jelajahi.glosarry');
+})->name('desktop.jelajahi.glosarry');
+
+Route::get('/keyboard-shortcuts', function(){
+    return view('desktop.jelajahi.keyboard-shourcut');
+})->name('desktop.jelajahi.keyboard-shourcut');
+
+Route::get('/coding-tips', function(){
+    return view('desktop.jelajahi.coding-tips');
+})->name('desktop.jelajahi.coding-tips');
+
+
 
 /*
 |--------------------------------------------------------------------------

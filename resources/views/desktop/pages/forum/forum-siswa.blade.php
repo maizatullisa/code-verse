@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Diskusi - React JS Fundamental</title>
+    <title>Forum Diskusi - {{$kelas->id}}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/custom/forum-sis.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -83,7 +83,7 @@
                         <div class="w-9 h-9 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-md">
                             <span class="text-white font-semibold text-sm">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                         </div>
-                        <span class="hidden sm:block text-sm font-medium text-slate-700">{{ $user->name }}</span>
+                        <span class="hidden sm:block text-sm font-medium text-slate-700">{{ $user->email }}</span>
                     </div>
                 </div>
             </div>
@@ -233,10 +233,10 @@
                                             <i class="ph-fill ph-heart text-red-500 text-lg"></i>
                                             <span class="font-medium">{{ $diskusi->diskusiSukas->count() ?? 0 }} Suka</span>
                                         </a>
-                                   <button onclick="showReplyForm({{ $diskusi->id }})" class="flex items-center space-x-2 text-slate-500 hover:text-blue-500 hover:bg-blue-50 px-3 py-2 rounded-xl transition-all duration-200">
-                                    <i class="ph ph-arrow-bend-up-left text-lg"></i>
-                                    <span class="font-medium">Balas</span>
-                                    </button>
+                                        <button onclick="showReplyForm({{ $diskusi->id }})" class="flex items-center space-x-2 text-slate-500 hover:text-blue-500 hover:bg-blue-50 px-3 py-2 rounded-xl transition-all duration-200">
+                                            <i class="ph ph-arrow-bend-up-left text-lg"></i>
+                                            <span class="font-medium">Balas</span>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -267,14 +267,12 @@
                                 </div>
                                 @endif
 
-                                <!-- Reply Form -->
-                   <!-- Form Balasan -->
-<div id="reply-form-{{ $diskusi->id }}" class="mt-4 hidden">
+                     <div id="reply-form-{{ $diskusi->id }}" class="mt-4 hidden">
     <form action="{{ route('forum.siswa.balas', $diskusi->id) }}" method="POST">
         @csrf
         <div class="flex space-x-3">
             <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                <span class="text-white font-medium text-sm">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                <span class="text-white font-medium text-sm">{{ strtoupper(substr(auth()->user()->email, 0, 1)) }}</span>
             </div>
             <div class="flex-1">
                 <textarea 
@@ -290,12 +288,12 @@
                     </button>
                     <button type="submit" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-2 text-sm rounded-xl font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
                         Kirim Balasan
-                         </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
                             </div>
                         </div>
@@ -325,20 +323,11 @@
         </div>
     </div>
 <script>
-    // function showReplyForm(diskusiId) {
-    //     const form = document.getElementById(`reply-form-${diskusiId}`);
-    //     form.classList.remove('hidden');
-    //     form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // }
-
     function showReplyForm(diskusiId) {
-    const form = document.getElementById(`reply-form-${diskusiId}`);
-    if (form) {
+        const form = document.getElementById(`reply-form-${diskusiId}`);
         form.classList.remove('hidden');
         form.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-}
-
 
     function hideReplyForm(diskusiId) {
         const form = document.getElementById(`reply-form-${diskusiId}`);
@@ -364,7 +353,6 @@
     });
 </script>
 
-
-    <script src="{{ asset('assets/js/costum/forum-siswa.js') }}"></script>
+<script src="{{ asset('assets/js/costum/forum-siswa.js') }}"></script>
 </body>
 </html>
