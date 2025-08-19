@@ -498,6 +498,10 @@ Route::get('/desktop/kelas-ditawarkan', function () {
     return view('desktop.pages.kelas.kelas-ditawarkan');
  })->name('desktop.pages.kelas.kelas-ditawarkan');
 
+ Route::get('/desktop/kelas-previews', function () {
+    return view('desktop.pages.kelas.kelas-previews');
+ })->name('desktop.pages.kelas.kelas-previews');
+
 Route::get('/desktop/kelas-diambil', function () {
     return view('desktop.pages.kelas.kelas-diambil');
  })->name('desktop.pages.kelas.kelas-diambil');
@@ -582,6 +586,22 @@ Route::get('/games/glitchmaze', function () {
 Route::get('/games/syntaxShowdown', function () {
     return view('games.syntaxShowdown');
  })->name('games.syntaxShowdown');
+
+
+ // COBA JELAJAHI
+Route::get('/glossary', function (){
+    return view('desktop.jelajahi.glosarry');
+})->name('desktop.jelajahi.glosarry');
+
+Route::get('/keyboard-shortcuts', function(){
+    return view('desktop.jelajahi.keyboard-shourcut');
+})->name('desktop.jelajahi.keyboard-shourcut');
+
+Route::get('/coding-tips', function(){
+    return view('desktop.jelajahi.coding-tips');
+})->name('desktop.jelajahi.coding-tips');
+
+
 
 /*
 |--------------------------------------------------------------------------

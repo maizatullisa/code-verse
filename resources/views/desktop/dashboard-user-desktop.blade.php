@@ -19,36 +19,36 @@
     <!-- Search Box -->
     
     <!-- Coba jelajahi -->
-    <div class="max-w-6xl mx-auto px-6 mb-16 top-10px">
+        <div class="max-w-6xl mx-auto px-6 mb-16 top-10px">
         <h2 class="text-2xl font-semibold text-gray-800 mb-8 text-center">Coba Jelajahi</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
+            <a href="{{ url('/coding-tips') }}" class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
                 <div class="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
-                    <i class="ph ph-music-note text-white text-3xl"></i>
+                    <i class="ph ph-lightbulb text-white text-3xl"></i>
                 </div>
-                <p class="text-sm font-semibold text-gray-700 group-hover:text-emerald-600 transition-colors">Music Quiz</p>
-            </div>
-                <a href="{{ url('/games/pilih-game') }}" class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
-                    <div class="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
-                        <i class="ph ph-puzzle-piece text-white text-3xl"></i>
-                    </div>
-                    <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600 transition-colors">Games</p>
-                </a>
+                <p class="text-sm font-semibold text-gray-700 group-hover:text-emerald-600 transition-colors">Coding Tips</p>
+            </a>
 
+            <a href="{{ url('/games/pilih-game') }}" class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
+                <div class="w-20 h-20 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
+                    <i class="ph ph-puzzle-piece text-white text-3xl"></i>
+                </div>
+                <p class="text-sm font-semibold text-gray-700 group-hover:text-orange-600 transition-colors">Games</p>
+            </a>
 
-            <div class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
+            <a href="{{ url('/glossary') }}" class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
                 <div class="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
-                    <i class="ph ph-translate text-white text-3xl"></i>
+                    <i class="ph ph-book text-white text-3xl"></i>
                 </div>
-                <p class="text-sm font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">Language Quiz</p>
-            </div>
+                <p class="text-sm font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">Glossary</p>
+            </a>
 
-            <div class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
+            <a href="{{ url('/keyboard-shortcuts') }}" class="flex flex-col items-center gap-4 quiz-category-item cursor-pointer group">
                 <div class="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
-                    <i class="ph ph-image text-white text-3xl"></i>
+                    <i class="ph ph-keyboard text-white text-3xl"></i>
                 </div>
-                <p class="text-sm font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">Picture Quiz</p>
-            </div>
+                <p class="text-sm font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">Shortcuts</p>
+            </a>
         </div>
 
         <!-- Decorative Element -->

@@ -17,7 +17,7 @@
         </button>
     </div>
 
-    <!-- Filter Panel (Hidden by default) -->
+    <!-- Filter Panel (Hidden by default) 
     <div id="filterPanel" class="hidden px-6 mb-6">
         <div class="max-w-4xl mx-auto bg-white rounded-2xl p-6 shadow-lg border">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Filter Kelas</h3>
@@ -59,9 +59,9 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Filter Kategori -->
+    <!-- Filter Kategori 
     <div class="px-6 mb-6">
         <div class="max-w-4xl mx-auto">
             <div class="flex items-center gap-3 overflow-x-auto pb-2">
@@ -88,9 +88,9 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Stats Info -->
+    <!-- Stats Info 
     <div class="px-6 mb-6">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center">
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- Kelas List -->
     <div class="px-6 mb-20">
@@ -168,10 +168,11 @@
                                 Daftar
                             </a>
 
-                            <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                    onclick="event.stopPropagation(); previewKelas('laravel-advanced')">
+                          <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
+                                onclick="window.location.href='/desktop/kelas-previews'">
                                 Preview
                             </button>
+
                         </div>
 
                     </div>
