@@ -86,13 +86,6 @@
         <!-- Input Area -->
         <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
             <div class="flex items-end gap-4">
-                <!-- Voice Button -->
-                <button onclick="toggleVoice()" 
-                        class="bg-white hover:bg-slate-50 p-4 rounded-xl transition-colors duration-200 border border-slate-200 group" 
-                        id="voiceBtn">
-                    <i class="ph ph-microphone text-slate-600 text-xl group-hover:text-slate-800 transition-colors"></i>
-                </button>
-                
                 <!-- Message Input -->
                 <div class="flex-1 bg-white rounded-xl border border-slate-200 focus-within:border-slate-400 transition-colors duration-200">
                     <textarea 
