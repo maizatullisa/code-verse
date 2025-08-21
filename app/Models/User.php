@@ -128,5 +128,11 @@ class User extends Authenticatable
         return $this->role === 'pengajar'; 
     }
 
+        public function materiProgress()
+    {
+        return $this->hasMany(UserMateriProgress::class);
+    }
+
+
     
 }

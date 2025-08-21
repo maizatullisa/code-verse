@@ -48,4 +48,18 @@
                     }
                 });
             });
+             const progressBadge = document.getElementById('progress-badge');
+            const kelasId = progressBadge?.dataset.kelasId;
+
+            if (progressBadge && kelasId) {
+                fetch(`/forum/progress/${kelasId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        progressBadge.querySelector('.progress-value').textContent = `Progress: ${data.progress}%`;
+                    })
+                    .catch(err => {
+                        console.error('Gagal memuat progress', err);
+                    });
+            }
         });
+

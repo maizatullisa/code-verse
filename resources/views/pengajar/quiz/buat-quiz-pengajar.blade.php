@@ -30,7 +30,6 @@
       <div class="relative z-10">
         <form action="{{ route('pengajar.quiz.question.store') }}" method="POST" class="space-y-8">
           @csrf
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             <!-- Left Column -->
@@ -141,7 +140,7 @@
 
           <!-- Submit Button -->
           <div class="pt-8">
-            <!-- <a href="{{ route('pengajar.quiz.soal.create') }}"> -->
+            <a href="{{ route('pengajar.quiz.soal.create') }}"> 
             <button type="submit" 
                     class="w-full group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-5 px-8 rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-purple-400/50">
               
@@ -151,7 +150,7 @@
                 </svg>
                 Buat Kuis Sekarang
               </span>
-              <!-- </a> -->
+              </a>
               
               <!-- Hover Effect -->
               <div class="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

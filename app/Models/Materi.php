@@ -86,4 +86,10 @@ class Materi extends Model
     {
         return $this->belongsTo(Kelas::class);
     }
+
+    public function userProgress()
+{
+    return $this->hasMany(UserMateriProgress::class);
+}
+
 }

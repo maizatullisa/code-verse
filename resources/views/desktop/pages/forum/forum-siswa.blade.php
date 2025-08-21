@@ -69,11 +69,12 @@
 
                 <!-- Right Section -->
                 <div class="flex items-center space-x-4">
-                    <!-- Progress Badge -->
-                    <div class="hidden md:flex items-center space-x-2 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 border border-slate-200/50 shadow-sm">
-                        <i class="ph ph-chart-line text-emerald-600"></i>
-                        <span class="text-sm font-medium text-slate-700">Progress: 45%</span>
-                    </div>
+                 <!-- Progress Badge -->
+                <div id="progress-badge" data-kelas-id="{{ $kelas->id }}"
+                    class="hidden md:flex items-center space-x-2 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 border border-slate-200/50 shadow-sm">
+                    <i class="ph ph-chart-line text-emerald-600"></i>
+                    <span class="text-sm font-medium text-slate-700 progress-value">Progress: ...</span>
+                </div>
 
                     <!-- User Profile -->
                     <div class="flex items-center space-x-3">
@@ -122,7 +123,7 @@
                             </div>
                     </div>
                     <div class="flex-shrink-0">
-                        <a href="{{ url('/desktop/kelas-materi') }}" class="inline-flex items-center space-x-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 border border-white/20">
+                      <a href="{{ route('student.course.materi', ['kelasId' => $kelas->id]) }}" class="inline-flex items-center space-x-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 border border-white/20">
                             <i class="ph ph-book-open text-xl"></i>
                             <span>Lihat Materi</span>
                         </a>

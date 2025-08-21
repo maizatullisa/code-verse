@@ -8,14 +8,22 @@
 @section('content')
     <!-- Search Box -->
     <div class="flex justify-center items-center gap-4 px-6 relative z-20 max-w-4xl mx-auto mb-8">
-        <div class="flex justify-start items-center gap-4 bg-color24 border border-color24 p-4 rounded-full text-white w-full">
-            <i class="ph ph-magnifying-glass text-xl"></i>
-            <input type="text" id="searchKelas" placeholder="Cari kelas yang ingin dipelajari..." class="bg-transparent outline-none placeholder:text-white w-full text-base" />
-        </div>
-        <button class="bg-color24 border border-color24 p-4 rounded-full text-white hover:bg-white/20 transition-all" onclick="toggleFilter()">
-            <i class="ph ph-sliders-horizontal text-xl"></i>
-        </button>
+    <form action="{{ route('kelas.ditawarkan') }}" method="GET" class="flex justify-start items-center gap-4 bg-color24 border border-color24 p-4 rounded-full text-white w-full">
+        <i class="ph ph-magnifying-glass text-xl"></i>
+        <input 
+            type="text" 
+            name="search" 
+            id="searchKelas" 
+            placeholder="Cari kelas yang ingin dipelajari..." 
+            value="{{ request('search') }}" 
+            class="bg-transparent outline-none placeholder:text-white w-full text-base" 
+        />
+    </form>
+    <button class="bg-color24 border border-color24 p-4 rounded-full text-white hover:bg-white/20 transition-all" onclick="toggleFilter()">
+        <i class="ph ph-sliders-horizontal text-xl"></i>
+    </button>
     </div>
+
 
     <!-- Filter Panel (Hidden by default) -->
     <div id="filterPanel" class="hidden px-6 mb-6">
@@ -61,41 +69,58 @@
         </div>
     </div>
 
-    <!-- Filter Kategori -->
-    <div class="px-6 mb-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex items-center gap-3 overflow-x-auto pb-2">
-                <button class="category-btn bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all" data-category="all">
-                    Semua
-                </button>
-                <button class="category-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-50 transition-all" data-category="programming">
-                    Programming
-                </button>
-                <button class="category-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-50 transition-all" data-category="web">
-                    Web Development
-                </button>
-                <button class="category-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-50 transition-all" data-category="mobile">
-                    Mobile Development
-                </button>
-                <button class="category-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-50 transition-all" data-category="data">
-                    Data Science
-                </button>
-                <button class="category-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-50 transition-all" data-category="design">
-                    UI/UX Design
-                </button>
-                <button class="category-btn bg-white text-gray-600 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-50 transition-all" data-category="devops">
-                    DevOps
-                </button>
-            </div>
+   <!-- Filter Kategori -->
+<div class="px-6 mb-6">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex items-center gap-3 overflow-x-auto pb-2">
+            <a href="{{ route('kelas.ditawarkan', ['kategori' => 'all', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'all' || !request('kategori') ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                Semua
+            </a>
+
+            <a href="{{ route('kelas.ditawarkan', ['kategori' => 'programming', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'programming' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                Programming
+            </a>
+
+            <a href="{{ route('kelas.ditawarkan', ['kategori' => 'web', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'web' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                Web Development
+            </a>
+             <a href="{{ route('kelas.ditawarkan', ['kategori' => 'design', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'design' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                UI/UX Design
+            </a>
+              <a href="{{ route('kelas.ditawarkan', ['kategori' => 'mobile', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'mobile' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                Mobile Development 
+            </a>
+              <a href="{{ route('kelas.ditawarkan', ['kategori' => 'ai', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'ai' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                AI
+            </a>
+              <a href="{{ route('kelas.ditawarkan', ['kategori' => 'data', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'data' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+               Data Science
+            </a>
+              <a href="{{ route('kelas.ditawarkan', ['kategori' => 'marketing', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'marketing' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+                Marketing
+            </a>
+            <a href="{{ route('kelas.ditawarkan', ['kategori' => 'business', 'search' => request('search')]) }}"
+               class="category-btn {{ request('kategori') == 'business' ? 'bg-p2 text-white' : 'bg-white text-gray-600 border border-gray-300' }} px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all">
+               Business
+            </a>
         </div>
     </div>
+</div>
 
     <!-- Stats Info -->
     <div class="px-6 mb-6">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center">
                 <p class="text-gray-600">
-                    Menampilkan <span id="totalResults" class="font-semibold text-p2">{{ $kelasList->count() }}</span> kelas tersedia
+                   Menampilkan {{ $kelasList->firstItem() }}-{{ $kelasList->lastItem() }} dari {{ $kelasList->total() }} kelas tersedia
                 </p>
                 <div class="flex items-center gap-2">
                     <button onclick="toggleView('grid')" id="gridView" class="p-2 rounded-lg bg-p2 text-white">
@@ -243,15 +268,13 @@
         </div>
     </div>
 
-    <!-- Load More Button (Hidden when no data) -->
-    @if ($kelasList->count() > 0)
+    <!-- Pagination -->
+    @if ($kelasList->hasPages())
     <div class="flex justify-center mb-20">
-        <button id="loadMoreBtn" class="bg-p2 text-white px-8 py-3 rounded-full font-medium hover:bg-p2/90 transition-all" onclick="alert('Load more functionality akan dikembangkan')">
-            Muat Lebih Banyak
-        </button>
+        {{ $kelasList->links() }}
     </div>
     @endif
-@endsection
+    @endsection
 
 @push('scripts')
 <script>

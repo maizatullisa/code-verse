@@ -1,86 +1,116 @@
-const courseData = {
-    id: 1,
-    title: "React JS Fundamental", 
-    instructor: "John Doe",
+const USE_API = true;
+let courseData = {
     materials: [
         {
         id: 1,
         title: "Setup Environment & First Component",
         type: "video",
-        duration: "15 menit",
+        duration: "15",
         week: 1,
         weekTitle: "Introduction to React",
         completed: true,
-            content: {
-                videoUrl: "#",
-                description: "Belajar setup development environment dan membuat komponen React pertama"
-                }
-                },
-                {
-                    id: 2,
-                    title: "JSX Syntax Deep Dive",
-                    type: "article",
-                    duration: "10 menit",
-                    week: 1,
-                    weekTitle: "Introduction to React", 
-                    completed: false,
-                    content: {
-                        text: "Memahami sintaks JSX dan perbedaannya dengan HTML biasa"
-                    }
-                },
-                {
-                    id: 3,
-                    title: "Props & Components Practice",
-                    type: "video",
-                    duration: "20 menit",
-                    week: 1,
-                    weekTitle: "Introduction to React",
-                    completed: false,
-                    content: {
-                        videoUrl: "#",
-                        description: "Praktik langsung membuat komponen dengan props"
-                    }
-                },
-                {
-                    id: 4,
-                    title: "Quiz: React Basics",
-                    type: "quiz",
-                    duration: "5 menit",
-                    week: 1,
-                    weekTitle: "Introduction to React",
-                    completed: false,
-                    content: {
-                        questions: 10
-                    }
-                },
-                {
-                    id: 5,
-                    title: "useState Hook Introduction",
-                    type: "video",
-                    duration: "18 menit",
-                    week: 2,
-                    weekTitle: "State Management",
-                    completed: false,
-                    locked: true,
-                    content: {
-                        videoUrl: "#",
-                        description: "Pengenalan useState hook untuk state management"
-                    }
-                }
-            ]
-        };
-
+        content: {
+            videoUrl: "#",
+            description: "Belajar setup development environment dan membuat komponen React pertama"
+        }
+        },
+        {
+        id: 2,
+        title: "JSX Syntax Deep Dive",
+        type: "article",
+        duration: "10 menit",
+        week: 1,
+        weekTitle: "Introduction to React",
+        completed: false,
+        content: {
+            text: "Memahami sintaks JSX dan perbedaannya dengan HTML biasa"
+        }
+        },
+        {
+        id: 3,
+        title: "Props & Components Practice",
+        type: "video",
+        duration: "20 menit",
+        week: 1,
+        weekTitle: "Introduction to React",
+        completed: false,
+        content: {
+            videoUrl: "#",
+            description: "Praktik langsung membuat komponen dengan props"
+        }
+        },
+        {
+        id: 4,
+        title: "Quiz: React Basics",
+        type: "quiz",
+        duration: "5 menit",
+        week: 1,
+        weekTitle: "Introduction to React",
+        completed: false,
+        content: {
+            questions: 10
+        }
+        },
+        {
+        id: 5,
+        title: "useState Hook Introduction",
+        type: "video",
+        duration: "18 menit",
+        week: 2,
+        weekTitle: "State Management",
+        completed: false,
+        locked: true,
+        content: {
+            videoUrl: "#",
+            description: "Pengenalan useState hook untuk state management"
+        }
+        }
+    ]
+    };
+    
         let currentMaterialId = 1;
         let userProgress = {
-            completedMaterials: [1],
-            currentMaterial: 1
+        completedMaterials: [1],
+        currentMaterial: 1
         };
 
-        function initializePage() {
-            renderSidebar();
-            loadMaterial(currentMaterialId);
-            updateProgress();
-        }
+    function initializePage() {
+    if (USE_API) {
+        const courseId = document.body.dataset.courseId;
+        fetch(`/api/courses/${courseId}/materials`)
+        .then(response => response.json())
+        .then(data => {
+        courseData = data;
+        const completedList = data.materials
+            .filter(m => m.completed)
+            .map(m => m.id);
+
+        userProgress.completedMaterials = completedList;
+        
+        // Cari materi pertama yang belum selesai dan belum dikunci
+        const firstUnlocked = data.materials.find(m => !m.locked);
+        currentMaterialId = firstUnlocked?.id || data.materials[0]?.id;
+
+        userProgress.currentMaterial = currentMaterialId;
+
+        renderSidebar();
+        loadMaterial(currentMaterialId);
+        updateProgress();
+    })
+
+        .catch(error => {
+            console.error('Gagal mengambil data dari API:', error);
+        });
+    } else {
+        // Kalau pakai data lokal
+        currentMaterialId = courseData.materials[0]?.id || null;
+        userProgress.currentMaterial = currentMaterialId;
+
+        renderSidebar();
+        loadMaterial(currentMaterialId);
+        updateProgress();
+    }
+    }
 
         function renderSidebar() {
             const contentDiv = document.getElementById('course-content');
@@ -101,7 +131,7 @@ const courseData = {
                 weekMaterials.forEach(material => {
                     const isActive = material.id === currentMaterialId;
                     const isCompleted = userProgress.completedMaterials.includes(material.id);
-                    const isLocked = material.locked && !isCompleted;
+                    const isLocked = material.locked;
                     
                     let icon = 'ph-play-circle';
                     let iconColor = 'text-gray-400';
@@ -154,6 +184,7 @@ const courseData = {
 
         function loadMaterial(materialId) {
             const material = courseData.materials.find(m => m.id === materialId);
+             console.log("Material yang dimuat:", material);
             if (!material || (material.locked && !userProgress.completedMaterials.includes(materialId))) {
                 return;
             }
@@ -163,7 +194,9 @@ const courseData = {
             // window.history.pushState({}, '', `/course/${courseData.id}/material/${materialId}`);
             
             document.getElementById('material-title').textContent = material.title;
-            document.getElementById('material-info').textContent = `Durasi: ${material.duration} • ${getTypeLabel(material.type)}`;
+           const durasiText = material.duration ? `${material.duration} menit` : 'N/A menit';
+            document.getElementById('material-info').textContent = `Durasi: ${material.duration ? material.duration : 'N/A'} menit • ${getTypeLabel(material.type)}`;
+
             document.getElementById('weekInfo').textContent = `Week ${material.week}: ${material.weekTitle}`;
             
             const badge = document.getElementById('material-type-badge');
@@ -183,30 +216,41 @@ const courseData = {
             const contentDiv = document.getElementById('content-display');
             
             switch(material.type) {
-                case 'video':
-                    contentDiv.innerHTML = `
-                        <div class="bg-gray-900 rounded-lg aspect-video flex items-center justify-center mb-4 relative">
-                            <div class="text-center">
-                                <button class="bg-white/20 backdrop-blur-sm text-white rounded-full p-4 hover:bg-white/30 transition-all mb-4">
-                                    <i class="ph ph-play text-3xl"></i>
-                                </button>
-                                <p class="text-white/80 text-sm">${material.content.description}</p>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
+             case 'video':
+            contentDiv.innerHTML = `
+                <div class="mb-4">
+                    <video controls class="w-full rounded-lg aspect-video">
+                        <source src="${material.content.videoUrl}" type="video/mp4">
+                        Browser kamu tidak mendukung pemutar video.
+                    </video>
+                    <p class="text-gray-700 mt-2">${material.content.description}</p>
+                </div>
+            `;
+            setTimeout(() => {
+            const video = document.getElementById('materiVideo');
+            if (video) {
+            video.addEventListener('ended', () => {
+                document.getElementById('markCompleteBtn').disabled = false;
+            });
+
+            // Default: tombol dikunci
+            document.getElementById('markCompleteBtn').disabled = true;
+            }
+        }, 100); 
+            break;
+                  
                 case 'article':
-                    contentDiv.innerHTML = `
-                        <div class="prose max-w-none">
+                const isPDF = material.content.pdfUrl !== null;
+                contentDiv.innerHTML = isPDF
+                    ? `<iframe src="${material.content.pdfUrl}" class="w-full h-96 rounded-lg"></iframe>`
+                    : `<div class="prose max-w-none">
                             <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg">
                                 <h4 class="font-semibold text-blue-800 mb-2">📖 Artikel Pembelajaran</h4>
                                 <p class="text-blue-700">${material.content.text}</p>
                             </div>
-                        </div>
-                    `;
-                    break;
-                    
+                    </div>`;
+                break;
+
                 case 'quiz':
                     contentDiv.innerHTML = `
                         <div class="bg-orange-50 border border-orange-200 rounded-lg p-6 text-center">
@@ -304,24 +348,104 @@ const courseData = {
             }
         });
 
-        document.getElementById('markCompleteBtn').addEventListener('click', () => {
-            if (!userProgress.completedMaterials.includes(currentMaterialId)) {
-                userProgress.completedMaterials.push(currentMaterialId);
-                
-                const currentIndex = courseData.materials.findIndex(m => m.id === currentMaterialId);
-                const nextMaterial = courseData.materials[currentIndex + 1];
-                if (nextMaterial && nextMaterial.locked) {
-                    nextMaterial.locked = false;
+
+        document.addEventListener('DOMContentLoaded', initializePage);
+        document.addEventListener('DOMContentLoaded', () => {
+        const markCompleteBtn = document.getElementById('markCompleteBtn');
+        const completeText = document.getElementById('complete-text');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const completedCountEl = document.getElementById('completed-count');
+        const totalCountEl = document.getElementById('total-count');
+
+        if (markCompleteBtn) {
+            markCompleteBtn.addEventListener('click', async () => {
+                const materiId = getCurrentMateriIdFromURL(); // fungsi bantu
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                try {
+                    const response = await fetch(`/course/materi/${materiId}/mark-complete`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Ubah tampilan tombol
+                        completeText.textContent = 'Selesai ✔';
+                        markCompleteBtn.disabled = true;
+                        markCompleteBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                        // Update progres visual
+                        const completedCount = parseInt(completedCountEl.textContent) + 1;
+                        const totalCount = parseInt(totalCountEl.textContent);
+                        const progress = Math.round((completedCount / totalCount) * 100);
+
+                        completedCountEl.textContent = completedCount;
+                        progressBar.style.width = progress + '%';
+                        progressText.textContent = progress + '%';
+                    }
+                } catch (error) {
+                    console.error('Gagal menyelesaikan materi:', error);
+                }
+            });
+        }
+
+        function getCurrentMateriIdFromURL() {
+            const pathParts = window.location.pathname.split('/');
+            return pathParts[pathParts.length - 1]; // asumsi URL-nya: /course/{kelasId}/materi/{materiId}
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const completeBtn = document.getElementById('markCompleteBtn');
+
+    if (completeBtn) {
+        completeBtn.addEventListener('click', function () {
+            const route = completeBtn.dataset.route;
+
+            if (!route) return;
+
+            // Cegah double klik
+            completeBtn.disabled = true;
+
+            fetch(route, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Gagal menyimpan progress');
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    completeBtn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+                    completeBtn.classList.add('bg-green-100', 'text-green-700');
+                    completeBtn.querySelector('#complete-text').textContent = 'Sudah Selesai';
+                    completeBtn.disabled = true;
+
+                    userProgress.completedMaterials.push(currentMaterialId);
+                    renderSidebar();
+                    updateNavigationButtons();
+                    updateProgress();
+
                 }
                 
-                // krm ke be
-                // fetch(`/api/materials/${currentMaterialId}/complete`, { method: 'POST' })
-                
-                updateNavigationButtons();
-                renderSidebar();
-                updateProgress();
-            }
+            })
+            .catch(error => {
+                console.error('Gagal menyelesaikan materi:', error);
+                completeBtn.disabled = false;
+            });
         });
+    }
+});
 
-       
-        document.addEventListener('DOMContentLoaded', initializePage);

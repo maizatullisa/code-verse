@@ -140,23 +140,23 @@ class CourseEnrollmentController extends Controller
      * Display list of user enrollments (Dashboard)
      * Route: /my-enrollments
      */
-    public function index()
-    {
-        $enrollments = CourseEnrollment::with(['kelas.pengajar', 'kelas.materis'])
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->get();
+    // public function index()
+    // {
+    //     $enrollments = CourseEnrollment::with(['kelas.pengajar', 'kelas.materis'])
+    //         ->where('user_id', Auth::id())
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
 
-        // Group by status untuk statistik
-        $stats = [
-            'total' => $enrollments->count(),
-            'active' => $enrollments->where('status', 'approved')->count(),
-            'pending' => $enrollments->where('status', 'pending')->count(),
-            'completed' => $enrollments->where('status', 'completed')->count(),
-        ];
+    //     // Group by status untuk statistik
+    //     $stats = [
+    //         'total' => $enrollments->count(),
+    //         'active' => $enrollments->where('status', 'approved')->count(),
+    //         'pending' => $enrollments->where('status', 'pending')->count(),
+    //         'completed' => $enrollments->where('status', 'completed')->count(),
+    //     ];
 
-        return view('desktop.pages.kelas.kelas-diambil', compact('enrollments', 'stats'));
-    }
+    //     return view('desktop.pages.kelas.kelas-diambil', compact('enrollments', 'stats'));
+    // }
 
     /**
      * Show success page after enrollment

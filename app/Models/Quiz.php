@@ -17,5 +17,11 @@ class Quiz extends Model
         return $this->belongsTo(Materi::class);
     }
 
+    
+    public function pengajar()
+    {
+        return $this->belongsTo(User::class, 'pengajar_id');
+    }
+
 
 }

@@ -3,6 +3,10 @@
 use App\Http\Controllers\AdminKelasController;
 use App\Http\Controllers\AdminPengajarController;
 use App\Http\Controllers\ForumSiswa;
+use App\Http\Controllers\KelasDiambilController;
+use App\Http\Controllers\KelasDitawarkanController;
+use App\Http\Controllers\KelasMateriController;
+use App\Http\Controllers\KelasIndexController;
 use App\Http\Controllers\MateriBladeSearch;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -499,16 +503,18 @@ Route::get('/desktop/belajar-materi', function () {
  })->name('desktop.pages.materi.belajar-materi');
 
 // Desktop Kelas
-Route::get('/desktop/kelas-index', function () {
-    return view('desktop.pages.kelas.kelas-index');
- })->name('desktop.pages.kelas.kelas-index');
+// Route::get('/desktop/kelas-index', function () {
+// return view('desktop.pages.kelas.kelas-index');
+// })->name('desktop.pages.kelas.kelas-index');
 
+Route::get('/desktop/kelas-index', [KelasIndexController::class, 'index'])->name('kelas.index');
+Route::get('/kelas/load-more', [KelasIndexController::class, 'loadMore'])->name('kelas.load-more');
  //kelasditawarkan
 // Route::get('/desktop/kelas-ditawarkan', function () {
 //     return view('desktop.pages.kelas.kelas-ditawarkan');
 //  })->name('desktop.pages.kelas.kelas-ditawarkan');
 
-Route::get('/desktop/kelas-ditawarkan', [MateriShowController::class, 'tampil'])->name('kelas.ditawarkan');
+Route::get('/desktop/kelas-ditawarkan', [KelasDitawarkanController::class, 'tampil'])->name('kelas.ditawarkan');
 // Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
 // Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
 
@@ -516,11 +522,12 @@ Route::get('/desktop/kelas-ditawarkan', [MateriShowController::class, 'tampil'])
     return view('desktop.pages.kelas.kelas-previews');
  })->name('desktop.pages.kelas.kelas-previews');
 
-Route::get('/desktop/kelas-diambil', function () {
-    return view('desktop.pages.kelas.kelas-diambil');
- })->name('desktop.pages.kelas.kelas-diambil');
+ //kelas diambil
+// Route::get('/desktop/kelas-diambil', function () {
+//     return view('desktop.pages.kelas.kelas-diambil');
+//  })->name('desktop.pages.kelas.kelas-diambil');
 
-//  Route::('/desktop/kelas-diambil',[CourseEnrollmentController::class, 'index'])->name('desktop.pages.kelas.kelas-diambil');
+Route::get('/desktop/kelas-diambil', [KelasDiambilController::class, 'index'])->name('kelas.diambil');
 
 Route::get('/desktop/kelas-selesai', function () {
     return view('desktop.pages.kelas.kelas-selesai');
@@ -536,9 +543,32 @@ Route::get('/desktop/kelas-detail', function () {
 //     return view('desktop.pages.kelas.kelas-pendaftaran');
 //  })->name('desktop.pages.kelas.kelas-pendaftaran');
 
-Route::get('/desktop/kelas-materi', function () {
-    return view('desktop.pages.kelas.kelas-materi');
- })->name('desktop.pages.kelas.kelas-materi');
+// Route::get('/desktop/kelas-materi', function () {
+//     return view('desktop.pages.kelas.kelas-materi');
+//  })->name('desktop.pages.kelas.kelas-materi');
+
+// Halaman pembelajaran siswa (tampilkan materi dalam kelas)
+Route::get('/kelas/{kelasId}/materi/{materiId?}', [KelasMateriController::class, 'showCourseMateri'])
+     ->name('student.course.materi');
+
+// Submit jawaban quiz
+Route::post('/kelas/quiz/{quizId}/submit', [KelasMateriController::class, 'submitQuiz'])
+     ->name('student.quiz.submit');
+
+// Tandai materi selesai
+Route::post('/kelas/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
+     ->name('student.materi.complete');
+
+// Ambil materi berikutnya
+Route::get('/kelas/{kelasId}/materi/{materiId}/next-materi', [KelasMateriController::class, 'getNextMateri'])
+     ->name('student.materi.next');
+
+// Load konten materi (misalnya video/teks)
+Route::get('/kelas/materi/{materiId}/load-content', [KelasMateriController::class, 'loadMateriContent'])
+     ->name('student.materi.content');
+
+Route::get('/api/courses/{id}/materials', [KelasMateriController::class, 'apiGetMateri']);
+
 
 Route::get('/desktop/pages/kelas/kelas-quiz', function () {
     return view('desktop.pages.kelas.kelas-quiz');
@@ -568,6 +598,8 @@ Route::post('/desktop/kelas/{kelas}/diskusi', [ForumSiswa::class, 'store'])->nam
 Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaDiskusi'])->name('forum.siswa.balas');
 Route::get('/desktop/forum/like/{diskusi}', [ForumSiswa::class, 'diskusiSuka'])->name('forum.siswa.like');
 Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaBalasan'])->name('forum.siswa.balas');
+Route::get('/forum/progress/{kelasId}', [ForumSiswa::class, 'userProgress']);
+
     
 
 // Desktop Help AI

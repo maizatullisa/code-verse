@@ -96,4 +96,26 @@ class ForumSiswa extends Controller
         
         return redirect()->back()->with('success', 'postingan berhasil di like.');
     }
+
+
+        public function userProgress($kelasId)
+    {
+        $userId = auth()->id();
+
+        $total = \App\Models\Materi::where('kelas_id', $kelasId)->where('status', 'published')->count();
+
+        $completed = \App\Models\UserMateriProgress::where('user_id', $userId)
+                        ->whereHas('materi', function ($q) use ($kelasId) {
+                            $q->where('kelas_id', $kelasId);
+                        })
+                        ->where('status', 'completed')
+                        ->count();
+
+        $percentage = $total > 0 ? round(($completed / $total) * 100) : 0;
+
+        return response()->json([
+            'progress' => $percentage
+        ]);
+    }
+
 }
