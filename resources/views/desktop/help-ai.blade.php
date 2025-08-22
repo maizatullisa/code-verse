@@ -175,16 +175,19 @@
 </div>
 
 <script>
-    window.GEMINI_CONFIG = {
-        isProduction: {{ app()->environment('production') ? 'true' : 'false' }},
+    window.APP_CONFIG = {
+        isProduction: "{{ app()->environment('production') ? 'true' : 'false' }}",
         baseUrl: "{{ config('app.url') }}",
         csrfToken: "{{ csrf_token() }}"
     };
-    
-    if (window.GEMINI_CONFIG.isProduction) {
+
+    if (window.APP_CONFIG.isProduction === 'true') {
         console.log = function() {};
         console.error = function() {};
+        console.warn = function() {};
+        console.info = function() {};
     }
 </script>
+
 <script src="{{ asset('assets/js/custom/help-ai.js') }}"></script>
 @endsection

@@ -333,8 +333,22 @@ Route::get('/quiz-5', function(){
 
 //rute pengajar
 //forumdiskusi 
-// DASHBOARD PENGAJAR
-Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
+// DASHBOARD PENGAJAR AKU COMMENT
+//Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
+
+Route::get('/dashboard-pengajar', function(){
+    return view('pengajar.dashboard_pengajar');
+})->name('pengajar.dashboard_pengajar');
+
+//UNTUK INDEX BIO
+Route::get('/bio-pengajar', function(){
+    return view('pengajar.index-bio');
+})->name('pengajar.index-bio');
+
+// UNTUK FORM
+Route::get('/form', function(){
+    return view('pengajar.form-bio');
+})->name('pengajar.form-bio');
 
 // Basic Quiz (Controller-based)
 // Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
@@ -492,6 +506,10 @@ Route::get('/desktop/home-desktop', function () {
     return view('desktop.dashboard-user-desktop');
  })->name('desktop.dashboard-user-desktop');
 
+ Route::get('/popup', function () {
+    return view('desktop.popup-pengajar');
+ })->name('desktop.popup-pengajar');
+
 
 // Desktop Materi
 Route::get('/desktop/rekomendasi-materi', function () {
@@ -613,13 +631,17 @@ Route::get('/desktop/index-roadmap', function () {
     return view('desktop.roadmap.index-roadmap-user');
  })->name('desktop.roadmap.index-roadmap-user');
 
-Route::get('/desktop/detail-kosong', function () {
-    return view('desktop.roadmap.detail-roadmap-kosong');
- })->name('desktop.roadmap.detail-roadmap-kosong');
+Route::get('/desktop/fe-roadmap', function () {
+    return view('desktop.roadmap.frontend');
+ })->name('desktop.roadmap.frontend');
 
-Route::get('/desktop/detail-desktop', function () {
-    return view('desktop.roadmap.detail-roadmap');
- })->name('esktop.roadmap.detail-roadmap');
+ Route::get('/desktop/be-roadmap', function () {
+    return view('desktop.roadmap.backend');
+ })->name('desktop.roadmap.backend');
+
+ Route::get('/desktop/dev-roadmap', function () {
+    return view('desktop.roadmap.devops');
+ })->name('desktop.roadmap.devops');
 
 /*
 |--------------------------------------------------------------------------

@@ -146,7 +146,7 @@
         <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
             {{-- Loop through user badges --}}
             {{-- @foreach($badges as $badge) --}}
-            <div class="bg-gradient-to-br from-{{-- $badge->color --}}-500 to-{{-- $badge->color --}}-600 p-4 rounded-xl text-center text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-{{-- $badge->color --}}-400">
+            <div class="bg-gradient-to-br from-{{-- $badge->color --}}-500 to-{{-- $badge->color --}}-600 p-4 rounded-xl text-center text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-{{-- $badge->color --}}-400"> 
                 <i class="ph ph-{{-- $badge->icon --}} text-2xl mb-2"></i>
                 <div class="font-semibold text-xs">{{-- $badge->name --}}</div>
                 <div class="text-xs opacity-90">{{-- $badge->description --}}</div>
