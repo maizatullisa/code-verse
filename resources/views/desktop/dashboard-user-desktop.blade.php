@@ -261,15 +261,6 @@
             <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
                 Profile Pengajar
             </h3>
-            <div class="flex items-center gap-4">
-                
-                <div class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-bold">
-                    CodeVerse
-                </div>
-                <button onclick="closeTeacherModal()" class="text-gray-400 hover:text-gray-600">
-                    <i class="ph ph-x text-xl"></i>
-                </button>
-            </div>
         </div>
         
         <div class="p-6">

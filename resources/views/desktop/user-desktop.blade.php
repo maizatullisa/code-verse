@@ -21,10 +21,10 @@
             </div>
 
             <!-- User Info -->
-            <div class="flex-1">
-                <h2 class="text-3xl font-bold text-white mb-2">{{$user->first_name }}</h2>
-                <p class="text-gray-300 mb-1">{{-- User email --}}</p>
-                <p class="text-gray-400 text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p>
+            <div class="flex-1">  
+                {{--<h2 class="text-3xl font-bold text-white mb-2">{{$user->first_name }}</h2>
+                <p class="text-gray-300 mb-1">{{-- User email -}}</p>--}}
+                {{--<p class="text-gray-400 text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p>
                 
                 <div class="flex flex-wrap gap-3">
                     <span class="bg-blue-600/90 text-blue-100 border border-blue-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">

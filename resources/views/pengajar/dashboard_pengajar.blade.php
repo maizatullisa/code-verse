@@ -16,6 +16,19 @@
           Selamat datang di dashboard pengajar. Mari berbagi ilmu dan inspirasi kepada siswa-siswa kita! 🌟
         </p>
       </div>
+        <a href="/bio-pengajar" 
+       class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition shadow-md">
+      <!-- SVG user icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           fill="none" 
+           viewBox="0 0 24 24" 
+           stroke-width="1.5" 
+           stroke="currentColor" 
+           class="w-6 h-6 text-gray-700">
+        <path stroke-linecap="round" stroke-linejoin="round" 
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 1115 0v.75H4.5v-.75z" />
+      </svg>
+    </a>
     </div>
   </div>
 
@@ -132,32 +145,6 @@
         </svg>
       </div>
     </a>
-  </div>
-
-  <!-- Quick Actions -->
-  <div class="mt-8 bg-white/60 backdrop-blur-sm rounded-3xl p-6 border border-white/30">
-    <h3 class="text-lg font-semibold text-gray-900 mb-4">Aksi Cepat</h3>
-    <div class="flex flex-wrap gap-3">
-      <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-colors duration-200 flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-         
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-        </svg>
-        Tambah Materi
-      </button>
-      <button class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors duration-200 flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-        </svg>
-        Buat Quiz Baru
-      </button>
-      <button class="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-xl font-medium transition-colors duration-200 flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-        </svg>
-        Lihat Pesan
-      </button>
-    </div>
   </div>
 </div>
 @endsection
