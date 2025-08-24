@@ -177,9 +177,9 @@
             </button>
         </div>
         
-        <div class="space-y-4">
-            <!-- Education Item -->
-            <div class="border border-gray-200 rounded-2xl p-6 hover:border-purple-200 transition">
+        <div class="space-y-4" id="educationList">
+            <!-- Education Item 1 -->
+            <div class="border border-gray-200 rounded-2xl p-6 hover:border-purple-200 transition" id="education-1">
                 <div class="flex items-start justify-between">
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-2">
@@ -209,8 +209,8 @@
                 </div>
             </div>
 
-            <!-- Another Education Item -->
-            <div class="border border-gray-200 rounded-2xl p-6 hover:border-purple-200 transition">
+            <!-- Education Item 2 -->
+            <div class="border border-gray-200 rounded-2xl p-6 hover:border-purple-200 transition" id="education-2">
                 <div class="flex items-start justify-between">
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-2">
@@ -243,208 +243,200 @@
     </div>
 </div>
 
-<!-- Edit Profile Modal -->
-<div id="editModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-3xl p-8 w-full max-w-2xl shadow-2xl">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-bold text-gray-900">Edit Biodata</h3>
-                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            
-            <form id="bioForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Depan</label>
-                        <input type="text" name="first_name" value="Andi" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Belakang</label>
-                        <input type="text" name="last_name" value="Prasetyo" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">NIP/NIDN</label>
-                        <input type="text" name="nip" value="000000002" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        <input type="email" name="email" value="andi.prasetyo@univ.ac.id" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">No. Telepon</label>
-                        <input type="tel" name="phone" value="+62 812-3456-7890" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir</label>
-                        <input type="date" name="birth_date" value="1985-01-15" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
-                        <textarea name="address" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">Jl. Pendidikan No. 123, Jakarta</textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan Akademik</label>
-                        <select name="academic_position" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                            <option value="Asisten Ahli">Asisten Ahli</option>
-                            <option value="Lektor" selected>Lektor</option>
-                            <option value="Lektor Kepala">Lektor Kepala</option>
-                            <option value="Guru Besar">Guru Besar</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Bidang Keahlian</label>
-                        <input type="text" name="expertise" value="Security Expert" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                </div>
-                
-                <div class="flex justify-end gap-3 pt-4">
-                    <button type="button" onclick="closeEditModal()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition">
-                        Batal
-                    </button>
-                    <button type="submit" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition">
-                        Simpan Perubahan
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Add Education Modal -->
-<div id="addEducationModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
-    <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white rounded-3xl p-8 w-full max-w-lg shadow-2xl">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-bold text-gray-900">Tambah Pendidikan</h3>
-                <button onclick="closeAddEducationModal()" class="text-gray-400 hover:text-gray-600 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            
-            <form id="educationForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tingkat Pendidikan</label>
-                    <select name="degree" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
-                        <option value="">Pilih Tingkat</option>
-                        <option value="S1">S1 - Sarjana</option>
-                        <option value="S2">S2 - Magister</option>
-                        <option value="S3">S3 - Doktor</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Jurusan/Program Studi</label>
-                    <input type="text" name="major" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Universitas</label>
-                    <input type="text" name="university" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tahun Lulus</label>
-                    <input type="number" name="graduation_year" min="1990" max="2030" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">IPK</label>
-                    <input type="number" name="gpa" step="0.01" min="0" max="4" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
-                </div>
-                
-                <div class="flex justify-end gap-3 pt-4">
-                    <button type="button" onclick="closeAddEducationModal()" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition">
-                        Batal
-                    </button>
-                    <button type="submit" class="px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-xl transition">
-                        Tambah Pendidikan
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!-- Include Form Modals -->
+@include('pengajar.form-bio')
 
 <script>
-// Modal Functions
-function openEditModal(section = 'all') {
-    document.getElementById('editModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeEditModal() {
-    document.getElementById('editModal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
-function openAddEducationModal() {
-    document.getElementById('addEducationModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeAddEducationModal() {
-    document.getElementById('addEducationModal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
+// Photo upload functionality
 function openPhotoModal() {
-    alert('Photo upload functionality will be implemented by backend team');
+    showNotification('Fitur upload foto akan segera tersedia', 'info');
 }
 
-function editEducation(id) {
-    alert('Edit education with ID: ' + id + ' - Will be implemented by backend team');
-}
-
-function deleteEducation(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus data pendidikan ini?')) {
-        alert('Delete education with ID: ' + id + ' - Will be implemented by backend team');
-    }
-}
-
-// Form Submissions
-document.getElementById('bioForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+// Additional functions for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    // Add loading animation to cards
+    const cards = document.querySelectorAll('.backdrop-blur-xl');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
     
-    const formData = new FormData(this);
+    // Add hover effects to education items
+    const educationItems = document.querySelectorAll('#educationList > div');
+    educationItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.classList.add('shadow-lg', 'transform', 'scale-[1.02]');
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.classList.remove('shadow-lg', 'transform', 'scale-[1.02]');
+        });
+    });
     
-    alert('Biodata berhasil diperbarui! (Backend integration needed)');
-    closeEditModal();
-});
-
-document.getElementById('educationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    
-    if (!formData.get('degree') || !formData.get('major') || !formData.get('university')) {
-        alert('Mohon lengkapi semua field yang diperlukan');
-        return;
-    }
-    
-    alert('Data pendidikan berhasil ditambahkan! (Backend integration needed)');
-    closeAddEducationModal();
-    
-    this.reset();
-});
-
-// Close modals when clicking outside
-document.addEventListener('click', function(e) {
-    if (e.target.id === 'editModal') {
-        closeEditModal();
-    }
-    if (e.target.id === 'addEducationModal') {
-        closeAddEducationModal();
+    // Add pulse animation to add button
+    const addButton = document.querySelector('button[onclick="openAddEducationModal()"]');
+    if (addButton) {
+        setInterval(() => {
+            addButton.classList.add('animate-pulse');
+            setTimeout(() => {
+                addButton.classList.remove('animate-pulse');
+            }, 1000);
+        }, 5000);
     }
 });
 
-// Escape key to close modals
+// Enhanced notification system specifically for this page
+function showNotification(message, type = 'info', duration = 4000) {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.page-notification');
+    existingNotifications.forEach(notification => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => notification.remove(), 300);
+    });
+    
+    const notification = document.createElement('div');
+    notification.className = `page-notification fixed top-4 right-4 z-[60] p-4 rounded-2xl shadow-2xl transform translate-x-full transition-all duration-300 max-w-sm`;
+    
+    const colors = {
+        success: 'bg-gradient-to-r from-green-500 to-emerald-600 text-white',
+        error: 'bg-gradient-to-r from-red-500 to-rose-600 text-white',
+        info: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white',
+        warning: 'bg-gradient-to-r from-yellow-500 to-orange-600 text-white'
+    };
+    
+    const icons = {
+        success: `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>`,
+        error: `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>`,
+        info: `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+               </svg>`,
+        warning: `<svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                  </svg>`
+    };
+    
+    notification.className += ` ${colors[type]}`;
+    notification.innerHTML = `
+        <div class="flex items-start gap-3">
+            ${icons[type]}
+            <div class="flex-1">
+                <span class="font-medium text-sm leading-relaxed">${message}</span>
+            </div>
+            <button onclick="this.closest('.page-notification').style.transform='translateX(100%)'; setTimeout(() => this.closest('.page-notification').remove(), 300);" 
+                    class="text-white/80 hover:text-white transition p-1 rounded-lg hover:bg-white/10 flex-shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Auto remove
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+    }, duration);
+}
+
+// Function to refresh education list (can be called after CRUD operations)
+function refreshEducationList() {
+    // This function would typically make an AJAX call to get updated data
+    // For now, we'll just show a loading state
+    const educationList = document.getElementById('educationList');
+    educationList.style.opacity = '0.5';
+    
+    // Simulate API call
+    setTimeout(() => {
+        educationList.style.opacity = '1';
+        showNotification('Data riwayat pendidikan berhasil diperbarui!', 'success');
+    }, 1000);
+}
+
+// Advanced search and filter functionality
+function initializeEducationFilters() {
+    // Add search functionality if needed in the future
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.placeholder = 'Cari riwayat pendidikan...';
+    searchInput.className = 'hidden'; // Hide for now, can be shown when needed
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const educationItems = document.querySelectorAll('#educationList > div');
+        
+        educationItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'block';
+                item.style.animation = 'fadeIn 0.3s ease';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+}
+
+// Initialize filters when page loads
+document.addEventListener('DOMContentLoaded', initializeEducationFilters);
+
+// Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeEditModal();
-        closeAddEducationModal();
+    // Ctrl/Cmd + E to open edit modal
+    if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+        e.preventDefault();
+        openEditModal();
+    }
+    
+    // Ctrl/Cmd + N to add new education
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+        e.preventDefault();
+        openAddEducationModal();
     }
 });
+
+// Add tooltips for better UX
+function initializeTooltips() {
+    const buttons = document.querySelectorAll('button[onclick]');
+    buttons.forEach(button => {
+        if (!button.title) {
+            const onclick = button.getAttribute('onclick');
+            if (onclick.includes('editEducation')) {
+                button.title = 'Edit data pendidikan ini';
+            } else if (onclick.includes('deleteEducation')) {
+                button.title = 'Hapus data pendidikan ini';
+            } else if (onclick.includes('openEditModal')) {
+                button.title = 'Edit biodata pengajar (Shortcut: Ctrl+E)';
+            } else if (onclick.includes('openAddEducationModal')) {
+                button.title = 'Tambah riwayat pendidikan baru (Shortcut: Ctrl+N)';
+            }
+        }
+    });
+}
+
+// Initialize tooltips when page loads
+document.addEventListener('DOMContentLoaded', initializeTooltips);
 </script>
 @endsection
