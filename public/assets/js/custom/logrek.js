@@ -424,7 +424,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// MOBILE SWIPE SUPPORT
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
@@ -444,11 +443,9 @@ if (panel) {
 
         if (Math.abs(diffX) > 50) {
             if (diffX > 0) {
-                // Swipe left
                 if (currentPanel === 'login') showRegister();
                 else if (currentPanel === 'register') showLupaPw();
             } else {
-                // Swipe right
                 if (currentPanel === 'register') showLogin();
                 else if (currentPanel === 'forgot') showRegister();
             }
@@ -504,7 +501,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// PREVENT HORIZONTAL SCROLL
 document.addEventListener('wheel', function(e) {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         e.preventDefault();

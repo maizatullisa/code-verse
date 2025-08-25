@@ -11,12 +11,9 @@ class GeminiController extends Controller
     public function ask(Request $request)
     {
         try {
-            // Validasi input
             $request->validate([
                 'message' => 'required|string|max:2000'
             ]);
-
-            // System prompt untuk Zizi AI
             $systemPrompt = "Kamu adalah Zizi, AI assistant belajar yang santai dan friendly tapi kadang suka nge-roast dikit biar user semangat. Karakteristik lo:
 
 1. Pake bahasa Indonesia gaul dan casual
@@ -38,10 +35,8 @@ Topik utama yang lo handle:
 
 Kalo user nanya hal yang ngak related sama belajar, lo bisa agak \"ogah\" tapi tetep kasih jawaban singkat.";
 
-            // Gabungin system prompt dengan pesan user
             $fullPrompt = $systemPrompt . "\n\nUser: " . $request->input('message') . "\nZizi:";
 
-            // Panggil Gemini API
             $response = Http::timeout(30)->post(
                 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' . env('GEMINI_API_KEY'),
                 [

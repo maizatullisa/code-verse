@@ -83,11 +83,6 @@
                         <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">📋</div>
                         Informasi Personal
                     </h3>
-                    <button onclick="openEditModal('personal')" class="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                        </svg>
-                    </button>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -129,11 +124,7 @@
                         <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">🎓</div>
                         Informasi Akademik
                     </h3>
-                    <button onclick="openEditModal('academic')" class="text-green-600 hover:text-green-700 p-2 rounded-lg hover:bg-green-50 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                        </svg>
-                    </button>
+                    
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -169,12 +160,7 @@
                 <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">📚</div>
                 Riwayat Pendidikan
             </h3>
-            <button onclick="openAddEducationModal()" class="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-xl transition flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                </svg>
-                Tambah
-            </button>
+            
         </div>
         
         <div class="space-y-4" id="educationList">
@@ -361,27 +347,21 @@ function showNotification(message, type = 'info', duration = 4000) {
     }, duration);
 }
 
-// Function to refresh education list (can be called after CRUD operations)
 function refreshEducationList() {
-    // This function would typically make an AJAX call to get updated data
-    // For now, we'll just show a loading state
     const educationList = document.getElementById('educationList');
     educationList.style.opacity = '0.5';
     
-    // Simulate API call
     setTimeout(() => {
         educationList.style.opacity = '1';
         showNotification('Data riwayat pendidikan berhasil diperbarui!', 'success');
     }, 1000);
 }
 
-// Advanced search and filter functionality
 function initializeEducationFilters() {
-    // Add search functionality if needed in the future
     const searchInput = document.createElement('input');
     searchInput.type = 'text';
     searchInput.placeholder = 'Cari riwayat pendidikan...';
-    searchInput.className = 'hidden'; // Hide for now, can be shown when needed
+    searchInput.className = 'hidden'; 
     
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
@@ -398,26 +378,20 @@ function initializeEducationFilters() {
         });
     });
 }
-
-// Initialize filters when page loads
 document.addEventListener('DOMContentLoaded', initializeEducationFilters);
 
-// Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
-    // Ctrl/Cmd + E to open edit modal
     if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
         e.preventDefault();
         openEditModal();
     }
     
-    // Ctrl/Cmd + N to add new education
     if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
         e.preventDefault();
         openAddEducationModal();
     }
 });
 
-// Add tooltips for better UX
 function initializeTooltips() {
     const buttons = document.querySelectorAll('button[onclick]');
     buttons.forEach(button => {
@@ -436,7 +410,6 @@ function initializeTooltips() {
     });
 }
 
-// Initialize tooltips when page loads
 document.addEventListener('DOMContentLoaded', initializeTooltips);
 </script>
 @endsection

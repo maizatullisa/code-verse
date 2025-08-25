@@ -692,7 +692,13 @@ Route::get('/coding-tips', function(){
 */
 
 // Gemini AI
-Route::post('/gemini/ask', [GeminiController::class, 'ask']);
+//Route::post('/gemini/ask', [GeminiController::class, 'ask']);
+
+// Di routes/web.php
+Route::prefix('gemini')->group(function () {
+    Route::post('/ask', [App\Http\Controllers\GeminiController::class, 'ask']);
+    Route::get('/test', [App\Http\Controllers\GeminiController::class, 'test']); // untuk testing
+});
 
 /*
 |--------------------------------------------------------------------------
