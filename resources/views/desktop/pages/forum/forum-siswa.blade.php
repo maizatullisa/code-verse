@@ -82,7 +82,7 @@
                             $user = auth()->user();
                         @endphp
                         <div class="w-9 h-9 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-white font-semibold text-sm">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                            <span class="text-white font-semibold text-sm">{{ strtoupper(substr($user->email, 0, 1)) }}</span>
                         </div>
                         <span class="hidden sm:block text-sm font-medium text-slate-700">{{ $user->email }}</span>
                     </div>
@@ -188,7 +188,7 @@
                                     @if($diskusi->user->isPengajar())
                                         <i class="ph-fill ph-crown text-white text-xl"></i>
                                     @else
-                                        <span class="text-white font-bold text-xl">{{ strtoupper(substr($diskusi->user->name, 0, 1)) }}</span>
+                                        <span class="text-white font-bold text-xl">{{ strtoupper(substr($diskusi->user->email, 0, 1)) }}</span>
                                     @endif
                                 </div>
                                 <div class="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white"></div>
@@ -197,7 +197,7 @@
                             <div class="flex-1 min-w-0">
                                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                                     <div class="flex flex-wrap items-center gap-2">
-                                        <h4 class="font-semibold text-slate-800 text-lg group-hover:text-blue-600 transition-colors">{{ $diskusi->user->name }}</h4>
+                                        <h4 class="font-semibold text-slate-800 text-lg group-hover:text-blue-600 transition-colors">{{ $diskusi->user->email }}</h4>
                                         @if($diskusi->user->isPengajar())
                                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
                                                 <i class="ph ph-chalkboard-teacher mr-1"></i>
@@ -248,14 +248,18 @@
                                     <div class="bg-slate-50/80 backdrop-blur-sm rounded-xl p-4 border border-slate-200/50">
                                         <div class="flex items-start space-x-3">
                                             <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                                <span class="text-white font-medium text-sm">{{ strtoupper(substr($balasan->user->name, 0, 1)) }}</span>
+                                                <span class="text-white font-medium text-sm">{{ strtoupper(substr($balasan->user->email, 0, 1)) }}</span>
                                             </div>
                                             <div class="flex-1 min-w-0">
                                                 <div class="flex items-center space-x-2 mb-2">
-                                                    <span class="font-medium text-slate-800 text-sm">{{ $balasan->user->name }}</span>
+                                                    <span class="font-medium text-slate-800 text-sm">{{ $balasan->user->email }}</span>
                                                     @if($balasan->user->isPengajar())
                                                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-600">
                                                             Pengajar
+                                                        </span>
+                                                    @else
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                                                            Siswa
                                                         </span>
                                                     @endif
                                                     <span class="text-xs text-slate-500">{{ $balasan->created_at->diffForHumans() }}</span>
@@ -269,32 +273,32 @@
                                 @endif
 
                      <div id="reply-form-{{ $diskusi->id }}" class="mt-4 hidden">
-    <form action="{{ route('forum.siswa.balas', $diskusi->id) }}" method="POST">
-        @csrf
-        <div class="flex space-x-3">
-            <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                <span class="text-white font-medium text-sm">{{ strtoupper(substr(auth()->user()->email, 0, 1)) }}</span>
-            </div>
-            <div class="flex-1">
-                <textarea 
-                    name="konten"
-                    class="w-full bg-white/90 border border-slate-200 rounded-xl p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 placeholder-slate-400"
-                    rows="3"
-                    placeholder="Tulis balasan Anda..."
-                    required
-                ></textarea>
-                <div class="flex justify-between items-center mt-3">
-                    <button type="button" onclick="hideReplyForm({{ $diskusi->id }})" class="text-slate-500 hover:text-slate-700 text-sm">
-                        Batal
-                    </button>
-                    <button type="submit" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-2 text-sm rounded-xl font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
-                        Kirim Balasan
-                    </button>
+                    <form action="{{ route('forum.siswa.balas', $diskusi->id) }}" method="POST">
+                        @csrf
+                        <div class="flex space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-medium text-sm">{{ strtoupper(substr(auth()->user()->email, 0, 1)) }}</span>
+                            </div>
+                            <div class="flex-1">
+                                <textarea 
+                                    name="konten"
+                                    class="w-full bg-white/90 border border-slate-200 rounded-xl p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 placeholder-slate-400"
+                                    rows="3"
+                                    placeholder="Tulis balasan Anda..."
+                                    required
+                                ></textarea>
+                                <div class="flex justify-between items-center mt-3">
+                                    <button type="button" onclick="hideReplyForm({{ $diskusi->id }})" class="text-slate-500 hover:text-slate-700 text-sm">
+                                        Batal
+                                    </button>
+                                    <button type="submit" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 py-2 text-sm rounded-xl font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                                        Kirim Balasan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-        </div>
-    </form>
-</div>
 
                             </div>
                         </div>

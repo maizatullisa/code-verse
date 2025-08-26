@@ -161,9 +161,16 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
               <div class="flex items-center space-x-3">
                 <h4 class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">{{ $diskusi->user->email }}</h4>
+                @if($diskusi->user->role == 'pengajar')
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
+                  Pengajar
+                </span>
+              @else
                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
                   Siswa
                 </span>
+              @endif
+
               </div>
               <div class="flex items-center space-x-2 text-xs text-gray-500">
                 <i class="ph ph-clock"></i>
@@ -201,11 +208,16 @@
               <div class="bg-gray-50/80 backdrop-blur-lg rounded-2xl p-4 mb-3 border border-gray-100">
                 <div class="flex items-start space-x-3">
                   <div class="w-8 h-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <span class="text-white font-medium text-sm">{{ strtoupper(substr($balasan->user->name, 0, 1)) }}</span>
+                    <span class="text-white font-medium text-sm">{{ strtoupper(substr($balasan->user->email, 0, 1)) }}</span>
                   </div>
                   <div class="flex-1 min-w-0">
                     <div class="flex items-center space-x-2 mb-2">
-                      <h5 class="font-medium text-gray-800 text-sm">{{ $balasan->user->name }}</h5>
+                      <h5 class="font-medium text-gray-800 text-sm">{{ $balasan->user->email }}</h5>
+                      @if($balasan->user->role === 'pengajar')
+                        <span class="ml-2 px-2 py-0.5 text-xs font-semibold text-green-700 bg-green-100 rounded">Pengajar</span>
+                      @elseif($balasan->user->role === 'siswa')
+                        <span class="ml-2 px-2 py-0.5 text-xs font-semibold text-blue-700 bg-blue-100 rounded">Siswa</span>
+                      @endif
                       <span class="text-xs text-gray-500">{{ $balasan->created_at->diffForHumans() }}</span>
                     </div>
                     <p class="text-gray-700 text-sm leading-relaxed">{{ $balasan->konten }}</p>

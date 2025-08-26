@@ -492,6 +492,9 @@ Route::get('/desktop/home-desktop', function () {
     return view('desktop.dashboard-user-desktop');
  })->name('desktop.dashboard-user-desktop');
 
+ //POPUP
+
+
 
 // Desktop Materi
 Route::get('/desktop/rekomendasi-materi', function () {
@@ -550,23 +553,18 @@ Route::get('/desktop/kelas-detail', function () {
 // Halaman pembelajaran siswa (tampilkan materi dalam kelas)
 Route::get('/kelas/{kelasId}/materi/{materiId?}', [KelasMateriController::class, 'showCourseMateri'])
      ->name('student.course.materi');
-
 // Submit jawaban quiz
 Route::post('/kelas/quiz/{quizId}/submit', [KelasMateriController::class, 'submitQuiz'])
      ->name('student.quiz.submit');
-
 // Tandai materi selesai
 Route::post('/kelas/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
      ->name('student.materi.complete');
-
 // Ambil materi berikutnya
 Route::get('/kelas/{kelasId}/materi/{materiId}/next-materi', [KelasMateriController::class, 'getNextMateri'])
      ->name('student.materi.next');
-
-// Load konten materi (misalnya video/teks)
+// Load konten materi (video/teks)
 Route::get('/kelas/materi/{materiId}/load-content', [KelasMateriController::class, 'loadMateriContent'])
      ->name('student.materi.content');
-
 Route::get('/api/courses/{id}/materials', [KelasMateriController::class, 'apiGetMateri']);
 
 

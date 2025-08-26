@@ -14,7 +14,62 @@ class KelasMateriController extends Controller
     /**
      * Tampilkan halaman pembelajaran siswa
      */
-    public function showCourseMateri($kelasId, $materiId = null)
+//     public function showCourseMateri($kelasId, $materiId = null)
+// {
+//     $kelas = Kelas::with(['materis.quiz', 'pengajar'])
+//                   ->where('status', 'published')
+//                   ->findOrFail($kelasId);
+
+//     $materis = $kelas->materis->where('status', 'published')->sortBy('created_at')->values();
+
+//     $user = Auth::user();
+//     $progressData = UserMateriProgress::where('user_id', $user->id)->get()->keyBy('materi_id');
+
+//     $totalMateri = $materis->count();
+//     $materiPerMinggu = 4; // jumlah materi per minggu
+
+//     $currentWeek = 0; // minggu default = 0 (minggu pertama)
+
+//     if ($materiId) {
+//         $currentIndex = $materis->search(function ($materi) use ($materiId) {
+//             return $materi->id == $materiId;
+//         });
+
+//         $currentWeek = floor($currentIndex / $materiPerMinggu); // hitung minggu berdasarkan index
+//     }
+
+//     $startIndex = $currentWeek * $materiPerMinggu;
+//     $materiMingguIni = $materis->slice($startIndex, $materiPerMinggu)->values(); // ambil 4 materi minggu ini
+
+//     $currentMateri = $materiMingguIni->first();
+
+//     $currentQuiz = $currentMateri?->quiz;
+
+//     $completedCount = $progressData->where('status', 'completed')->count();
+//     $progressPercentage = $totalMateri > 0 ? round(($completedCount / $totalMateri) * 100) : 0;
+
+//     //mark complet
+//     $isCompleted = false;
+
+//     if ($currentMateri && $progressData->has($currentMateri->id)) {
+//         $isCompleted = $progressData[$currentMateri->id]->status === 'completed';
+//     }
+
+//     return view('desktop.pages.kelas.kelas-materi', compact(
+//         'kelas',
+//         'currentMateri',
+//         'currentQuiz',
+//         'totalMateri',
+//         'completedCount',
+//         'progressPercentage',
+//         'materiMingguIni', // data 4 materi minggu ini
+//         'currentWeek',
+//         'progressData',
+//         'isCompleted'
+//     ));
+// }
+
+public function showCourseMateri($kelasId, $materiId = null)
 {
     $kelas = Kelas::with(['materis.quiz', 'pengajar'])
                   ->where('status', 'published')
@@ -26,31 +81,42 @@ class KelasMateriController extends Controller
     $progressData = UserMateriProgress::where('user_id', $user->id)->get()->keyBy('materi_id');
 
     $totalMateri = $materis->count();
-    $materiPerMinggu = 4; // jumlah materi per minggu
+    $materiPerMinggu = 4;
 
-    $currentWeek = 0; // minggu default = 0 (minggu pertama)
-
+    // Fix: Pilih materi berdasarkan materiId atau materi pertama yang belum selesai
+    $currentMateri = null;
     if ($materiId) {
-        $currentIndex = $materis->search(function ($materi) use ($materiId) {
-            return $materi->id == $materiId;
-        });
-
-        $currentWeek = floor($currentIndex / $materiPerMinggu); // hitung minggu berdasarkan index
+        $currentMateri = $materis->firstWhere('id', $materiId);
+    }
+    
+    if (!$currentMateri) {
+        // Cari materi pertama yang belum selesai
+        foreach ($materis as $materi) {
+            if (!$progressData->has($materi->id) || $progressData[$materi->id]->status !== 'completed') {
+                $currentMateri = $materi;
+                break;
+            }
+        }
+        $currentMateri = $currentMateri ?? $materis->first();
     }
 
-    $startIndex = $currentWeek * $materiPerMinggu;
-    $materiMingguIni = $materis->slice($startIndex, $materiPerMinggu)->values(); // ambil 4 materi minggu ini
+    // Hitung minggu berdasarkan currentMateri
+    $currentIndex = $materis->search(function ($materi) use ($currentMateri) {
+        return $materi->id == $currentMateri->id;
+    });
+    
+    $currentWeek = floor($currentIndex / $materiPerMinggu);
+    $weekNumber = $currentWeek + 1;
 
-    $currentMateri = $materiMingguIni->first();
+    $startIndex = $currentWeek * $materiPerMinggu;
+    $materiMingguIni = $materis->slice($startIndex, $materiPerMinggu)->values();
 
     $currentQuiz = $currentMateri?->quiz;
 
     $completedCount = $progressData->where('status', 'completed')->count();
     $progressPercentage = $totalMateri > 0 ? round(($completedCount / $totalMateri) * 100) : 0;
 
-    //mark complet
     $isCompleted = false;
-
     if ($currentMateri && $progressData->has($currentMateri->id)) {
         $isCompleted = $progressData[$currentMateri->id]->status === 'completed';
     }
@@ -62,8 +128,8 @@ class KelasMateriController extends Controller
         'totalMateri',
         'completedCount',
         'progressPercentage',
-        'materiMingguIni', // data 4 materi minggu ini
-        'currentWeek',
+        'materiMingguIni',
+        'weekNumber',
         'progressData',
         'isCompleted'
     ));
@@ -110,23 +176,59 @@ class KelasMateriController extends Controller
     /**
      * Tandai materi sudah selesai
      */
+    // public function markComplete(Request $request, $materiId)
+    // {
+    //     $user = Auth::user();
+
+    //     $existing = \App\Models\UserMateriProgress::updateOrCreate(
+    //         [
+    //             'user_id' => $user->id,
+    //             'materi_id' => $materiId
+    //         ],
+    //         [
+    //             'status' => 'completed',
+    //             'completed_at' => now()
+    //         ]
+    //     );
+
+    //     return response()->json(['success' => true]);
+    // }
     public function markComplete(Request $request, $materiId)
-    {
-        $user = Auth::user();
-
-        $existing = \App\Models\UserMateriProgress::updateOrCreate(
-            [
-                'user_id' => $user->id,
-                'materi_id' => $materiId
-            ],
-            [
-                'status' => 'completed',
-                'completed_at' => now()
-            ]
-        );
-
-        return response()->json(['success' => true]);
-    }
+{
+    $user = Auth::user();
+    $materi = Materi::findOrFail($materiId);
+    
+    // Mark materi as completed
+    $progress = UserMateriProgress::updateOrCreate(
+        [
+            'user_id' => $user->id,
+            'materi_id' => $materiId
+        ],
+        [
+            'status' => 'completed',
+            'completed_at' => now()
+        ]
+    );
+    
+    // Check if all materials in this class are completed
+    $kelas = $materi->kelas;
+    $totalMateri = $kelas->materis->where('status', 'published')->count();
+    $completedMateri = UserMateriProgress::where('user_id', $user->id)
+        ->whereHas('materi', function($query) use ($kelas) {
+            $query->where('kelas_id', $kelas->id)->where('status', 'published');
+        })
+        ->where('status', 'completed')
+        ->count();
+    
+    $courseCompleted = ($completedMateri >= $totalMateri);
+    
+    return response()->json([
+        'success' => true,
+        'course_completed' => $courseCompleted,
+        'completed_count' => $completedMateri,
+        'total_count' => $totalMateri
+    ]);
+}
 
 
     /**
@@ -257,3 +359,6 @@ class KelasMateriController extends Controller
 
 
 }
+
+
+

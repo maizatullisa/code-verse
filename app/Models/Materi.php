@@ -23,7 +23,10 @@ class Materi extends Model
         'rangkuman',
         'status',
         'pengajar_id',
-        'kelas_id'
+        'kelas_id',
+        'week_number',
+        'order',
+        'type'
     ];
 
     protected $casts = [
