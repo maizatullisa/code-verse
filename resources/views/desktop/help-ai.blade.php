@@ -35,52 +35,7 @@
         <!-- Chat Messages Container -->
         <div class="h-[60vh] overflow-y-auto border border-slate-100 rounded-xl p-6 mb-6 bg-slate-50/30" id="chatContainer">
             <!-- Welcome Message -->
-            <!--<div class="flex items-start gap-4 mb-6">
-                <div class="bg-slate-200 p-3 rounded-xl flex-shrink-0">
-                    <i class="ph ph-robot text-slate-700 text-xl"></i>
-                </div>
-                <div class="bg-white rounded-xl rounded-tl-md p-6 shadow-sm border border-slate-200 max-w-3xl">
-                    <p class="text-slate-800 text-base font-medium mb-4">
-                        Hallo! 👋 Saya Zizi AI, asisten belajar digital kamu.
-                    </p>
-                    <p class="text-slate-600 mb-6 text-sm">
-                        Pilih topik yang ingin kamu pelajari atau tanyakan langsung:
-                    </p>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        <button onclick="quickAsk('kenapa saya enggan mengcoding')" 
-                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 border border-slate-200">
-                            <i class="ph ph-calculator text-slate-600"></i>
-                            Enggan Coding
-                        </button>
-                        <button onclick="quickAsk('Tips belajar coding')" 
-                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 border border-slate-200">
-                            <i class="ph ph-lightbulb text-slate-600"></i>
-                            Tips Belajar
-                        </button>
-                        <button onclick="quickAsk('Kata kata hari ini...')" 
-                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 border border-slate-200">
-                            <i class="ph ph-heart text-slate-600"></i>
-                            Motivasi
-                        </button>
-                        <button onclick="quickAsk('Buatkan jadwal belajar')" 
-                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 border border-slate-200">
-                            <i class="ph ph-calendar text-slate-600"></i>
-                            Jadwal
-                        </button>
-                        <button onclick="quickAsk('Rangkum materi ini')" 
-                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 border border-slate-200">
-                            <i class="ph ph-note text-slate-600"></i>
-                            Rangkuman
-                        </button>
-                        <button onclick="quickAsk('Buat soal latihan')" 
-                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 border border-slate-200">
-                            <i class="ph ph-question text-slate-600"></i>
-                            Kuis
-                        </button>
-                    </div>
-                </div>
-            </div> -->
+            
         </div>
 
         <!-- Input Area -->
@@ -175,16 +130,19 @@
 </div>
 
 <script>
-    window.GEMINI_CONFIG = {
-        isProduction: {{ app()->environment('production') ? 'true' : 'false' }},
+    window.APP_CONFIG = {
+        isProduction: "{{ app()->environment('production') ? 'true' : 'false' }}",
         baseUrl: "{{ config('app.url') }}",
         csrfToken: "{{ csrf_token() }}"
     };
-    
-    if (window.GEMINI_CONFIG.isProduction) {
+
+    if (window.APP_CONFIG.isProduction === 'true') {
         console.log = function() {};
         console.error = function() {};
+        console.warn = function() {};
+        console.info = function() {};
     }
 </script>
+
 <script src="{{ asset('assets/js/custom/help-ai.js') }}"></script>
 @endsection

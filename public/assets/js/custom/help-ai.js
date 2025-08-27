@@ -24,20 +24,27 @@ Kalo user nanya hal yang ngak related sama belajar, lo bisa agak "ogah" tapi tet
 
 async function callGeminiAPI(message) {
     try {
-        const response = await fetch('/gemini/ask', {
+        const url = '/gemini/ask';
+        console.log('Calling API:', url);
+        console.log('Base URL:', window.APP_CONFIG?.baseUrl);
+        
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': window.GEMINI_CONFIG.csrfToken,
+                'X-CSRF-TOKEN': window.APP_CONFIG.csrfToken, 
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                message: message
+                message: message,
+                system_prompt: SYSTEM_PROMPT,
+                chat_history: chatHistory.slice(-10) 
             })
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(`HTTP error! status: ${response.status} - ${errorData.message || 'Unknown error'}`);
         }
 
         const data = await response.json();
@@ -53,7 +60,7 @@ async function callGeminiAPI(message) {
     
         const fallbackResponses = [
             "Aduh sorry nih, lagi ada gangguan. Coba tanya lagi deh! 😅",
-            "Wah koneksi lagi bermasalah nih. Tunggu sebentar ya! 🔄",
+            "Wah koneksi lagi bermasalah nih. Tunggu sebentar ya! 🔄", 
             "Error nih bro, tapi gue tetep di sini kok. Coba lagi! 💪"
         ];
         
@@ -74,6 +81,10 @@ async function sendMessage() {
     
     if (!message || isTyping) return;
     
+    const sendBtn = document.getElementById('sendBtn');
+    sendBtn.disabled = true;
+    sendBtn.innerHTML = '<i class="ph ph-spinner text-xl animate-spin"></i>';
+    
     addMessage(message, 'user');
     input.value = '';
     input.style.height = 'auto';
@@ -88,6 +99,9 @@ async function sendMessage() {
         hideTyping();
         addMessage('Ups, ada error nih! Coba lagi ya 😅', 'ai');
         console.error('Error:', error);
+    } finally {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="ph ph-paper-plane-right text-xl"></i>';
     }
 }
 
@@ -98,8 +112,8 @@ function addMessage(message, sender) {
     if (sender === 'user') {
         messageDiv.innerHTML = `
             <div class="flex items-start gap-4 mb-6 message-bubble justify-end">
-                <div class="bg-gradient-to-r from-p1 to-p2 rounded-2xl rounded-tr-md p-4 shadow-lg max-w-2xl">
-                    <p class="text-white font-medium">${message.replace(/\n/g, '<br>')}</p>
+                <div class="bg-gradient-to-r from-slate-700 to-slate-800 rounded-2xl rounded-tr-md p-4 shadow-lg max-w-2xl">
+                    <p class="text-white font-medium">${escapeHtml(message).replace(/\n/g, '<br>')}</p>
                     <p class="text-xs text-white text-opacity-80 mt-2 text-right">${new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}</p>
                 </div>
                 <div class="bg-gray-200 p-3 rounded-2xl flex-shrink-0">
@@ -108,18 +122,11 @@ function addMessage(message, sender) {
             </div>
         `;
     } else {
-        const formattedMessage = message
-            .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-p1">$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em class="italic text-purple-600">$1</em>')
-            .replace(/`(.*?)`/g, '<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">$1</code>')
-            .replace(/(\d+\.\s)/g, '<span class="font-semibold text-p1">$1</span>')
-            .replace(/(•\s)/g, '<span class="text-p1 font-bold">• </span>')
-            .replace(/\n\n/g, '<br><br>')
-            .replace(/\n/g, '<br>');
+        const formattedMessage = formatAIMessage(message);
 
         messageDiv.innerHTML = `
             <div class="flex items-start gap-4 mb-6 message-bubble">
-                <div class="bg-p1 p-3 rounded-2xl flex-shrink-0">
+                <div class="bg-slate-800 p-3 rounded-2xl flex-shrink-0">
                     <i class="ph ph-robot text-white text-2xl"></i>
                 </div>
                 <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl rounded-tl-md p-5 shadow-lg max-w-2xl border border-blue-100">
@@ -133,7 +140,28 @@ function addMessage(message, sender) {
     chatContainer.appendChild(messageDiv);
     chatContainer.scrollTop = chatContainer.scrollHeight;
     
-    chatHistory.push({message, sender, timestamp: new Date()});
+    chatHistory.push({
+        message: message,
+        sender: sender,
+        timestamp: new Date().toISOString()
+    });
+}
+
+function formatAIMessage(message) {
+    return escapeHtml(message)
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-800">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="italic text-purple-600">$1</em>')
+        .replace(/`(.*?)`/g, '<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">$1</code>')
+        .replace(/(\d+\.\s)/g, '<span class="font-semibold text-slate-700">$1</span>')
+        .replace(/(•\s)/g, '<span class="text-slate-700 font-bold">• </span>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function showTyping() {
@@ -143,21 +171,37 @@ function showTyping() {
     typingDiv.id = 'typingIndicator';
     typingDiv.innerHTML = `
         <div class="flex items-start gap-4 mb-6">
-            <div class="bg-p1 p-3 rounded-2xl flex-shrink-0">
+            <div class="bg-slate-800 p-3 rounded-2xl flex-shrink-0">
                 <i class="ph ph-robot text-white text-2xl"></i>
             </div>
             <div class="bg-white rounded-2xl rounded-tl-md p-4 shadow-md border border-gray-200">
                 <div class="flex gap-2 items-center">
                     <div class="flex gap-1">
-                        <div class="w-2 h-2 bg-p1 rounded-full typing-indicator"></div>
-                        <div class="w-2 h-2 bg-p1 rounded-full typing-indicator" style="animation-delay: 0.2s"></div>
-                        <div class="w-2 h-2 bg-p1 rounded-full typing-indicator" style="animation-delay: 0.4s"></div>
+                        <div class="w-2 h-2 bg-slate-800 rounded-full typing-indicator"></div>
+                        <div class="w-2 h-2 bg-slate-800 rounded-full typing-indicator" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-slate-800 rounded-full typing-indicator" style="animation-delay: 0.4s"></div>
                     </div>
-                    <span class="text-sm text-gray-500 ml-2">Wait, zizi lagi ngetik...</span>
+                    <span class="text-sm text-gray-500 ml-2">Zizi lagi ngetik...</span>
                 </div>
             </div>
         </div>
     `;
+    
+    if (!document.getElementById('typingAnimation')) {
+        const style = document.createElement('style');
+        style.id = 'typingAnimation';
+        style.textContent = `
+            @keyframes typing-bounce {
+                0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+                30% { transform: translateY(-10px); opacity: 1; }
+            }
+            .typing-indicator {
+                animation: typing-bounce 1.5s infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
     chatContainer.appendChild(typingDiv);
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
@@ -179,7 +223,7 @@ function clearChat() {
     if (confirm('Yakin nih mau hapus chat? 🥺')) {
         document.getElementById('chatContainer').innerHTML = `
             <div class="flex items-start gap-4 mb-6 message-bubble">
-                <div class="bg-p1 p-3 rounded-2xl flex-shrink-0">
+                <div class="bg-slate-800 p-3 rounded-2xl flex-shrink-0">
                     <i class="ph ph-robot text-white text-2xl"></i>
                 </div>
                 <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl rounded-tl-md p-5 shadow-md max-w-2xl border border-blue-100">
@@ -188,16 +232,16 @@ function clearChat() {
                     
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <button onclick="quickAsk('kenapa saya enggan mengcoding')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
-                            <i class="ph ph-calculator"></i>
-                            enggan mengcoding
+                            <i class="ph ph-code"></i>
+                            Enggan Coding
                         </button>
                         <button onclick="quickAsk('Tips belajar coding')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
                             <i class="ph ph-lightbulb"></i>
                             Tips Belajar
                         </button>
-                        <button onclick="quickAsk('Kata kata hari ini...')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        <button onclick="quickAsk('Kata kata motivasi hari ini')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
                             <i class="ph ph-heart"></i>
-                            kata kata hari ini
+                            Motivasi
                         </button>
                         <button onclick="quickAsk('Buatkan jadwal belajar')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
                             <i class="ph ph-calendar"></i>
@@ -219,8 +263,6 @@ function clearChat() {
     }
 }
 
-
-
 document.getElementById('messageInput').addEventListener('input', function() {
     this.style.height = 'auto';
     this.style.height = Math.min(this.scrollHeight, 128) + 'px';
@@ -236,4 +278,18 @@ document.addEventListener('DOMContentLoaded', function() {
             welcomeMsg.style.opacity = '1';
         }
     }, 300);
+    
+    if (typeof window.APP_CONFIG === 'undefined') {
+        console.error('APP_CONFIG not found! Make sure the Blade template loads correctly.');
+    }
+});
+
+window.addEventListener('error', function(e) {
+    console.error('Uncaught error:', e.error);
+    hideTyping();
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+    hideTyping();
 });

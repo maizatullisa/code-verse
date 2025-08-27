@@ -26,7 +26,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MateriShowController;
 use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\CourseEnrollmentController;
-
+use App\Http\Controllers\ProfilePengajarController;
 use function PHPUnit\Framework\returnSelf;
 
 /*
@@ -216,11 +216,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 /// Redirect jika akses GET ke /login
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME INI AKU COMM DULU YA 
-// Route::get('home-mobile', [MateriBladeSearch::class, 'index'])->name('home');
-// Route::get('/home-mobile', function () {
-// $user = Auth::user(); // ambil user login
-// return view('mobile.home.mobile', compact('user'));
-// })->middleware('auth')->name('home-mobile');
+ Route::get('home-mobile', [MateriBladeSearch::class, 'index'])->name('home');
+Route::get('/home-mobile', function () {
+ $user = Auth::user(); // ambil user login
+ return view('mobile.home.mobile', compact('user'));
+})->middleware('auth')->name('home-mobile');
 
 // DICOMMENT SAMA OYIN
 // Route::get('/home', function () {
@@ -333,8 +333,37 @@ Route::get('/quiz-5', function(){
 
 //rute pengajar
 //forumdiskusi 
-// DASHBOARD PENGAJAR
+// DASHBOARD PENGAJAR AKU COMMENT
 Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
+
+// Route::get('/dashboard-pengajar', function(){
+//     return view('pengajar.dashboard_pengajar');
+// })->name('pengajar.dashboard_pengajar');
+
+//UNTUK INDEX BIO
+Route::get('/bio-pengajar', function(){
+    return view('pengajar.index-bio');
+})->name('pengajar.index-bio');
+
+// UNTUK FORM
+Route::get('/form', function(){
+    return view('pengajar.form-bio');
+})->name('pengajar.form-bio');
+
+//controller bio
+    Route::get('/bio-pengajar', [ProfilePengajarController::class, 'index'])->name('pengajar.index-bio');
+
+    // Form tambah / edit
+    Route::get('/form/{profilePengajar?}', [ProfilePengajarController::class, 'form'])->name('pengajar.form-bio');
+
+    // Simpan data baru
+    Route::post('/store', [ProfilePengajarController::class, 'store'])->name('pengajar.store');
+
+    // Update data lama
+    Route::put('/update/{profilePengajar}', [ProfilePengajarController::class, 'update'])->name('pengajar.update');
+
+    // Hapus data
+    Route::delete('/delete/{profilePengajar}', [ProfilePengajarController::class, 'destroy'])->name('pengajar.destroy');
 
 // Basic Quiz (Controller-based)
 // Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
@@ -487,12 +516,17 @@ Route::get('/desktop/lorek-desktop', function () {
  })->name('desktop.user-desktop');
 
  Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
+ Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+ Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 
 Route::get('/desktop/home-desktop', function () {
     return view('desktop.dashboard-user-desktop');
  })->name('desktop.dashboard-user-desktop');
 
  //POPUP
+ Route::get('/popup', function () {
+    return view('desktop.popup-pengajar');
+ })->name('desktop.popup-pengajar');
 
 
 
@@ -611,13 +645,17 @@ Route::get('/desktop/index-roadmap', function () {
     return view('desktop.roadmap.index-roadmap-user');
  })->name('desktop.roadmap.index-roadmap-user');
 
-Route::get('/desktop/detail-kosong', function () {
-    return view('desktop.roadmap.detail-roadmap-kosong');
- })->name('desktop.roadmap.detail-roadmap-kosong');
+Route::get('/desktop/fe-roadmap', function () {
+    return view('desktop.roadmap.frontend');
+ })->name('desktop.roadmap.frontend');
 
-Route::get('/desktop/detail-desktop', function () {
-    return view('desktop.roadmap.detail-roadmap');
- })->name('esktop.roadmap.detail-roadmap');
+ Route::get('/desktop/be-roadmap', function () {
+    return view('desktop.roadmap.backend');
+ })->name('desktop.roadmap.backend');
+
+ Route::get('/desktop/dev-roadmap', function () {
+    return view('desktop.roadmap.devops');
+ })->name('desktop.roadmap.devops');
 
 /*
 |--------------------------------------------------------------------------
@@ -668,7 +706,13 @@ Route::get('/coding-tips', function(){
 */
 
 // Gemini AI
-Route::post('/gemini/ask', [GeminiController::class, 'ask']);
+//Route::post('/gemini/ask', [GeminiController::class, 'ask']);
+
+// Di routes/web.php
+Route::prefix('gemini')->group(function () {
+    Route::post('/ask', [App\Http\Controllers\GeminiController::class, 'ask']);
+    Route::get('/test', [App\Http\Controllers\GeminiController::class, 'test']); // untuk testing
+});
 
 /*
 |--------------------------------------------------------------------------

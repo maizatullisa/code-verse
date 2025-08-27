@@ -20,7 +20,9 @@ class KelasDitawarkanController extends Controller
             }, 'pengajar'])
             ->withCount(['materis' => function ($query) {
                 $query->where('status', 'published');
-            }]);
+            }
+         ,'siswa as siswa_count'
+        ]);
 
         // keyword pencarian, filter data
         if (!empty($keyword)) {
@@ -38,6 +40,8 @@ class KelasDitawarkanController extends Controller
         $kelasList = $kelasQuery->orderBy('created_at', 'desc')
                                 ->paginate(6)
                                 ->appends($request->all());  
+
+
 
         return view('desktop.pages.kelas.kelas-ditawarkan', compact('kelasList', 'keyword', 'kategori'));
     }

@@ -123,12 +123,12 @@
                    Menampilkan {{ $kelasList->firstItem() }}-{{ $kelasList->lastItem() }} dari {{ $kelasList->total() }} kelas tersedia
                 </p>
                 <div class="flex items-center gap-2">
-                    <button onclick="toggleView('grid')" id="gridView" class="p-2 rounded-lg bg-p2 text-white">
+                    <!-- <button onclick="toggleView('grid')" id="gridView" class="p-2 rounded-lg bg-p2 text-white">
                         <i class="ph ph-squares-four text-lg"></i>
                     </button>
                     <button onclick="toggleView('list')" id="listView" class="p-2 rounded-lg text-gray-400 hover:text-gray-600">
                         <i class="ph ph-list text-lg"></i>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
@@ -196,11 +196,11 @@
                                 <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
                                     <div class="flex items-center gap-1">
                                         <i class="ph ph-users-three"></i>
-                                        <span>156 siswa</span>
+                                   <span>{{ $kelas->siswa_count ?? 0 }}</span>
                                     </div>
                                     <div class="flex items-center gap-1">
                                         <i class="ph ph-clock"></i>
-                                        <span>8 minggu</span>
+                                        <span>{{ $kelas->durasi ?? '8 minggu' }}</span>
                                     </div>
                                    
                                     <div class="flex items-center gap-1">

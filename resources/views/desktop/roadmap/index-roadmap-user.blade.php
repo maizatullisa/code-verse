@@ -8,8 +8,8 @@
 @section('content')
 @php
     $roadmap = [
-        'title' => 'Fullstack Developer',
-        'description' => 'Step by step guide to becoming a modern fullstack developer in 2024',
+        'title' => 'Roadmap',
+        'description' => '',
         'duration' => '6-12 Bulan',
         'level' => 'Intermediate',
         'prerequisite' => 'Basic programming knowledge',
@@ -30,21 +30,7 @@
                 'status' => 'available'
             ],
             [
-                'title' => 'JavaScript Fundamentals',
-                'description' => 'Master the core concepts of JavaScript including ES6+ features, DOM manipulation, and asynchronous programming.',
-                'duration' => '4-6 minggu',
-                'topics' => ['ES6+ Syntax', 'DOM Manipulation', 'Event Handling', 'Promises & Async/Await', 'Error Handling', 'Local Storage'],
-                'resources' => [
-                    ['title' => 'JavaScript.info', 'type' => 'tutorial', 'url' => '#'],
-                    ['title' => 'MDN JavaScript Guide', 'type' => 'official', 'url' => '#'],
-                    ['title' => 'You Dont Know JS', 'type' => 'book', 'url' => '#'],
-                ],
-                'color' => 'text-yellow-600 bg-yellow-50 border-yellow-200',
-                'icon' => '⚡',
-                'status' => 'available'
-            ],
-            [
-                'title' => 'Frontend Framework (React)',
+                'title' => 'Backend Developer',
                 'description' => 'Learn React to build dynamic and interactive user interfaces. Understand component-based architecture and state management.',
                 'duration' => '6-8 minggu',
                 'topics' => ['JSX & Components', 'Props & State', 'Hooks (useState, useEffect)', 'Context API', 'React Router', 'Form Handling'],
@@ -55,34 +41,6 @@
                 ],
                 'color' => 'text-blue-600 bg-blue-50 border-blue-200',
                 'icon' => '⚛️',
-                'status' => 'available'
-            ],
-            [
-                'title' => 'Backend Development (Node.js)',
-                'description' => 'Learn server-side development with Node.js and Express. Build RESTful APIs and handle database operations.',
-                'duration' => '8-10 minggu',
-                'topics' => ['Node.js Fundamentals', 'Express Framework', 'RESTful APIs', 'Authentication & Authorization', 'Middleware', 'Error Handling'],
-                'resources' => [
-                    ['title' => 'Node.js Official Guide', 'type' => 'official', 'url' => '#'],
-                    ['title' => 'Express.js Tutorial', 'type' => 'tutorial', 'url' => '#'],
-                    ['title' => 'REST API Best Practices', 'type' => 'article', 'url' => '#'],
-                ],
-                'color' => 'text-green-600 bg-green-50 border-green-200',
-                'icon' => '🟢',
-                'status' => 'available'
-            ],
-            [
-                'title' => 'Database & Data Modeling',
-                'description' => 'Learn database design and management with both SQL and NoSQL databases.',
-                'duration' => '4-5 minggu',
-                'topics' => ['Database Design', 'SQL Fundamentals', 'MongoDB Basics', 'Data Relationships', 'Query Optimization', 'Database Security'],
-                'resources' => [
-                    ['title' => 'PostgreSQL Tutorial', 'type' => 'tutorial', 'url' => '#'],
-                    ['title' => 'MongoDB University', 'type' => 'course', 'url' => '#'],
-                    ['title' => 'Database Design Principles', 'type' => 'article', 'url' => '#'],
-                ],
-                'color' => 'text-purple-600 bg-purple-50 border-purple-200',
-                'icon' => '🗄️',
                 'status' => 'available'
             ],
             [
@@ -167,9 +125,11 @@
                                         <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path>
                                     </svg>
                                 </button>
-                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm">
-                                    Mulai Belajar
-                                </button>
+                                <a href="/desktop/detail-roadmap" 
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm inline-block">
+                                        Mulai Belajar
+                                </a>
+
                             </div>
                         </div>
                     </div>

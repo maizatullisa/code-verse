@@ -14,16 +14,23 @@
             
             <!-- Avatar -->
             <div class="flex-shrink-0">
-                <div class="w-24 h-24 bg-gradient-to-br from-p1 to-p2 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg relative">
-                    {{-- User initials will be populated by backend --}}
-                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
-                </div>
+            <div class="w-24 h-24 rounded-full overflow-hidden shadow-lg relative">
+                @if($user->profile_photo)
+                    <img src="{{ asset('storage/'.$user->profile_photo) }}" alt="Foto Profil" class="w-full h-full object-cover">
+                @else
+                    <div class="w-full h-full bg-gradient-to-br from-p1 to-p2 flex items-center justify-center text-white text-2xl font-bold">
+                        {{ strtoupper(substr($user->first_name, 0, 1)) }}
+                    </div>
+                @endif
+                <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
             </div>
+        </div>
+
 
             <!-- User Info -->
-            <div class="flex-1">
+            <div class="flex-1">  
                 <h2 class="text-3xl font-bold text-white mb-2">{{$user->first_name }}</h2>
-                <p class="text-gray-300 mb-1">{{-- User email --}}</p>
+                <p class="text-gray-300 mb-1">{{ $user->email }}</p>
                 <p class="text-gray-400 text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p>
                 
                 <div class="flex flex-wrap gap-3">
@@ -34,6 +41,12 @@
                         class="bg-red-600/90 text-red-100 border border-red-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center hover:bg-red-600 transition-colors">
                             <i class="ph ph-fire mr-1"></i> Game
                     </a>
+
+                    <a href="{{ route('user.profile.edit') }}"
+                    class="bg-green-600/90 text-green-100 border border-green-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center hover:bg-green-700 transition-colors">
+                    <i class="ph ph-pencil mr-1"></i> Edit Profil
+                    </a>
+                        
 
                 </div>
             </div>
@@ -146,7 +159,7 @@
         <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
             {{-- Loop through user badges --}}
             {{-- @foreach($badges as $badge) --}}
-            <div class="bg-gradient-to-br from-{{-- $badge->color --}}-500 to-{{-- $badge->color --}}-600 p-4 rounded-xl text-center text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-{{-- $badge->color --}}-400">
+            <div class="bg-gradient-to-br from-{{-- $badge->color --}}-500 to-{{-- $badge->color --}}-600 p-4 rounded-xl text-center text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-{{-- $badge->color --}}-400"> 
                 <i class="ph ph-{{-- $badge->icon --}} text-2xl mb-2"></i>
                 <div class="font-semibold text-xs">{{-- $badge->name --}}</div>
                 <div class="text-xs opacity-90">{{-- $badge->description --}}</div>

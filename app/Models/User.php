@@ -26,7 +26,8 @@ class User extends Authenticatable
         'gender',
         'role',
         'timezone',
-        'email_verified_at'
+        'email_verified_at',
+        'profile_photo',
     ];
 
     /**
@@ -47,6 +48,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profile_photo
+            ? asset('storage/' . $this->profile_photo)   // kalau user sudah upload foto
+            : asset('images/default.png');        // kalau belum upload,pakai gambar default
+    }
+
 
      public function markEmailAsVerified()
     {

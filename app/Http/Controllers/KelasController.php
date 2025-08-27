@@ -13,12 +13,19 @@ class KelasController extends Controller
 {
     public function index()
     {
+
+       $kelas = Kelas::withCount('siswa')
+                ->where('pengajar_id', Auth::id())
+                ->get();
+
+        $totalSiswa = $kelas->sum('siswa_count');
+        
         $kelas = Kelas::where('pengajar_id', Auth::id())
                      ->withCount('materis')
                      ->orderBy('created_at', 'desc')
                      ->get();
                      
-        return view('pengajar.materi.index-kelas-pengajar', compact('kelas'));
+        return view('pengajar.materi.index-kelas-pengajar', compact('kelas', 'totalSiswa'));
     }
 
     public function create()

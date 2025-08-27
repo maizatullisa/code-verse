@@ -100,9 +100,9 @@
                         <div class="flex items-center justify-between mb-4">
                             <div>
                             <h2 class="font-bold text-xl text-gray-800 mb-1" id="material-title">{{ $currentMateri->judul }}</h2>
-                            <p class="text-gray-600 text-sm" id="material-info">
+                            <!-- <p class="text-gray-600 text-sm" id="material-info">
                             Durasi: {{ $currentMateri->durasi ?? 'N/A' }} menit • {{ ucfirst($currentMateri->tipe ?? 'Materi') }}
-                            </p>
+                            </p> -->
 
                             </div>
                             <div class="text-sm text-gray-500">

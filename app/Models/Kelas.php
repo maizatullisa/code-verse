@@ -131,4 +131,12 @@ class Kelas extends Model
     return $this->hasMany(Diskusi::class); // asumsinya satu kelas punya banyak diskusi
 }
 
+public function siswa()
+{
+    return $this->belongsToMany(User::class, 'course_enrollments', 'kelas_id', 'user_id')
+                ->withTimestamps();
+}
+
+
+
 }
