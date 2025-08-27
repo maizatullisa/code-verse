@@ -15,11 +15,11 @@
             <!-- Avatar -->
             <div class="flex-shrink-0">
             <div class="w-24 h-24 rounded-full overflow-hidden shadow-lg relative">
-                @if($user->profile_photo)
-                    <img src="{{ asset('storage/'.$user->profile_photo) }}" alt="Foto Profil" class="w-full h-full object-cover">
-                @else
+                {{--@if($user->profile_photo)--}}
+                    {{--<img src="{{ asset('storage/'.$user->profile_photo) }}" alt="Foto Profil" class="w-full h-full object-cover">--}}
+                {{--@else--}}
                     <div class="w-full h-full bg-gradient-to-br from-p1 to-p2 flex items-center justify-center text-white text-2xl font-bold">
-                        {{ strtoupper(substr($user->first_name, 0, 1)) }}
+                        {{--{{ strtoupper(substr($user->first_name, 0, 1)) }}--}}
                     </div>
                 @endif
                 <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
@@ -29,9 +29,9 @@
 
             <!-- User Info -->
             <div class="flex-1">  
-                <h2 class="text-3xl font-bold text-white mb-2">{{$user->first_name }}</h2>
+                {{--<h2 class="text-3xl font-bold text-white mb-2">{{$user->first_name }}</h2>
                 <p class="text-gray-300 mb-1">{{ $user->email }}</p>
-                <p class="text-gray-400 text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p>
+                <p class="text-gray-400 text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p>--}}
                 
                 <div class="flex flex-wrap gap-3">
                     <span class="bg-blue-600/90 text-blue-100 border border-blue-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
