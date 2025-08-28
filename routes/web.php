@@ -514,9 +514,15 @@ Route::get('/desktop/lorek-desktop', function () {
     return view('desktop.user-desktop');
  })->name('desktop.user-desktop');
 
- Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
- Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
- Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+//  Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
+//  Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+//  Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+
+ // PATH KE EDIT PROFILE USER
+Route::get('/edit-profil', function(){
+    return view('desktop.edit-profil');
+})->name('desktop.edit-profil');
+
 
 // Route::get('/desktop/home-desktop', function () {
 //     return view('desktop.dashboard-user-desktop');
