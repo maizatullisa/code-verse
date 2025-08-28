@@ -7,6 +7,7 @@ use App\Http\Controllers\KelasDiambilController;
 use App\Http\Controllers\KelasDitawarkanController;
 use App\Http\Controllers\KelasMateriController;
 use App\Http\Controllers\KelasIndexController;
+use App\Http\Controllers\LihatDetailPengajarController;
 use App\Http\Controllers\MateriBladeSearch;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -341,29 +342,27 @@ Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])
 // })->name('pengajar.dashboard_pengajar');
 
 //UNTUK INDEX BIO
-Route::get('/bio-pengajar', function(){
-    return view('pengajar.index-bio');
-})->name('pengajar.index-bio');
+// Route::get('/bio-pengajar', function(){
+//     return view('pengajar.index-bio');
+// })->name('pengajar.index-bio');
 
 // UNTUK FORM
-Route::get('/form', function(){
-    return view('pengajar.form-bio');
-})->name('pengajar.form-bio');
+// Route::get('/form', function(){
+//     return view('pengajar.form-bio');
+// })->name('pengajar.form-bio');
 
-//controller bio
+//controller bio 
+Route::middleware(['auth'])->group(function () {
     Route::get('/bio-pengajar', [ProfilePengajarController::class, 'index'])->name('pengajar.index-bio');
+    Route::get('/pengajar/biodata/edit', [ProfilePengajarController::class, 'edit'])->name('pengajar.edit-bio');
+    Route::post('/pengajar/biodata', [ProfilePengajarController::class, 'store'])->name('pengajar.store-bio');
+    Route::put('/pengajar/biodata/update', [ProfilePengajarController::class, 'update'])->name('pengajar.update-bio');
+    // riwayat pendidikan
+    Route::post('/pengajar/pendidikan', [ProfilePengajarController::class, 'storeRiwayatPendidikan'])->name('pengajar.store-riwayat');
+    Route::put('/pengajar/pendidikan/{id}', [ProfilePengajarController::class, 'updateRiwayatPendidikan'])->name('pengajar.update-riwayat');
+    Route::delete('/pengajar/pendidikan/{id}', [ProfilePengajarController::class, 'destroyRiwayatPendidikan'])->name('pengajar.delete-riwayat');
+});
 
-    // Form tambah / edit
-    Route::get('/form/{profilePengajar?}', [ProfilePengajarController::class, 'form'])->name('pengajar.form-bio');
-
-    // Simpan data baru
-    Route::post('/store', [ProfilePengajarController::class, 'store'])->name('pengajar.store');
-
-    // Update data lama
-    Route::put('/update/{profilePengajar}', [ProfilePengajarController::class, 'update'])->name('pengajar.update');
-
-    // Hapus data
-    Route::delete('/delete/{profilePengajar}', [ProfilePengajarController::class, 'destroy'])->name('pengajar.destroy');
 
 // Basic Quiz (Controller-based)
 // Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
@@ -519,9 +518,14 @@ Route::get('/desktop/lorek-desktop', function () {
  Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
  Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 
-Route::get('/desktop/home-desktop', function () {
-    return view('desktop.dashboard-user-desktop');
- })->name('desktop.dashboard-user-desktop');
+// Route::get('/desktop/home-desktop', function () {
+//     return view('desktop.dashboard-user-desktop');
+//  })->name('desktop.dashboard-user-desktop');
+
+Route::get('/desktop/home-desktop', [LihatDetailPengajarController::class, 'index'])
+    ->name('desktop.dashboard-user-desktop');
+Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
+    ->name('profile-pengajar');
 
  //POPUP
  Route::get('/popup', function () {

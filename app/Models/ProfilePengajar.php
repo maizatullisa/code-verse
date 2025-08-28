@@ -7,13 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfilePengajar extends Model
 {
-    use HasFactory;
-
     protected $table = 'profile_pengajar';
 
     protected $fillable = [
-        'full_name', 'nip', 'birth_date', 'gender', 'address',
-        'academic_position', 'expertise', 'faculty', 'study_program',
-        'institutional_email', 'personal_email', 'phone', 'whatsapp'
+        'user_id',
+        'full_name',
+        'gender',
+        'academic_position',
+        'expertise',
+        'faculty',
+        'study_program',
+        'personal_email',
+        'phone',
+        'photo',
     ];
+
+        public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+        public function riwayatPendidikan()
+    {
+        return $this->hasMany(RiwayatPendidikanpengajar::class);
+    }
+
 }

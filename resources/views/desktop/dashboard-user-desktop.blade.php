@@ -159,96 +159,62 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Teacher 1 -->
+            @foreach($teachers as $index => $teacher)
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div class="flex justify-between items-center mb-6">
-                    <div class="bg-yellow-100 border border-yellow-200 px-3 py-2 rounded-xl flex items-center gap-2">
-                        <i class="ph-fill ph-trophy text-yellow-600"></i>
-                        <span class="text-sm font-bold text-yellow-800">id : 03</span>
-                    </div>
+                    @if($index == 0)
+                        <div class="bg-yellow-100 border border-yellow-200 px-3 py-2 rounded-xl flex items-center gap-2">
+                            <i class="ph-fill ph-trophy text-yellow-600"></i>
+                            <span class="text-sm font-bold text-yellow-800">id : {{ str_pad($teacher->user->id, 2, '0', STR_PAD_LEFT) }}</span>
+                        </div>
+                    @elseif($index == 1)
+                        <div class="bg-gray-100 border border-gray-200 px-3 py-2 rounded-xl flex items-center gap-2">
+                            <span class="text-sm font-bold text-gray-700">id : {{ str_pad($teacher->user->id, 2, '0', STR_PAD_LEFT) }}</span>
+                        </div>
+                    @elseif($index == 2)
+                        <div class="bg-orange-100 border border-orange-200 px-3 py-2 rounded-xl flex items-center gap-2">
+                            <span class="text-sm font-bold text-orange-700">id : {{ str_pad($teacher->user->id, 2, '0', STR_PAD_LEFT) }}</span>
+                        </div>
+                    @else
+                        <div class="bg-green-100 border border-green-200 px-3 py-2 rounded-xl flex items-center gap-2">
+                            <span class="text-sm font-bold text-green-700">id : {{ str_pad($teacher->user->id, 2, '0', STR_PAD_LEFT) }}</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="text-center">
                     <div class="relative inline-block mb-4">
-                        <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto flex items-center justify-center">
-                            <i class="ph ph-user text-gray-400 text-2xl"></i>
+                        <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto flex items-center justify-center overflow-hidden">
+                            @if($teacher->photo)
+                               <img src="{{ asset($teacher->photo) }}" alt="Foto Pengajar" class="object-cover w-full h-full rounded-full">
+                            @else
+                                <i class="ph ph-user text-gray-400 text-2xl"></i>
+                            @endif
                         </div>
+                        @if($index >= 3)
+                            <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                            </div>
+                        @endif
                     </div>
-                    <h4 class="font-bold text-lg mb-1">Budi</h4>
-                    <p class="text-gray-500 text-sm mb-4">bidang keahlian</p>
-                    <button onclick="openTeacherModal(1, 'Budi', 'S1. Teknik Informatika Universitas Brawijaya 2018<br>S2. Computer Science ITB 2021', 'Full Stack Developer')" 
-                            class="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors w-full">
-                        Lihat
-                    </button>
-                </div>
-            </div>
+                    <h4 class="font-bold text-lg mb-1">{{ $teacher->full_name }}</h4>
+                    <p class="text-gray-500 text-sm mb-4">{{ $teacher->expertise ?? 'bidang keahlian' }}</p>
+                    <button 
+    class="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors w-full"
+    data-id="{{ $teacher->user->id }}"
+    data-name="{{ $teacher->full_name }}"
+    data-education="{{ $teacher->last_education }}"
+    data-skill="{{ $teacher->expertise }}"
+    data-position="{{ $teacher->academic_position }}"
+    data-photo="{{ asset($teacher->photo) }}"
+    data-faculty="{{ $teacher->faculty ?? '-' }}"
+    data-prodi="{{ $teacher->study_program ?? '-' }}"
+    data-riwayat='@json($teacher->riwayatPendidikan ?? [])'
+    onclick="openTeacherModal(this)">
+    Lihat
+</button>
 
-            <!-- Teacher 2 -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="bg-gray-100 border border-gray-200 px-3 py-2 rounded-xl flex items-center gap-2">
-                        <span class="text-sm font-bold text-gray-700">id : 02</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <div class="relative inline-block mb-4">
-                        <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto flex items-center justify-center">
-                            <i class="ph ph-user text-gray-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Andi</h4>
-                    <p class="text-gray-500 text-sm mb-4">bidang keahlian</p>
-                    <button onclick="openTeacherModal(2, 'Andi', 'S1. Sistem Informasi Universitas Gadjah Mada 2019<br>S2. Cyber Security ITB 2022', 'Security Expert')" 
-                            class="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors w-full">
-                        Lihat
-                    </button>
                 </div>
             </div>
-
-            <!-- Teacher 3 -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="bg-orange-100 border border-orange-200 px-3 py-2 rounded-xl flex items-center gap-2">
-                        <span class="text-sm font-bold text-orange-700">id : 01</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <div class="relative inline-block mb-4">
-                        <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto flex items-center justify-center">
-                            <i class="ph ph-user text-gray-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Dedi</h4>
-                    <p class="text-gray-500 text-sm mb-4">bidang keahlian</p>
-                    <button onclick="openTeacherModal(3, 'Dedi', 'S1. Teknik Komputer Universitas Indonesia 2017<br>S2. Mobile Development Binus 2020', 'Mobile Developer')" 
-                            class="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors w-full">
-                        Lihat
-                    </button>
-                </div>
-            </div>
-
-            <!-- Teacher 4 -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="bg-green-100 border border-green-200 px-3 py-2 rounded-xl flex items-center gap-2">
-                        <span class="text-sm font-bold text-green-700">id : 04</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <div class="relative inline-block mb-4">
-                        <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto flex items-center justify-center">
-                            <i class="ph ph-user text-gray-400 text-2xl"></i>
-                        </div>
-                        <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                        </div>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Imam</h4>
-                    <p class="text-gray-500 text-sm mb-4">Network Engineer</p>
-                    <button onclick="openTeacherModal(4, 'Imam', 'S1. Teknik Telekomunikasi Universitas Telkom 2016<br>S2. Network Engineering Universitas Indonesia 2019', 'Network Engineer')" 
-                            class="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors w-full">
-                        Lihat
-                    </button>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -256,18 +222,16 @@
 <!-- Teacher Modal -->
 <div id="teacherModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
     <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full modal-enter">
-      
         <div class="bg-blue-50 px-6 py-4 rounded-t-xl flex items-center justify-between">
-            <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">
-                Profile Pengajar
-            </h3>
+            <h3 class="text-lg font-bold text-gray-800 flex items-center gap-2">Profile Pengajar</h3>
         </div>
-        
+
         <div class="p-6">
             <div class="flex gap-6">
-              
-                <div class="w-32 h-40 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <div class="text-center text-white">
+                <!-- Foto -->
+                <div class="w-32 h-40 bg-blue-500 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <img id="teacherPhoto" src="" alt="Foto Pengajar" class="object-cover w-full h-full rounded-lg" style="display: none;">
+                    <div id="teacherPhotoPlaceholder" class="text-center text-white">
                         <div class="w-16 h-16 bg-white bg-opacity-30 rounded-full mx-auto mb-3 flex items-center justify-center">
                             <i class="ph ph-user text-blue-500 text-3xl"></i>
                         </div>
@@ -275,39 +239,47 @@
                         <div class="text-xs">TERSEDIA</div>
                     </div>
                 </div>
-                
-               
+
+                <!-- Biodata -->
                 <div class="flex-1">
                     <table class="w-full text-sm">
-                        <tr class="border-b border-gray-200">
+                        <!-- <tr class="border-b border-gray-200">
                             <td class="py-2 pr-4 font-semibold text-gray-600 w-1/3">NIP/NIDN</td>
-                            <td class="py-2" id="teacherId">071204870</td>
-                        </tr>
+                            <td class="py-2" id="teacherId"></td>
+                        </tr> -->
                         <tr class="border-b border-gray-200">
                             <td class="py-2 pr-4 font-semibold text-gray-600">Nama</td>
-                            <td class="py-2 font-bold text-gray-900" id="teacherName">- Nama Pengajar</td>
+                            <td class="py-2 font-bold text-gray-900" id="teacherName"></td>
                         </tr>
                         <tr class="border-b border-gray-200">
                             <td class="py-2 pr-4 font-semibold text-gray-600">Jabatan Akademik</td>
-                            <td class="py-2" id="teacherPosition">Lektor</td>
+                            <td class="py-2" id="teacherPosition"></td>
+                        </tr>
+                       <tr class="border-b border-gray-200">
+                        <td class="py-2 pr-4 font-semibold text-gray-600">Fakultas</td>
+                        <td class="py-2" id="teacherFaculty"></td>
                         </tr>
                         <tr class="border-b border-gray-200">
-                            <td class="py-2 pr-4 font-semibold text-gray-600 align-top">Pendidikan</td>
-                            <td class="py-2 text-xs leading-relaxed" id="teacherEducation">
-                                S1. Fisika Universitas Jember 2010<br>
-                                S2. Ilmu Fisika Universitas Negeri Sebelas Maret 2014
-                            </td>
+                            <td class="py-2 pr-4 font-semibold text-gray-600">Program Studi</td>
+                            <td class="py-2" id="teacherProdi"></td>
                         </tr>
+
                         <tr>
                             <td class="py-2 pr-4 font-semibold text-gray-600">Bidang Keahlian</td>
-                            <td class="py-2 font-medium" id="teacherSkill">Physics</td>
+                            <td class="py-2 font-medium" id="teacherSkill"></td>
                         </tr>
                     </table>
-                </div> 
+                    <div class="mt-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">Riwayat Pendidikan</h4>
+                    <ul class="list-disc pl-6 text-sm text-gray-700 space-y-1" id="teacherRiwayat">
+                        <!-- Akan diisi lewat JS -->
+                    </ul>
+                </div>
+
+                </div>
             </div>
         </div>
-        
-        <!-- Footer -->
+
         <div class="px-6 py-4 bg-gray-50 rounded-b-xl flex justify-end">
             <button onclick="closeTeacherModal()" 
                     class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
@@ -317,22 +289,99 @@
     </div>
 </div>
 
-<script>
-    function openTeacherModal(id, name, education, skill, position = 'Lektor') {
-        document.getElementById('teacherId').textContent = String(id).padStart(9, '0');
-        document.getElementById('teacherName').textContent = '- ' + name;
-        document.getElementById('teacherPosition').textContent = position;
-        document.getElementById('teacherEducation').innerHTML = education;
-        document.getElementById('teacherSkill').textContent = skill;
+    <script>
+    // function openTeacherModal(id, name, education, skill, position, photo,  faculty, prodi, riwayat) {
+    //     // // Update NIP/NIDN dengan format yang benar
+    //     // document.getElementById('teacherId').textContent = String(id).padStart(9, '0');
+        
+    //     // Update nama dengan prefix "-"
+    //     document.getElementById('teacherName').textContent = '- ' + name;
+        
+    //     // Update jabatan akademik (gunakan data dari database atau default)
+    //     document.getElementById('teacherPosition').textContent = position || 'Lektor';
+        
+        
+    //     // Update bidang keahlian
+    //     document.getElementById('teacherSkill').textContent = skill || 'Bidang keahlian tidak tersedia';
+
+    //     document.getElementById('teacherFaculty').textContent = faculty || '-';
+    //     document.getElementById('teacherProdi').textContent = prodi || '-';
+    //     //foto
+    //     var img = document.getElementById('teacherPhoto');
+    //     var placeholder = document.getElementById('teacherPhotoPlaceholder');
+
+
+    //     // Riwayat pendidikan
+    //     let riwayatList = document.getElementById('teacherRiwayat');
+    //     riwayatList.innerHTML = '';
+    //     if (riwayat && riwayat.length > 0) {
+    //         riwayat.forEach(r => {
+    //             let li = document.createElement('li');
+    //             li.textContent = `${r.jenjang} - ${r.jurusan} (${r.institusi}, ${r.tahun_lulus ?? '-'})`;
+    //             riwayatList.appendChild(li);
+    //         });
+    //     } else {
+    //         riwayatList.innerHTML = '<li>Belum ada data</li>';
+    //     }
+
+    //     if(photo) {
+    //         img.src = photo;
+    //         img.style.display = 'block';
+    //         placeholder.style.display = 'none';
+    //     } else {
+    //         img.style.display = 'none';
+    //         placeholder.style.display = 'block';
+    //     }
+        
+    //     // Tampilkan modal
+    //     document.getElementById('teacherModal').classList.remove('hidden');
+    //     document.body.classList.add('modal-open');
+    // }
+
+        function openTeacherModal(button) {
+        const data = button.dataset;
+
+        document.getElementById('teacherName').textContent = '- ' + (data.name || '');
+        document.getElementById('teacherPosition').textContent = data.position || '-';
+        document.getElementById('teacherSkill').textContent = data.skill || '-';
+        document.getElementById('teacherFaculty').textContent = data.faculty || '-';
+        document.getElementById('teacherProdi').textContent = data.prodi || '-';
+
+        // Foto
+        let img = document.getElementById('teacherPhoto');
+        let placeholder = document.getElementById('teacherPhotoPlaceholder');
+        if (data.photo) {
+            img.src = data.photo;
+            img.style.display = 'block';
+            placeholder.style.display = 'none';
+        } else {
+            img.style.display = 'none';
+            placeholder.style.display = 'block';
+        }
+
+        // Riwayat Pendidikan
+        let riwayatList = document.getElementById('teacherRiwayat');
+        riwayatList.innerHTML = '';
+        let riwayat = [];
+        try { riwayat = JSON.parse(data.riwayat); } catch(e) {}
+        if (riwayat.length > 0) {
+            riwayat.forEach(r => {
+                let li = document.createElement('li');
+                li.textContent = `${r.jenjang} - ${r.jurusan} (${r.institusi}, ${r.tahun_lulus ?? '-'})`;
+                riwayatList.appendChild(li);
+            });
+        } else {
+            riwayatList.innerHTML = '<li>Belum ada data</li>';
+        }
+
         document.getElementById('teacherModal').classList.remove('hidden');
         document.body.classList.add('modal-open');
-        document.body.style.overflow = 'hidden';
-    }
-    
+}
+
+
     function closeTeacherModal() {
         document.getElementById('teacherModal').classList.add('hidden');
         document.body.classList.remove('modal-open');
-        document.body.style.overflow = 'auto';
     }
 
     document.getElementById('teacherModal').addEventListener('click', function(e) {

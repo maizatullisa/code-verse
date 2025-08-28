@@ -142,6 +142,12 @@ class User extends Authenticatable
         return $this->hasMany(UserMateriProgress::class);
     }
 
+    public function profilePengajar()
+    {
+        return $this->hasOne(\App\Models\ProfilePengajar::class, 'user_id');
+    }
+
+
 
     
 }

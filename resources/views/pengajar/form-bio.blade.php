@@ -16,50 +16,66 @@
 
         <!-- Form Content -->
         <div class="p-6 overflow-y-auto max-h-96">
-            <form id="editProfileForm">
+            <!-- Form langsung submit ke Laravel Controller -->
+            <form action="{{ route('pengajar.store-bio') }}" method="POST" enctype="multipart/form-data" id="editProfileForm">
+                @csrf
+                <input type="hidden" name="_method" value="POST" id="formMethod">
+                
                 <!-- Personal Tab -->
                 <div id="content-personal" class="tab-content">
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div><label class="block text-sm font-medium mb-1">Nama Lengkap *</label>
-                            <input type="text" name="full_name" value="Andi Prasetyo, S.Kom., M.Kom." class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">NIP/NIDN *</label>
-                            <input type="text" name="nip" value="000000002" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">Tanggal Lahir</label>
-                            <input type="date" name="birth_date" value="1985-01-15" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">Jenis Kelamin</label>
-                            <select name="gender" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                                <option value="L" selected>Laki-laki</option><option value="P">Perempuan</option></select></div>
-                        <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Alamat</label>
-                            <textarea name="address" rows="2" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">Jl. Pendidikan No. 123, Jakarta</textarea></div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Nama Lengkap *</label>
+                            <input type="text" name="full_name" id="full_name" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Jenis Kelamin</label>
+                            <select name="gender" id="gender" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium mb-1">Foto Profile</label>
+                            <input type="file" name="photo" id="photo" accept="image/*" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <small class="text-gray-500">Maksimal 2MB, format: JPG, PNG</small>
+                            <div id="photoPreview" class="mt-2 hidden">
+                                <img id="previewImage" class="w-20 h-20 object-cover rounded-lg">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Academic Tab -->
                 <div id="content-academic" class="tab-content hidden">
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div><label class="block text-sm font-medium mb-1">Jabatan Akademik *</label>
-                            <select name="academic_position" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
-                                <option value="lektor" selected>Lektor</option><option value="asisten_ahli">Asisten Ahli</option></select></div>
-                        <div><label class="block text-sm font-medium mb-1">Bidang Keahlian</label>
-                            <input type="text" name="expertise" value="Security Expert" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">Fakultas *</label>
-                            <input type="text" name="faculty" value="Teknik Informatika" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">Program Studi *</label>
-                            <input type="text" name="study_program" value="Sistem Informasi" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500"></div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Jabatan Akademik *</label>
+                            <input type="text" name="academic_position" id="academic_position" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Bidang Keahlian</label>
+                            <input type="text" name="expertise" id="expertise" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Program Studi *</label>
+                            <input type="text" name="study_program" id="study_program" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Contact Tab -->
+                <!--  personal kontak -->
                 <div id="content-contact" class="tab-content hidden">
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div><label class="block text-sm font-medium mb-1">Email Institusi *</label>
-                            <input type="email" name="institutional_email" value="andi.prasetyo@univ.ac.id" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">No. Telepon *</label>
-                            <input type="tel" name="phone" value="+62 812-3456-7890" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">Email Pribadi</label>
-                            <input type="email" name="personal_email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                        <div><label class="block text-sm font-medium mb-1">WhatsApp</label>
-                            <input type="tel" name="whatsapp" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">No. Telepon *</label>
+                            <input type="tel" name="phone" id="phone" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Email Pribadi</label>
+                            <input type="email" name="personal_email" id="personal_email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                        </div>
                     </div>
                 </div>
 
@@ -73,155 +89,244 @@
     </div>
 </div>
 
-<!-- Add Education Modal -->
-<div id="addEducationModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4" style="margin-left: 0 !important;">
-    <div class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl">
-        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-4 text-white flex justify-between items-center rounded-t-2xl">
-            <h2 class="text-lg font-bold">Tambah Riwayat Pendidikan</h2>
-            <button onclick="closeModal('addEducationModal')" class="hover:bg-white/20 p-2 rounded-lg">✕</button>
-        </div>
-        <div class="p-6">
-            <form id="addEducationForm">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div><label class="block text-sm font-medium mb-1">Jenjang *</label>
-                        <select name="degree_level" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500">
-                            <option value="">Pilih jenjang</option><option value="S1">S1 - Sarjana</option><option value="S2">S2 - Magister</option><option value="S3">S3 - Doktor</option></select></div>
-                    <div><label class="block text-sm font-medium mb-1">Program Studi *</label>
-                        <input type="text" name="study_program" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                    <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Universitas *</label>
-                        <input type="text" name="university" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                    <div><label class="block text-sm font-medium mb-1">Tahun Lulus *</label>
-                        <input type="number" name="graduation_year" required min="1950" max="2024" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                    <div><label class="block text-sm font-medium mb-1">IPK</label>
-                        <input type="number" name="gpa" step="0.01" min="0" max="4" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"></div>
-                </div>
-                <div class="flex justify-end gap-3 mt-6 pt-4 border-t">
-                    <button type="button" onclick="closeModal('addEducationModal')" class="px-6 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Batal</button>
-                    <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Tambah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Education Modal -->
-<div id="editEducationModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4" style="margin-left: 0 !important;">
-    <div class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl">
-        <div class="bg-gradient-to-r from-blue-500 to-teal-600 p-4 text-white flex justify-between items-center rounded-t-2xl">
-            <h2 class="text-lg font-bold">Edit Riwayat Pendidikan</h2>
-            <button onclick="closeModal('editEducationModal')" class="hover:bg-white/20 p-2 rounded-lg">✕</button>
-        </div>
-        <div class="p-6">
-            <form id="editEducationForm">
-                <input type="hidden" name="education_id" id="edit_education_id">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div><label class="block text-sm font-medium mb-1">Jenjang *</label>
-                        <select name="degree_level" id="edit_degree_level" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="S1">S1 - Sarjana</option><option value="S2">S2 - Magister</option></select></div>
-                    <div><label class="block text-sm font-medium mb-1">Program Studi *</label>
-                        <input type="text" name="study_program" id="edit_study_program" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                    <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Universitas *</label>
-                        <input type="text" name="university" id="edit_university" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                    <div><label class="block text-sm font-medium mb-1">Tahun Lulus *</label>
-                        <input type="number" name="graduation_year" id="edit_graduation_year" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                    <div><label class="block text-sm font-medium mb-1">IPK</label>
-                        <input type="number" name="gpa" id="edit_gpa" step="0.01" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"></div>
-                </div>
-                <div class="flex justify-end gap-3 mt-6 pt-4 border-t">
-                    <button type="button" onclick="closeModal('editEducationModal')" class="px-6 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Batal</button>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div id="deleteEducationModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4" style="margin-left: 0 !important;">
-    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl">
-        <div class="bg-gradient-to-r from-red-500 to-rose-600 p-4 text-white rounded-t-2xl">
-            <h2 class="text-lg font-bold">Konfirmasi Hapus</h2>
-        </div>
-        <div class="p-6 text-center">
-            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            </div>
-            <h3 class="text-lg font-bold mb-2">Hapus Riwayat Pendidikan?</h3>
-            <p class="text-gray-600 mb-6">Data yang sudah dihapus tidak dapat dikembalikan.</p>
-            <div class="flex justify-center gap-3">
-                <button onclick="closeModal('deleteEducationModal')" class="px-6 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Batal</button>
-                <button onclick="confirmDeleteEducation()" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Ya, Hapus</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Notification Container -->
+<div id="notificationContainer" class="fixed top-4 right-4 z-[10000] space-y-2"></div>
 
 <script>
-let currentEducationId = null;
+// Simple JavaScript untuk modal dan basic functionality
+let currentProfileId = null;
 
-// Modal functions
-function openEditModal() { showModal('editProfileModal'); }
-function openAddEducationModal() { showModal('addEducationModal'); }
-
-function editEducation(id) {
-    currentEducationId = id;
-    const data = { 1: {degree_level: 'S1', study_program: 'Sistem Informasi', university: 'Universitas Gadjah Mada', graduation_year: 2019, gpa: 3.85}, 
-                   2: {degree_level: 'S2', study_program: 'Cyber Security', university: 'Institut Teknologi Bandung', graduation_year: 2022, gpa: 3.92} }[id];
-    if (data) {
-        Object.keys(data).forEach(key => {
-            const el = document.getElementById(`edit_${key}`);
-            if (el) el.value = data[key];
-        });
+// Fungsi buka modal
+function openEditModal(hasExistingData = false) {
+    
+    if (hasExistingData) {
+        // Mode Edit - ubah ke route update
+        document.getElementById('editProfileForm').action = '{{ route("pengajar.update-bio") }}';
+        document.getElementById('formMethod').value = 'PUT';
+        
+        // Data akan di-load dari controller (lewat Blade template)
+        // Tidak perlu AJAX karena data sudah ada di view
+    } else {
+        // Mode Create - form baru
+        document.getElementById('editProfileForm').action = '{{ route("pengajar.store-bio") }}';
+        document.getElementById('formMethod').value = 'POST';
+        clearForm();
     }
-    showModal('editEducationModal');
+    
+    showModal('editProfileModal');
 }
 
-function deleteEducation(id) { currentEducationId = id; showModal('deleteEducationModal'); }
+// base URL (untuk update we will append id)
+    const storeRiwayatUrl = '{{ route("pengajar.store-riwayat") }}';
+    const baseUpdateUrl = '{{ url("/pengajar/pendidikan") }}'; // will append /{id}
 
-function showModal(id) { 
+    function openEducationModal(mode = 'create', id = null) {
+        const modal = document.getElementById('educationModal');
+        const form = document.getElementById('educationForm');
+        const methodInput = document.getElementById('educationFormMethod');
+        document.getElementById('educationModalTitle').textContent = mode === 'edit' ? 'Edit Riwayat Pendidikan' : 'Tambah Riwayat Pendidikan';
+
+    if (mode === 'edit' && id) {
+        // ambil element yang ada di list (data-attributes)
+        const el = document.getElementById('education-' + id);
+        if (!el) { alert('Data pendidikan tidak ditemukan'); return; }
+
+        const jenjang = el.dataset.jenjang || '';
+        const jurusan = el.dataset.jurusan || '';
+        const institusi = el.dataset.institusi || '';
+        const tahun = el.dataset.tahun || '';
+
+        document.getElementById('input_jenjang').value = jenjang;
+        document.getElementById('input_jurusan').value = jurusan;
+        document.getElementById('input_institusi').value = institusi;
+        document.getElementById('input_tahun').value = tahun;
+        document.getElementById('education_id').value = id;
+
+        form.action = baseUpdateUrl + '/' + id; // /pengajar/pendidikan/{id}
+        methodInput.value = 'PUT';
+    } else {
+        // create
+        document.getElementById('input_jenjang').value = '';
+        document.getElementById('input_jurusan').value = '';
+        document.getElementById('input_institusi').value = '';
+        document.getElementById('input_tahun').value = '';
+        document.getElementById('education_id').value = '';
+
+        form.action = storeRiwayatUrl;
+        methodInput.value = 'POST';
+    }
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
     const modal = document.getElementById(id);
-    modal.classList.remove('hidden'); 
+    if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// helper yang dipanggil dari tombol edit di list
+function editEducation(id) {
+    openEducationModal('edit', id);
+}
+
+// optional: confirm delete via JS (if you want to use JS form submit instead of inline form)
+function deleteEducationByFetch(id) {
+    if (!confirm('Yakin ingin menghapus?')) return;
+    fetch('{{ url('/pengajar/pendidikan') }}/' + id, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        }
+    }).then(r => r.json())
+      .then(res => {
+          if (res.success) {
+            showNotification('Riwayat pendidikan dihapus', 'success');
+            // reload page or remove element from DOM
+            document.getElementById('education-' + id)?.remove();
+          } else {
+            showNotification('Gagal menghapus', 'error');
+          }
+      }).catch(()=> showNotification('Terjadi error', 'error'));
+}
+
+
+// Clear form untuk mode create
+function clearForm() {
+    document.getElementById('editProfileForm').reset();
+    document.getElementById('photoPreview').classList.add('hidden');
+}
+
+// Photo preview
+document.getElementById('photo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('photoPreview');
+    const previewImage = document.getElementById('previewImage');
+
+    if (file) {
+        // Validasi ukuran file (2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Ukuran file maksimal 2MB');
+            event.target.value = '';
+            preview.classList.add('hidden');
+            return;
+        }
+
+        // Validasi tipe file
+        if (!file.type.startsWith('image/')) {
+            alert('File harus berupa gambar');
+            event.target.value = '';
+            preview.classList.add('hidden');
+            return;
+        }
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.classList.add('hidden');
+    }
+});
+
+// Form validation sebelum submit
+document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+    const requiredFields = ['full_name','expertise', 'academic_position', 'faculty', 'study_program', 'personal_email', 'phone', 'gender'];
+    let isValid = true;
+
+    requiredFields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        if (!field.value.trim()) {
+            field.classList.add('border-red-500');
+            isValid = false;
+        } else {
+            field.classList.remove('border-red-500');
+        }
+    });
+
+    if (!isValid) {
+        e.preventDefault();
+        showNotification('Mohon lengkapi semua field yang wajib diisi', 'error');
+    }
+});
+
+// Modal functions
+function showModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.remove('hidden');
     modal.style.marginLeft = '0';
     modal.style.width = '100vw';
     modal.style.left = '0';
-    document.body.style.overflow = 'hidden'; 
+    document.body.style.overflow = 'hidden';
 }
-function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
+function closeModal(id) {
+    document.getElementById(id).classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Tab switching
 function switchTab(tab) {
+    // Hide semua tab content
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('[id^="tab-"]').forEach(el => el.className = 'flex-1 py-3 px-4 font-medium text-gray-600 hover:text-gray-900');
+    
+    // Reset semua tab button
+    document.querySelectorAll('[id^="tab-"]').forEach(el => {
+        el.className = 'flex-1 py-3 px-4 font-medium text-gray-600 hover:text-gray-900';
+    });
+    
+    // Show selected tab dan aktifkan button
     document.getElementById(`content-${tab}`).classList.remove('hidden');
     document.getElementById(`tab-${tab}`).className = 'flex-1 py-3 px-4 font-medium bg-white border-b-2 border-blue-500 text-blue-600';
 }
 
-function confirmDeleteEducation() {
-    if (!currentEducationId) return;
-    const item = document.getElementById(`education-${currentEducationId}`);
-    if (item) item.remove();
-    closeModal('deleteEducationModal');
-    showNotification('Riwayat pendidikan berhasil dihapus!', 'success');
+// Notification function
+function showNotification(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    const notification = document.createElement('div');
+    
+    const bgColor = {
+        'success': 'bg-green-500',
+        'error': 'bg-red-500',
+        'warning': 'bg-yellow-500',
+        'info': 'bg-blue-500'
+    }[type] || 'bg-gray-500';
+
+    notification.innerHTML = `
+        <div class="${bgColor} text-white px-6 py-3 rounded-lg shadow-lg flex items-center justify-between min-w-80">
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">✕</button>
+        </div>
+    `;
+
+    container.appendChild(notification);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
 }
 
-// Form submissions
-['editProfileForm', 'addEducationForm', 'editEducationForm'].forEach(formId => {
-    document.getElementById(formId).addEventListener('submit', function(e) {
-        e.preventDefault();
-        const modal = this.closest('[id$="Modal"]').id;
-        closeModal(modal);
-        showNotification('Data berhasil disimpan!', 'success');
-    });
-});
-
-// Close on outside click
+// Close modal saat click outside
 document.addEventListener('click', function(e) {
-    if (e.target.id && e.target.id.includes('Modal')) closeModal(e.target.id);
+    if (e.target.id && e.target.id.includes('Modal')) {
+        closeModal(e.target.id);
+    }
 });
 
-// ESC key to close
+// Close modal dengan ESC key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        ['editProfileModal', 'addEducationModal', 'editEducationModal', 'deleteEducationModal'].forEach(closeModal);
+        closeModal('editProfileModal');
     }
 });
 </script>
