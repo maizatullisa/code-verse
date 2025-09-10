@@ -69,5 +69,15 @@ class UserMateriProgress extends Model
         return round(($completedMateri / $totalMateri) * 100);
     }
 
+        public function averageQuizScore($kelasId)
+    {
+        return $this->quizResults()
+            ->whereHas('quiz', function ($q) use ($kelasId) {
+                $q->where('kelas_id', $kelasId);
+            })
+            ->avg('score'); // atau nilai lain
+    }
+
+
     
 }

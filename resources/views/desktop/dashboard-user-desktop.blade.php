@@ -52,9 +52,9 @@
     }
 </style>
 
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 rounded-xl">
     <!-- Header Section -->
-    <div class="bg-white shadow-sm border-b">
+    <div class="bg-white shadow-sm border-b rounded-xl">
         <div class="max-w-6xl mx-auto px-6 py-8">
             <h1 class="text-4xl font-bold text-gray-900 text-center mb-2">Code Verse</h1>
             <p class="text-gray-600 text-center text-lg">

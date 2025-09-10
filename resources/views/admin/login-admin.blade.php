@@ -140,8 +140,8 @@
                             <p class="text-slate-600 text-sm">Masuk untuk mengakses dasbor Anda</p>
                         </div>
 
-                        <form id="loginForm" class="space-y-4">
-                            
+                        <form id="loginForm" method="POST" action="{{ route('login') }}" class="space-y-4">
+                            @csrf
                             <!-- Username Field -->
                             <div class="space-y-1.5">
                                 <label class="block text-xs font-semibold text-slate-700">
@@ -154,6 +154,7 @@
                                     <input 
                                         type="text" 
                                         id="username"
+                                        name="email"
                                         class="input-field w-full pl-10 pr-3 py-2.5 bg-slate-50 border-2 border-slate-200 rounded-lg text-slate-800 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-300"
                                         placeholder="Masukkan username atau email"
                                         required
@@ -167,25 +168,27 @@
                                 <label class="block text-xs font-semibold text-slate-700">
                                     Password
                                 </label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="ph ph-lock text-slate-400 text-sm"></i>
-                                    </div>
-                                    <input 
-                                        type="password" 
-                                        id="password"
-                                        class="input-field w-full pl-10 pr-10 py-2.5 bg-slate-50 border-2 border-slate-200 rounded-lg text-slate-800 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-300"
-                                        placeholder="Masukkan password"
-                                        required
-                                    >
-                                    <button 
-                                        type="button" 
-                                        id="togglePassword"
-                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
-                                    >
-                                        <i class="ph ph-eye text-sm" id="eyeIcon"></i>
-                                    </button>
+                               <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ph ph-lock text-slate-400 text-sm"></i>
                                 </div>
+                                <input 
+                                    type="password" 
+                                    name="password"
+                                    id="password"
+                                    class="input-field w-full pl-10 pr-10 py-2.5 bg-slate-50 border-2 border-slate-200 rounded-lg text-slate-800 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-300"
+                                    placeholder="Masukkan password"
+                                    required
+                                >
+                                <button 
+                                    type="button" 
+                                    id="togglePassword"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
+                                >
+                                    <i class="ph ph-eye text-sm" id="eyeIcon"></i>
+                                </button>
+                            </div>
+
                                 <div class="text-red-500 text-xs mt-0.5 hidden" id="passwordError"></div>
                             </div>
 
@@ -216,10 +219,10 @@
                     </div>
 
                     <!-- Step 2: OTP Verification -->
-                    <div id="step2" class="step-transition step-hidden">
-                        
+                    <!-- <div id="step2" class="step-transition step-hidden">
+                         -->
                         <!-- Back Button -->
-                        <button id="backBtn" class="flex items-center text-slate-600 hover:text-blue-600 mb-4 transition-colors font-semibold text-sm">
+                        <!-- <button id="backBtn" class="flex items-center text-slate-600 hover:text-blue-600 mb-4 transition-colors font-semibold text-sm">
                             <i class="ph ph-arrow-left mr-1.5 text-sm"></i>
                             Kembali Login
                         </button>
@@ -231,10 +234,10 @@
                             <h2 class="text-2xl font-black text-slate-800 mb-2">Verifikasi Identitas Anda</h2>
                             <p class="text-slate-600 text-sm mb-1">Kami telah mengirim kode OTP ke</p>
                             <p class="text-blue-600 font-bold text-sm" id="emailDisplay">admin@codeverse.com</p>
-                        </div>
+                        </div> -->
 
                         <!-- OTP Input -->
-                        <div class="mb-4">
+                        <!-- <div class="mb-4">
                             <label class="block text-xs font-semibold text-slate-700 mb-3 text-center">Masukkan Kode Verifikasi</label>
                             <div class="flex justify-center gap-2 mb-3">
                                 <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp1">
@@ -243,19 +246,19 @@
                                 <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp4">
                             </div>
                             <div class="text-red-500 text-xs text-center hidden" id="otpError"></div>
-                        </div>
+                        </div> -->
 
                         <!-- Timer & Resend -->
-                        <div class="text-center mb-4">
+                        <!-- <div class="text-center mb-4">
                             <p class="text-slate-600 text-xs mb-1">Masa Berlaku Kode</p>
                             <p class="text-2xl font-black text-slate-800 font-mono" id="countdown">05:00</p>
                             <button id="resendBtn" class="text-blue-600 hover:text-blue-700 text-xs mt-2 font-semibold transition-colors hidden">
                                 Kirim ulang kode verifikasi
                             </button>
-                        </div>
+                        </div> -->
 
                         <!-- Verify Button -->
-                        <button 
+                        <!-- <button 
                             id="verifyBtn"
                             class="btn-primary w-full py-2.5 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
                         >
@@ -265,7 +268,7 @@
                             </span>
                         </button>
 
-                    </div>
+                    </div> -->
 
                     <!-- Step 3: Forgot Password -->
                     <div id="step3" class="step-transition step-hidden">

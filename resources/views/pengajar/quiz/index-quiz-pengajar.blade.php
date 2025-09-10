@@ -132,12 +132,9 @@
                                         {{ $quiz->deskripsi ?: 'Deskripsi belum ditambahkan'}}
                                     </p>
                                     <div class="flex items-center space-x-4 mt-3 text-xs text-gray-500">
-                <span class="flex items-center">
-                  <i class="ph ph-calendar mr-1"></i>Dibuat: {{ $quiz->created_at->format('d M Y') }}
-                </span>
-                                        <span class="flex items-center">
-                  <i class="ph ph-users mr-1"></i>25 Peserta
-                </span>
+                                    <span class="flex items-center">
+                                    <i class="ph ph-calendar mr-1"></i>Dibuat: {{ $quiz->created_at->format('d M Y') }}
+                                    </span>
                                     </div>
                                 </div>
                             </div>

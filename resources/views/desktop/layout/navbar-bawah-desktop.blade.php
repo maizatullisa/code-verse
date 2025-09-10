@@ -1,7 +1,7 @@
 @if (!View::hasSection('hideBottomNavbar'))
     <!-- Bottom Navigation - Desktop Version -->
     <div class="fixed bottom-0 left-0 right-0 z-40">
-        <div class="max-w-4xl mx-auto bg-p2 px-8 py-4 rounded-t-3xl flex justify-around items-center">
+        <div class="max-w-4xl mx-auto bg-gray-900/95 px-8 py-4 rounded-t-3xl flex justify-around items-center">
             
             <!-- Beranda -->
             <a href="{{ url('/desktop/home-desktop') }}" class="flex flex-col items-center gap-2 group">

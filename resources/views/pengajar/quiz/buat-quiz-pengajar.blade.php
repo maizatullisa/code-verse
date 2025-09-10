@@ -28,7 +28,7 @@
 
       <!-- Form Container -->
       <div class="relative z-10">
-        <form action="{{ route('pengajar.quiz.question.store') }}" method="POST" class="space-y-8">
+        <form action="{{ route('pengajar.quiz.store') }}" method="POST" class="space-y-8">
           @csrf
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
@@ -95,7 +95,7 @@
                         class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl text-white focus:bg-white/20 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition-all duration-300" required>
                   <option value="" class="bg-gray-800 text-white">Pilih tipe soal...</option>
                   <option value="pilihan_ganda" class="bg-gray-800 text-white">📝 Pilihan Ganda</option>
-                  <option value="Isian" class="bg-gray-800 text-white">✏️ Isian</option>
+                  <!-- <option value="Isian" class="bg-gray-800 text-white">✏️ Isian</option> -->
                 </select>
               </div>
             </div>
@@ -140,7 +140,7 @@
 
           <!-- Submit Button -->
           <div class="pt-8">
-            <a href="{{ route('pengajar.quiz.soal.create') }}"> 
+            <a href="{{ route('pengajar.quiz.create', $materi->id) }}">
             <button type="submit" 
                     class="w-full group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-5 px-8 rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-purple-400/50">
               

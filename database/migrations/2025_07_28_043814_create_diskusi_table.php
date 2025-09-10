@@ -18,11 +18,9 @@ return new class extends Migration
             $table->boolean('is_pinned')->default(false); // apakah dipin
             $table->integer('views')->default(0);    // jumlah dilihat
             $table->timestamps();
-
-            $table->foreign('materi_id')->references('id')->on('materis')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->index(['materi_id', 'user_id']);
+            $table->index([ 'user_id']);
         });
     }
 

@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class QuizAnswer extends Model
 {
-  use HasFactory;
-
   protected $fillable = [
-        'user_id',
-        'quiz_id',
-        'question_id',
-        'selected_option_id',
+        'quiz_question_id',
+        'jawaban',
+        'is_benar',
     ];
 
     public function user()

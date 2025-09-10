@@ -14,7 +14,9 @@ class AdminPengajarController extends Controller
         $search = $request->get('search');
         
         //ambil data user
-        $query = User::where('role', 'pengajar')
+        // $query = User::where('role', 'pengajar')
+        $query = User::with('profilePengajar')
+                     ->where('role', 'pengajar')
                     ->select('id', 'first_name', 'email', 'created_at')
                     ->oldest();
                     

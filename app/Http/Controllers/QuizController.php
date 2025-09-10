@@ -65,28 +65,13 @@ class QuizController extends Controller
                 'pilihan_c' => $soal['pilihan_c'] ?? null,
                 'pilihan_d' => $soal['pilihan_d'] ?? null,
                 'jawaban_benar' => $soal['jawaban_benar'] ?? null,
-                'jawaban_isian' => $soal['jawaban_isian'] ?? null,
+                // 'jawaban_isian' => $soal['jawaban_isian'] ?? null,
                 'nomor_soal' => (int) $nomor,
             ]);
         }
 
         return redirect()->route('pengajar.quiz.listquiz');
     }
-
-    // public function listQuiz()
-    // {   
-        
-    //     $pengajarId = auth()->id();
-    //     $materiId = auth()->id();
-    //     $data = [
-    //         'total_soal'        => QuizQuestion::count(),
-    //         'total_quiz'        => Quiz::count(),
-    //         'total_quiz_aktif'  => Quiz::where('status', 'aktif')->count(),
-    //         'quizzes'           => Quiz::latest()->get(),
-    //     ];
-    //     return view('pengajar.quiz.index-quiz-pengajar', $data);
-    // }
-
     public function listQuiz()
 {
     $pengajarId = auth()->id(); // ambilID pengajar login
@@ -121,34 +106,11 @@ class QuizController extends Controller
 }
 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function addQuestion(Request $request, $quizId)
     {
         $request->validate([
             'pertanyaan' => 'required|string',
-            'tipe' => 'required|in:pilihan_ganda,isian',
+            'tipe' => 'required|in:pilihan_ganda',
             'opsi.*.jawaban' => 'required_if:tipe,pilihan_ganda',
         ]);
 
@@ -179,4 +141,4 @@ class QuizController extends Controller
         return redirect()->back()->with('success', 'Quiz berhasil dihapus.');
     }
 
-}   
+}

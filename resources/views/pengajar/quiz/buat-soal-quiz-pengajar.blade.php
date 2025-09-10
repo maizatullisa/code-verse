@@ -41,6 +41,7 @@
         @csrf
         <input type="hidden" name="quiz_id" value="{{ $quiz->id ?? '' }}">
         <input type="hidden" name="soal_ke" value="1" id="soal-ke-input">
+        <input type="hidden" name="tipe_soal" value="pilihan_ganda" id="tipe-soal-input">
 
         <!-- Question Type Selector -->
         <div class="mb-8">
@@ -53,8 +54,8 @@
             </span>
           </label>
           
-         <div class="flex space-x-4">
-            @if($quiz->tipe_soal== 'pilihan_ganda')
+          <div class="flex space-x-4">
+            @if($quiz->tipe_soal == 'pilihan_ganda')
                 <button type="button" onclick="setTipeSoal('pilihan_ganda')"
                         class="tipe-btn active bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,17 +63,8 @@
                     </svg>
                     Pilihan Ganda
                 </button>
-            @else
-                <button type="button" onclick="setTipeSoal('isian')"
-                        class="tipe-btn bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center border border-white/20">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                    Isian
-                </button>
             @endif
-        </div>
-          <input type="hidden" name="tipe_soal" value="pilihan_ganda" id="tipe-soal-input">
+          </div>
         </div>
 
         <!-- Question Input -->
@@ -90,7 +82,7 @@
                     placeholder="Tuliskan pertanyaan di sini..." required></textarea>
         </div>
 
-        <!-- Multiple Choice Options (Default) -->
+        <!-- Multiple Choice Options -->
         <div id="pilihan-ganda-section" class="space-y-6">
           <h3 class="text-lg font-semibold text-white/90 mb-4 flex items-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,20 +134,6 @@
           </div>
         </div>
 
-        <!-- Essay Answer Section (Hidden by default) -->
-        <div id="isian-section" class="space-y-6 hidden">
-          <h3 class="text-lg font-semibold text-white/90 mb-4 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-            Jawaban yang Benar
-          </h3>
-          
-          <textarea name="jawaban_isian" id="jawaban_isian" rows="3" 
-                    class="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:bg-white/20 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/50 transition-all duration-300 resize-none" 
-                    placeholder="Tuliskan jawaban yang benar untuk soal isian ini..."></textarea>
-        </div>
-
         <!-- Question Navigation & Submit -->
         <div class="flex justify-between items-center pt-8 mt-8 border-t border-white/20">
           
@@ -192,7 +170,7 @@
       </form>
     </div>
 
-    <!-- Question Summary Sidebar (Optional) -->
+    <!-- Question Summary Sidebar -->
     <div class="mt-8 bg-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-white/20">
       <h3 class="text-lg font-semibold text-white/90 mb-4 flex items-center">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,147 +192,259 @@ let soalData = {};
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing...');
+    console.log('Total soal:', totalSoal);
     generateQuestionDots();
-    updateProgress();
+    updateAllDisplays();
+    updateButtons();
+    
+    // Test apakah elemen ada
+    console.log('✓ Soal counter element:', document.getElementById('soal-counter'));
+    console.log('✓ Soal number span:', document.querySelector('.soal-number'));
+    console.log('✓ Progress text:', document.getElementById('progress-text'));
+    console.log('✓ Form element:', document.getElementById('soal-form'));
 });
 
 function setTipeSoal(tipe) {
-    // Update button states
+    console.log('Setting tipe soal:', tipe);
+    const clickedButton = event.target;
+    
     document.querySelectorAll('.tipe-btn').forEach(btn => {
         btn.classList.remove('active', 'bg-gradient-to-r', 'from-blue-600', 'to-blue-700');
         btn.classList.add('bg-white/10', 'border', 'border-white/20');
     });
     
-    event.target.classList.add('active', 'bg-gradient-to-r', 'from-blue-600', 'to-blue-700');
-    event.target.classList.remove('bg-white/10', 'border', 'border-white/20');
+    clickedButton.classList.add('active', 'bg-gradient-to-r', 'from-blue-600', 'to-blue-700');
+    clickedButton.classList.remove('bg-white/10', 'border', 'border-white/20');
     
-    // Update hidden input
     document.getElementById('tipe-soal-input').value = tipe;
+}
+
+function clearAllFields() {
+    console.log('=== CLEARING ALL FIELDS ===');
     
-    // Show/hide sections
-    if (tipe === 'pilihan_ganda') {
-        document.getElementById('pilihan-ganda-section').classList.remove('hidden');
-        document.getElementById('isian-section').classList.add('hidden');
-        
-        // Make multiple choice required
-        document.querySelectorAll('#pilihan-ganda-section input[required]').forEach(input => {
-            input.required = true;
-        });
-        document.getElementById('jawaban_isian').required = false;
-    } else {
-        document.getElementById('pilihan-ganda-section').classList.add('hidden');
-        document.getElementById('isian-section').classList.remove('hidden');
-        
-        // Make essay required
-        document.getElementById('jawaban_isian').required = true;
-        document.querySelectorAll('#pilihan-ganda-section input[required]').forEach(input => {
-            input.required = false;
-        });
+    // Clear pertanyaan textarea
+    const pertanyaanElement = document.getElementById('pertanyaan');
+    if (pertanyaanElement) {
+        pertanyaanElement.value = '';
+        console.log('✓ Pertanyaan cleared');
     }
+    
+    // Clear pilihan jawaban
+    ['pilihan_a', 'pilihan_b', 'pilihan_c', 'pilihan_d'].forEach(name => {
+        const element = document.querySelector(`input[name="${name}"]`);
+        if (element) {
+            element.value = '';
+            console.log(`✓ ${name} cleared`);
+        }
+    });
+    
+    // Uncheck radio buttons
+    document.querySelectorAll('input[name="jawaban_benar"]').forEach(radio => {
+        radio.checked = false;
+    });
+    console.log('✓ Radio buttons cleared');
+}
+
+function loadDataToForm(data) {
+    console.log('=== LOADING DATA TO FORM ===', data);
+    
+    // Load pertanyaan
+    const pertanyaanElement = document.getElementById('pertanyaan');
+    if (pertanyaanElement && data.pertanyaan) {
+        pertanyaanElement.value = data.pertanyaan;
+        console.log('✓ Pertanyaan loaded:', data.pertanyaan);
+    }
+    
+    // Load pilihan jawaban
+    ['pilihan_a', 'pilihan_b', 'pilihan_c', 'pilihan_d'].forEach(name => {
+        const element = document.querySelector(`input[name="${name}"]`);
+        if (element && data[name]) {
+            element.value = data[name];
+            console.log(`✓ ${name} loaded:`, data[name]);
+        }
+    });
+    
+    // Load jawaban benar
+    if (data.jawaban_benar) {
+        const radioElement = document.querySelector(`input[name="jawaban_benar"][value="${data.jawaban_benar}"]`);
+        if (radioElement) {
+            radioElement.checked = true;
+            console.log('✓ Jawaban benar loaded:', data.jawaban_benar);
+        }
+    }
+}
+
+function updateAllDisplays() {
+    console.log('=== UPDATING ALL DISPLAYS FOR SOAL:', currentSoal, '===');
+    
+    // 1. Update counter di header
+    const soalCounterElement = document.getElementById('soal-counter');
+    if (soalCounterElement) {
+        soalCounterElement.textContent = currentSoal;
+        console.log('✓ Soal counter updated to:', currentSoal);
+    } else {
+        console.error('✗ Soal counter element not found!');
+    }
+    
+    // 2. Update text "Pertanyaan X"  
+    const soalNumberElement = document.querySelector('.soal-number');
+    if (soalNumberElement) {
+        soalNumberElement.textContent = currentSoal;
+        console.log('✓ Soal number text updated to:', currentSoal);
+    } else {
+        console.error('✗ Soal number element not found!');
+    }
+    
+    // 3. Update progress text
+    const progressTextElement = document.getElementById('progress-text');
+    if (progressTextElement) {
+        progressTextElement.textContent = `${currentSoal} dari ${totalSoal}`;
+        console.log('✓ Progress text updated to:', `${currentSoal} dari ${totalSoal}`);
+    } else {
+        console.error('✗ Progress text element not found!');
+    }
+    
+    // 4. Update progress bar
+    const progressBarElement = document.getElementById('progress-bar');
+    if (progressBarElement) {
+        const progress = (currentSoal / totalSoal) * 100;
+        progressBarElement.style.width = progress + '%';
+        console.log('✓ Progress bar updated to:', progress + '%');
+    } else {
+        console.error('✗ Progress bar element not found!');
+    }
+    
+    // 5. Update hidden input
+    const soalKeInputElement = document.getElementById('soal-ke-input');
+    if (soalKeInputElement) {
+        soalKeInputElement.value = currentSoal;
+        console.log('✓ Hidden input updated to:', currentSoal);
+    } else {
+        console.error('✗ Hidden input element not found!');
+    }
+    
+    // 6. Update question dots
+    updateQuestionDots();
 }
 
 function saveCurrentSoal() {
-    const form = document.getElementById('soal-form');
-    const formData = new FormData(form);
+    console.log('=== SAVING CURRENT SOAL:', currentSoal, '===');
+    
+    const pertanyaan = document.getElementById('pertanyaan')?.value || '';
+    const pilihanA = document.querySelector('input[name="pilihan_a"]')?.value || '';
+    const pilihanB = document.querySelector('input[name="pilihan_b"]')?.value || '';
+    const pilihanC = document.querySelector('input[name="pilihan_c"]')?.value || '';
+    const pilihanD = document.querySelector('input[name="pilihan_d"]')?.value || '';
+    
+    const checkedRadio = document.querySelector('input[name="jawaban_benar"]:checked');
+    const jawabanBenar = checkedRadio ? checkedRadio.value : '';
     
     soalData[currentSoal] = {
-        pertanyaan: formData.get('pertanyaan'),
-        tipe_soal: formData.get('tipe_soal'),
-        pilihan_a: formData.get('pilihan_a'),
-        pilihan_b: formData.get('pilihan_b'),
-        pilihan_c: formData.get('pilihan_c'),
-        pilihan_d: formData.get('pilihan_d'),
-        jawaban_benar: formData.get('jawaban_benar'),
-        jawaban_isian: formData.get('jawaban_isian')
+        pertanyaan: pertanyaan,
+        tipe_soal: 'pilihan_ganda',
+        pilihan_a: pilihanA,
+        pilihan_b: pilihanB,
+        pilihan_c: pilihanC,
+        pilihan_d: pilihanD,
+        jawaban_benar: jawabanBenar
     };
-}z
+    
+    console.log('✓ Data saved for soal', currentSoal, ':', soalData[currentSoal]);
+}
 
 function loadSoal(soalNumber) {
-    if (soalData[soalNumber]) {
-        const data = soalData[soalNumber];
-        
-        document.getElementById('pertanyaan').value = data.pertanyaan || '';
-        document.getElementById('tipe-soal-input').value = data.tipe_soal || 'pilihan_ganda';
-        
-        // Load pilihan ganda
-        if (data.pilihan_a) document.querySelector('input[name="pilihan_a"]').value = data.pilihan_a;
-        if (data.pilihan_b) document.querySelector('input[name="pilihan_b"]').value = data.pilihan_b;
-        if (data.pilihan_c) document.querySelector('input[name="pilihan_c"]').value = data.pilihan_c;
-        if (data.pilihan_d) document.querySelector('input[name="pilihan_d"]').value = data.pilihan_d;
-        
-        if (data.jawaban_benar) {
-            document.querySelector(`input[name="jawaban_benar"][value="${data.jawaban_benar}"]`).checked = true;
-        }
-        
-        if (data.jawaban_isian) {
-            document.getElementById('jawaban_isian').value = data.jawaban_isian;
-        }
-        
-        // Set tipe soal
-        setTipeSoal(data.tipe_soal || 'pilihan_ganda');
+    console.log('=== LOADING SOAL:', soalNumber, '===');
+    
+    // Step 1: Clear fields
+    clearAllFields();
+    
+    // Step 2: Update currentSoal
+    currentSoal = soalNumber;
+    
+    // Step 3: Load data if exists
+    if (soalData[soalNumber] && soalData[soalNumber].pertanyaan) {
+        loadDataToForm(soalData[soalNumber]);
+        console.log('✓ Loaded existing data');
     } else {
-        // Clear form for new question
-        document.getElementById('soal-form').reset();
-        document.getElementById('soal-ke-input').value = soalNumber;
-        setTipeSoal('pilihan_ganda');
+        console.log('✓ No existing data, fresh start');
     }
+    
+    // Step 4: Update displays
+    updateAllDisplays();
 }
 
 function nextSoal() {
+    console.log('=== NEXT SOAL CLICKED ===');
+    console.log('Current soal before:', currentSoal, 'Total:', totalSoal);
+    
     if (currentSoal < totalSoal) {
+        // Save current
         saveCurrentSoal();
-        currentSoal++;
-        loadSoal(currentSoal);
-        updateProgress();
+        
+        // Move to next
+        const nextNumber = currentSoal + 1;
+        console.log('Moving to soal:', nextNumber);
+        
+        // Load next
+        loadSoal(nextNumber);
+        
+        // Update buttons
         updateButtons();
+        
+        console.log('✓ Successfully moved to soal:', currentSoal);
     } else {
-        // Submit all questions
+        console.log('Last soal, submitting...');
         submitAllSoal();
     }
 }
 
 function prevSoal() {
-    if (currentSoal > 1) {
-        saveCurrentSoal();
-        currentSoal--;
-        loadSoal(currentSoal);
-        updateProgress();
-        updateButtons();
-    }
-}
-
-function updateProgress() {
-    const progress = (currentSoal / totalSoal) * 100;
-    document.getElementById('progress-bar').style.width = progress + '%';
-    document.getElementById('progress-text').textContent = `${currentSoal} dari ${totalSoal}`;
-    document.getElementById('soal-counter').textContent = currentSoal;
-    document.getElementById('soal-ke-input').value = currentSoal;
-    document.querySelector('.soal-number').textContent = currentSoal;
+    console.log('=== PREV SOAL CLICKED ===');
     
-    // Update question dots
-    updateQuestionDots();
+    if (currentSoal > 1) {
+        // Save current
+        saveCurrentSoal();
+        
+        // Move to prev
+        const prevNumber = currentSoal - 1;
+        console.log('Moving to soal:', prevNumber);
+        
+        // Load prev
+        loadSoal(prevNumber);
+        
+        // Update buttons
+        updateButtons();
+        
+        console.log('✓ Successfully moved to soal:', currentSoal);
+    }
 }
 
 function updateButtons() {
     const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
     const nextText = document.getElementById('next-text');
     
-    if (currentSoal === 1) {
-        prevBtn.classList.add('hidden');
-    } else {
-        prevBtn.classList.remove('hidden');
+    if (prevBtn) {
+        if (currentSoal === 1) {
+            prevBtn.classList.add('hidden');
+        } else {
+            prevBtn.classList.remove('hidden');
+        }
     }
     
-    if (currentSoal === totalSoal) {
-        nextText.textContent = 'Selesai & Simpan';
-    } else {
-        nextText.textContent = 'Soal Selanjutnya';
+    if (nextText) {
+        if (currentSoal === totalSoal) {
+            nextText.textContent = 'Selesai & Simpan';
+        } else {
+            nextText.textContent = 'Soal Selanjutnya';
+        }
     }
 }
 
 function generateQuestionDots() {
     const container = document.getElementById('question-dots');
+    if (!container) return;
+    
     container.innerHTML = '';
     
     for (let i = 1; i <= totalSoal; i++) {
@@ -364,8 +454,6 @@ function generateQuestionDots() {
         dot.onclick = () => jumpToSoal(i);
         container.appendChild(dot);
     }
-    
-    updateQuestionDots();
 }
 
 function updateQuestionDots() {
@@ -376,7 +464,7 @@ function updateQuestionDots() {
         
         if (soalNum === currentSoal) {
             dot.classList.add('bg-blue-500', 'text-white');
-        } else if (soalData[soalNum]) {
+        } else if (soalData[soalNum] && soalData[soalNum].pertanyaan) {
             dot.classList.add('bg-green-500', 'text-white');
         } else {
             dot.classList.add('bg-white/20', 'text-blue-300');
@@ -385,36 +473,35 @@ function updateQuestionDots() {
 }
 
 function jumpToSoal(soalNumber) {
+    console.log('=== JUMPING TO SOAL:', soalNumber, '===');
     saveCurrentSoal();
-    currentSoal = soalNumber;
-    loadSoal(currentSoal);
-    updateProgress();
+    loadSoal(soalNumber);
     updateButtons();
 }
 
 function submitAllSoal() {
     saveCurrentSoal();
+    console.log('=== SUBMITTING ALL SOAL ===', soalData);
     
-    // Create form to submit all questions
     const submitForm = document.createElement('form');
     submitForm.method = 'POST';
     submitForm.action = '/pengajar/quiz/question/store';
     
-    // Add CSRF token
+    // CSRF token
     const csrfInput = document.createElement('input');
     csrfInput.type = 'hidden';
     csrfInput.name = '_token';
     csrfInput.value = document.querySelector('input[name="_token"]').value;
     submitForm.appendChild(csrfInput);
     
-    // Add quiz ID
+    // Quiz ID
     const quizIdInput = document.createElement('input');
     quizIdInput.type = 'hidden';
     quizIdInput.name = 'quiz_id';
     quizIdInput.value = '{{ $quiz->id ?? "" }}';
     submitForm.appendChild(quizIdInput);
     
-    // Add all questions data
+    // Soal data
     const soalDataInput = document.createElement('input');
     soalDataInput.type = 'hidden';
     soalDataInput.name = 'soal_data';
@@ -424,9 +511,6 @@ function submitAllSoal() {
     document.body.appendChild(submitForm);
     submitForm.submit();
 }
-
-// Initialize buttons on load
-updateButtons();
 </script>
 
 <style>

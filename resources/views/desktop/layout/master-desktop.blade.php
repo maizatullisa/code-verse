@@ -43,7 +43,7 @@
     </style>
     @yield('head-scripts')
 </head>
-<body class="bg-gradient-to-b from-purple-600 via-purple-100 to-white text-gray-900 min-h-screen">
+<body class="bg-blue-600  text-gray-900 min-h-screen">
     <div class="max-w-7xl mx-auto min-h-screen relative overflow-hidden py-8 px-4">
         
         <!-- Background Blur Elements -->

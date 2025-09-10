@@ -52,8 +52,8 @@ class User extends Authenticatable
     public function getProfilePhotoUrlAttribute()
     {
         return $this->profile_photo
-            ? asset('storage/' . $this->profile_photo)   // kalau user sudah upload foto
-            : asset('images/default.png');        // kalau belum upload,pakai gambar default
+            ? asset('storage/' . $this->profile_photo)   
+            : asset('images/default.png');       
     }
 
 
@@ -67,7 +67,6 @@ class User extends Authenticatable
         return !is_null($this->email_verified_at);
     }
 
-        // Method untuk admin
     public function isAdmin()
     {
         return $this->role === 'admin';
@@ -95,18 +94,11 @@ class User extends Authenticatable
         return $this->hasMany(BalasanDiskusi::class);
     }
 
-        
-    /**
-     * Get the enrollments for the user
-     */
     public function enrollments(): HasMany
     {
         return $this->hasMany(enrollment::class);
     }
 
-    /**
-     * Get the classes that the user is enrolled in
-     */
     public function enrolledClasses(): BelongsToMany
     {
         return $this->belongsToMany(Kelas::class, 'enrollments')
@@ -114,24 +106,16 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    /**
-     * Get active enrollments
-     */
     public function activeEnrollments(): HasMany
     {
         return $this->enrollments()->active();
     }
 
-    /**
-     * Get completed enrollments (for certificates)
-     */
     public function completedEnrollments(): HasMany
     {
         return $this->enrollments()->completed();
     }
 
-    //diskusi
-    // Di dalam model User
     public function isPengajar()
     {
         return $this->role === 'pengajar'; 
@@ -147,7 +131,39 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\ProfilePengajar::class, 'user_id');
     }
 
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+
+    public function certificates() {
+        return $this->hasMany(UserCertificate::class);
+    }
+
+    public function hasCompletedCourse($kelasId)
+    {
+        return UserMateriProgress::isClassCompleted($this->id, $kelasId);
+    }
+
+    public function averageQuizScore($kelasId)
+    {
+        return $this->quizResults()
+            ->whereHas('quiz.materi', function ($q) use ($kelasId) {
+                $q->where('kelas_id', $kelasId);
+            })
+            ->avg('score'); 
+    }
 
 
-    
+        public function kelas()
+    {
+        return $this->hasMany(\App\Models\Kelas::class, 'pengajar_id');
+    }
+
+    public function quizResults()
+{
+    return $this->hasMany(\App\Models\QuizResult::class, 'user_id');
+}
+
+
 }

@@ -80,10 +80,11 @@
                                      <a href="{{ route('student.course.materi', ['kelasId' => $kelas->id]) }}" class="bg-p2 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/90">
                                         Lanjutkan
                                     </a>
-                                     <a href="{{ route('desktop.pages.kelas.kelas-detail')}}"
-                                     class="inline-flex items-center justify-center border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10">
-                                        Detail
-                                    </a> 
+                                    <a href="{{ route('kelas.detail', ['kelas' => $kelas->id]) }}"
+                                    class="inline-flex items-center justify-center border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10">
+                                    Detail
+                                    </a>
+
                                 </div>
 
                             </div>

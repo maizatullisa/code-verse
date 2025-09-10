@@ -12,7 +12,7 @@
     <div class="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 mb-8 shadow-2xl border border-gray-700">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
-                <a href="{{ route('/desktop/home-desktop') }}" class="text-gray-400 hover:text-white transition-colors">
+                <a href="{{ route('user.desktop') }}" class="text-gray-400 hover:text-white transition-colors">
                     <i class="ph ph-arrow-left text-xl"></i>
                 </a>
                 <div>
@@ -21,15 +21,17 @@
                 </div>
             </div>
             <div class="flex space-x-3">
-                <button type="button" onclick="resetForm()" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 border border-gray-600">
+                <!-- <button type="button" onclick="resetForm()" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 border border-gray-600">
                     <i class="ph ph-arrow-clockwise text-sm"></i>
                     <span>Reset</span>
-                </button>
+                </button> -->
             </div>
         </div>
     </div>
 
-    <form id="profileForm">
+
+    <form action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data" id="profileForm">
+        @csrf
         
         <div class="grid lg:grid-cols-3 gap-8">
             
@@ -46,11 +48,11 @@
                     <div class="text-center">
                         <div class="relative inline-block">
                             <div class="w-32 h-32 rounded-full overflow-hidden shadow-lg mx-auto mb-4 border-4 border-gray-600">
-                                <img id="profilePreview" 
+                                 <img id="profilePreview" 
                                      src="{{ $user->profile_photo ? asset('storage/'.$user->profile_photo) : '' }}" 
-                                     alt="Preview" 
+                                     alt="Foto Profil" 
                                      class="w-full h-full object-cover {{ !$user->profile_photo ? 'hidden' : '' }}">
-                                <div id="profilePlaceholder" class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold {{ $user->profile_photo ? 'hidden' : '' }}">
+                                     <div id="profilePlaceholder" class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold {{ $user->profile_photo ? 'hidden' : '' }}">
                                     {{ strtoupper(substr($user->first_name ?? 'U', 0, 1)) }}
                                 </div>
                             </div>
@@ -74,35 +76,16 @@
                         </p>
                     </div>
                 </div>
-
-                <!-- Quick Stats (Read Only) -->
-                <div class="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-700">
-                    <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                        <i class="ph ph-chart-bar text-green-400 mr-2"></i>
-                        Statistik
-                    </h3>
-                    
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="text-center p-3 bg-blue-800/50 rounded-lg border border-blue-700">
-                            <div class="text-lg font-bold text-blue-100">{{ $totalClasses ?? 0 }}</div>
-                            <div class="text-xs text-gray-300">Kelas</div>
-                        </div>
-                        <div class="text-center p-3 bg-green-800/50 rounded-lg border border-green-700">
-                            <div class="text-lg font-bold text-green-100">{{ $totalCertificates ?? 0 }}</div>
-                            <div class="text-xs text-gray-300">Sertifikat</div>
-                        </div>
-                        <div class="text-center p-3 bg-yellow-800/50 rounded-lg border border-yellow-700">
-                            <div class="text-lg font-bold text-yellow-100">{{ $totalBadges ?? 0 }}</div>
-                            <div class="text-xs text-gray-300">Lencana</div>
-                        </div>
-                        <div class="text-center p-3 bg-purple-800/50 rounded-lg border border-purple-700">
-                            <div class="text-lg font-bold text-purple-100">{{ $totalHours ?? 0 }}</div>
-                            <div class="text-xs text-gray-300">Jam</div>
-                        </div>
+                <!-- User Info -->
+                <div class="bg-gray-900/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-gray-700">
+                    <div class="text-center">
+                        <h4 class="text-white font-semibold">{{ $user->first_name }}</h4>
+                        <p class="text-gray-400 text-sm">{{ $user->email }}</p>
+                        <p class="text-gray-500 text-xs mt-1">Bergabung {{ $user->created_at->format('M Y') }}</p>
                     </div>
-                </div>
+                    </div>
             </div>
-
+            
             <!-- Right Column - Form Fields -->
             <div class="lg:col-span-2 space-y-8">
                 
@@ -117,7 +100,7 @@
                         <!-- First Name -->
                         <div>
                             <label for="first_name" class="block text-sm font-medium text-gray-300 mb-2">
-                                Nama Depan <span class="text-red-400">*</span>
+                                Nama <span class="text-red-400">*</span>
                             </label>
                             <input type="text" 
                                    id="first_name" 
@@ -132,7 +115,7 @@
                         </div>
 
                         <!-- Last Name -->
-                        <div>
+                        <!-- <div>
                             <label for="last_name" class="block text-sm font-medium text-gray-300 mb-2">
                                 Nama Belakang
                             </label>
@@ -145,7 +128,7 @@
                             @error('last_name')
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <!-- Email -->
                         <div>
@@ -165,7 +148,7 @@
                         </div>
 
                         <!-- Phone -->
-                        <div>
+                        <!-- <div>
                             <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">
                                 Nomor Telepon
                             </label>
@@ -178,10 +161,10 @@
                             @error('phone')
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <!-- Date of Birth -->
-                        <div>
+                        <!-- <div>
                             <label for="date_of_birth" class="block text-sm font-medium text-gray-300 mb-2">
                                 Tanggal Lahir
                             </label>
@@ -193,10 +176,10 @@
                             @error('date_of_birth')
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <!-- Gender -->
-                        <div>
+                        <!-- <div>
                             <label for="gender" class="block text-sm font-medium text-gray-300 mb-2">
                                 Jenis Kelamin
                             </label>
@@ -211,10 +194,10 @@
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Bio/Description -->
-                    <div class="mt-6">
+                    <!-- <div class="mt-6">
                         <label for="bio" class="block text-sm font-medium text-gray-300 mb-2">
                             Bio/Deskripsi
                         </label>
@@ -227,7 +210,7 @@
                             <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Password Change -->
                 <div class="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-700">
@@ -236,7 +219,8 @@
                         Ubah Password
                     </h3>
                     
-                    <div class="space-y-6">
+                    <!-- <div class="space-y-6"> -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
                         <!-- Current Password -->
                         <div>
                             <label for="current_password" class="block text-sm font-medium text-gray-300 mb-2">
@@ -296,8 +280,8 @@
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        <div class="bg-yellow-900/30 border border-yellow-700 rounded-lg p-4">
+                    </div>
+                    <div class="bg-yellow-900/30 border border-yellow-700 rounded-lg p-4">
                             <div class="flex items-start space-x-3">
                                 <i class="ph ph-warning text-yellow-400 text-lg mt-0.5 flex-shrink-0"></i>
                                 <div>
@@ -310,14 +294,25 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Action Buttons -->
+                    <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <a href="{{ route('user.desktop') }}" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 border border-gray-600">
+                            <i class="ph ph-x"></i>
+                            <span>Batal</span>
+                        </a>
+                        <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 border border-blue-600">
+                            <i class="ph ph-check"></i>
+                            <span>Simpan Perubahan</span>
+                        </button>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="mt-8 flex flex-wrap justify-center gap-4">
-            <a href="{{ route('user.profile') }}" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 border border-gray-600">
+        <!-- <div class="-mt-8 flex flex-wrap justify-center gap-4">
+            <a href="{{ route('user.desktop') }}" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 border border-gray-600">
                 <i class="ph ph-x"></i>
                 <span>Batal</span>
             </a>
@@ -325,7 +320,7 @@
                 <i class="ph ph-check"></i>
                 <span>Simpan Perubahan</span>
             </button>
-        </div>
+        </div> -->
     </form>
 </div>
 @endsection
@@ -346,6 +341,53 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+      // Reset form to original values
+    function resetForm() {
+        if (confirm('Apakah Anda yakin ingin mereset semua perubahan?')) {
+            document.getElementById('profileForm').reset();
+            
+            // Reset image preview
+            const hasOriginalPhoto = '{{ $user->profile_photo ?? "" }}';
+            if (hasOriginalPhoto) {
+                document.getElementById('profilePreview').src = '{{ $user->profile_photo ? asset("storage/".$user->profile_photo) : "" }}';
+                document.getElementById('profilePreview').classList.remove('hidden');
+                document.getElementById('profilePlaceholder').classList.add('hidden');
+            } else {
+                document.getElementById('profilePreview').classList.add('hidden');
+                document.getElementById('profilePlaceholder').classList.remove('hidden');
+            }
+        }
+    }
+
+      // Form validation before submit
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        // Show loading state
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i><span>Menyimpan...</span>';
+        submitBtn.disabled = true;
+        
+        // Re-enable button after 5 seconds as fallback
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 5000);
+    })
+
+      // Form validation before submit
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        // Show loading state
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i><span>Menyimpan...</span>';
+        submitBtn.disabled = true;
+        
+        // Re-enable button after 5 seconds as fallback
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 5000);
+    })
 
     // Toggle password visibility
     function togglePassword(fieldId) {

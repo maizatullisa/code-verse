@@ -33,38 +33,6 @@ class KelasController extends Controller
         return view('pengajar.materi.buat-kelas');
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'nama_kelas' => 'required|string|max:255',
-    //         'kategori' => 'required|in:programming,design,web,mobile,data,ai,marketing,business',
-    //         'level' => 'required|in:beginner,intermediate,advanced',
-    //         'deskripsi' => 'required|string',
-    //         'durasi' => 'nullable|string|max:100',
-    //         'kapasitas' => 'nullable|integer|min:1',
-    //         'harga' => 'nullable|numeric|min:0',
-    //         'status' => 'required|in:draft,published',
-    //         'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-    //     ]);
-
-    //     $data = $request->all();
-    //     $data['pengajar_id'] = Auth::id();
-    //     $data['kapasitas'] = $data['kapasitas'] ?? 9999;
-    //     $data['harga'] = $data['harga'] ?? 0;
-
-    //     //hanndle cover image upload
-    //     if ($request->hasFile('cover_image')) {
-    //         $file = $request->file('cover_image');
-    //         $fileName = time() . '_' . $file->getClientOriginalName();
-    //         $data['cover_image'] = $file->storeAs('kelas', $fileName, 'public');
-    //     }
-
-    //     $kelas = Kelas::create($data);
-
-    //     return redirect()->route('pengajar.kelas.show', $kelas)
-    //                     ->with('success', 'Kelas berhasil dibuat!');
-    // }
-
     public function store(Request $request)
 {
     $request->validate([

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -40,20 +39,21 @@
                         <p class="text-sm text-gray-600" id="weekInfo"> Week {{ $weekNumber ?? '-' }}: {{ $currentMateri->judul ?? 'Materi belum tersedia' }}</p>
                     </div>
                 </div>
-                  <div class="flex items-center justify-between gap-6 mt-4">
+                <div class="flex items-center justify-between gap-6 mt-4">
                     {{-- Tombol Forum --}}
                     <a href="{{ route('desktop.pages.forum.forum-siswa', $kelas->id) }}" 
                     class="bg-gradient-to-r from-p2 to-p3 text-white px-4 py-2 rounded-xl font-semibold hover:opacity-90 transition-all">
                     Forum Diskusi
                     </a>
-                <div class="flex items-center gap-4">
-                    <div class="text-sm text-gray-600">
-                        <span class="font-semibold" id="completed-count">{{ $completedCount }}</span> / <span id="total-count">{{ $totalMateri }}</span> materi
+                    <div class="flex items-center gap-4">
+                        <div class="text-sm text-gray-600">
+                            <span class="font-semibold" id="completed-count">{{ $completedCount }}</span> Item / <span id="total-count">{{ $totalMateri }}</span> Materi
+                        </div>
+                        <div class="w-32 bg-gray-200 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-p2 to-p3 h-2 rounded-full transition-all duration-500" id="progress-bar" style="width: {{ $progressPercentage }}%"></div>
+                        </div>
+                        <span class="text-sm font-semibold text-p2" id="progress-text">{{ $progressPercentage }}%</span>
                     </div>
-                    <div class="w-32 bg-gray-200 rounded-full h-2">
-                        <div class="bg-gradient-to-r from-p2 to-p3 h-2 rounded-full transition-all duration-500" id="progress-bar" style="width: 7%"></div>
-                    </div>
-                    <span class="text-sm font-semibold text-p2" id="progress-text">{{ $progressPercentage }}%</span>
                 </div>
             </div>
         </div>
@@ -69,25 +69,23 @@
                         <p class="text-xs text-gray-500 mt-1">{{ $kelas->pengajar->first_name }}</p>
                     </div>
                     <div class="max-h-96 overflow-y-auto" id="course-content">
-                        <!-- Dynamic content will be loaded here -->
-                         <div class="max-h-96 overflow-y-auto" id="course-content">
                         {{-- tampilkan hanya 4 materi minggu ini --}}
                         @foreach($materiMingguIni as $index => $materi)
                             @php
                                 $isCompleted = $progressData->has($materi->id) && $progressData[$materi->id]->status === 'completed';
+                                $isActive = $currentMateri && $currentMateri->id === $materi->id;
                             @endphp
                             <a href="{{ route('student.course.materi', ['kelasId' => $kelas->id, 'materiId' => $materi->id]) }}" 
                                 class="block px-4 py-2 border-b border-gray-100 hover:bg-gray-100 rounded transition
-                                {{ $currentMateri && $currentMateri->id === $materi->id ? 'bg-p2 text-white' : 'text-gray-700' }}">
-                                Materi {{ $index + 1 }} - {{ $materi->judul }}
-                                @if($isCompleted)
-                                    <span class="text-green-500 ml-2">✔</span>
-                                @endif
+                                {{ $isActive ? 'bg-p2 text-white' : 'text-gray-700' }}">
+                                <div class="flex items-center gap-2">
+                                    <span>Materi {{ $index + 1 }} - {{ $materi->judul }}</span>
+                                    @if($isCompleted)
+                                        <i class="ph ph-check-circle text-green-500 ml-auto"></i>
+                                    @endif
+                                </div>
                             </a>
                         @endforeach
-
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -99,51 +97,76 @@
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                            <h2 class="font-bold text-xl text-gray-800 mb-1" id="material-title">{{ $currentMateri->judul }}</h2>
-                            <!-- <p class="text-gray-600 text-sm" id="material-info">
-                            Durasi: {{ $currentMateri->durasi ?? 'N/A' }} menit • {{ ucfirst($currentMateri->tipe ?? 'Materi') }}
-                            </p> -->
-
+                                <h2 class="font-bold text-xl text-gray-800 mb-1" id="material-title">{{ $currentMateri->judul ?? 'Belum ada materi' }}</h2>
+                                @if($currentMateri)
+                                <p class="text-gray-600 text-sm" id="material-info">
+                                    Durasi: {{ $currentMateri->durasi ?? 'N/A' }} menit • {{ ucfirst($currentMateri->tipe ?? 'Materi') }}
+                                </p>
+                                @endif
                             </div>
                             <div class="text-sm text-gray-500">
-                                <span id="material-type-badge" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">Video</span>
+                                <span id="material-type-badge" class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">
+                                    @if($currentMateri)
+                                        @if(pathinfo($currentMateri->file_path ?? '', PATHINFO_EXTENSION) === 'pdf')
+                                            Artikel
+                                        @else
+                                            Video
+                                        @endif
+                                    @endif
+                                </span>
                             </div>
                         </div>
 
                         <!-- Content Display Area -->
                         <div id="content-display" class="mb-6">
-                            <!-- Dynamic content based on material type -->
-                             <div id="content-display" class="mb-6">
-                                 @if($currentMateri)
-                            <h3 class="text-lg font-semibold">{{ $currentMateri->judul }}</h3>
-                            <p class="text-gray-600 my-2">{{ $currentMateri->deskripsi }}</p>
+                            @if($currentMateri)
+                                <h3 class="text-lg font-semibold">{{ $currentMateri->judul }}</h3>
+                                <p class="text-gray-600 my-2">{{ $currentMateri->deskripsi }}</p>
 
-                             @if($currentMateri->file_path)
-                             {{-- Contoh embed video --}}
-                             @php
-                            $ext = pathinfo($currentMateri->file_path, PATHINFO_EXTENSION);
-                            @endphp
-                            @if(in_array($ext, ['mp4', 'avi', 'mkv']))
-                            <video controls class="w-full rounded-lg">
-                            <source src="{{ asset('storage/' . $currentMateri->file_path) }}" type="video/mp4">
-                             Your browser does not support the video tag.
-                            </video>
-                             @elseif($ext === 'pdf')
-                            <iframe src="{{ asset('storage/' . $currentMateri->file_path) }}" class="w-full h-96 rounded-lg"></iframe>
-                             @endif
-                            @endif
-                            {{-- Quiz jika ada --}}
-                            @if($currentQuiz)
-                            <div class="mt-6 p-4 border border-gray-300 rounded">
-                                <h4 class="font-semibold">Quiz: {{ $currentQuiz->judul }}</h4>
-                                <p>{{ $currentQuiz->deskripsi }}</p>
-                                {{-- Bisa tambah tombol mulai quiz atau list soal --}}
-                            </div>
-                            @endif
+                                @if($currentMateri->file_path)
+                                    @php
+                                        $ext = pathinfo($currentMateri->file_path, PATHINFO_EXTENSION);
+                                    @endphp
+                                    @if(in_array($ext, ['mp4', 'avi', 'mkv']))
+                                        <video controls class="w-full rounded-lg">
+                                            <source src="{{ asset('storage/' . $currentMateri->file_path) }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @elseif($ext === 'pdf')
+                                        <iframe src="{{ asset('storage/' . $currentMateri->file_path) }}" class="w-full h-96 rounded-lg"></iframe>
+                                    @endif
+                                @endif
+
+                                {{-- Quiz jika ada --}}
+                                @if($currentQuiz)
+                                    <div class="mt-6 p-4 border border-gray-300 rounded">
+                                        <h4 class="font-semibold text-lg mb-1">Quiz: {{ $currentQuiz->judul }}</h4>
+                                        <p class="text-gray-600">{{ $currentQuiz->deskripsi }}</p>
+
+                                        <a href="{{ route('student.quiz.index', [$kelas->id, $currentMateri->id]) }}"
+                                        class="inline-block mt-4 bg-p2 text-white px-5 py-2 rounded-lg font-semibold hover:bg-p3 transition-all">
+                                        Mulai Quiz
+                                        </a>
+                                    </div>
+                                @endif
                             @else
-                           <p class="text-gray-500">Materi belum tersedia.</p>
-                           @endif
-                            </div>
+                                <p class="text-gray-500">Materi belum tersedia.</p>
+                            @endif
+
+                            {{-- Tombol Sertifikat --}}
+                            @if($canGraduate)
+                                <div class="mt-6">
+                                    <a href="{{ route('desktop.pages.sertifikat.form-sertif', $kelas->id) }}" 
+                                    class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2">
+                                        <i class="ph ph-certificate"></i>
+                                        Download Sertifikat
+                                    </a>
+                                </div>
+                            @else
+                                <div class="mt-6 p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+                                    Selesaikan semua materi dan quiz minimal 70 untuk mendapatkan sertifikat.
+                                </div>
+                            @endif
 
                         </div>
                     </div>
@@ -151,70 +174,79 @@
 
                 <!-- Navigation Controls -->
                 <div class="flex items-center justify-between">
-                    <button id="prevBtn" class="flex items-center gap-2 text-gray-600 hover:text-p2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="ph ph-arrow-left"></i>
-                        <span>Materi Sebelumnya</span>
-                    </button>
+                    {{-- Tombol Previous - menggunakan route controller --}}
+                    @if($hasPrevious && $prevMateri)
+                        <a href="{{ route('student.course.materi', ['kelasId' => $kelas->id, 'materiId' => $prevMateri->id]) }}" 
+                           class="flex items-center gap-2 text-gray-600 hover:text-p2 transition-colors">
+                            <i class="ph ph-arrow-left"></i>
+                            <span>Materi Sebelumnya</span>
+                        </a>
+                    @else
+                        <span class="flex items-center gap-2 text-gray-400 cursor-not-allowed">
+                            <i class="ph ph-arrow-left"></i>
+                            <span>Materi Sebelumnya</span>
+                        </span>
+                    @endif
                     
                     <div class="flex items-center gap-3">
-                <button
-                    id="markCompleteBtn"
-                    data-materi-id="{{ $currentMateri->id }}"
-                    data-route="{{ route('student.materi.complete', $currentMateri->id) }}"
-                    class="px-6 py-2 rounded-full font-semibold transition-all
-                        {{ $isCompleted ? 'bg-green-100 text-green-700 cursor-default' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                    {{ $isCompleted ? 'disabled' : '' }}>
-                    <i class="ph ph-bookmark mr-2"></i>
-                    <span id="complete-text">
-                        {{ $isCompleted ? 'Sudah Selesai' : 'Tandai Selesai' }}
-                    </span>
-                </button>
+                        {{-- Tombol Mark Complete --}}
+                        @if($currentMateri)
+                        <form id="completeForm" method="POST" action="{{ route('student.materi.complete', [$kelas->id, $currentMateri->id]) }}" class="inline-block">
+                            @csrf
+                            <button type="submit"
+                                class="px-6 py-2 rounded-full font-semibold transition-all
+                                    {{ $isCompleted ? 'bg-green-100 text-green-700 cursor-default' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
+                                {{ $isCompleted ? 'disabled' : '' }}>
+                                <i class="ph ph-bookmark mr-2"></i>
+                                <span id="complete-text">
+                                    {{ $isCompleted ? 'Sudah Selesai' : 'Tandai Selesai' }}
+                                </span>
+                            </button>
+                        </form>
+                        @endif
 
-                </div>
-
-
-                        <!-- <button id="nextBtn" class="bg-gradient-to-r from-p2 to-p3 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-all">
-                            <span id="next-text">Lanjut ke Materi</span>
-                            <i class="ph ph-arrow-right ml-2"></i>
-                        </button>
-
-                           </button> -->
-                       <button id="nextBtn"
-                        class="bg-gradient-to-r from-p2 to-p3 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-all {{ !$isCompleted ? 'opacity-50 cursor-not-allowed' : '' }}"
-                        {{ !$isCompleted ? 'disabled' : '' }}>
-                        <span id="next-text">Lanjut ke Materi</span>
-                        <i class="ph ph-arrow-right ml-2"></i>
-                      </button>
+                        {{-- Tombol Next - menggunakan route controller --}}
+                        @if($hasNext && $nextMateri && $isCompleted)
+                            <a href="{{ route('student.course.materi', ['kelasId' => $kelas->id, 'materiId' => $nextMateri->id]) }}" 
+                               class="bg-gradient-to-r from-p2 to-p3 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-all">
+                                <span>Lanjut ke Materi</span>
+                                <i class="ph ph-arrow-right ml-2"></i>
+                            </a>
+                        @elseif($hasNext && $nextMateri)
+                            <span class="bg-gradient-to-r from-p2 to-p3 text-white px-6 py-2 rounded-full font-semibold opacity-50 cursor-not-allowed">
+                                <span>Lanjut ke Materi</span>
+                                <i class="ph ph-arrow-right ml-2"></i>
+                            </span>
+                        @else
+                            <a href="{{ route('student.course.completed', $kelas->id) }}" 
+                               class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-all">
+                                <span>Selesai</span>
+                                <i class="ph ph-check ml-2"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Backend Integration Panel (for demo purposes) -->
-    <!-- <div class="fixed top-1/2 -translate-y-1/2 right-4 bg-white rounded-xl shadow-2xl border p-4 w-80 z-40"> -->
-        <!-- <h4 class="font-bold text-gray-800 mb-3">🔧 Backend Integration Guide</h4>
-        <div class="space-y-3 text-sm">
-            <div class="bg-blue-50 p-3 rounded-lg">
-                <strong>URL Structure:</strong><br>
-                <code class="text-xs">/course/{course_id}/material/{material_id}</code>
-            </div>
-            <div class="bg-green-50 p-3 rounded-lg">
-                <strong>API Endpoints:</strong><br>
-                <code class="text-xs">GET /api/courses/{id}/materials</code><br>
-                <code class="text-xs">POST /api/materials/{id}/complete</code>
-            </div>
-            <div class="bg-yellow-50 p-3 rounded-lg">
-                <strong>Database Tables:</strong><br>
-                • courses<br>
-                • materials<br>
-                • user_progress<br>
-                • instructors
-            </div>
-        </div>
-        <button onclick="this.parentElement.style.display='none'" class="mt-3 text-xs text-gray-500 hover:text-gray-700">Close Guide</button>
-    </div> -->
-
-    <script src="{{ asset('assets/js/custom/kelas-materi.js') }}"></script>
+    <script>
+        // Hanya untuk menangani form submission mark complete dengan loading state
+        document.addEventListener('DOMContentLoaded', function() {
+            const completeForm = document.getElementById('completeForm');
+            
+            if (completeForm) {
+                completeForm.addEventListener('submit', function(e) {
+                    const button = this.querySelector('button[type="submit"]');
+                    const text = this.querySelector('#complete-text');
+                    
+                    if (button && !button.disabled) {
+                        button.disabled = true;
+                        text.textContent = 'Menyimpan...';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 @section('hideBottomNavbar', true)
 @section('content')
 
-<div class="min-h-screen bg-slate-50">
+<div class="min-h-screen bg-slate-50 rounded-xl">
     <!-- AI Header Card -->
     <div class="bg-white shadow-sm border border-slate-200 rounded-2xl p-8 mb-6">
         <div class="flex items-center justify-between">

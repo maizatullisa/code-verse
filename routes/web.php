@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\AdminKelasController;
 use App\Http\Controllers\AdminPengajarController;
+use App\Http\Controllers\AdminQuizController;
 use App\Http\Controllers\ForumSiswa;
 use App\Http\Controllers\KelasDiambilController;
 use App\Http\Controllers\KelasDitawarkanController;
 use App\Http\Controllers\KelasMateriController;
 use App\Http\Controllers\KelasIndexController;
+use App\Http\Controllers\KelasSelesaiController;
 use App\Http\Controllers\LihatDetailPengajarController;
 use App\Http\Controllers\MateriBladeSearch;
+use App\Http\Controllers\SertifikatSiswaController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -28,6 +31,8 @@ use App\Http\Controllers\MateriShowController;
 use App\Http\Controllers\GeminiController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\ProfilePengajarController;
+use App\Http\Controllers\KelasQuizController;
+use App\Http\Controllers\KelasDetailController;
 use function PHPUnit\Framework\returnSelf;
 
 /*
@@ -74,10 +79,118 @@ Route::get('/user-mobile', function(){
     return view('mobile.user-mobile');
 })->name('mobile.user-mobile');
 
+
+
+
+
+
+/////////////////////////////////////////////
 // AUTH AKSI
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 
+Route::middleware(['auth', 'role:siswa'])->group(function () {
+//dashboard siswa
+Route::get('/desktop/home-desktop', [LihatDetailPengajarController::class, 'index'])
+        ->name('desktop.dashboard-user-desktop');
+//enrollemnt kelas siswa
+Route::get('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'create'])->name('desktop.pages.kelas.kelas-pendaftaran');
+Route::post('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'store'])
+    ->name('enrollments.store');
+//kelas show index
+Route::get('/desktop/kelas-index', [KelasIndexController::class, 'index'])->name('kelas.index');
+Route::get('/kelas/load-more', [KelasIndexController::class, 'loadMore'])->name('kelas.load-more');
+//kelas ditawarkan
+Route::get('/desktop/kelas-ditawarkan', [KelasDitawarkanController::class, 'tampil'])->name('kelas.ditawarkan');
+//kelas diambil
+Route::get('/desktop/kelas-diambil', [KelasDiambilController::class, 'index'])->name('kelas.diambil');
+//kelas detail
+Route::get('/desktop/kelas/{kelas}/detail', [KelasDetailController::class, 'show'])
+    ->name('kelas.detail');
+//forum siswa
+Route::get('/desktop/forum-siswa/{kelasId}', [ForumSiswa::class, 'forumSiswa'])->name('forum.siswa');
+Route::get('/forum/{kelas}', [ForumSiswa::class, 'index'])
+    ->name('desktop.pages.forum.forum-siswa');
+Route::post('/desktop/kelas/{kelas}/diskusi', [ForumSiswa::class, 'store'])->name('forum.siswa.store');
+Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaDiskusi'])->name('forum.siswa.balas');
+Route::get('/desktop/forum/like/{diskusi}', [ForumSiswa::class, 'diskusiSuka'])->name('forum.siswa.like');
+Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaBalasan'])->name('forum.siswa.balas');
+Route::get('/forum/progress/{kelasId}', [ForumSiswa::class, 'userProgress']);
+//kelas quiz
+Route::get('/kelas/{kelasId}/materi/{materiId}/quiz', [KelasQuizController::class, 'tampilQuiz'])->name('student.quiz.index');
+//kelas materi siswa
+Route::get('/kelas/{kelasId}/materi/{materiId?}', [KelasMateriController::class, 'showCourseMateri'])
+     ->name('student.course.materi');
+// Submit jawaban quiz
+Route::post('/kelas/quiz/{quizId}/submit', [KelasMateriController::class, 'submitQuiz'])
+     ->name('student.quiz.submit');
+// Tandai materi selesai
+Route::post('/kelas/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
+     ->name('student.materi.complete');
+// Load konten materi (video/teks)
+Route::get('/kelas/materi/{materiId}/load-content', [KelasMateriController::class, 'loadMateriContent'])
+     ->name('student.materi.content');
+Route::get('/api/courses/{id}/materials', [KelasMateriController::class, 'apiGetMateri']);
+Route::get('/kelas/{kelasId}/materi/{materiId}/next', [KelasMateriController::class, 'nextMateri'])
+    ->name('student.materi.next');
+Route::get('/kelas/{kelasId}/materi/{materiId}/previous', [KelasMateriController::class, 'previousMateri'])
+    ->name('student.materi.previous');
+Route::get('/kelas/{kelasId}/completed', [KelasMateriController::class, 'courseCompleted'])
+    ->name('student.course.completed');
+//rute untuk melihat detail pengajar biodata
+Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
+        ->name('profile-pengajar');
+Route::get('/desktop/kelas-selesai', [KelasSelesaiController::class, 'index'])
+->name('kelas.selesai');
+
+});
+
+
+// Route untuk pengajar (dashboard khusus)
+Route::middleware(['auth', 'role:pengajar'])->group(function () {
+    Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])
+        ->name('pengajar.dashboard');
+});
+
+
+// Semua route admin hanya bisa diakses jika login & rolenya admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    // Dashboard admin
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // Manajemen user
+    Route::get('/admin/user/create', [AdminController::class, 'create'])->name('admin.user.create');
+    Route::post('/admin/user', [AdminController::class, 'store'])->name('admin.users.store');
+
+    Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+    Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/admin/user/show', function () {
+        return view('admin.user.show');
+    })->name('admin.user.show');
+
+    // Manajemen kelas
+    Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
+
+    // Manajemen pengajar
+    Route::get('/admin/pengajar', [AdminPengajarController::class, 'index'])->name('admin.pengajar.index');
+    Route::get('/admin/pengajar/{user}/edit', [AdminPengajarController::class, 'edit'])->name('admin.pengajar.edit');
+    Route::put('/admin/pengajar/{user}', [AdminPengajarController::class, 'update'])->name('admin.pengajar.update');
+    Route::delete('/admin/pengajar/{user}', [AdminPengajarController::class, 'destroy'])->name('admin.pengajar.destroy');
+
+    // Roadmap admin
+    Route::get('/admin/roadmap', function () {
+        return view('admin.roadmap.roadmap-adm');
+    })->name('admin.roadmap.roadmap-adm');
+
+   
+});
+
+
+
+/////////////////////
 // PASSWORD RESET
 Route::get('/pw', function () {
     return view('mobile.auth.lupa-pw');
@@ -102,53 +215,77 @@ Route::get('/pw-baru', function () {
 */
 
 // ADMIN LOGIN
+// Halaman Login Admin (tidak perlu middleware)
 Route::get('/admin/login', function () {
     return view('admin.login-admin');
 })->name('login-admin');
 
-Route::prefix('admin')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/verify-otp', [AuthController::class, 'verifyOTP']);
-    Route::post('/resend-otp', [AuthController::class, 'resendOTP']);
-    
-    // Protected admin routes
-    Route::middleware('jwt.admin')->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'dashboard']);
-        Route::post('/logout', [AuthController::class, 'logout']);
-        // Route::get('/admin/login', [AuthController::class, 'login'])->name('login.admin');
-    });
+// Semua route admin hanya bisa diakses jika login & rolenya admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    // Dashboard admin
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // Manajemen user
+    Route::get('/admin/user/create', [AdminController::class, 'create'])->name('admin.user.create');
+    Route::post('/admin/user', [AdminController::class, 'store'])->name('admin.users.store');
+
+    Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+    Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/admin/user/show', function () {
+        return view('admin.user.show');
+    })->name('admin.user.show');
+
+    // Manajemen kelas
+    Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
+
+    // Manajemen pengajar
+    Route::get('/admin/pengajar', [AdminPengajarController::class, 'index'])->name('admin.pengajar.index');
+    Route::get('/admin/pengajar/{user}/edit', [AdminPengajarController::class, 'edit'])->name('admin.pengajar.edit');
+    Route::put('/admin/pengajar/{user}', [AdminPengajarController::class, 'update'])->name('admin.pengajar.update');
+    Route::delete('/admin/pengajar/{user}', [AdminPengajarController::class, 'destroy'])->name('admin.pengajar.destroy');
+
+    // Roadmap admin
+    Route::get('/admin/roadmap', function () {
+        return view('admin.roadmap.roadmap-adm');
+    })->name('admin.roadmap.roadmap-adm');
+
+   
 });
+
 
 // ADM 
 // ADM DASHBOARD
 // ADMIN DASHBOARD USER
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/user/create', [AdminController::class, 'create'])->name('admin.user.create');
-Route::post('/admin/user', [AdminController::class, 'store'])->name('admin.users.store');
+// Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+// Route::get('/admin/user/create', [AdminController::class, 'create'])->name('admin.user.create');
+// Route::post('/admin/user', [AdminController::class, 'store'])->name('admin.users.store');
 
-// ADMIN USER DASHBBOARD MANAGEMEN
-Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
-Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
-Route::put('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
-Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
-Route::get('/admin/user/show', function () {
-    return view('admin.user.show');
-})->name('admin.user.show');
+// // ADMIN USER DASHBBOARD MANAGEMEN
+// Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+// Route::get('/admin/users/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+// Route::put('/admin/users/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+// Route::delete('/admin/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+// Route::get('/admin/user/show', function () {
+//     return view('admin.user.show');
+// })->name('admin.user.show');
 
-//rute kelas admin dashboard
-Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
+// //rute kelas admin dashboard
+// Route::get('/admin/kelas', [AdminKelasController::class, 'index'])->name('admin.kelas.index');
 
 
-// ADMIN PENGAJAR DASHBBOARD MANAGEMEN
-Route::get('/admin/pengajar', [AdminPengajarController::class, 'index'])->name('admin.pengajar.index');
-Route::get('admin/pengajar/{user}/edit', [AdminPengajarController::class, 'edit'])->name('admin.pengajar.edit');
-Route::put('/admin/pengajar/{user}', [AdminPengajarController::class, 'update'])->name('admin.pengajar.update');
-Route::delete('/admin/pengajar/{user}', [AdminPengajarController::class, 'destroy'])->name('admin.pengajar.destroy');
+// // ADMIN PENGAJAR DASHBBOARD MANAGEMEN
+// Route::get('/admin/pengajar', [AdminPengajarController::class, 'index'])->name('admin.pengajar.index');
+// Route::get('admin/pengajar/{user}/edit', [AdminPengajarController::class, 'edit'])->name('admin.pengajar.edit');
+// Route::put('/admin/pengajar/{user}', [AdminPengajarController::class, 'update'])->name('admin.pengajar.update');
+// Route::delete('/admin/pengajar/{user}', [AdminPengajarController::class, 'destroy'])->name('admin.pengajar.destroy');
 
-// ADMIN ROADMAP
-Route::get('/admin/roadmap', function () {
-    return view('admin.roadmap.roadmap-adm');
-})->name('admin.roadmap.roadmap-adm');
+// // ADMIN ROADMAP
+// Route::get('/admin/roadmap', function () {
+//     return view('admin.roadmap.roadmap-adm');
+// })->name('admin.roadmap.roadmap-adm');
 
 /*
 |--------------------------------------------------------------------------
@@ -335,7 +472,7 @@ Route::get('/quiz-5', function(){
 //rute pengajar
 //forumdiskusi 
 // DASHBOARD PENGAJAR AKU COMMENT
-Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
+// Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])->name('pengajar.dashboard');
 
 // Route::get('/dashboard-pengajar', function(){
 //     return view('pengajar.dashboard_pengajar');
@@ -442,14 +579,17 @@ Route::get('/pengajar/materi', function () {
 })->name('pengajar.materi.index');
 
 // Pengajar Quiz Management
+Route::middleware(['auth'])->group(function () {
 Route::get('/pengajar/quiz', [QuizController::class, 'listQuiz'])->name('pengajar.quiz.listquiz');
 Route::get('/pengajar/quiz/{materi}', [QuizController::class, 'create'])->name('pengajar.quiz.create');
+Route::post('/pengajar/quiz/store', [QuizController::class, 'store'])->name('pengajar.quiz.store');
 Route::get('/pengajar/quiz/question/create/{quiz_id}',[QuizController::class,'createQuizQuestion'])->name('pengajar.quiz.question.create');
 Route::post('/pengajar/quiz/question/store',[QuizController::class,'storeQuestion'])->name('pengajar.quiz.question.store');
+});
 
-Route::get('/pengajar/soal/create', function () {
-    return view('pengajar.quiz.buat-soal-pengajar');
-})->name('pengajar.soal.create');
+// Route::get('/pengajar/soal/create', function () {
+//     return view('pengajar.quiz.buat-soal-pengajar');
+// })->name('pengajar.soal.create');
 
 // Routes untuk public (siswa/umum)
 Route::get('/materi', [MateriShowController::class, 'index'])->name('materi');
@@ -459,18 +599,18 @@ Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->
 
 
 // Routes untuk daftar belajar (perlu authentication)
-Route::middleware('auth')->group(function () {
-    Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])->name('daftar-belajar.simpan');
-    Route::get('/daftar-belajar', [DaftarBelajarController::class, 'index'])->name('daftar-belajar.index');
-    Route::get('/kelas-saya', [DaftarBelajarController::class, 'kelasSaya'])->name('daftar-belajar.kelas-saya');
-    Route::get('/pembelajaran/{kelas}', [DaftarBelajarController::class, 'pembelajaran'])->name('daftar-belajar.pembelajaran');
-    Route::post('/daftar-belajar/update-progress/{materi}', [DaftarBelajarController::class, 'updateProgress'])->name('daftar-belajar.update-progress');
-    Route::get('/pembelajaran/{kelasId}/materi/{materiId}', [DaftarBelajarController::class, 'viewMateri'])->name('pembelajaran.view-materi');
-});
-Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
-Route::get('/pengajar/quiz/soal/create', function () {
-    return view('pengajar.quiz.buat-soal-quiz-pengajar');
-})->name('pengajar.quiz.soal.create');
+// Route::middleware('auth')->group(function () {
+//     Route::post('/daftar-belajar/simpan', [DaftarBelajarController::class, 'simpan'])->name('daftar-belajar.simpan');
+//     Route::get('/daftar-belajar', [DaftarBelajarController::class, 'index'])->name('daftar-belajar.index');
+//     Route::get('/kelas-saya', [DaftarBelajarController::class, 'kelasSaya'])->name('daftar-belajar.kelas-saya');
+//     Route::get('/pembelajaran/{kelas}', [DaftarBelajarController::class, 'pembelajaran'])->name('daftar-belajar.pembelajaran');
+//     Route::post('/daftar-belajar/update-progress/{materi}', [DaftarBelajarController::class, 'updateProgress'])->name('daftar-belajar.update-progress');
+//     Route::get('/pembelajaran/{kelasId}/materi/{materiId}', [DaftarBelajarController::class, 'viewMateri'])->name('pembelajaran.view-materi');
+// });
+// Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
+// Route::get('/pengajar/quiz/soal/create', function () {
+//     return view('pengajar.quiz.buat-soal-quiz-pengajar');
+// })->name('pengajar.quiz.soal.create');
 
 // Pengajar Forum Management
 Route::get('/pengajar/forum/{kelas}', [DiskusiController::class, 'materiDiskusi'])->name('pengajar.forum.show');
@@ -510,13 +650,13 @@ Route::get('/desktop/lorek-desktop', function () {
     return view('desktop.lorek-desktop');
  })->name('desktop.lorek-desktop');
 
- Route::get('/desktop/user-desktop', function () {
-    return view('desktop.user-desktop');
- })->name('desktop.user-desktop');
+//  Route::get('/desktop/user-desktop', function () {
+//     return view('desktop.user-desktop');
+//  })->name('desktop.user-desktop');
 
-//  Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
-//  Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
-//  Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+ Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
+ Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+ Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 
  // PATH KE EDIT PROFILE USER
 Route::get('/edit-profil', function(){
@@ -528,10 +668,10 @@ Route::get('/edit-profil', function(){
 //     return view('desktop.dashboard-user-desktop');
 //  })->name('desktop.dashboard-user-desktop');
 
-Route::get('/desktop/home-desktop', [LihatDetailPengajarController::class, 'index'])
-    ->name('desktop.dashboard-user-desktop');
-Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
-    ->name('profile-pengajar');
+// Route::get('/desktop/home-desktop', [LihatDetailPengajarController::class, 'index'])
+//     ->name('desktop.dashboard-user-desktop');
+// Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
+//     ->name('profile-pengajar');
 
  //POPUP
  Route::get('/popup', function () {
@@ -554,14 +694,14 @@ Route::get('/desktop/belajar-materi', function () {
 // return view('desktop.pages.kelas.kelas-index');
 // })->name('desktop.pages.kelas.kelas-index');
 
-Route::get('/desktop/kelas-index', [KelasIndexController::class, 'index'])->name('kelas.index');
-Route::get('/kelas/load-more', [KelasIndexController::class, 'loadMore'])->name('kelas.load-more');
+// Route::get('/desktop/kelas-index', [KelasIndexController::class, 'index'])->name('kelas.index');
+// Route::get('/kelas/load-more', [KelasIndexController::class, 'loadMore'])->name('kelas.load-more');
  //kelasditawarkan
 // Route::get('/desktop/kelas-ditawarkan', function () {
 //     return view('desktop.pages.kelas.kelas-ditawarkan');
 //  })->name('desktop.pages.kelas.kelas-ditawarkan');
 
-Route::get('/desktop/kelas-ditawarkan', [KelasDitawarkanController::class, 'tampil'])->name('kelas.ditawarkan');
+// Route::get('/desktop/kelas-ditawarkan', [KelasDitawarkanController::class, 'tampil'])->name('kelas.ditawarkan');
 // Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
 // Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
 
@@ -574,16 +714,21 @@ Route::get('/desktop/kelas-ditawarkan', [KelasDitawarkanController::class, 'tamp
 //     return view('desktop.pages.kelas.kelas-diambil');
 //  })->name('desktop.pages.kelas.kelas-diambil');
 
-Route::get('/desktop/kelas-diambil', [KelasDiambilController::class, 'index'])->name('kelas.diambil');
+// Route::get('/desktop/kelas-diambil', [KelasDiambilController::class, 'index'])->name('kelas.diambil');
 
-Route::get('/desktop/kelas-selesai', function () {
-    return view('desktop.pages.kelas.kelas-selesai');
- })->name('desktop.pages.kelas.kelas-selesai');
+// Route::get('/desktop/kelas-selesai', function () {
+//     return view('desktop.pages.kelas.kelas-selesai');
+//  })->name('desktop.pages.kelas.kelas-selesai');
 
-Route::get('/desktop/kelas-detail', function () {
-    return view('desktop.pages.kelas.kelas-detail');
- })->name('desktop.pages.kelas.kelas-detail');
+// Route::get('/desktop/kelas/{kelas}/selesai', [KelasSelesaiController::class, 'index'])
+// ->name('kelas.selesai');
 
+// Route::get('/desktop/kelas-detail', function () {
+//     return view('desktop.pages.kelas.kelas-detail');
+//  })->name('desktop.pages.kelas.kelas-detail');
+
+//  Route::get('/desktop/kelas/{kelas}/detail', [KelasDetailController::class, 'show'])
+//     ->name('kelas.detail');
 //  Route::post('/desktop/kelas-detail', [CourseEnrollmentController::class, 'index'])->name('kelas.detail');
 
 // Route::get('/desktop/kelas-pendaftaran', function () {
@@ -594,33 +739,42 @@ Route::get('/desktop/kelas-detail', function () {
 //     return view('desktop.pages.kelas.kelas-materi');
 //  })->name('desktop.pages.kelas.kelas-materi');
 
-// Halaman pembelajaran siswa (tampilkan materi dalam kelas)
-Route::get('/kelas/{kelasId}/materi/{materiId?}', [KelasMateriController::class, 'showCourseMateri'])
-     ->name('student.course.materi');
-// Submit jawaban quiz
-Route::post('/kelas/quiz/{quizId}/submit', [KelasMateriController::class, 'submitQuiz'])
-     ->name('student.quiz.submit');
-// Tandai materi selesai
-Route::post('/kelas/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
-     ->name('student.materi.complete');
-// Ambil materi berikutnya
-Route::get('/kelas/{kelasId}/materi/{materiId}/next-materi', [KelasMateriController::class, 'getNextMateri'])
-     ->name('student.materi.next');
-// Load konten materi (video/teks)
-Route::get('/kelas/materi/{materiId}/load-content', [KelasMateriController::class, 'loadMateriContent'])
-     ->name('student.materi.content');
-Route::get('/api/courses/{id}/materials', [KelasMateriController::class, 'apiGetMateri']);
+// // Halaman pembelajaran siswa (tampilkan materi dalam kelas) sdh di tambah
+// Route::get('/kelas/{kelasId}/materi/{materiId?}', [KelasMateriController::class, 'showCourseMateri'])
+//      ->name('student.course.materi');
+// // Submit jawaban quiz
+// Route::post('/kelas/quiz/{quizId}/submit', [KelasMateriController::class, 'submitQuiz'])
+//      ->name('student.quiz.submit');
+// // Tandai materi selesai
+// Route::post('/kelas/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
+//      ->name('student.materi.complete');
+// // Ambil materi berikutnya
+// Route::get('/kelas/{kelasId}/materi/{materiId}/next-materi', [KelasMateriController::class, 'getNextMateri'])
+//      ->name('student.materi.next');
+// // Load konten materi (video/teks)
+// Route::get('/kelas/materi/{materiId}/load-content', [KelasMateriController::class, 'loadMateriContent'])
+//      ->name('student.materi.content');
+// Route::get('/api/courses/{id}/materials', [KelasMateriController::class, 'apiGetMateri']);
 
 
-Route::get('/desktop/pages/kelas/kelas-quiz', function () {
-    return view('desktop.pages.kelas.kelas-quiz');
- })->name('desktop.pages.kelas.kelas-quiz');
+// Route::get('/desktop/pages/kelas/kelas-quiz', function () {
+//     return view('desktop.pages.kelas.kelas-quiz');
+//  })->name('desktop.pages.kelas.kelas-quiz');
+
+// Route::get('/kelas/{kelasId}/materi/{materiId}/quiz', [KelasQuizController::class, 'tampilQuiz'])->name('student.quiz.index');
 
 
  // DESKTOP FORM SERTIFIKAT
- Route::get('/desktop/form-sertifikat', function () {
-    return view('desktop.pages.sertifikat.form-sertif');
- })->name('desktop.pages.sertifikat.form-sertif');
+//  Route::get('/desktop/form-sertifikat', function () {
+//     return view('desktop.pages.sertifikat.form-sertif');
+//  })->name('desktop.pages.sertifikat.form-sertif');
+
+Route::get('/desktop/form-sertifikat/{kelasId}', [SertifikatSiswaController::class, 'index'])
+    ->name('desktop.pages.sertifikat.form-sertif');
+
+Route::post('/desktop/form-sertifikat/{kelasId}/generate', [SertifikatSiswaController::class, 'generate'])
+    ->name('sertifikat.generate');
+Route::get('/download/sertifikat/{filename}', [SertifikatSiswaController::class, 'download']);
 
  //DESKTOP INDEX SERTTIF
   Route::get('/desktop/sertifikat', function () {
@@ -632,15 +786,15 @@ Route::get('/desktop/pages/kelas/kelas-quiz', function () {
 //     return view('desktop.pages.forum.forum-siswa');
 //  })->name('desktop.pages.forum.forum-siswa');
 
-// Contoh route di web.php
-Route::get('/desktop/forum-siswa/{kelasId}', [ForumSiswa::class, 'forumSiswa'])->name('forum.siswa');
-Route::get('/forum/{kelas}', [ForumSiswa::class, 'index'])
-    ->name('desktop.pages.forum.forum-siswa');
-Route::post('/desktop/kelas/{kelas}/diskusi', [ForumSiswa::class, 'store'])->name('forum.siswa.store');
-Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaDiskusi'])->name('forum.siswa.balas');
-Route::get('/desktop/forum/like/{diskusi}', [ForumSiswa::class, 'diskusiSuka'])->name('forum.siswa.like');
-Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaBalasan'])->name('forum.siswa.balas');
-Route::get('/forum/progress/{kelasId}', [ForumSiswa::class, 'userProgress']);
+// Contoh route di web.php. sdh ditambah
+// Route::get('/desktop/forum-siswa/{kelasId}', [ForumSiswa::class, 'forumSiswa'])->name('forum.siswa');
+// Route::get('/forum/{kelas}', [ForumSiswa::class, 'index'])
+//     ->name('desktop.pages.forum.forum-siswa');
+// Route::post('/desktop/kelas/{kelas}/diskusi', [ForumSiswa::class, 'store'])->name('forum.siswa.store');
+// Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaDiskusi'])->name('forum.siswa.balas');
+// Route::get('/desktop/forum/like/{diskusi}', [ForumSiswa::class, 'diskusiSuka'])->name('forum.siswa.like');
+// Route::post('/desktop/diskusi/{diskusi}/balasan', [ForumSiswa::class, 'siswaBalasan'])->name('forum.siswa.balas');
+// Route::get('/forum/progress/{kelasId}', [ForumSiswa::class, 'userProgress']);
 
     
 
@@ -747,10 +901,10 @@ Route::prefix('gemini')->group(function () {
     
 
 // Pendaftaran
-Route::get('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'create'])->name('desktop.pages.kelas.kelas-pendaftaran');
+// Route::get('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'create'])->name('desktop.pages.kelas.kelas-pendaftaran');
 
-Route::post('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'store'])
-    ->name('enrollments.store');
+// Route::post('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'store'])
+//     ->name('enrollments.store');
 
 
 

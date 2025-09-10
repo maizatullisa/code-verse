@@ -134,10 +134,10 @@
                         </div>
                     </div>
                     <div class="space-y-4">
-                        <!-- <div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-600 mb-1">Fakultas</label>
                             <p class="text-gray-900 font-medium">{{ $profile->faculty ?? 'Belum diisi' }}</p>
-                        </div> -->
+                        </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-600 mb-1">Prodi</label>
                             <p class="text-gray-900 font-medium">{{  $profile->study_program ?? 'Belum diisi' }}</p>
@@ -212,51 +212,51 @@
 
         </div>
 
-<!-- Include Form Modals -->
-@include('pengajar.form-bio')
-<!-- Education Modal (untuk tambah / edit riwayat pendidikan) -->
-<div id="educationModal" class="fixed inset-0 bg-black/50 hidden z-[10000] flex items-center justify-center p-4">
-  <div class="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
-    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 text-white flex justify-between items-center">
-      <h3 id="educationModalTitle" class="text-lg font-bold">Tambah Riwayat Pendidikan</h3>
-      <button onclick="closeModal('educationModal')" class="hover:bg-white/20 p-2 rounded-lg">✕</button>
-    </div>
+            <!-- Include Form Modals -->
+            @include('pengajar.form-bio')
+            <!-- Education Modal (untuk tambah / edit riwayat pendidikan) -->
+            <div id="educationModal" class="fixed inset-0 bg-black/50 hidden z-[10000] flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 text-white flex justify-between items-center">
+                <h3 id="educationModalTitle" class="text-lg font-bold">Tambah Riwayat Pendidikan</h3>
+                <button onclick="closeModal('educationModal')" class="hover:bg-white/20 p-2 rounded-lg">✕</button>
+                </div>
 
-    <form id="educationForm" method="POST" action="{{ route('pengajar.store-riwayat') }}" class="p-6">
-      @csrf
-      <input type="hidden" name="_method" id="educationFormMethod" value="POST">
-      <input type="hidden" name="profile_pengajar_id" value="{{ $profile->id ?? '' }}">
-      <input type="hidden" name="education_id" id="education_id">
+                <form id="educationForm" method="POST" action="{{ route('pengajar.store-riwayat') }}" class="p-6">
+                @csrf
+                <input type="hidden" name="_method" id="educationFormMethod" value="POST">
+                <input type="hidden" name="profile_pengajar_id" value="{{ $profile->id ?? '' }}">
+                <input type="hidden" name="education_id" id="education_id">
 
-      <div class="grid md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium mb-1">Jenjang (contoh: S1)</label>
-          <input type="text" name="jenjang" id="input_jenjang" required class="w-full p-3 border rounded-lg">
-        </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                    <label class="block text-sm font-medium mb-1">Jenjang (contoh: S1)</label>
+                    <input type="text" name="jenjang" id="input_jenjang" required class="w-full p-3 border rounded-lg">
+                    </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Jurusan</label>
-          <input type="text" name="jurusan" id="input_jurusan" required class="w-full p-3 border rounded-lg">
-        </div>
+                    <div>
+                    <label class="block text-sm font-medium mb-1">Jurusan</label>
+                    <input type="text" name="jurusan" id="input_jurusan" required class="w-full p-3 border rounded-lg">
+                    </div>
 
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium mb-1">Institusi</label>
-          <input type="text" name="institusi" id="input_institusi" required class="w-full p-3 border rounded-lg">
-        </div>
+                    <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-1">Institusi</label>
+                    <input type="text" name="institusi" id="input_institusi" required class="w-full p-3 border rounded-lg">
+                    </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Tahun Lulus</label>
-          <input type="text" name="tahun_lulus" id="input_tahun" placeholder="2019" class="w-full p-3 border rounded-lg">
-        </div>
-      </div>
+                    <div>
+                    <label class="block text-sm font-medium mb-1">Tahun Lulus</label>
+                    <input type="text" name="tahun_lulus" id="input_tahun" placeholder="2019" class="w-full p-3 border rounded-lg">
+                    </div>
+                </div>
 
-      <div class="flex justify-end gap-3 mt-6">
-        <button type="button" onclick="closeModal('educationModal')" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Batal</button>
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Simpan</button>
-      </div>
-    </form>
-  </div>
-</div>
+                <div class="flex justify-end gap-3 mt-6">
+                    <button type="button" onclick="closeModal('educationModal')" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Simpan</button>
+                </div>
+                </form>
+            </div>
+            </div>
 
 
 <script>

@@ -14,7 +14,7 @@ class AdminUserController extends Controller
     $search = $request->get('search');
     //ambil data user
    $query = User::where('role', 'siswa')
-                    ->select('id', 'first_name', 'email', 'created_at')
+                    ->select('id', 'first_name', 'email', 'created_at', 'profile_photo')
                     ->oldest();
     //search
     if ($search) {

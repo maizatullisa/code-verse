@@ -17,10 +17,12 @@ const quizData = {
 };
 
 // Quiz state
-let currentQuestionIndex = 0;
-let userAnswers = {};
 let timeRemaining = quizData.timeLimit;
 let timerInterval;
+let quizSubmitted = false;
+let currentQuestionIndex = 0;
+let userAnswers = {};
+
 
 // Initialize quiz
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,30 +58,45 @@ function updateTimerDisplay() {
     }
 }
 
-// Question navigation
 function loadQuestion(index) {
+    const totalQuestions = document.querySelectorAll('[id^="question-"]').length;
+    
     // Update progress
-    const progress = ((index + 1) / 10) * 100;
+    const progress = ((index + 1) / totalQuestions) * 100;
     document.getElementById('progressBar').style.width = progress + '%';
     document.getElementById('currentQuestion').textContent = index + 1;
     
     // Update navigation buttons
-    document.getElementById('prevBtn').disabled = (index === 0);
-    
+    const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    if (index === 9) { // Last question
-        nextBtn.innerHTML = '<span>Selesai</span><i class="ph ph-check ml-2"></i>';
-        nextBtn.onclick = showCompleteModal;
+    
+    prevBtn.disabled = (index === 0);
+    
+    if (index === totalQuestions - 1) { // Last question
+        nextBtn.style.display = 'none';
+        // Show submit button
+        const submitBtn = document.getElementById('submitButton');
+        if (submitBtn) {
+            submitBtn.style.display = 'block';
+        }
     } else {
-        nextBtn.innerHTML = '<span>Selanjutnya</span><i class="ph ph-arrow-right ml-2"></i>';
-        nextBtn.onclick = nextQuestion;
+        nextBtn.style.display = 'inline-flex';
+        // Hide submit button
+        const submitBtn = document.getElementById('submitButton');
+        if (submitBtn) {
+            submitBtn.style.display = 'none';
+        }
     }
 }
 
 function nextQuestion() {
-    if (currentQuestionIndex < 9) {
+    const totalQuestions = document.querySelectorAll('[id^="question-"]').length;
+    if (currentQuestionIndex < totalQuestions - 1) {
         saveCurrentAnswer();
         currentQuestionIndex++;
+        showOnlyQuestion(currentQuestionIndex);
+        updateProgressBar(currentQuestionIndex);
+        highlightActiveButton(currentQuestionIndex);
         loadQuestion(currentQuestionIndex);
     }
 }
@@ -88,16 +105,64 @@ function prevQuestion() {
     if (currentQuestionIndex > 0) {
         saveCurrentAnswer();
         currentQuestionIndex--;
-        loadQuestion(currentQuestionIndex);
+        showOnlyQuestion(currentQuestionIndex);
+        updateProgressBar(currentQuestionIndex);
+        highlightActiveButton(currentQuestionIndex);
+        loadQuestion(currentQuestionIndex); 
     }
 }
 
+function scrollToQuestion(index) {
+    const el = document.getElementById('question-' + index);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+
+// function saveCurrentAnswer() {
+//     const selectedOption = document.querySelector('input[name="question1"]:checked');
+//     if (selectedOption) {
+//         userAnswers[currentQuestionIndex] = selectedOption.value;
+//     }
+// }
+
 function saveCurrentAnswer() {
-    const selectedOption = document.querySelector('input[name="question1"]:checked');
-    if (selectedOption) {
-        userAnswers[currentQuestionIndex] = selectedOption.value;
+    const currentQuestionDiv = document.getElementById(`question-${currentQuestionIndex}`);
+    if (currentQuestionDiv) {
+        const selectedOption = currentQuestionDiv.querySelector('input[type="radio"]:checked');
+        if (selectedOption) {
+            userAnswers[currentQuestionIndex] = selectedOption.value;
+        }
     }
 }
+
+// Fungsi tampilkan soal tertentu
+    function showOnlyQuestion(index) {
+        document.querySelectorAll('[id^="question-"]').forEach((q, i) => {
+            q.style.display = i === index ? 'block' : 'none';
+        });
+        document.getElementById('currentQuestion').textContent = index + 1;
+    }
+
+ // Fungsi update progress bar
+    function updateProgressBar(index) {
+        const totalQuestions = document.querySelectorAll('[id^="question-"]').length;
+        const progress = ((index + 1) / totalQuestions) * 100;
+        document.getElementById('progressBar').style.width = progress + '%';
+}
+
+    // Tandai tombol aktif di navigasi cepat
+    function highlightActiveButton(index) {
+        document.querySelectorAll('.grid button').forEach((btn, i) => {
+            if (i === index) {
+                btn.classList.add('bg-p2', 'text-white');
+                btn.classList.remove('bg-gray-200', 'text-gray-600');
+            } else {
+                btn.classList.remove('bg-p2', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-600');
+            }
+        });
+    }
+
 
 // Modal functions
 function showExitConfirm() {
@@ -137,12 +202,24 @@ function calculateScore() {
     };
 }
 
-function updateScoreDisplay(scoreData) {
-    const scoreElement = document.querySelector('#completeModal .text-4xl');
-    const detailElement = document.querySelector('#completeModal .text-lg');
+// function updateScoreDisplay(scoreData) {
+//     const scoreElement = document.querySelector('#completeModal .text-4xl');
+//     const detailElement = document.querySelector('#completeModal .text-lg');
     
-    scoreElement.textContent = `${scoreData.score}/100`;
-    detailElement.textContent = `${scoreData.correct} dari ${scoreData.total} jawaban benar`;
+//     scoreElement.textContent = `${scoreData.score}/100`;
+//     detailElement.textContent = `${scoreData.correct} dari ${scoreData.total} jawaban benar`;
+// }
+
+function updateScoreDisplay(scoreData) {
+    const scoreElement = document.getElementById('quiz-final-score');
+    const detailElement = document.getElementById('quiz-final-detail');
+    
+    if (scoreElement) {
+        scoreElement.textContent = `${scoreData.score}/100`;
+    }
+    if (detailElement) {
+        detailElement.textContent = `${scoreData.correct} dari ${scoreData.total} jawaban benar`;
+    }
 }
 
 function autoSubmitQuiz() {
@@ -169,18 +246,13 @@ document.addEventListener('change', function(e) {
 // Quick navigation
 document.querySelectorAll('.grid button').forEach((btn, index) => {
     btn.addEventListener('click', function() {
-        if (index < 10) { // Make sure it's a question number button
+        const totalQuestions = document.querySelectorAll('[id^="question-"]').length;
+        if (index < totalQuestions) {
             saveCurrentAnswer();
             currentQuestionIndex = index;
-            loadQuestion(currentQuestionIndex);
-            
-            // Update quick nav indicators
-            document.querySelectorAll('.grid button').forEach(b => {
-                b.classList.remove('bg-p2', 'text-white');
-                b.classList.add('bg-gray-200', 'text-gray-600');
-            });
-            this.classList.remove('bg-gray-200', 'text-gray-600');
-            this.classList.add('bg-p2', 'text-white');
+            showOnlyQuestion(currentQuestionIndex);
+            updateProgressBar(currentQuestionIndex);
+            highlightActiveButton(currentQuestionIndex);
         }
     });
 });
@@ -202,14 +274,14 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Prevent accidental page refresh
-window.addEventListener('beforeunload', function(e) {
-    if (timeRemaining > 0) {
+window.addEventListener('beforeunload', function (e) {
+    if (!quizSubmitted) {
         e.preventDefault();
-        e.returnValue = 'Quiz sedang berlangsung. Yakin ingin keluar?';
-        return e.returnValue;
+        e.returnValue = '';
     }
 });
+
+
 
 // Bookmark functionality
 document.querySelector('.border-2.border-gray-300').addEventListener('click', function() {
@@ -240,4 +312,120 @@ document.addEventListener('DOMContentLoaded', function() {
     if (firstRadio) {
         firstRadio.focus();
     }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const quizForm = document.getElementById('quiz-form');
+    if (!quizForm) {
+        console.error('Form quiz tidak ditemukan!');
+        return;
+    }
+
+    quizForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        quizSubmitted = true;
+
+        const url = quizForm.dataset.submitUrl;
+        const formData = new FormData(quizForm);
+
+         fetch(url, {
+    method: 'POST',
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+        'Accept': 'application/json',
+    },
+    body: formData
+    })
+    .then(res => {
+        console.log('Response status:', res.status);
+        console.log('Response headers:', res.headers);
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+        }
+        return res.json();
+    })
+    .then(data => {
+        console.log("Response data:", data);
+        // Update modal dengan data dari server
+        updateScoreDisplay({
+            score: data.percentage,
+            correct: data.score,
+            total: data.total
+        });
+        showCompleteModal();
+    })
+    .catch(err => {
+        console.error("Gagal kirim quiz", err);
+        alert("Gagal kirim jawaban. Coba lagi.");
+        quizSubmitted = false;
+    });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const totalQuestions = document.querySelectorAll('[id^="question-"]').length;
+
+    // Tampilkan hanya soal pertama saat load
+    showOnlyQuestion(currentQuestionIndex);
+    updateProgressBar(currentQuestionIndex);
+
+    // Tombol navigasi cepat
+    document.querySelectorAll('.grid button').forEach((btn, index) => {
+        btn.addEventListener('click', function () {
+            currentQuestionIndex = index;
+            showOnlyQuestion(currentQuestionIndex);
+            updateProgressBar(currentQuestionIndex);
+            highlightActiveButton(currentQuestionIndex);
+        });
+    });
+
+    // Keyboard navigation (opsional)
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' && currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            showOnlyQuestion(currentQuestionIndex);
+            updateProgressBar(currentQuestionIndex);
+            highlightActiveButton(currentQuestionIndex);
+        } else if (e.key === 'ArrowLeft' && currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showOnlyQuestion(currentQuestionIndex);
+            updateProgressBar(currentQuestionIndex);
+            highlightActiveButton(currentQuestionIndex);
+        }
+    });
+});
+
+
+function navigateToQuestion(index) {
+    saveCurrentAnswer();
+    currentQuestionIndex = index;
+    showOnlyQuestion(currentQuestionIndex);
+    updateProgressBar(currentQuestionIndex);
+    highlightActiveButton(currentQuestionIndex);
+    loadQuestion(currentQuestionIndex);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevQuestion);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextQuestion);
+    }
+    
+    // Initialize quiz
+    loadQuestion(currentQuestionIndex);
+    startTimer();
+    
+    // Setup quick navigation buttons
+    const navButtons = document.querySelectorAll('.grid button');
+    navButtons.forEach((btn, index) => {
+        btn.addEventListener('click', function() {
+            navigateToQuestion(index);
+        });
+    });
 });

@@ -25,7 +25,7 @@
                 <div id="content-personal" class="tab-content">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium mb-1">Nama Lengkap *</label>
+                            <label class="block text-sm font-medium mb-1">Nama Lengkap </label>
                             <input type="text" name="full_name" id="full_name" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500">
                         </div>
                         <div>
@@ -51,7 +51,7 @@
                 <div id="content-academic" class="tab-content hidden">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium mb-1">Jabatan Akademik *</label>
+                            <label class="block text-sm font-medium mb-1">Jabatan Akademik </label>
                             <input type="text" name="academic_position" id="academic_position" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                         <div>
@@ -61,6 +61,10 @@
                         <div>
                             <label class="block text-sm font-medium mb-1">Program Studi *</label>
                             <input type="text" name="study_program" id="study_program" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+                        </div>
+                          <div>
+                            <label class="block text-sm font-medium mb-1">Fakultas</label>
+                            <input type="text" name="faculty" id="faculty" required class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                     </div>
                 </div>

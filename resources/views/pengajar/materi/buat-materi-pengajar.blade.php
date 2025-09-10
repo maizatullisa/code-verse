@@ -65,7 +65,7 @@
     </div>
 
     <!-- Kategori -->
-    <div class="space-y-3">
+    <!-- <div class="space-y-3">
       <label class="block text-sm font-semibold text-gray-700 mb-2">
         🏷️ Kategori
       </label>
@@ -78,7 +78,7 @@
         <option value="web">🌐 Web Development</option>
         <option value="other">🔧 Lainnya</option>
       </select>
-    </div>
+    </div> -->
 
     <!-- Deskripsi -->
     <div class="space-y-3">

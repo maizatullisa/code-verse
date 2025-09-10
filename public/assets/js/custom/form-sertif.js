@@ -1,60 +1,49 @@
-document.addEventListener('DOMContentLoaded', function() {
-            // Get elements
-            const fullNameInput = document.getElementById('fullName');
-            const form = document.getElementById('certificateForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const nameCheck = document.getElementById('nameCheck');
-            
-            // Handle floating labels
-            function setupFloatingLabel(input) {
-                const inputGroup = input.closest('.input-group');
-                
-                function updateLabel() {
-                    if (input.value.trim() !== '') {
-                        inputGroup.classList.add('has-value');
-                        nameCheck.classList.remove('hidden');
-                    } else {
-                        inputGroup.classList.remove('has-value');
-                        nameCheck.classList.add('hidden');
-                    }
-                }
-                
-                updateLabel();
-                input.addEventListener('input', updateLabel);
-                input.addEventListener('change', updateLabel);
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('certificateForm');
+    const fullNameInput = document.getElementById('fullName');
+    const submitBtn = document.getElementById('submitBtn');
+    const nameCheck = document.getElementById('nameCheck');
+
+    // Floating label
+    function setupFloatingLabel(input) {
+        const inputGroup = input.closest('.input-group');
+        function updateLabel() {
+            if (input.value.trim() !== '') {
+                inputGroup.classList.add('has-value');
+                nameCheck.classList.remove('hidden');
+            } else {
+                inputGroup.classList.remove('has-value');
+                nameCheck.classList.add('hidden');
             }
+        }
+        updateLabel();
+        input.addEventListener('input', updateLabel);
+        input.addEventListener('change', updateLabel);
+    }
 
-            // Setup floating labels
-            setupFloatingLabel(fullNameInput);
+    setupFloatingLabel(fullNameInput);
 
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (!fullNameInput.value.trim()) {
-                    alert('Nama lengkap harus diisi!');
-                    fullNameInput.focus();
-                    return;
-                }
+    form.addEventListener('submit', function (e) {
+        if (!fullNameInput.value.trim()) {
+            e.preventDefault();
+            alert('Nama lengkap wajib diisi!');
+            fullNameInput.focus();
+            return;
+        }
 
-                // Show loading
-                const buttonText = submitBtn.querySelector('.button-text');
-                buttonText.textContent = 'Generating...';
-                submitBtn.classList.add('loading');
-                submitBtn.disabled = true;
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+        submitBtn.querySelector('.button-text').textContent = 'Generating...';
 
-                // Simulate generation
-                setTimeout(() => {
-                    buttonText.textContent = 'Generate Sertifikat Digital';
-                    submitBtn.classList.remove('loading');
-                    submitBtn.disabled = false;
-                    
-                    alert('Sertifikat berhasil dibuat! Download akan dimulai...');
-                    
-                    console.log({
-                        name: fullNameInput.value,
-                        id: 'CV-' + Date.now()
-                    });
-                }, 2000);
-            });
-        });
+       setTimeout(() => {
+        const buttonText = submitBtn.querySelector('.button-text');
+        buttonText.textContent = 'Generate Sertifikat Digital';
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        alert('Sertifikat berhasil dibuat!');
+    }, 2000);
+        // biarin submit tetap jalan biar PDF valid dikirim dari backend
+    });
+});
+

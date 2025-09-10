@@ -73,7 +73,17 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         <div class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
-                                            <span class="text-sm font-medium text-white">{{ substr($user->first_name, 0, 1) }}</span>
+                                           @if($user->profilePengajar && $user->profilePengajar->photo)
+                                            <img src="{{ asset($user->profilePengajar->photo) }}"
+                                                class="h-10 w-10 rounded-full object-cover"
+                                                alt="Foto {{ $user->first_name }}">
+                                        @else
+                                            <div class="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
+                                                <span class="text-sm font-medium text-white">
+                                                    {{ substr($user->first_name, 0, 1) }}
+                                                </span>
+                                            </div>
+                                        @endif
                                         </div>
                                     </div>
                                     <div class="ml-4">

@@ -20,7 +20,7 @@ class MateriBladeSearch extends Controller
                         ->select('id', 'nama_kelas', 'kategori', 'deskripsi', 'level', 'pengajar_id', 'created_at')
                         ->orderBy('created_at', 'desc');
         
-        // Search functionality
+       
         if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('nama_kelas', 'like', '%' . $search . '%')

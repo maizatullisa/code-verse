@@ -126,16 +126,21 @@ class Kelas extends Model
         return $enrollment ? $enrollment->progress : 0;
     }
     
-    public function diskusi()
-{
-    return $this->hasMany(Diskusi::class); // asumsinya satu kelas punya banyak diskusi
-}
+        public function diskusi()
+    {
+        return $this->hasMany(Diskusi::class); // asumsinya satu kelas punya banyak diskusi
+    }
 
-public function siswa()
-{
-    return $this->belongsToMany(User::class, 'course_enrollments', 'kelas_id', 'user_id')
-                ->withTimestamps();
-}
+    public function siswa()
+    {
+        return $this->belongsToMany(User::class, 'course_enrollments', 'kelas_id', 'user_id')
+                    ->withTimestamps();
+    }
+
+    public function certificates() {
+        return $this->hasMany(UserCertificate::class);
+    }
+
 
 
 
