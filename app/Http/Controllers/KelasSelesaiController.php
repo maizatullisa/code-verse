@@ -59,8 +59,9 @@ class KelasSelesaiController extends Controller
         // });
 
         // Total siswa per kelas
-        $totalSiswa = $kelasList->sum(function($kelas) {
-            return CourseEnrollment::where('kelas_id', $kelas->id)->count();
+        $kelasList->transform(function($kelas) {
+        $kelas->total_siswa = CourseEnrollment::where('kelas_id', $kelas->id)->count();
+        return $kelas;
         });
 
         return view('desktop.pages.kelas.kelas-selesai', [
@@ -68,7 +69,6 @@ class KelasSelesaiController extends Controller
             'totalCompletedKelas' => $totalCompletedKelas,
             // 'averageScore' => round($averageScore, 1),
             'highestScore' => $highestScore,
-            'totalSiswa' => $totalSiswa,
         ]);
     }
 }

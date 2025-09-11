@@ -12,67 +12,67 @@
     <div class="bg-sky-100 backdrop-blur-md rounded-2xl p-8 mb-8 shadow-2xl border border-sky-100">
         <div class="flex flex-col lg:flex-row items-start lg:items-center space-y-6 lg:space-y-0 lg:space-x-8">
             
-            <!-- Avatar -->
-            <div class="flex-shrink-0">
-            <div class="w-24 h-24 rounded-full  shadow-lg relative">
-                @if($user->profile_photo)
-                    <img src="{{ asset('storage/'.$user->profile_photo) }}" alt="Foto Profil" class="w-full h-full object-cover">
-                @else
-                    <div class=" text-black w-full h-full r from-p1 to-p2 flex items-center justify-center  text-2xl font-bold">
-                        {{ strtoupper(substr($user->first_name, 0, 1)) }}
+                <!-- Avatar -->
+                <div class="flex-shrink-0">
+                <div class="w-24 h-24 rounded-full  shadow-lg relative">
+                    @if($user->profile_photo)
+                        <img src="{{ asset('storage/'.$user->profile_photo) }}" alt="Foto Profil" class="w-full h-full object-cover rounded-full">
+                    @else
+                    <div class="text-black w-full h-full bg-gradient-to-r from-p1 to-p2 flex items-center justify-center text-2xl font-bold rounded-full">
+                            {{ strtoupper(substr($user->first_name, 0, 1)) }}
+                        </div>
+                    @endif
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+            </div>
+
+
+                <!-- User Info -->
+                <div class="flex-1">  
+                    <h2 class="text-3xl font-bold text-black mb-2">{{$user->first_name }}</h2>
+                    <p class="text-black mb-1">{{ $user->email }}</p>
+                    <p class="text-black text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p> 
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ url('/games/pilih-game') }}" 
+                            class="bg-red-600/90 text-red-100 border border-red-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center hover:bg-red-600 transition-colors">
+                                <i class="ph ph-fire mr-1"></i> Game
+                        </a>
+
+                        <a href="{{ route('user.profile.edit') }}"
+                        class="bg-green-600/90 text-green-100 border border-green-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center hover:bg-green-700 transition-colors">
+                        <i class="ph ph-pencil mr-1"></i> Edit Profil
+                        </a>
+                            
+
                     </div>
-                @endif
-                <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full lg:w-auto">
+                    <!-- <div class="text-center p-4 bg-blue-700/90 backdrop-blur-sm rounded-lg border border-blue-600">
+                        <div class="text-2xl font-bold text-blue-100">{{-- Total classes --}}</div>
+                        <div class="text-sm text-gray-300">Kelas</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-700/90 backdrop-blur-sm rounded-lg border border-green-600">
+                        <div class="text-2xl font-bold text-green-100">{{-- Total certificates --}}</div>
+                        <div class="text-sm text-gray-300">Sertifikat</div>
+                    </div>
+                    <div class="text-center p-4 bg-yellow-700/90 backdrop-blur-sm rounded-lg border border-yellow-600">
+                        <div class="text-2xl font-bold text-yellow-100">{{-- Total badges --}}</div>
+                        <div class="text-sm text-gray-300">Lencana</div>
+                    </div>
+                    <div class="text-center p-4 bg-purple-700/90 backdrop-blur-sm rounded-lg border border-purple-600">
+                        <div class="text-2xl font-bold text-purple-100">{{-- Total hours --}}</div>
+                        <div class="text-sm text-gray-300">Jam</div>
+                    </div> -->
+                </div>
             </div>
         </div>
 
-
-            <!-- User Info -->
-            <div class="flex-1">  
-                <h2 class="text-3xl font-bold text-black mb-2">{{$user->first_name }}</h2>
-                <p class="text-black mb-1">{{ $user->email }}</p>
-                <p class="text-black text-sm mb-4">Bergabung sejak: {{ $user->created_at->format('d M Y') }}</p> 
-                
-                <div class="flex flex-wrap gap-3">
-                    <a href="{{ url('/games/pilih-game') }}" 
-                        class="bg-red-600/90 text-red-100 border border-red-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center hover:bg-red-600 transition-colors">
-                            <i class="ph ph-fire mr-1"></i> Game
-                    </a>
-
-                    <a href="{{ route('user.profile.edit') }}"
-                    class="bg-green-600/90 text-green-100 border border-green-500 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm inline-flex items-center hover:bg-green-700 transition-colors">
-                    <i class="ph ph-pencil mr-1"></i> Edit Profil
-                    </a>
-                        
-
-                </div>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full lg:w-auto">
-                <!-- <div class="text-center p-4 bg-blue-700/90 backdrop-blur-sm rounded-lg border border-blue-600">
-                    <div class="text-2xl font-bold text-blue-100">{{-- Total classes --}}</div>
-                    <div class="text-sm text-gray-300">Kelas</div>
-                </div>
-                <div class="text-center p-4 bg-green-700/90 backdrop-blur-sm rounded-lg border border-green-600">
-                    <div class="text-2xl font-bold text-green-100">{{-- Total certificates --}}</div>
-                    <div class="text-sm text-gray-300">Sertifikat</div>
-                </div>
-                <div class="text-center p-4 bg-yellow-700/90 backdrop-blur-sm rounded-lg border border-yellow-600">
-                    <div class="text-2xl font-bold text-yellow-100">{{-- Total badges --}}</div>
-                    <div class="text-sm text-gray-300">Lencana</div>
-                </div>
-                <div class="text-center p-4 bg-purple-700/90 backdrop-blur-sm rounded-lg border border-purple-600">
-                    <div class="text-2xl font-bold text-purple-100">{{-- Total hours --}}</div>
-                    <div class="text-sm text-gray-300">Jam</div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="grid lg:grid-cols-3 gap-8">
-        
+        <!-- Main Content -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            
         <!-- Progress Kelas -->
         <div class="lg:col-span-2 bg-sky-100 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-sky-100 ">
             <div class="flex items-center mb-6">
@@ -81,69 +81,76 @@
             </div>
             
             <div class="space-y-4">
-                {{-- Loop through user enrolled classes --}}
-                {{-- @foreach($enrolledClasses as $class) --}}
+            @forelse($kelasList as $kelas)
+                @php
+                    $materiIds = $kelas->materis->pluck('id');
+                    $completedCount = \App\Models\UserMateriProgress::where('user_id', $user->id)
+                        ->whereIn('materi_id', $materiIds)
+                        ->where('status', 'completed')
+                        ->count();
+                    $totalCount = $materiIds->count();
+                    $progress = $totalCount > 0 ? round(($completedCount / $totalCount) * 100) : 0;
+                @endphp
+
                 <div class="bg-blue-800/90 backdrop-blur-sm p-4 rounded-xl border border-blue-600">
                     <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-semibold text-white">{{-- $class->name --}}</h4>
-                        <span class="text-blue-200 font-bold">{{-- $class->progress_percentage --}}%</span>
+                        <h4 class="font-semibold text-white">{{ $kelas->nama_kelas }}</h4>
+                        <span class="text-blue-200 font-bold">{{ $progress }}%</span>
                     </div>
+
                     <div class="w-full bg-blue-900/80 rounded-full h-2 mb-2">
-                        <div class="bg-gradient-to-r from-blue-400 to-blue-500 h-2 rounded-full progress-bar" data-width="{{-- $class->progress_percentage --}}%"></div>
+                        <div class="bg-gradient-to-r from-blue-400 to-blue-500 h-2 rounded-full" style="width: {{ $progress }}%"></div>
                     </div>
+
                     <div class="flex justify-between text-sm text-gray-300">
-                        <span>Estimasi: {{-- $class->estimated_remaining_hours --}} jam lagi</span>
-                        <span>Modul {{-- $class->completed_modules --}}/{{-- $class->total_modules --}}</span>
+                        <span>Durasi kelas : {{ $kelas->durasi }}</span>
+                        <span>Modul {{ $completedCount }}/{{ $totalCount }}</span>
                     </div>
                 </div>
-                {{-- @endforeach --}}
-
-                {{-- If no enrolled classes --}}
-                {{-- @if($enrolledClasses->isEmpty()) --}}
+            @empty
                 <div class="text-center py-8">
                     <i class="ph ph-book text-black text-4xl mb-4"></i>
                     <p class="text-black">Belum ada kelas yang diambil</p>
-                    <a href="{{-- route('classes.index') --}}" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    <a href="{{ route('kelas.ditawarkan') }}" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
                         Jelajahi Kelas
                     </a>
                 </div>
-                {{-- @endif --}}
+            @endforelse
+
             </div>
         </div>
 
-        <!-- Sertifikat -->
-        <div class="bg-sky-100 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-sky-100">
+                <!-- Sertifikat -->
+            <div class="bg-sky-100 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-sky-100">
             <div class="flex items-center mb-6">
                 <i class="ph ph-certificate text-black mr-3 text-xl"></i>
                 <h3 class="text-xl font-bold text-black">Sertifikat</h3>
             </div>
 
             <div class="space-y-3">
-                {{-- Loop through user certificates --}}
-                 @foreach($certificates as $certificate) 
+            @forelse ($certificates as $certificate)
                 <div class="bg-green-800/90 backdrop-blur-sm p-4 rounded-lg border border-green-600 hover:bg-green-700/90 transition-all duration-200">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="font-semibold text-black text-sm">{{-- $certificate->course_name --}}</h4>
-                            <p class="text-gray-300 text-xs">{{-- $certificate->issued_date --}}</p>
-                           <!-- <a href="{{ route('desktop.pages.sertifikat.form-sertif', $kelas->id) }}"  class="text-green-200 text-xs font-medium">Download </p>
-                           </a> -->
+                            <h4 class="font-semibold text-white text-sm">
+                                {{ $certificate->kelas->nama_kelas ?? '-' }}
+                            </h4>
+                            <p class="text-green-200 text-xs">
+                                No: {{ $certificate->certificate_number }}
+                            </p>
                         </div>
-                        <a href="{{-- route('certificates.download', $certificate->id) --}}" class="text-green-300 cursor-pointer hover:text-green-200">
+                        <a href="{{ route('desktop.pages.sertifikat.form-sertif', $certificate->kelas->id) }}', $certificate->filename) }}"
+                        class="text-green-300 hover:text-green-100">
                             <i class="ph ph-download"></i>
                         </a>
                     </div>
                 </div>
-                {{-- @endforeach --}}
-
-                {{-- If no certificates --}}
-                {{-- @if($certificates->isEmpty()) --}}
+            @empty
                 <div class="text-center py-8">
                     <i class="ph ph-certificate text-gray-400 text-3xl mb-4"></i>
                     <p class="text-black text-sm">Belum ada sertifikat</p>
                 </div>
-                {{-- @endif --}}
-            </div>
+            @endforelse
         </div>
     </div>
 

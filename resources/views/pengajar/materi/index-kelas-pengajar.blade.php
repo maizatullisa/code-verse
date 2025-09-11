@@ -168,15 +168,23 @@
           </span>
         </div>
         
-        <div class="absolute top-2 right-2">
-          <div class="bg-white/90 backdrop-blur-sm rounded-lg p-1">
-            <button class="text-gray-600 hover:text-red-500 transition-colors" onclick="deleteClass({{ $kelasItem->id }})">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-              </svg>
-            </button>
-          </div>
-        </div>
+        
+       <div class="absolute top-2 right-2">
+     <div class="relative">
+      <!-- Tombol hapus kecil di pojok kanan atas -->
+      <form id="deleteForm-{{ $kelasItem->id }}" action="{{ route('pengajar.kelas.destroy', $kelasItem->id) }}" method="POST" class="absolute top-2 right-2">
+        @csrf
+        @method('DELETE')
+
+        <button type="submit" class="p-1 rounded-full bg-white/80 hover:bg-red-100 text-gray-600 hover:text-red-500 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    </div>`
       </div>
       
       <div class="p-4">
@@ -360,32 +368,36 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Delete class functionality
-    window.deleteClass = function(classId) {
-        if (confirm('Apakah Anda yakin ingin menghapus kelas ini?')) {
-            // Show loading notification
-            showNotification('Menghapus kelas...', 'info');
-            
-            // Here you would typically make an AJAX call to delete the class
-            // For now, we'll just simulate the deletion
-            setTimeout(() => {
-                // Find and remove the card
-                const cardToRemove = document.querySelector(`[onclick="deleteClass(${classId})"]`).closest('.class-card');
-                if (cardToRemove) {
-                    cardToRemove.style.transform = 'scale(0)';
-                    cardToRemove.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        cardToRemove.remove();
-                        filterClasses(); // Re-check if empty state should be shown
-                        showNotification('Kelas berhasil dihapus!', 'success');
-                        
-                        // Update statistics
-                        updateStatistics();
-                    }, 300);
-                }
-            }, 1000);
-        }
-    };
+//    window.deleteClass = function(classId) {
+//     if (confirm('Apakah Anda yakin ingin menghapus kelas ini?')) {
+//         showNotification('Menghapus kelas...', 'info');
+
+//         fetch(`/pengajar/kelas/${classId}`, {
+//             method: 'DELETE',
+//             headers: {
+//                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
+//                 'Accept': 'application/json'
+//             },
+//         })
+//         .then(res => {
+//             if (!res.ok) throw new Error('Gagal menghapus kelas');
+//             return res.json();
+//         })
+//         .then(data => {
+//             // Hapus card di frontend
+//             const cardToRemove = document.querySelector(`[onclick="deleteClass(${classId})"]`).closest('.class-card');
+//             if (cardToRemove) cardToRemove.remove();
+
+//             filterClasses();
+//             showNotification('Kelas berhasil dihapus!', 'success');
+//             updateStatistics();
+//         })
+//         .catch(err => {
+//             showNotification(err.message, 'error');
+//         });
+//     }
+// };
+
 
     // Update statistics
     function updateStatistics() {

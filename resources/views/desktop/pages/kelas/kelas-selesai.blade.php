@@ -6,17 +6,17 @@
 
 @section('content')
     <!-- Search Box -->
-    <div class="bg-blue-700 relative overflow-hidden mb-8 rounded-xl">
+        <div class="bg-blue-700 relative overflow-hidden mb-8 rounded-xl">
 
-<div class="py-10px  flex justify-center items-center gap-4 px-6 relative z-20 max-w-4xl mx-auto mb-8">
-        <div class="flex justify-start items-center gap-4 bg-color24 border border-color24 p-4 rounded-full text-white w-full">
-            <i class="ph ph-magnifying-glass text-xl"></i>
-            <input type="text" placeholder="Search Contest" class="bg-transparent outline-none placeholder:text-white w-full text-base" />
+    <div class="py-10px  flex justify-center items-center gap-4 px-6 relative z-20 max-w-4xl mx-auto mb-8">
+            <div class="flex justify-start items-center gap-4 bg-color24 border border-color24 p-4 rounded-full text-white w-full">
+                <i class="ph ph-magnifying-glass text-xl"></i>
+                <input type="text" placeholder="Search Contest" class="bg-transparent outline-none placeholder:text-white w-full text-base" />
+            </div>
+            <button class="bg-color24 border border-color24 p-4 rounded-full text-white hover:bg-white/20">
+                <i class="ph ph-sliders-horizontal text-xl"></i>
+            </button>
         </div>
-        <button class="bg-color24 border border-color24 p-4 rounded-full text-white hover:bg-white/20">
-            <i class="ph ph-sliders-horizontal text-xl"></i>
-        </button>
-    </div>
 
     <!-- Tab Navigation -->
     <!-- <div class="px-6 mb-8">
@@ -42,7 +42,8 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-2xl font-bold mb-2">Selamat! 🎉</h3>
-                        <p class="text-white/90">Kamu telah menyelesaikan {{ $totalCompletedKelas }} kelas dengan nilai tertinggi {{ $highestScore }} </p>
+                        <p class="text-white/90">Kamu telah menyelesaikan {{ $totalCompletedKelas ?? 0 }} kelas 
+                            dengan nilai tertinggi {{ $highestScore ?? 0 }} </p>
                         <div class="flex items-center gap-2 mt-2">
                             <!-- <div class="flex items-center">
                                 <i class="ph-fill ph-star text-yellow-300 text-xl"></i>
@@ -83,8 +84,8 @@
                         <option>Durasi Terpanjang</option>
                     </select>
                 </div>
-                <div class="text-sm text-gray-500">
-                    Menampilkan {{ $totalCompletedKelas }} dari {{ $totalCompletedKelas }} kelas selesai
+                <div class="text-sm text-white">
+                    Menampilkan {{ $totalCompletedKelas ?? 0 }} dari {{ $totalCompletedKelas ?? 0 }} kelas selesai
                 </div>
             </div>
         </div>
@@ -122,7 +123,7 @@
                             <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
                                 <div class="flex items-center gap-1">
                                     <i class="ph ph-users-three"></i>
-                                    <span>{{$totalSiswa}} siswa</span>
+                                    <span>{{$kelas->total_siswa}} siswa</span>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     <!-- <i class="ph ph-calendar"></i> -->

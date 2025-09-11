@@ -54,9 +54,9 @@
                 <button class="tab-btn active bg-yellow-400 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all" data-tab="overview">
                     Overview
                 </button>
-                <button class="tab-btn text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/20 transition-all" data-tab="curriculum">
+                <!-- <button class="tab-btn text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/20 transition-all" data-tab="curriculum">
                     Kurikulum
-                </button>
+                </button> -->
                 <button class="tab-btn text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/20 transition-all" data-tab="instructor">
                     Pengajar
                 </button>
@@ -104,12 +104,12 @@
                     </div>
 
                     <!-- Curriculum Tab -->
-                    <div class="tab-content hidden" id="curriculum">
+                    <!-- <div class="tab-content hidden" id="curriculum">
                         <div class="bg-white rounded-xl p-6 shadow2">
                             <h3 class="font-bold text-xl mb-6 text-gray-800">Kurikulum Pembelajaran</h3>
-                            <div class="space-y-4">
+                            <div class="space-y-4"> -->
                                 <!-- Week 1 -->
-                                <div class="border border-gray-200 rounded-lg p-4">
+                                <!-- <div class="border border-gray-200 rounded-lg p-4">
                                     <div class="flex items-center justify-between mb-3">
                                         <h4 class="font-semibold text-lg text-gray-800">Week 1: Introduction to React</h4>
                                         <span class="text-sm text-gray-500">3 materi • 1 quiz</span>
@@ -132,10 +132,10 @@
                                             Quiz: React Basics
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <!-- Week 2 -->
-                                <div class="border border-gray-200 rounded-lg p-4">
+                                <!-- <div class="border border-gray-200 rounded-lg p-4">
                                     <div class="flex items-center justify-between mb-3">
                                         <h4 class="font-semibold text-lg text-gray-800">Week 2: State Management</h4>
                                         <span class="text-sm text-gray-500">4 materi • 1 quiz</span>
@@ -162,15 +162,15 @@
                                             Quiz: State Management
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <!-- Continue for other weeks... -->
-                                <div class="text-center py-4">
+                                <!-- <div class="text-center py-4">
                                     <span class="text-gray-500">... dan 6 minggu pembelajaran lainnya</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Instructor Tab -->
                     <div class="tab-content hidden" id="instructor">

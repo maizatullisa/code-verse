@@ -28,9 +28,6 @@
 </head>
 <body class="min-h-screen bg-slate-50 overflow-x-hidden">
     
-    <!-- Notification Container -->
-    <div id="notificationContainer" class="fixed top-4 right-4 z-50 space-y-4"></div>
-    
     <div class="min-h-screen flex">
         
         <!-- kiri Side - Info Panel (Desktop Only) -->
@@ -42,6 +39,26 @@
             </div>
             
             <div class="max-w-lg text-center relative z-10">
+                
+                <!--  BISA DI PAKAI KALAU MEMBUTUHKAN
+                <div class="flex gap-3 mb-16 justify-center">
+                    <button onclick="showLogin()" 
+                            class="toggle-btn px-6 py-3 rounded-xl text-white font-semibold transition-all duration-300 backdrop-blur-sm" 
+                            id="loginToggle">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-sign-in text-lg"></i>
+                            <span>Masuk</span>
+                        </div>
+                    </button>
+                    <button onclick="showRegister()" 
+                            class="toggle-btn px-6 py-3 rounded-xl text-white/70 font-semibold transition-all duration-300 hover:bg-white/10 backdrop-blur-sm" 
+                            id="registerToggle">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-user-plus text-lg"></i>
+                            <span>Daftar</span>
+                        </div>
+                    </button>
+                </div> -->
                 
                 <!-- Main Icon -->
                 <div class="w-24 h-24 mx-auto mb-8 rounded-2xl bg-white/20 backdrop-blur-sm p-6 shadow-lg">
@@ -105,6 +122,16 @@
                             id="mobileRegisterToggle">
                         Daftar
                     </button>
+                    <button onclick="showLupaPw()" 
+                            class="mobile-toggle px-4 py-2 rounded-lg text-sm font-semibold text-white/70 transition-all duration-300" 
+                            id="mobileRegisterToggle">
+                        Kirim OTP
+                    </button>
+                    <button onclick="showCreatePW()" 
+                            class="mobile-toggle px-4 py-2 rounded-lg text-sm font-semibold text-white/70 transition-all duration-300" 
+                            id="mobileRegisterToggle">
+                        Konfirmasi
+                    </button>
                 </div>
             </div>
 
@@ -124,8 +151,8 @@
                                 </div>
                             </div>
 
-                            <!-- Login Form -->
-                            <form method="POST" action="{{ route('login') }}" class="space-y-6" onsubmit="handleSubmit(event)">
+                            <!-- Login Faorm -->
+                            <form method="POST" action="{{ route('login') }}" class="space-y-6">
                                 @csrf
                                 
                                 <!-- Input hidden untuk deteksi device -->
@@ -160,12 +187,11 @@
                                 
                                 <!-- link lupa Password -->
                                 <div class="text-right">
-                                    <button type="button" onclick="showLupaPw()" 
+                                    <button onclick="showLupaPw()" 
                                         class="text-primary hover:text-primary-dark font-bold underline ml-1 transition-colors duration-300">
                                         Lupa Password?
                                     </button>
                                 </div>
-                                
                                 <!-- Submit Button -->
                                 <button type="submit" 
                                         class="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">
@@ -189,13 +215,14 @@
                                         <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                         <span>Masuk dengan Google</span>
                                     </button>
+                                    
                                 </div>
                             </div>
 
                             <!-- Toggle to Register -->
                             <p class="text-center text-gray-600 mt-8">
                                 Belum punya akun?
-                                <button type="button" onclick="showRegister()" 
+                                <button onclick="showRegister()" 
                                         class="text-primary hover:text-primary-dark font-bold underline ml-1 transition-colors duration-300">
                                     Klik Disini
                                 </button>
@@ -326,7 +353,7 @@
                             <!-- Toggle to Login -->
                             <p class="text-center text-gray-600 mt-8">
                                 Sudah punya akun?
-                                <button type="button" onclick="showLogin()" 
+                                <button onclick="showLogin()" 
                                         class="text-primary hover:text-primary-dark font-bold underline ml-1 transition-colors duration-300">
                                     Masuk di sini
                                 </button>
@@ -344,7 +371,6 @@
                                     </div>
                                 </div>
 
-                                <form onsubmit="handleForgotPassword(event)" class="space-y-6">
                                     <!-- Email Field -->
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
@@ -356,7 +382,7 @@
                                     </div>
 
                                     <!-- Submit -->
-                                    <button type="submit"
+                                    <button onclick="showOtp()"
                                             class="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">
                                             Kirim Kode OTP
                                     </button>
@@ -365,7 +391,7 @@
                                 <!-- Kembali ke login -->
                                 <p class="text-center text-gray-600 mt-8">
                                     Sudah ingat password?
-                                    <button type="button" onclick="showLogin()"
+                                    <button onclick="showLogin()"
                                             class="text-primary hover:text-primary-dark font-bold underline ml-1 transition-colors duration-300">
                                         Masuk di sini
                                     </button>
@@ -384,30 +410,31 @@
                                     </div>
                                 </div>
 
-                                <form onsubmit="handleOTPVerification(event)" class="space-y-6">
+                                
+                                <form class="space-y-6">
+                                    
                                     <div class="flex justify-between gap-4">
                                         <input type="text" maxlength="1"
-                                            class="otp-input w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
-                                            onkeyup="moveToNext(this, 0)" />
+                                            class="w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" />
                                         <input type="text" maxlength="1"
-                                            class="otp-input w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
-                                            onkeyup="moveToNext(this, 1)" />
+                                            class="w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" />
                                         <input type="text" maxlength="1"
-                                            class="otp-input w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
-                                            onkeyup="moveToNext(this, 2)" />
+                                            class="w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" />
                                         <input type="text" maxlength="1"
-                                            class="otp-input w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" 
-                                            onkeyup="moveToNext(this, 3)" />
+                                            class="w-1/4 text-center py-4 bg-white border-2 border-gray-200 rounded-xl text-xl font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10" />
                                     </div>
 
-                                    <button type="submit"
+                                    
+                                    <button type="button" onclick="showCreatePW()"
                                         class="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]">
-                                        Verifikasi
+                                        verifikasi
                                     </button>
 
+
+                                    
                                     <p class="text-center text-gray-600 text-sm">
                                         Belum dapat kode? 
-                                        <button type="button" onclick="resendOTP()" class="text-primary hover:text-primary-dark font-bold underline ml-1">Kirim Ulang</button>
+                                        <button type="button" class="text-primary hover:text-primary-dark font-bold underline ml-1">Kirim Ulang</button>
                                     </p>
                                 </form>
                             </div>
@@ -424,7 +451,9 @@
                                     </div>
                                 </div>
 
-                                <form onsubmit="handleNewPassword(event)" class="space-y-6">
+                                
+                                <form class="space-y-6">
+                                    
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Password Baru</label>
                                         <div class="relative">
@@ -456,7 +485,7 @@
                                         Konfirmasi Password
                                     </button>
 
-                                    <button type="button" onclick="showLogin()" 
+                                    <button onclick="showLogin()" 
                                         class="text-primary hover:text-primary-dark font-bold underline ml-1 transition-colors duration-300">
                                         Kembali Ke Login 
                                     </button>
@@ -472,3 +501,4 @@
     <script src="{{ asset('assets/js/custom/logrek.js') }}"></script>
 </body>
 </html>
+

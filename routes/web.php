@@ -9,8 +9,10 @@ use App\Http\Controllers\KelasDitawarkanController;
 use App\Http\Controllers\KelasMateriController;
 use App\Http\Controllers\KelasIndexController;
 use App\Http\Controllers\KelasSelesaiController;
+use App\Http\Controllers\KelasPreviewController;
 use App\Http\Controllers\LihatDetailPengajarController;
 use App\Http\Controllers\MateriBladeSearch;
+use App\Http\Controllers\PengajarSiswaListController;
 use App\Http\Controllers\SertifikatSiswaController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -125,7 +127,7 @@ Route::get('/kelas/{kelasId}/materi/{materiId?}', [KelasMateriController::class,
 Route::post('/kelas/quiz/{quizId}/submit', [KelasMateriController::class, 'submitQuiz'])
      ->name('student.quiz.submit');
 // Tandai materi selesai
-Route::post('/kelas/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
+Route::post('/kelas/{kelasId}/materi/{materiId}/mark-complete',[KelasMateriController::class, 'markComplete'])
      ->name('student.materi.complete');
 // Load konten materi (video/teks)
 Route::get('/kelas/materi/{materiId}/load-content', [KelasMateriController::class, 'loadMateriContent'])
@@ -135,13 +137,14 @@ Route::get('/kelas/{kelasId}/materi/{materiId}/next', [KelasMateriController::cl
     ->name('student.materi.next');
 Route::get('/kelas/{kelasId}/materi/{materiId}/previous', [KelasMateriController::class, 'previousMateri'])
     ->name('student.materi.previous');
-Route::get('/kelas/{kelasId}/completed', [KelasMateriController::class, 'courseCompleted'])
-    ->name('student.course.completed');
+// Route::get('/kelas/{kelasId}/completed', [KelasMateriController::class, 'courseCompleted'])
+//     ->name('student.course.completed');
 //rute untuk melihat detail pengajar biodata
 Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
         ->name('profile-pengajar');
 Route::get('/desktop/kelas-selesai', [KelasSelesaiController::class, 'index'])
 ->name('kelas.selesai');
+Route::get('/desktop/{kelas}/kelas-preview', [KelasPreviewController::class, 'index'])->name('kelas.preview');
 
 });
 
@@ -151,6 +154,7 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])
         ->name('pengajar.dashboard');
 });
+
 
 
 // Semua route admin hanya bisa diakses jika login & rolenya admin
@@ -286,6 +290,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Route::get('/admin/roadmap', function () {
 //     return view('admin.roadmap.roadmap-adm');
 // })->name('admin.roadmap.roadmap-adm');
+
+// Route::get('/pengajar/siswa', function () {
+//  return view('pengajar.siswa.siswa-pengajar');
+// })->name('pengajar.siswa');
+
+Route::get('/pengajar/siswa', [PengajarSiswaListController::class, 'index'])->name('pengajar.siswa');
 
 /*
 |--------------------------------------------------------------------------
@@ -705,10 +715,11 @@ Route::get('/desktop/belajar-materi', function () {
 // Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
 // Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
 
- Route::get('/desktop/kelas-previews', function () {
-    return view('desktop.pages.kelas.kelas-previews');
- })->name('desktop.pages.kelas.kelas-previews');
+//  Route::get('/desktop/kelas-previews', function () {
+//     return view('desktop.pages.kelas.kelas-previews');
+//  })->name('desktop.pages.kelas.kelas-previews');
 
+// Route::get('/desktop/kelas-preview', [KelasPreviewController::class, 'index'])->name('kelas.preview');
  //kelas diambil
 // Route::get('/desktop/kelas-diambil', function () {
 //     return view('desktop.pages.kelas.kelas-diambil');

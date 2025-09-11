@@ -7,7 +7,25 @@
 @section('hideBottomNavbar', true)
 @section('content')
 <div class="min-h-screen relative z-10">
-    
+
+    {{-- Alert Sukses --}}
+    @if(session('success'))
+        <div class="alert bg-green-500 text-white p-3 rounded-lg mb-4 transition-opacity duration-500 opacity-100">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- Alert Error --}}
+    @if($errors->any())
+        <div class="alert bg-red-500 text-white p-3 rounded-lg mb-4 transition-opacity duration-500 opacity-100">
+            <ul class="list-disc list-inside">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- Header -->
     <div class="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 mb-8 shadow-2xl border border-gray-700">
         <div class="flex items-center justify-between">
@@ -21,10 +39,6 @@
                 </div>
             </div>
             <div class="flex space-x-3">
-                <!-- <button type="button" onclick="resetForm()" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 border border-gray-600">
-                    <i class="ph ph-arrow-clockwise text-sm"></i>
-                    <span>Reset</span>
-                </button> -->
             </div>
         </div>
     </div>
@@ -114,22 +128,6 @@
                             @enderror
                         </div>
 
-                        <!-- Last Name -->
-                        <!-- <div>
-                            <label for="last_name" class="block text-sm font-medium text-gray-300 mb-2">
-                                Nama Belakang
-                            </label>
-                            <input type="text" 
-                                   id="last_name" 
-                                   name="last_name" 
-                                   value="{{ old('last_name', $user->last_name ?? '') }}" 
-                                   class="w-full bg-gray-800/50 border border-gray-600 text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder-gray-400"
-                                   placeholder="Masukkan nama belakang">
-                            @error('last_name')
-                                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div> -->
-
                         <!-- Email -->
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
@@ -146,71 +144,6 @@
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
-
-                        <!-- Phone -->
-                        <!-- <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">
-                                Nomor Telepon
-                            </label>
-                            <input type="tel" 
-                                   id="phone" 
-                                   name="phone" 
-                                   value="{{ old('phone', $user->phone ?? '') }}" 
-                                   class="w-full bg-gray-800/50 border border-gray-600 text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder-gray-400"
-                                   placeholder="Masukkan nomor telepon">
-                            @error('phone')
-                                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div> -->
-
-                        <!-- Date of Birth -->
-                        <!-- <div>
-                            <label for="date_of_birth" class="block text-sm font-medium text-gray-300 mb-2">
-                                Tanggal Lahir
-                            </label>
-                            <input type="date" 
-                                   id="date_of_birth" 
-                                   name="date_of_birth" 
-                                   value="{{ old('date_of_birth', $user->date_of_birth ?? '') }}" 
-                                   class="w-full bg-gray-800/50 border border-gray-600 text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
-                            @error('date_of_birth')
-                                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div> -->
-
-                        <!-- Gender -->
-                        <!-- <div>
-                            <label for="gender" class="block text-sm font-medium text-gray-300 mb-2">
-                                Jenis Kelamin
-                            </label>
-                            <select id="gender" 
-                                    name="gender" 
-                                    class="w-full bg-gray-800/50 border border-gray-600 text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
-                                <option value="">Pilih jenis kelamin</option>
-                                <option value="male" {{ old('gender', $user->gender ?? '') == 'male' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="female" {{ old('gender', $user->gender ?? '') == 'female' ? 'selected' : '' }}>Perempuan</option>
-                            </select>
-                            @error('gender')
-                                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div> -->
-
-                    <!-- Bio/Description -->
-                    <!-- <div class="mt-6">
-                        <label for="bio" class="block text-sm font-medium text-gray-300 mb-2">
-                            Bio/Deskripsi
-                        </label>
-                        <textarea id="bio" 
-                                  name="bio" 
-                                  rows="4" 
-                                  class="w-full bg-gray-800/50 border border-gray-600 text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder-gray-400 resize-none"
-                                  placeholder="Ceritakan tentang diri Anda...">{{ old('bio', $user->bio ?? '') }}</textarea>
-                        @error('bio')
-                            <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div> -->
 
                 <!-- Password Change -->
                 <div class="bg-gray-900/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-gray-700">
@@ -309,18 +242,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Action Buttons -->
-        <!-- <div class="-mt-8 flex flex-wrap justify-center gap-4">
-            <a href="{{ route('user.desktop') }}" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 border border-gray-600">
-                <i class="ph ph-x"></i>
-                <span>Batal</span>
-            </a>
-            <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 border border-blue-600">
-                <i class="ph ph-check"></i>
-                <span>Simpan Perubahan</span>
-            </button>
-        </div> -->
     </form>
 </div>
 @endsection
@@ -341,15 +262,15 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-      // Reset form to original values
+
+    // Reset form to original values
     function resetForm() {
         if (confirm('Apakah Anda yakin ingin mereset semua perubahan?')) {
             document.getElementById('profileForm').reset();
-            
-            // Reset image preview
+
             const hasOriginalPhoto = '{{ $user->profile_photo ?? "" }}';
             if (hasOriginalPhoto) {
-                document.getElementById('profilePreview').src = '{{ $user->profile_photo ? asset("storage/".$user->profile_photo) : "" }}';
+                document.getElementById('profilePreview').src = '{{ asset("storage/" . $user->profile_photo) }}';
                 document.getElementById('profilePreview').classList.remove('hidden');
                 document.getElementById('profilePlaceholder').classList.add('hidden');
             } else {
@@ -358,36 +279,6 @@
             }
         }
     }
-
-      // Form validation before submit
-    document.getElementById('profileForm').addEventListener('submit', function(e) {
-        // Show loading state
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i><span>Menyimpan...</span>';
-        submitBtn.disabled = true;
-        
-        // Re-enable button after 5 seconds as fallback
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 5000);
-    })
-
-      // Form validation before submit
-    document.getElementById('profileForm').addEventListener('submit', function(e) {
-        // Show loading state
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i><span>Menyimpan...</span>';
-        submitBtn.disabled = true;
-        
-        // Re-enable button after 5 seconds as fallback
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 5000);
-    })
 
     // Toggle password visibility
     function togglePassword(fieldId) {
@@ -403,41 +294,23 @@
         }
     }
 
-    // Reset form to original values
-    function resetForm() {
-        if (confirm('Apakah Anda yakin ingin mereset semua perubahan?')) {
-            document.getElementById('profileForm').reset();
-            
-            // Reset image preview
-            const hasOriginalPhoto = '{{ $user->profile_photo ?? "" }}';
-            if (hasOriginalPhoto) {
-                document.getElementById('profilePreview').src = '{{ $user->profile_photo ? asset("storage/".$user->profile_photo) : "" }}';
-                document.getElementById('profilePreview').classList.remove('hidden');
-                document.getElementById('profilePlaceholder').classList.add('hidden');
-            } else {
-                document.getElementById('profilePreview').classList.add('hidden');
-                document.getElementById('profilePlaceholder').classList.remove('hidden');
-            }
-        }
-    }
-
     // Form validation before submit
     document.getElementById('profileForm').addEventListener('submit', function(e) {
         const newPassword = document.getElementById('new_password').value;
         const confirmPassword = document.getElementById('new_password_confirmation').value;
-        
+
         if (newPassword && newPassword !== confirmPassword) {
             e.preventDefault();
             alert('Password baru dan konfirmasi password tidak cocok!');
             return false;
         }
-        
+
         // Show loading state
         const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i><span>Menyimpan...</span>';
         submitBtn.disabled = true;
-        
+
         // Re-enable button after 5 seconds as fallback
         setTimeout(() => {
             submitBtn.innerHTML = originalText;

@@ -203,23 +203,7 @@
                 @enderror
               </div>
 
-              <!-- Kapasitas -->
-              <div>
-                <label for="kapasitas" class="block text-sm font-semibold text-gray-800 mb-2">
-                  Kapasitas Siswa (Opsional)
-                </label>
-                <input type="number" 
-                       id="kapasitas" 
-                       name="kapasitas" 
-                       value="{{ old('kapasitas') }}"
-                       placeholder="Contoh: 50"
-                       min="1"
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300">
-                <p class="text-xs text-gray-500 mt-1">Kosongkan untuk kapasitas tidak terbatas</p>
-                @error('kapasitas')
-                  <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-              </div>
+
 
               <!-- Harga -->
               <div>

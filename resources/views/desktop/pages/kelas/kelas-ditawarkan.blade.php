@@ -119,7 +119,7 @@
     <div class="px-6 mb-6">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center">
-                <p class="text-gray-600">
+                <p class="text-white">
                    Menampilkan {{ $kelasList->firstItem() }}-{{ $kelasList->lastItem() }} dari {{ $kelasList->total() }} kelas tersedia
                 </p>
                 <div class="flex items-center gap-2">
@@ -247,10 +247,10 @@
                             </button>
                                 
                                 <!-- Dummy Preview Button -->
-                                <button class="border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10 transition-all" 
-                                        onclick="event.stopPropagation(); alert('Preview kelas: {{ $kelas->nama_kelas }}')">
-                                    Preview
-                                </button>
+                                <a href="{{ route('kelas.preview', ['kelas' => $kelas->id]) }}"
+                                    class="inline-flex items-center justify-center border border-p2 text-p2 px-4 py-2 rounded-full text-sm font-medium hover:bg-p2/10">
+                                    Detail
+                                    </a>
                             </div>
                         </div>
                     </div>

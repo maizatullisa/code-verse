@@ -154,7 +154,7 @@ class KelasController extends Controller
 
         $kelas->delete();
 
-        return redirect()->route('pengajar.kelas.index')
+        return redirect()->route('pengajar.materi.index-kelas-pengajar')
                         ->with('success', 'Kelas berhasil dihapus!');
     }
 }

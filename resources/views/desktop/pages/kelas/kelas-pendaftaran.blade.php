@@ -274,7 +274,7 @@
                             </div>
 
                             <!-- Newsletter Subscription -->
-                            <div class="border border-gray-200 rounded-xl p-4 mb-6">
+                            <!-- <div class="border border-gray-200 rounded-xl p-4 mb-6">
                                 <label class="flex items-start gap-3 cursor-pointer">
                                     <input type="checkbox" id="newsletter-checkbox" name="newsletter_subscription" value="1" class="mt-1 text-p2 focus:ring-p2 rounded">
                                     <div class="text-sm text-gray-700">
@@ -282,7 +282,7 @@
                                         Dapatkan update kelas terbaru, tips pembelajaran, dan penawaran khusus lainnya via email.
                                     </div>
                                 </label>
-                            </div>
+                            </div> -->
 
                             <!-- Course Benefits -->
                             <div id="course-benefits" class="bg-blue-50 border border-blue-200 rounded-xl p-4">
@@ -347,10 +347,10 @@
                                 <i class="ph ph-medal text-p2"></i>
                                 <span>{{ ucfirst($courseData['level']) }}</span>
                             </div>
-                            <div class="flex items-center gap-2">
+                            <!-- <div class="flex items-center gap-2">
                                 <i class="ph ph-users text-p2"></i>
                                 <span>{{ $courseData['kapasitas'] >= 9999 ? 'Tidak Terbatas' : $courseData['kapasitas'] . ' Slot' }}</span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

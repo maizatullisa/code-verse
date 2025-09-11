@@ -218,11 +218,10 @@
                                 <i class="ph ph-arrow-right ml-2"></i>
                             </span>
                         @else
-                            <a href="{{ route('student.course.completed', $kelas->id) }}" 
-                               class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-all">
-                                <span>Selesai</span>
-                                <i class="ph ph-check ml-2"></i>
-                            </a>
+                            <span class="bg-green-500 text-white px-6 py-2 rounded-full font-semibold opacity-50 cursor-not-allowed">
+                            Semua materi selesai
+                             <i class="ph ph-check ml-2"></i>
+                        </span>
                         @endif
                     </div>
                 </div>

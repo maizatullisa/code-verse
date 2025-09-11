@@ -6,7 +6,7 @@
     <div class="mb-8">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                <h1 class="text-4xl bg-black font-bold bg-clip-text text-transparent mb-2">
                     Daftar Pengajar
                 </h1>
                 <p class="text-gray-600 text-lg">Kelola data pengajar dengan mudah</p>

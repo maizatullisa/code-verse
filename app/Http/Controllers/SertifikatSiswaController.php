@@ -6,7 +6,9 @@ use App\Models\Kelas;
 use App\Models\UserCertificate;
 use Illuminate\Http\Request;
 use Spatie\LaravelPdf\Facades\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -36,20 +38,44 @@ class SertifikatSiswaController extends Controller
     }
 
     public function generate(Request $request, $kelasId)
-    {
-        $user = auth()->user();
-        $kelas = Kelas::findOrFail($kelasId);
-        $certificateNumber = 'CV-' . strtoupper(uniqid());
+{
+    $user = auth()->user();
+    $kelas = Kelas::findOrFail($kelasId);
+    $certificateNumber = 'CV-' . strtoupper(uniqid());
+    $filename = 'sertifikat_' . $kelasId . '_' . $user->id . '.pdf'; //ama file unik per user+kelas
 
-        return \Spatie\LaravelPdf\Facades\Pdf::view('desktop.pdf.sertifikat', [
+    //simpan file PDF ke storage/public/sertifikat
+    Pdf::view('desktop.pdf.sertifikat', [
             'fullName' => $request->full_name,
             'kelas' => $kelas,
             'certificateNumber' => $certificateNumber,
         ])
         ->format('a4')
         ->landscape()
-        ->download('sertifikat_' . $kelasId . '.pdf');
-    }
+        ->save(storage_path('app/public/sertifikat/' . $filename));
+
+    //simpan record sertifikat ke DB
+    UserCertificate::updateOrCreate(
+        [
+            'user_id'  => $user->id,
+            'kelas_id' => $kelas->id, // kombinasi user+kelas unik
+        ],
+        [
+            'certificate_number' => $certificateNumber,
+            'filename' => $filename,
+            'file_path' => 'sertifikat/' . $filename,
+            'generated_at' => Carbon::now(),
+        ]
+    );
+
+    //tetap download setelah generate
+    return response()->download(
+        storage_path('app/public/sertifikat/' . $filename),
+        $filename,
+        ['Content-Type' => 'application/pdf']
+    );
+}
+
 
     public function download($filename)
     {

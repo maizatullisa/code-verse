@@ -191,12 +191,12 @@
           <span class="nav-text">Kelas</span>
         </a>
 
-        <a href="#" 
-           class="nav-item @if(request()->is('pengajar/forum*')) active @endif">
+        <a href="/pengajar/siswa" 
+           class="nav-item @if(request()->is('pengajar/siswa*')) active @endif">
           <div class="nav-icon">
-            <i class="ph ph-chat-circle text-lg"></i>
+            <i class="ph ph-user-circle text-lg"></i>
           </div>
-          <span class="nav-text">Forum</span>
+          <span class="nav-text">Siswa</span>
         </a>
       </nav>
     </aside>

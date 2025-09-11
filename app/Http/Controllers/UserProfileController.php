@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\UserMateriProgress;
+use App\Models\UserCertificate;
+use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,12 +14,28 @@ use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
-    public function dashboardUserDesktop()
-        {
-            $user = auth()->user(); //mendapatkan user yg lgin
+public function dashboardUserDesktop()
+{
+    $user = auth()->user();
+    
+    $kelasList = CourseEnrollment::where('user_id', $user->id)
+    ->with(['kelas.materis', 'kelas.pengajar'])
+    ->get()
+    ->map(fn($enrollment) => $enrollment->kelas) // ambil model kelas
+    ->filter() // buang null
+    ->map(function($kelas) {
+        $kelas->durasi = $kelas->durasi ?? '8 minggu pembelajaran';
+        return $kelas;
+    });  
 
-            return view('desktop.user-desktop', compact('user'));
-        }
+    // Sertifikat yang dimiliki
+    $certificates = \App\Models\UserCertificate::where('user_id', $user->id)
+        ->with('kelas')
+        ->get();
+
+    return view('desktop.user-desktop', compact('user', 'kelasList', 'certificates'));
+}
+
 
         public function edit()
     {
@@ -26,7 +44,7 @@ class UserProfileController extends Controller
     }
 
 
-     public function update(Request $request)
+        public function update(Request $request)
     {
         $user = Auth::user();
 
@@ -39,29 +57,25 @@ class UserProfileController extends Controller
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        //ubah
+        // Update nama & email
         $user->first_name = $request->first_name;
         $user->email = $request->email;
-        if ($request->filled('current_password') && $request->filled('new_password')) {
-        if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => 'Password saat ini tidak cocok.']);
-        }
 
+        //update password kalau diisi
         if ($request->filled('current_password') && $request->filled('new_password')) {
-            // Validasi password lama
             if (!Hash::check($request->current_password, $user->password)) {
                 return back()->withErrors(['current_password' => 'Password saat ini tidak cocok.']);
             }
 
-            // Update password baru
-            $user->password = Hash::make($request->new_password); // Gunakan Hash::make() atau bcrypt()
+            $user->password = Hash::make($request->new_password);
         }
+
         if ($request->hasFile('profile_photo')) {
-            //hapus fto lama
+            // hapus foto lama kalau ada
             if ($user->profile_photo && Storage::disk('public')->exists($user->profile_photo)) {
                 Storage::disk('public')->delete($user->profile_photo);
             }
-            //smpan fto bru
+            // simpan foto baru
             $path = $request->file('profile_photo')->store('profile_photos', 'public');
             $user->profile_photo = $path;
         }
@@ -71,6 +85,4 @@ class UserProfileController extends Controller
         return back()->with('success', 'Profil berhasil diperbarui!');
     }
 
-
-    }
 }
