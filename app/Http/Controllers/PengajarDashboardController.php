@@ -5,6 +5,8 @@ use App\Models\Quiz;
 use App\Models\Materi;
 use App\Models\Kelas;
 use App\Models\Diskusi;
+use App\Models\QuizQuestion;
+use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
 
 class PengajarDashboardController extends Controller
@@ -20,10 +22,22 @@ public function index()
         $q->where('pengajar_id', $pengajarId);
     })->count();
 
+    // Total soal dari semua quiz pengajar
+    $totalSoal = QuizQuestion::whereHas('quiz.materi', function ($q) use ($pengajarId) {
+        $q->where('pengajar_id', $pengajarId);
+    })->count();
+
+    // Total siswa yang mendaftar di kelas-kelas pengajar
+$totalSiswa = CourseEnrollment::whereHas('kelas', function ($q) use ($pengajarId) {
+    $q->where('pengajar_id', $pengajarId);
+})->whereIn('status', ['approved', 'pending'])->count();
+
     $data = [
         'totalKelas' => $totalKelas,
         'totalDiskusi' => $totalDiskusi,
         'total_quiz' => $totalQuiz,
+        'totalSoal' => $totalSoal,
+        'totalSiswa' => $totalSiswa
     ];
 
     return view('pengajar.dashboard_pengajar', $data);

@@ -14,16 +14,6 @@
                         <p class="text-gray-600 mt-1">Kelola dan monitor kelas pembelajaran</p>
                     </div>
                 </div> 
-
-                <!--
-                <div class="flex items-center space-x-3">
-                    <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-md">
-                        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                        Tambah Kelas
-                    </a>
-                </div>-->
             </div>
         </div>
     </div>
@@ -137,9 +127,9 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Tingkat</label>
                         <select name="tingkat" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white">
                             <option value="">Semua Tingkat</option>
-                            <option value="pemula" {{ request('tingkat') == 'pemula' ? 'selected' : '' }}>Pemula</option>
-                            <option value="menengah" {{ request('tingkat') == 'menengah' ? 'selected' : '' }}>Menengah</option>
-                            <option value="lanjutan" {{ request('tingkat') == 'lanjutan' ? 'selected' : '' }}>Lanjutan</option>
+                            <option value="pemula" {{ request('level') == 'beginner' ? 'selected' : '' }}>Pemula</option>
+                            <option value="menengah" {{ request('level') == 'intermediate' ? 'selected' : '' }}>Menengah</option>
+                            <option value="lanjutan" {{ request('level') == 'advanced' ? 'selected' : '' }}>Lanjutan</option>
                         </select>
                     </div>
 

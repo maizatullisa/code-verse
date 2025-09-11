@@ -133,12 +133,18 @@ class QuizController extends Controller
         return redirect()->back()->with('success', 'Pertanyaan berhasil ditambahkan.');
     }
 
-    public function destroy($id)
-    {
-        $quiz = Quiz::where('id', $id)->where('pengajar_id', Auth::id())->firstOrFail();
-        $quiz->delete();
+        public function destroy($quizId)
+        {
+            // Cari quiz
+            $quiz = Quiz::with('questions')->findOrFail($quizId);
 
-        return redirect()->back()->with('success', 'Quiz berhasil dihapus.');
-    }
+            // Hapus semua soal terkait
+            $quiz->questions()->delete();
 
+            // Hapus quiz
+            $quiz->delete();
+
+            return redirect()->route('pengajar.quiz.listquiz')
+                ->with('success', 'Quiz beserta semua soal berhasil dihapus.');
+        }
 }

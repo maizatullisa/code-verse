@@ -44,22 +44,42 @@
     </div>
 
     <div class="space-y-4">
-      @foreach($siswa as $item)
-      <div class="flex items-center justify-between p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/30 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-            {{ strtoupper(substr($item['nama'],0,1)) }}{{ strtoupper(substr(explode(' ', $item['nama'])[1] ?? '',0,1)) }}
-          </div>
-          <div>
-            <h3 class="font-semibold text-gray-900">{{ $item['nama'] }}</h3>
-            <p class="text-sm text-gray-600">
-              Kelas: {{ implode(' • ', $item['kelas']) }} • Jumlah Kelas: {{ $item['jumlah_kelas'] }}
-            </p>
-          </div>
+    @foreach($siswa as $index => $item)
+    <!-- Card Siswa -->
+    <div class="flex items-center justify-between p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/30 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+      
+      <!-- Bagian kiri: Avatar + Nama -->
+      <div class="flex items-center gap-4">
+        <!-- Nomor urut -->
+        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+          {{ ($siswa->currentPage() - 1) * $siswa->perPage() + $index + 1 }}
         </div>
+        <!-- Avatar Foto / Fallback Inisial -->
+        <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden font-semibold text-white">
+          @if(!empty($item['foto']))
+            <!-- Jika foto ada, tampilkan gambar -->
+            <img src="{{ asset('storage/' . $item['foto']) }}" alt="{{ $item['nama'] }}" class="w-full h-full object-cover">
+          @else
+            <!-- Jika foto tidak ada, tampilkan inisial dengan gradient -->
+            <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              {{ strtoupper(substr($item['nama'],0,1)) }}{{ strtoupper(substr(explode(' ', $item['nama'])[1] ?? '',0,1)) }}
+            </div>
+          @endif
+        </div>
+
+        <!-- Nama Siswa -->
+        <h3 class="font-semibold text-gray-900">{{ $item['nama'] }}</h3>
+      </div>
+
+       <!-- Bagian kanan: Info Kelas (desain badge) -->
+      <div class="text-sm text-gray-700 bg-white/40 backdrop-blur-sm px-3 py-1 rounded-full border border-white/30 font-medium">
+        {{ implode(' • ', $item['kelas']) }} • Kelas diambil: {{ $item['jumlah_kelas'] }}
+      </div>
+
     </div>
-      @endforeach
-    </div>
+  @endforeach
+</div>
+
 
     <!-- Pagination -->
     <div class="flex items-center justify-center mt-8 pt-6 border-t border-gray-200">

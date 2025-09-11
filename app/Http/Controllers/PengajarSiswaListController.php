@@ -29,6 +29,7 @@ class PengajarSiswaListController extends Controller
             return [
                 'id' => $user->id,
                 'nama' => $user->first_name,
+                'foto' => $user-> profile_photo,
                 'kelas' => $items->pluck('kelas.nama_kelas')->toArray(),
                 'jumlah_kelas' => $items->count(),
             ];

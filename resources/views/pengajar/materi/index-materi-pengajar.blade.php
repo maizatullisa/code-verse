@@ -34,8 +34,14 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
-        <span>Tambah Materi Pertama</span>
+        <span>Tambah Materi</span>
     </a>
+
+    <a href="{{ route('pengajar.quiz.listquiz') }}" 
+      class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
+      <i class="ph-fill ph-bookmarks text-lg"></i>
+      <span>Quiz</span>
+  </a>
 
 
 
@@ -114,7 +120,7 @@
       </div>
       
       <div class="flex items-center space-x-3 lg:flex-shrink-0">
-        <a href="{{ route('pengajar.materi.show', $materi) }}"
+        <a href="{{ route('materi.preview', $materi->id) }}"
            class="bg-gradient-to-r from-green-400 to-emerald-400 hover:from-green-500 hover:to-emerald-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -129,13 +135,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
           </svg>
           <span>Quiz</span>
-        </a>
-        <a href="{{ route('pengajar.materi.edit', $materi) }}" 
-           class="bg-gradient-to-r from-blue-400 to-cyan-400 hover:from-blue-500 hover:to-cyan-500 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-          </svg>
-          <span>Edit</span>
         </a>
         <form action="{{ route('pengajar.materi.destroy', $materi) }}" method="POST" class="inline" 
               onsubmit="return confirm('Apakah Anda yakin ingin menghapus materi ini?')">

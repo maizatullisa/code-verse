@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminKelasController;
 use App\Http\Controllers\AdminPengajarController;
 use App\Http\Controllers\AdminQuizController;
 use App\Http\Controllers\ForumSiswa;
+use App\Http\Controllers\HalamanMateriController;
 use App\Http\Controllers\KelasDiambilController;
 use App\Http\Controllers\KelasDitawarkanController;
 use App\Http\Controllers\KelasMateriController;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\HalamanQuizController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DaftarBelajarController;
 use App\Http\Controllers\DiskusiController;
@@ -595,7 +597,17 @@ Route::get('/pengajar/quiz/{materi}', [QuizController::class, 'create'])->name('
 Route::post('/pengajar/quiz/store', [QuizController::class, 'store'])->name('pengajar.quiz.store');
 Route::get('/pengajar/quiz/question/create/{quiz_id}',[QuizController::class,'createQuizQuestion'])->name('pengajar.quiz.question.create');
 Route::post('/pengajar/quiz/question/store',[QuizController::class,'storeQuestion'])->name('pengajar.quiz.question.store');
+Route::delete('/pengajar/quiz/{quiz}',[QuizController::class,'destroy'])->name('pengajar.quiz.destroy');
 });
+
+// Route::get('/pengajar/halaman-quiz', function () {
+//     return view('pengajar.quiz.halaman-quiz-pengajar');
+// })->name('quiz');
+
+Route::get('/quiz/{quiz}/detail', [HalamanQuizController::class, 'show'])->name('quiz.preview');
+Route::get('/pengajar/{materi}/preview-materi', [HalamanMateriController::class, 'index'])
+        ->name('materi.preview');
+
 
 // Route::get('/pengajar/soal/create', function () {
 //     return view('pengajar.quiz.buat-soal-pengajar');

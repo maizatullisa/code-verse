@@ -65,7 +65,6 @@
                        placeholder="Masukkan judul kuis yang menarik..." required>
               </div>
 
-
               <!-- Jumlah Soal -->
               <div class="group">
                 <label for="jumlah_soal" class="block text-sm font-semibold text-white/90 mb-3 group-focus-within:text-green-400 transition-colors">

@@ -11,17 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MateriController extends Controller
 {
-    //     public function index()
-    // {
-    //     // Ambil semua materi milik pengajar yang sedang login
-    //     $materis = Materi::whereHas('kelas', function ($query) {
-    //         $query->where('pengajar_id', Auth::id());
-    //     })->orderBy('created_at', 'desc')->get();
-
-    //     $jumlahMateri = $materis->count();
-
-    //     return view('pengajar.materi.index-materi-pengajar', compact('materis', 'jumlahMateri'));
-    // }
+    
             public function index($kelasId)
             {
                 $kelas = Kelas::findOrFail($kelasId);

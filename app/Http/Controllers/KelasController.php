@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -13,12 +14,15 @@ class KelasController extends Controller
 {
     public function index()
     {
+        $pengajarId = auth()->id();
 
        $kelas = Kelas::withCount('siswa')
                 ->where('pengajar_id', Auth::id())
                 ->get();
 
-        $totalSiswa = $kelas->sum('siswa_count');
+        $totalSiswa = CourseEnrollment::whereHas('kelas', function ($q) use ($pengajarId) {
+        $q->where('pengajar_id', $pengajarId);
+        })->whereIn('status', ['approved', 'pending'])->count();
         
         $kelas = Kelas::where('pengajar_id', Auth::id())
                      ->withCount('materis')
