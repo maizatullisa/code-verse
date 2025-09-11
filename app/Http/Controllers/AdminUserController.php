@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 class AdminUserController extends Controller
 {
@@ -25,7 +26,6 @@ class AdminUserController extends Controller
     }
     //pagination
      $users = $query->paginate($perPage);    
-    //preserve query parameters untuk pagination
     $users->appends($request->query());
 
     $totalSiswa = User::where('role', 'siswa')->count();
@@ -79,6 +79,44 @@ class AdminUserController extends Controller
     }
 
     //user kalo di 
+    public function download(Request $request)
+    {
+        $query = User::where('role', 'siswa');
 
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%");
+            });
+        }
+
+        $users = $query->select('id', 'first_name', 'email', 'created_at')->get();
+
+        $filename = 'users_siswa_' . now()->format('Ymd_His') . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ];
+
+        $callback = function() use ($users) {
+            $file = fopen('php://output', 'w');
+            // Header CSV
+            fputcsv($file, ['ID', 'Nama', 'Email', 'Tanggal Daftar']);
+            // Data
+            foreach ($users as $user) {
+                fputcsv($file, [
+                    $user->id,
+                    $user->first_name,
+                    $user->email,
+                    $user->created_at->format('Y-m-d H:i:s'),
+                ]);
+            }
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
 
 }

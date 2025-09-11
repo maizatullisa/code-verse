@@ -12,9 +12,10 @@
                 <p class="text-gray-600 text-lg">Kelola data pengajar dengan mudah</p>
             </div>
             <div class="flex space-x-3">
-                <button class="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200">
+                <a href="{{ route('admin.pengajar.download', request()->query()) }}" 
+                     class="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200">
                     <i class="fas fa-download mr-2"></i>Export
-                </button>
+            </a>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 class AdminPengajarController extends Controller
 {
@@ -84,5 +85,33 @@ class AdminPengajarController extends Controller
                         ->with('success', 'User berhasil dihapus!');
     }
 
+    public function download(Request $request)
+    {
+        $query = User::where('role', 'pengajar')
+                    ->select('id', 'first_name', 'email', 'created_at');
+
+        // filter search jika ada
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        $pengajars = $query->get();
+
+        // buat CSV sederhana
+        $csv = "ID,Name,Email,Created At\n";
+        foreach ($pengajars as $p) {
+            $csv .= "{$p->id},\"{$p->first_name}\",{$p->email},{$p->created_at}\n";
+        }
+
+        $fileName = 'pengajar_' . date('Y-m-d_H-i-s') . '.csv';
+        return Response::make($csv, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename={$fileName}",
+        ]);
+    }
 
 }

@@ -90,9 +90,20 @@ class Materi extends Model
         return $this->belongsTo(Kelas::class);
     }
 
-    public function userProgress()
-{
-    return $this->hasMany(UserMateriProgress::class);
-}
+        public function userProgress()
+    {
+        return $this->hasMany(UserMateriProgress::class);
+    }
+
+      public function quizzes()
+    {
+        return $this->hasMany(Quiz::class, 'materi_id', 'id');
+    }
+
+    public function userMateriProgress()
+    {
+        return $this->hasMany(UserMateriProgress::class);
+    }
+    
 
 }

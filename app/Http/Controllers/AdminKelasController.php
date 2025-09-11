@@ -6,8 +6,10 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\User;
 use App\Models\Materi;
+use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class AdminKelasController extends Controller
 {
@@ -16,48 +18,44 @@ class AdminKelasController extends Controller
     {
         // Stats data
         $totalKelas = Kelas::count();
-        $kelasAktif = Kelas::where('status', 'aktif')->count(); // atau 'published' sesuai database
+        $kelasAktif = Kelas::where('status', 'published')->count(); 
         $totalSiswa = User::where('role', 'siswa')->count();
         $totalPengajar = User::where('role', 'pengajar')->count();
         
+        
         // Query builder untuk kelas
         $query = Kelas::with(['pengajar'])
-            ->withCount(['materis']); // tambah enrollments jika ada relasi
+            ->withCount(['materis', 'enrollments']);
+
         
         // Filter berdasarkan search
         if ($request->filled('search')) {
             $query->where('nama_kelas', 'like', '%' . $request->search . '%');
         }
         
-        // Filter berdasarkan tingkat
-        if ($request->filled('tingkat')) {
-            $query->where('tingkat', $request->tingkat);
-        }
         
         // Filter berdasarkan kategori
         if ($request->filled('kategori')) {
             $query->where('kategori', $request->kategori);
         }
         
-        // Filter berdasarkan status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        } else {
-            // Jika tidak ada filter status, tampilkan semua kecuali yang di-delete
-            $query->whereIn('status', ['aktif', 'draft', 'published', 'nonaktif']);
-        }
         
         // Get data dengan pagination
         $kelasList = $query->orderBy('created_at', 'desc')->paginate(9);
-        
-        // Untuk debugging - hapus setelah selesai
-        if ($request->has('debug')) {
-            dd([
-                'total_query' => $query->count(),
-                'kelasList_count' => $kelasList->count(),
-                'first_kelas' => $kelasList->first(),
-                'request_params' => $request->all()
-            ]);
+       
+        foreach ($kelasList as $kelas) {
+            $totalMateri = $kelas->materis_count;
+            if ($totalMateri > 0) {
+                // Hitung jumlah siswa yang menyelesaikan materi (contoh rata-rata progress per kelas)
+                $completedMateri = DB::table('user_materi_progress')
+                    ->whereIn('materi_id', $kelas->materis->pluck('id'))
+                    ->where('status', 'completed')
+                    ->count();
+                
+                $kelas->progress = round(($completedMateri / $totalMateri), 0); // Bisa dikali 100 jika ingin persen
+            } else {
+                $kelas->progress = 0;
+            }
         }
 
         return view('admin.kelas.index', compact(
@@ -69,29 +67,69 @@ class AdminKelasController extends Controller
         ));
     }
 
-//    public function index()
-//    {
-//     $users = User::all();
-//     $totalSiswa = User::where('role', 'siswa')->count();
-//     $totalPengajar = User::where('role', 'pengajar')->count();
-//     $totalMateri = Materi::count();
+    public function download(Request $request)
+{
+    $query = Kelas::query();
 
-//             $kelasList = Kelas::where('status', 'published') // hanya kelas yang published
-//             ->whereHas('materis', function ($query) {
-//                 $query->where('status', 'published');
-//             })
-//             ->with(['materis' => function ($query) {
-//                 $query->where('status', 'published')
-//                       ->orderBy('created_at', 'desc');
-//             }, 'pengajar'])
-//             ->withCount(['materis' => function ($query) {
-//                 $query->where('status', 'published');
-//             }])
-//             ->orderBy('created_at', 'desc')
-//             ->get();
+    // Filter kategori
+    if ($request->filled('kategori')) {
+        $query->where('kategori', $request->kategori);
+    }
 
+    // Filter search
+    if ($request->filled('search')) {
+        $query->where('nama_kelas', 'like', '%'.$request->search.'%');
+    }
 
-//     return view('admin.kelas.index', compact('users', 'totalSiswa', 'totalPengajar', 'totalMateri','kelasList'));
-//    }  
-  
+    $kelas = $query->get();
+
+    $csvHeader = ['ID', 'Nama Kelas', 'Kategori', 'Level', 'Deskripsi', 'Durasi', 'Kapasitas', 'Harga', 'Status'];
+    $callback = function() use ($kelas, $csvHeader) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $csvHeader);
+        foreach ($kelas as $k) {
+            fputcsv($file, [
+                $k->id,
+                $k->nama_kelas,
+                $k->kategori,
+                $k->level,
+                $k->deskripsi,
+                $k->durasi,
+                $k->kapasitas,
+                $k->harga,
+                $k->status
+            ]);
+        }
+        fclose($file);
+    };
+
+    $filename = 'kelas_data_'.date('Y-m-d_H-i-s').'.csv';
+    return Response::stream($callback, 200, [
+        "Content-Type" => "text/csv",
+        "Content-Disposition" => "attachment; filename={$filename}",
+    ]);
+}
+
+    public function destroy($id)
+    {
+        $kelas = Kelas::with(['materis.quizzes'])->find($id);
+
+        if (!$kelas) {
+            return redirect()->back()->with('error', 'Kelas tidak ditemukan.');
+        }
+
+        // Hapus semua quiz yang ada di setiap materi
+        foreach ($kelas->materis as $materi) {
+            $materi->quizzes()->delete();
+        }
+
+        // Hapus semua materi
+        $kelas->materis()->delete();
+
+        // Hapus kelas
+        $kelas->delete();
+
+        return redirect()->back()->with('success', 'Kelas dan semua materi & quiz di dalamnya berhasil dihapus.');
+    }
+
 }

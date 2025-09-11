@@ -142,6 +142,9 @@ class Kelas extends Model
     }
 
 
-
+      public function enrollments()
+    {
+        return $this->hasMany(CourseEnrollment::class, 'kelas_id', 'id');
+    }
 
 }

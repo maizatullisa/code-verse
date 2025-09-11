@@ -110,7 +110,7 @@
             <form method="GET" action="{{ url()->current() }}">
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-end">
                     <!-- Search Input -->
-                    <div class="lg:col-span-2">
+                    <div class="lg:col-span-3">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pencarian</label>
                         <div class="relative">
                             <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,38 +122,24 @@
                         </div>
                     </div>
 
-                    <!-- Tingkat Filter -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tingkat</label>
-                        <select name="tingkat" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white">
-                            <option value="">Semua Tingkat</option>
-                            <option value="pemula" {{ request('level') == 'beginner' ? 'selected' : '' }}>Pemula</option>
-                            <option value="menengah" {{ request('level') == 'intermediate' ? 'selected' : '' }}>Menengah</option>
-                            <option value="lanjutan" {{ request('level') == 'advanced' ? 'selected' : '' }}>Lanjutan</option>
-                        </select>
-                    </div>
-
                     <!-- Kategori Filter -->
-                    <div>
+                     <div class="lg:col-span-2">
+                        <div class="lg:col-span-2"></div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
                         <select name="kategori" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white">
-                            <option value="">Semua Kategori</option>
-                            <option value="programming" {{ request('kategori') == 'programming' ? 'selected' : '' }}>Programming</option>
-                            <option value="design" {{ request('kategori') == 'design' ? 'selected' : '' }}>Design</option>
-                            <option value="data-science" {{ request('kategori') == 'data-science' ? 'selected' : '' }}>Data Science</option>
-                            <option value="networking" {{ request('kategori') == 'networking' ? 'selected' : '' }}>Networking</option>
+                        <option value="">Semua Kategori</option>
+                        <option value="programming" {{ request('kategori') == 'programming' ? 'selected' : '' }}>Programming</option>
+                        <option value="design" {{ request('kategori') == 'design' ? 'selected' : '' }}>Design</option>
+                        <option value="web" {{ request('kategori') == 'web' ? 'selected' : '' }}>Web</option>
+                        <option value="mobile" {{ request('kategori') == 'mobile' ? 'selected' : '' }}>Mobile</option>
+                        <option value="data" {{ request('kategori') == 'data' ? 'selected' : '' }}>Data</option>
+                        <option value="ai" {{ request('kategori') == 'ai' ? 'selected' : '' }}>AI</option>
+                        <option value="marketing" {{ request('kategori') == 'marketing' ? 'selected' : '' }}>Marketing</option>
+                        <option value="business" {{ request('kategori') == 'business' ? 'selected' : '' }}>Business</option>
+                            
                         </select>
                     </div>
-
-                    <!-- Status Filter -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                        <select name="status" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white">
-                            <option value="">Semua Status</option>
-                            <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
-                        </select>
                     </div>
                 </div>
 
@@ -169,18 +155,20 @@
                             </svg>
                             Cari
                         </button>
-                        <a href="{{ url()->current() }}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 font-medium">
-                            Reset
-                        </a>
-                        <button type="button" class="p-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </button>
+                     <a href="{{ url()->current() }}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200 font-medium">
+                        Reset
+                           </a>
+                            <a href="{{ route('admin.kelas.download', request()->query()) }}" 
+                                class="inline-flex items-center justify-center p-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors duration-200"
+                                title="Download Data">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v8m0 0l-4-4m4 4l4-4M12 4v8"></path>
+                                    </svg>
+                                </a>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
 
         <!-- Class Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -222,9 +210,9 @@
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">
                                 {{ ucfirst($kelas->kategori ?? 'Umum') }}
                             </span>
-                            @if($kelas->tingkat)
+                            @if($kelas->level)
                             <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded">
-                                {{ ucfirst($kelas->tingkat) }}
+                                {{ ucfirst($kelas->level) }}
                             </span>
                             @endif
                             @if($kelas->durasi)
@@ -254,42 +242,28 @@
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2">
                                 <div class="bg-blue-500 h-2 rounded-full transition-all duration-300" 
-                                     style="width: {{ $kelas->progress ?? 0 }}%"></div>
+                                    style="width: {{ $kelas->progress ?? 0 }}%"></div>
                             </div>
                         </div>
-                        
+
                         <!-- Action Buttons -->
                         <div class="space-y-2">
                             <div class="grid grid-cols-2 gap-2">
-                                <a href="#" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium text-center">
+                                <a href="{{route('admin.lihat.kelas', $kelas->id)}} "class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium text-center">
                                     Lihat Detail
-                                </a>
-                                <a href="#" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors duration-200 text-sm font-medium text-center">
-                                    Edit Kelas
                                 </a>
                             </div>
                             
                             <!-- Dropdown Menu -->
                             <div class="relative" x-data="{ open: false }">
-                                <button @click="open = !open" class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors duration-200 text-sm font-medium">
-                                    <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-                                    </svg>
-                                    Opsi Lainnya
-                                </button>
-                                <div x-show="open" @click.away="open = false" x-transition
-                                     class="absolute left-0 bottom-full mb-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10">
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Lihat Siswa</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Kelola Materi</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Laporan</a>
-                                    <hr class="my-1">
-                                    <form action="#" method="POST" onsubmit="return confirm('Yakin ingin menghapus kelas ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                            Hapus Kelas
-                                        </button>
-                                    </form>
+                                <form action="{{ route('admin.kelas.destroy', $kelas->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kelas ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors duration-200 text-sm font-medium">
+                                        Hapus Kelas
+                                    </button>
+                                </form>
+                                <div class="absolute left-0  rounded-lg shadow-lg border border-gray-200 py-2 z-10"> 
                                 </div>
                             </div>
                         </div>

@@ -13,12 +13,6 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
-     /**
-     * tampilkan semua user
-     * Menampilkan 5 aktivitas recent user
-     * ++registrasi hari ini
-     * menampilkan statistik tambahan : registrasi hari ini, pertumbuhan per/minggu,dan +registrasi per/bln
-     */
     public function index()
     {
         $users = User::all();
@@ -28,6 +22,7 @@ class AdminController extends Controller
 
         //mengambil 5  aktvts
         $recentActivities = $this->getRecentActivities();
+
         //statistik tambahan
         $todayRegistrations = User::whereDate('created_at', Carbon::today())->count();
         $weeklyGrowth = $this->getWeeklyGrowth();
@@ -68,24 +63,31 @@ class AdminController extends Controller
         ));
     }
 
-    /**
-     * 
-     * menampilkan aktivitas terbaru jnb
-     */
-    private function getRecentActivities()
+    //menmpilkan aktvtas terbaru 
+        private function getRecentActivities()
     {
-        //menggunakan tabel activity_logs
-        if (Schema::hasTable('activity_logs')) {
-            return ActivityLog::with('user')
+        $activities = collect();
+
+        // ActivityLog dari tabel jika ada
+        if (Schema::hasTable('activity_logs') && ActivityLog::count() > 0) {
+            $logs = ActivityLog::with('user')
                 ->orderBy('created_at', 'desc')
                 ->limit(5)
-                ->get();
+                ->get()
+                ->map(function($log) {
+                    return [
+                        'type' => $log->type ?? 'log',
+                        'message' => $log->message,
+                        'time' => $log->created_at->diffForHumans(),
+                        'icon' => 'bell',
+                        'color' => 'gray',
+                        'created_at' => $log->created_at
+                    ];
+                });
+            $activities = $activities->merge($logs);
         }
-        
 
-        $activities = collect(); 
-        
-        // sswa terbaru
+        // Siswa terbaru
         $newSiswa = User::where('role', 'siswa')
             ->orderBy('created_at', 'desc')
             ->limit(3)
@@ -100,8 +102,8 @@ class AdminController extends Controller
                     'created_at' => $user->created_at
                 ];
             });
-        
-        //pengajar terbaru
+
+        // Pengajar terbaru
         $newPengajar = User::where('role', 'pengajar')
             ->orderBy('created_at', 'desc')
             ->limit(2)
@@ -116,8 +118,8 @@ class AdminController extends Controller
                     'created_at' => $user->created_at
                 ];
             });
-        
-        // Materi/Kelas terbaru
+
+        // Materi terbaru
         $newMateri = Materi::orderBy('created_at', 'desc')
             ->limit(3)
             ->get()
@@ -132,21 +134,32 @@ class AdminController extends Controller
                 ];
             });
 
-        
-        // return $activities->merge($newUsers)->merge($newMateri)->take(5);
-         return $activities
+        // Merge semua dan sortir
+        $activities = $activities
             ->merge($newSiswa)
             ->merge($newPengajar)
             ->merge($newMateri)
             ->sortByDesc('created_at')
-            ->take(8);
+            ->take(3);
 
-    }
+        // Jika masih kosong, beri dummy
+        if ($activities->isEmpty()) {
+            $activities = collect([
+                [
+                    'type' => 'none',
+                    'message' => 'No recent activity yet',
+                    'time' => 'Just now',
+                    'icon' => 'info',
+                    'color' => 'gray',
+                    'created_at' => now()
+                ]
+            ]);
+        }
 
-     /**
-     * 
-     * Menampilkan pertumbuhan  user, materi dan pengajar per minggu
-     */
+        return $activities;
+}
+
+  //pertumbuhan user dll
     private function getWeeklyGrowth()
     {
         $thisWeek = User::whereBetween('created_at', [
@@ -203,34 +216,6 @@ class AdminController extends Controller
     if ($lastWeek == 0) return $thisWeek > 0 ? 100 : 0;
     $growth = round((($thisWeek - $lastWeek) / $lastWeek) * 100, 1);
     return min($growth, 100);
-    }
-    public function create()
-    {
-
-    }
-    // simpan user baru
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'role' => 'required|in:siswa,pengajar,admin',
-            'gender' => 'required|in:male,female',
-        ]);
-
-        $user = User::create([ 
-            'first_name' => $validated['first_name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
-            'gender' => $validated['gender'],
-        ]);
-
-        // Log aktivitas
-        $this->logActivity('user_created', "Admin created new user: {$user->first_name}");
-
-        return redirect()->route('admin.dashboard')->with('success', 'User berhasil ditambahkan.');
     }
 
     // untuk logging aktivitas

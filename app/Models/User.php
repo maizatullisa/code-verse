@@ -161,9 +161,13 @@ class User extends Authenticatable
     }
 
     public function quizResults()
-{
-    return $this->hasMany(\App\Models\QuizResult::class, 'user_id');
-}
+    {
+        return $this->hasMany(\App\Models\QuizResult::class, 'user_id');
+    }
 
+    public function userMateriProgress()
+    {
+        return $this->hasMany(\App\Models\UserMateriProgress::class, 'user_id');
+    }
 
 }

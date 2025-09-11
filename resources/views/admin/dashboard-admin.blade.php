@@ -133,26 +133,27 @@
                 
                 <div class="space-y-4">
                     @forelse($recentActivities as $activity)
-                    <div class="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors duration-200 cursor-pointer">
-                        <div class="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-gray-700 truncate">{{ $activity['message'] ?? $activity }}</p>
-                            <p class="text-xs text-gray-500">{{ $activity['time'] ?? 'Just now' }}</p>
+                        <div class="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors duration-200 cursor-pointer">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-700 truncate">{{ $activity['message'] ?? $activity->message }}</p>
+                                <p class="text-xs text-gray-500">
+                                    {{ isset($activity['created_at']) ? \Carbon\Carbon::parse($activity['created_at'])->diffForHumans() : ($activity->created_at->diffForHumans() ?? $activity['time']) }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     @empty
-                    <div class="flex items-center justify-center py-8">
-                        <div class="text-center">
-                            <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <p class="text-sm text-gray-500">No recent activity</p>
+                        <div class="flex items-center justify-center py-8">
+                            <div class="text-center">
+                                <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <p class="text-sm text-gray-500">No recent activity</p>
+                            </div>
                         </div>
-                    </div>
                     @endforelse
                 </div>
             </div>
-
             <!-- Quick Stats -->
             <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
                 <div class="flex items-center justify-between mb-6">

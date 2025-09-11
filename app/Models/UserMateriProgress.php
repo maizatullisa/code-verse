@@ -77,7 +77,5 @@ class UserMateriProgress extends Model
             })
             ->avg('score'); // atau nilai lain
     }
-
-
-    
+  
 }
