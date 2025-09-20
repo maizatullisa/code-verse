@@ -15,7 +15,6 @@ class AdminPengajarController extends Controller
         $search = $request->get('search');
         
         //ambil data user
-        // $query = User::where('role', 'pengajar')
         $query = User::with('profilePengajar')
                      ->where('role', 'pengajar')
                     ->select('id', 'first_name', 'email', 'created_at')
@@ -31,19 +30,17 @@ class AdminPengajarController extends Controller
         //pagination
         $users = $query->paginate($perPage);
         
-        //preserve query parameters untuk pagination
         $users->appends($request->query());
 
         $totalPengajar = User::where('role', 'pengajar')->count();
         return view('admin.pengajar.index', compact('users', 'totalPengajar'));
     }
 
-    //edit
    public function edit(User $user)
     {
         return view('admin.pengajar.edit', compact('user'));
     }
-   //update/update user
+
    public function update(Request $request, User $user)
     {
         $request->validate([
@@ -59,7 +56,6 @@ class AdminPengajarController extends Controller
             'role' => $request->role,
         ];
 
-        // Update password hanya jika diisi
         if ($request->filled('password')) {
             $userData['password'] = Hash::make($request->password);
         }
@@ -70,7 +66,6 @@ class AdminPengajarController extends Controller
                         ->with('success', 'User berhasil diperbarui!');
     }
 
-    //hapus user
         public function destroy(User $user)
     {
         // Cegah admin menghapus dirinya sendiri
@@ -100,8 +95,7 @@ class AdminPengajarController extends Controller
         }
 
         $pengajars = $query->get();
-
-        // buat CSV sederhana
+        //csv
         $csv = "ID,Name,Email,Created At\n";
         foreach ($pengajars as $p) {
             $csv .= "{$p->id},\"{$p->first_name}\",{$p->email},{$p->created_at}\n";

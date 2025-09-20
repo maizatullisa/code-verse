@@ -1,14 +1,11 @@
 @extends('pengajar.layouts.navbar-pengajar')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-4 md:p-8">
+<div class="min-h-screen bg-blue-50 to-indigo-100 p-4 md:p-8">
     <!-- Header Section -->
     <div class="bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl p-6 md:p-8 mb-8 shadow-xl shadow-black/5">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-500/25">
-                    👤
-                </div>
+            <div class="flex items-center gap-4"> 
                 <div>
                     <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-1">Kelola Biodata</h1>
                     <p class="text-gray-600 text-sm md:text-base">Kelola informasi profil dan biodata pengajar</p>
@@ -43,7 +40,7 @@
                         @if($profile->photo)
                          <img src="{{ asset($profile->photo) }}" alt="Profile Photo" class="w-32 h-32 rounded-full object-cover shadow-lg shadow-blue-500/25 mx-auto">
                         @else
-                        <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-4xl shadow-lg shadow-blue-500/25 mx-auto">
+                        <div class="w-32 h-32 bg-blue-500 rounded-full flex items-center justify-center text-4xl shadow-lg shadow-blue-500/25 mx-auto">
                             <span class="text-white">{{ $profile->gender }}</span>
                         </div>
                            <span class="text-white">{{ strtoupper(substr($profile->full_name, 0, 1)) }}</span>
@@ -217,7 +214,7 @@
             <!-- Education Modal (untuk tambah / edit riwayat pendidikan) -->
             <div id="educationModal" class="fixed inset-0 bg-black/50 hidden z-[10000] flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
-                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 text-white flex justify-between items-center">
+                <div class="bg-indigo-600 p-4 text-white flex justify-between items-center">
                 <h3 id="educationModalTitle" class="text-lg font-bold">Tambah Riwayat Pendidikan</h3>
                 <button onclick="closeModal('educationModal')" class="hover:bg-white/20 p-2 rounded-lg">✕</button>
                 </div>
@@ -264,10 +261,8 @@
 function openPhotoModal() {
     showNotification('Fitur upload foto akan segera tersedia', 'info');
 }
-
-// Additional functions for better UX
-document.addEventListener('DOMContentLoaded', function() {
-    // Add loading animation to cards
+ 
+document.addEventListener('DOMContentLoaded', function() { 
     const cards = document.querySelectorAll('.backdrop-blur-xl');
     cards.forEach((card, index) => {
         card.style.opacity = '0';
@@ -279,8 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.transform = 'translateY(0)';
         }, index * 100);
     });
-    
-    // Add hover effects to education items
+     
     const educationItems = document.querySelectorAll('#educationList > div');
     educationItems.forEach(item => {
         item.addEventListener('mouseenter', function() {
@@ -291,8 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('shadow-lg', 'transform', 'scale-[1.02]');
         });
     });
-    
-    // Add pulse animation to add button
+     
     const addButton = document.querySelector('button[onclick="openAddEducationModal()"]');
     if (addButton) {
         setInterval(() => {
@@ -303,10 +296,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 });
-
-// Enhanced notification system specifically for this page
-function showNotification(message, type = 'info', duration = 4000) {
-    // Remove existing notifications
+ 
+function showNotification(message, type = 'info', duration = 4000) { 
     const existingNotifications = document.querySelectorAll('.page-notification');
     existingNotifications.forEach(notification => {
         notification.style.transform = 'translateX(100%)';
@@ -355,13 +346,11 @@ function showNotification(message, type = 'info', duration = 4000) {
     `;
     
     document.body.appendChild(notification);
-    
-    // Animate in
+     
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
-    
-    // Auto remove
+     
     setTimeout(() => {
         if (notification.parentNode) {
             notification.style.transform = 'translateX(100%)';

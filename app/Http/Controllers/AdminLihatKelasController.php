@@ -17,7 +17,6 @@ class AdminLihatKelasController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-        // Hitung total materi dan quiz
         $totalMateri = $materis->count();
         $totalQuiz = $materis->filter(fn($m) => $m->quiz !== null)->count();
         $totalItems = $totalMateri + $totalQuiz;

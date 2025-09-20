@@ -12,7 +12,7 @@
 <!-- BACKGROUND ELEMENTS END -->
 
 <!-- Header -->
-<div class="relative z-10 pb-4">
+<div class="relative z-10 pb-4 ">
     <div class="flex justify-between items-center px-6">
         <div class="flex items-center gap-3">
             <a href="{{ url('/roadmap-mobile') }}" class="text-2xl text-white">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Materi;
+use App\Models\Kelas;
 use App\Models\User; 
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
@@ -63,12 +64,10 @@ class AdminController extends Controller
         ));
     }
 
-    //menmpilkan aktvtas terbaru 
         private function getRecentActivities()
     {
         $activities = collect();
 
-        // ActivityLog dari tabel jika ada
         if (Schema::hasTable('activity_logs') && ActivityLog::count() > 0) {
             $logs = ActivityLog::with('user')
                 ->orderBy('created_at', 'desc')
@@ -120,17 +119,17 @@ class AdminController extends Controller
             });
 
         // Materi terbaru
-        $newMateri = Materi::orderBy('created_at', 'desc')
+        $newKelas = Kelas::orderBy('created_at', 'desc')
             ->limit(3)
             ->get()
-            ->map(function($materi) {
+            ->map(function($kelas) {
                 return [
-                    'type' => 'materi_created',
-                    'message' => "New course '{$materi->title}' was created",
-                    'time' => $materi->created_at->diffForHumans(),
+                    'type' => 'kelas_created',
+                    'message' => "New Course '{$kelas->nama_kelas}' was created",
+                    'time' => $kelas->created_at->diffForHumans(),
                     'icon' => 'book-open',
                     'color' => 'purple',
-                    'created_at' => $materi->created_at
+                    'created_at' => $kelas->created_at
                 ];
             });
 
@@ -138,7 +137,7 @@ class AdminController extends Controller
         $activities = $activities
             ->merge($newSiswa)
             ->merge($newPengajar)
-            ->merge($newMateri)
+            ->merge($newKelas)
             ->sortByDesc('created_at')
             ->take(3);
 
@@ -221,7 +220,6 @@ class AdminController extends Controller
     // untuk logging aktivitas
     private function logActivity($type, $message)
     {
-        //tbl activity
         if (Schema::hasTable('activity_logs')) { 
             ActivityLog::create([
                 'user_id' => auth()->id(),

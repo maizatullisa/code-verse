@@ -34,7 +34,7 @@ public function showCourseMateri($kelasId, $materiId = null)
     }
     
     if (!$currentMateri) {
-        // Cari materi pertama yang belum selesai
+        //cari materi pertama yang belum selesai
         foreach ($materis as $materi) {
             if (!$progressData->has($materi->id) || $progressData[$materi->id]->status !== 'completed') {
                 $currentMateri = $materi;
@@ -44,7 +44,7 @@ public function showCourseMateri($kelasId, $materiId = null)
         $currentMateri = $currentMateri ?? $materis->first();
     }
 
-    // Validation: pastikan user bisa akses materi ini
+    //pastikan user bisa akses materi ini
     if ($currentMateri && $materiId) {
         $canAccess = $this->canAccessMateri($currentMateri, $materis, $progressData);
         if (!$canAccess) {
@@ -53,7 +53,7 @@ public function showCourseMateri($kelasId, $materiId = null)
         }
     }
     
-    // Hitung navigation data
+    //hitng navigation data
     $currentIndex = $materis->search(fn($m) => $m->id == ($currentMateri->id ?? 0));
     $hasNext = $currentIndex !== false && isset($materis[$currentIndex + 1]);
     $hasPrevious = $currentIndex > 0;
@@ -72,85 +72,81 @@ public function showCourseMateri($kelasId, $materiId = null)
     $materiMingguIni = $materis->slice($startIndex, $materiPerMinggu)->values();
 
     $currentQuiz = $currentMateri?->quiz;
-// Hitung total item: materi + quiz yang ada
-$totalMateri = $materis->count();
-$totalQuiz = $materis->filter(function($materi) {
-    return $materi->quiz !== null;
-})->count();
-$totalItems = $totalMateri + $totalQuiz;
 
-// Hitung completed: materi completed + quiz passed
-$materiIds = $materis->pluck('id');
-$progressData = UserMateriProgress::where('user_id', $user->id)
-                                  ->whereIn('materi_id', $materiIds)
-                                  ->get()
-                                  ->keyBy('materi_id');
+    $totalMateri = $materis->count();
+    $totalQuiz = $materis->filter(function($materi) {
+        return $materi->quiz !== null;
+    })->count();
+    $totalItems = $totalMateri + $totalQuiz;
 
-$completedMateri = $progressData->where('status', 'completed')->count();
+    $materiIds = $materis->pluck('id');
+    $progressData = UserMateriProgress::where('user_id', $user->id)
+                                    ->whereIn('materi_id', $materiIds)
+                                    ->get()
+                                    ->keyBy('materi_id');
 
-$passedQuiz = QuizResult::where('user_id', $user->id)
-    ->whereHas('quiz.materi.kelas', function($q) use ($kelas) {
-        $q->where('id', $kelas->id);
-    })
-    ->where('passed', true)
-    ->distinct('quiz_id')
-    ->count('quiz_id');
+    $completedMateri = $progressData->where('status', 'completed')->count();
+
+    $passedQuiz = QuizResult::where('user_id', $user->id)
+        ->whereHas('quiz.materi.kelas', function($q) use ($kelas) {
+            $q->where('id', $kelas->id);
+        })
+        ->where('passed', true)
+        ->distinct('quiz_id')
+        ->count('quiz_id');
 
 
-$completedCount = $completedMateri + $passedQuiz;
-$progressPercentage = $totalItems > 0 ? round(($completedCount / $totalItems) * 100) : 0;
-$progressPercentage = $totalItems > 0 
-    ? min(100, round(($completedCount / $totalItems) * 100))
-    : 0;
+        $completedCount = $completedMateri + $passedQuiz;
+        $progressPercentage = $totalItems > 0 ? round(($completedCount / $totalItems) * 100) : 0;
+        $progressPercentage = $totalItems > 0 
+            ? min(100, round(($completedCount / $totalItems) * 100))
+            : 0;
 
-    $isCompleted = false;
-    if ($currentMateri && $progressData->has($currentMateri->id)) {
-        $isCompleted = $progressData[$currentMateri->id]->status === 'completed';
+        $isCompleted = false;
+        if ($currentMateri && $progressData->has($currentMateri->id)) {
+            $isCompleted = $progressData[$currentMateri->id]->status === 'completed';
+        }
+
+        $allMateriCompleted = $materis->every(fn($materi) =>
+            $progressData->has($materi->id) && $progressData[$materi->id]->status === 'completed'
+        );
+
+        $allQuizPassed = $materis->every(function($materi) {
+            if (!$materi->quiz) return true;
+
+            //ambl score tertinggi
+            $maxScore = QuizResult::where('user_id', Auth::id())
+                                ->where('quiz_id', $materi->quiz->id)
+                                ->max('score');
+
+            return $maxScore >= 70;
+        });
+
+        $canGraduate = $allMateriCompleted && $allQuizPassed;
+
+        return view('desktop.pages.kelas.kelas-materi', compact(
+            'kelas',
+            'currentMateri',
+            'currentQuiz',
+            'totalMateri',
+            'completedCount',
+            'progressPercentage',
+            'materiMingguIni',
+            'weekNumber',
+            'progressData',
+            'isCompleted',
+            'hasNext',
+            'hasPrevious',
+            'nextMateri',
+            'prevMateri',
+            'canGraduate'
+        ));
     }
-
-     $allMateriCompleted = $materis->every(fn($materi) =>
-        $progressData->has($materi->id) && $progressData[$materi->id]->status === 'completed'
-    );
-
-    $allQuizPassed = $materis->every(function($materi) {
-        if (!$materi->quiz) return true;
-
-        // Ambil score tertinggi
-        $maxScore = QuizResult::where('user_id', Auth::id())
-                            ->where('quiz_id', $materi->quiz->id)
-                            ->max('score');
-
-        return $maxScore >= 70;
-    });
-
-     $canGraduate = $allMateriCompleted && $allQuizPassed;
-
-    // ============================
-
-    return view('desktop.pages.kelas.kelas-materi', compact(
-        'kelas',
-        'currentMateri',
-        'currentQuiz',
-        'totalMateri',
-        'completedCount',
-        'progressPercentage',
-        'materiMingguIni',
-        'weekNumber',
-        'progressData',
-        'isCompleted',
-        'hasNext',
-        'hasPrevious',
-        'nextMateri',
-        'prevMateri',
-        'canGraduate'
-    ));
-}
 
 public function submitQuiz(Request $request, $quizId)
 {
     $user = Auth::user();
     
-    // Ambil data quiz beserta materi dan kelasnya
     $quiz = Quiz::with('questions', 'materi.kelas')->findOrFail($quizId);
 
     $answers = $request->input('answers', []);
@@ -167,7 +163,6 @@ public function submitQuiz(Request $request, $quizId)
     $score = round(($correctCount / $totalQuestions) * 100);
     $passed = $score >= 70;
 
-    // Simpan hasil quiz ke database
     QuizResult::create([
         'user_id' => $user->id,
         'quiz_id' => $quiz->id,
@@ -189,26 +184,24 @@ public function submitQuiz(Request $request, $quizId)
 public function markComplete(Request $request, $kelasId, $materiId)
 {
     $user = Auth::user();
-    
-    // Validate materiId belongs to kelasId
     $materi = Materi::where('id', $materiId)
                    ->whereHas('kelas', fn($q) => $q->where('id', $kelasId))
                    ->findOrFail($materiId);
     
-    // Mark materi as completed
+    //utk mark complete
     UserMateriProgress::updateOrCreate(
         ['user_id' => $user->id, 'materi_id' => $materiId],
         ['status' => 'completed', 'completed_at' => now()]
     );
     
-    // Cari materi berikutnya
+    //caro materi berikutnya
     $kelas = $materi->kelas;
     $materis = $kelas->materis->where('status', 'published')->sortBy('created_at')->values();
     
     $currentIndex = $materis->search(fn($m) => $m->id == $materiId);
     $nextMateri = $materis->get($currentIndex + 1);
     
-    // Redirect ke materi berikutnya atau halaman selesai
+    //redirect materi berikutnya atau halaman selesai
     if ($nextMateri) {
         return redirect()->route('student.course.materi', [$kelas->id, $nextMateri->id])
                         ->with('success', 'Materi berhasil diselesaikan!');
@@ -248,12 +241,34 @@ public function previousMateri($kelasId, $currentMateriId)
     return redirect()->back()->with('info', 'Ini adalah materi pertama.');
 }
 
+// public function courseCompleted($kelasId)
+// {
+//     $kelas = Kelas::findOrFail($kelasId);
+//     $user = Auth::user();
+    
+//     //untuk veryfy complete
+//     $totalMateri = $kelas->materis->where('status', 'published')->count();
+//     $completedMateri = UserMateriProgress::where('user_id', $user->id)
+//         ->whereHas('materi', function($query) use ($kelas) {
+//             $query->where('kelas_id', $kelas->id)->where('status', 'published');
+//         })
+//         ->where('status', 'completed')
+//         ->count();
+    
+//     if ($completedMateri < $totalMateri) {
+//         return redirect()->route('student.course.materi', $kelasId)
+//                         ->with('error', 'Anda belum menyelesaikan semua materi.');
+//     }
+    
+//     return view('desktop.pages.kelas.kelas-selesai', compact('kelas', 'kelasList'));
+// }
+
 public function courseCompleted($kelasId)
 {
     $kelas = Kelas::findOrFail($kelasId);
     $user = Auth::user();
     
-    // Verify user actually completed the course
+    // Cek apakah semua materi sudah selesai
     $totalMateri = $kelas->materis->where('status', 'published')->count();
     $completedMateri = UserMateriProgress::where('user_id', $user->id)
         ->whereHas('materi', function($query) use ($kelas) {
@@ -266,8 +281,16 @@ public function courseCompleted($kelasId)
         return redirect()->route('student.course.materi', $kelasId)
                         ->with('error', 'Anda belum menyelesaikan semua materi.');
     }
-    
-    return view('desktop.pages.kelas.kelas-selesai', compact('kelas'));
+
+    //Ambil semua kelas yang sudah selesai oleh user**
+        $kelasList = Kelas::whereHas('materis', function($q) use ($user) {
+            $q->whereHas('userProgress', function($q2) use ($user) {
+                $q2->where('user_id', $user->id)
+                ->where('status', 'completed');
+            });
+        })->get();
+
+    return view('desktop.pages.kelas.kelas-selesai', compact('kelas', 'kelasList'));
 }
 
 private function canAccessMateri($currentMateri, $materis, $progressData)
@@ -278,7 +301,7 @@ private function canAccessMateri($currentMateri, $materis, $progressData)
     if ($currentIndex == 0) {
         return true;
     }
-    
+
     // Cek apakah materi sebelumnya sudah completed
     $prevMateri = $materis[$currentIndex - 1];
     return $progressData->has($prevMateri->id) && 

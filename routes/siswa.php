@@ -5,6 +5,7 @@ use App\Http\Controllers\KelasDiambilController;
 use App\Http\Controllers\KelasDitawarkanController;
 use App\Http\Controllers\KelasMateriController;
 use App\Http\Controllers\KelasIndexController;
+use App\Http\Controllers\KelasQuizController;
 use App\Http\Controllers\KelasSelesaiController;
 use App\Http\Controllers\KelasPreviewController;
 use App\Http\Controllers\LihatDetailPengajarController;
@@ -12,7 +13,14 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\SertifikatSiswaController;
 use App\Http\Controllers\CourseEnrollmentController;
 use App\Http\Controllers\KelasDetailController;
+
 use function PHPUnit\Framework\returnSelf;
+
+Route::get('/masuk', function () {
+    return view('desktop.lorek-desktop');
+});
+
+
 
 Route::middleware(['auth', 'role:siswa'])->group(function () {
 
@@ -64,8 +72,8 @@ Route::get('/kelas/{kelasId}/materi/{materiId}/next', [KelasMateriController::cl
     ->name('student.materi.next');
 Route::get('/kelas/{kelasId}/materi/{materiId}/previous', [KelasMateriController::class, 'previousMateri'])
     ->name('student.materi.previous');
-// Route::get('/kelas/{kelasId}/completed', [KelasMateriController::class, 'courseCompleted'])
-//     ->name('student.course.completed');
+Route::get('/kelas/{kelasId}/completed', [KelasMateriController::class, 'courseCompleted'])
+    ->name('student.course.completed');
 //rute untuk melihat detail pengajar biodata
 Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
         ->name('profile-pengajar');
@@ -78,6 +86,8 @@ Route::get('/desktop/form-sertifikat/{kelasId}', [SertifikatSiswaController::cla
 Route::post('/desktop/form-sertifikat/{kelasId}/generate', [SertifikatSiswaController::class, 'generate'])
     ->name('sertifikat.generate');
 Route::get('/download/sertifikat/{filename}', [SertifikatSiswaController::class, 'download']);
+Route::get('/validasi-sertifikat/{nomor}', [SertifikatSiswaController::class, 'validasi'])
+    ->name('sertifikat.validasi');
 
  //DESKTOP INDEX SERTTIF
   Route::get('/desktop/sertifikat', function () {

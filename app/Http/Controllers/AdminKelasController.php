@@ -16,31 +16,27 @@ class AdminKelasController extends Controller
 
     public function index(Request $request)
     {
-        // Stats data
+
         $totalKelas = Kelas::count();
         $kelasAktif = Kelas::where('status', 'published')->count(); 
         $totalSiswa = User::where('role', 'siswa')->count();
         $totalPengajar = User::where('role', 'pengajar')->count();
         
         
-        // Query builder untuk kelas
         $query = Kelas::with(['pengajar'])
             ->withCount(['materis', 'enrollments']);
 
         
-        // Filter berdasarkan search
         if ($request->filled('search')) {
             $query->where('nama_kelas', 'like', '%' . $request->search . '%');
         }
         
-        
-        // Filter berdasarkan kategori
+ 
         if ($request->filled('kategori')) {
             $query->where('kategori', $request->kategori);
         }
         
-        
-        // Get data dengan pagination
+
         $kelasList = $query->orderBy('created_at', 'desc')->paginate(9);
        
         foreach ($kelasList as $kelas) {
@@ -118,15 +114,12 @@ class AdminKelasController extends Controller
             return redirect()->back()->with('error', 'Kelas tidak ditemukan.');
         }
 
-        // Hapus semua quiz yang ada di setiap materi
         foreach ($kelas->materis as $materi) {
             $materi->quizzes()->delete();
         }
 
-        // Hapus semua materi
         $kelas->materis()->delete();
 
-        // Hapus kelas
         $kelas->delete();
 
         return redirect()->back()->with('success', 'Kelas dan semua materi & quiz di dalamnya berhasil dihapus.');

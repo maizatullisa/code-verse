@@ -91,7 +91,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor WhatsApp *</label>
-                                        <input type="tel" name="whatsapp" required 
+                                        <input type="number" name="whatsapp" required 
                                                value="{{ old('whatsapp') }}"
                                                class="text-black w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-p2 focus:ring-2 focus:ring-p2/20"
                                                placeholder="+62 812 3456 7890">

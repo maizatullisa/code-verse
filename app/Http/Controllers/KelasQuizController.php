@@ -16,7 +16,7 @@ class KelasQuizController extends Controller
 {
     $kelas = Kelas::findOrFail($kelasId);
     $materi = Materi::findOrFail($materiId);
-    $quiz = $materi->quiz; // pastikan relasi sudah ada
+    $quiz = $materi->quiz; 
 
     if (!$quiz) {
         return redirect()->route('student.course.materi', [$kelasId, $materiId])

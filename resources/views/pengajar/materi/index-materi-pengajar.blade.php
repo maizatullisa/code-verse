@@ -20,7 +20,8 @@
     <div class="flex items-center space-x-4">
       <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
         </svg>
       </div>
       <div>
@@ -28,25 +29,26 @@
         <p class="text-gray-600 text-lg">Kelola semua materi pembelajaran Anda</p>
       </div>
     </div>
-    
-    <a href="{{ route('pengajar.materi.create', $kelas->id ) }}" 
-      class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-        </svg>
-        <span>Tambah Materi</span>
-    </a>
 
-    <a href="{{ route('pengajar.quiz.listquiz') }}" 
-      class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
-      <i class="ph-fill ph-bookmarks text-lg"></i>
-      <span>Quiz</span>
-  </a>
+    <!-- Tombol Materi & Quiz berdekatan -->
+    <div class="flex items-center gap-3">
+      <a href="{{ route('pengajar.materi.create', $kelas->id ) }}" 
+        class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold inline-flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          <span>Tambah Materi</span>
+      </a>
 
-
-
+      <a href="{{ route('pengajar.quiz.listquiz') }}" 
+        class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
+        <i class="ph-fill ph-bookmarks text-lg"></i>
+        <span>Quiz</span>
+      </a>
+    </div>
   </div>
 </div>
+
 
 <!-- Materials List -->
 <div class="space-y-6">
@@ -80,19 +82,19 @@
           <div class="flex flex-wrap items-center gap-3 mb-4">
             @if($materi->status == 'published')
               <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium border border-green-200">
-                📚 Published
+                Published
               </span>
             @else
               <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium border border-yellow-200">
-                ✏️ Draft
+                Draft
               </span>
             @endif
             
             @if($materi->level)
               <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">
-                @if($materi->level == 'beginner') 🟢 Pemula
-                @elseif($materi->level == 'intermediate') 🟡 Menengah  
-                @else 🔴 Lanjutan
+                @if($materi->level == 'beginner') Pemula
+                @elseif($materi->level == 'intermediate') Menengah  
+                @elseif($materi->level == 'advanced') lanjutan
                 @endif
               </span>
             @endif
@@ -104,12 +106,12 @@
             @endif
             
             <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">
-              🕒 {{ $materi->updated_at->diffForHumans() }}
+               {{ $materi->updated_at->diffForHumans() }}
             </span>
             
             @if($materi->file_size)
               <span class="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-xs">
-                📎 {{ $materi->formatted_file_size }}
+                {{ $materi->formatted_file_size }}
               </span>
             @endif
           </div>
@@ -136,6 +138,19 @@
           </svg>
           <span>Quiz</span>
         </a>
+        @if ($materi->status === 'draft')
+          <form action="{{ route('pengajar.materi.publish', $materi->id) }}" method="POST" onsubmit="return confirm('Yakin ingin publish materi ini?')">
+              @csrf
+              @method('PATCH')
+              <button type="submit"
+                  class="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white px-4 py-2 rounded-xl font-medium flex items-center space-x-2 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Publish</span>
+              </button>
+          </form>
+      @endif
         <form action="{{ route('pengajar.materi.destroy', $materi) }}" method="POST" class="inline" 
               onsubmit="return confirm('Apakah Anda yakin ingin menghapus materi ini?')">
           @csrf

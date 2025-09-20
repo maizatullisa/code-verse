@@ -3,7 +3,7 @@
 @section('content')
 <script src="https://cdn.tailwindcss.com"></script>
 
-<div class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 py-8 px-4">
+<div class="min-h-screen bg-blue-800 py-8 px-4">
   <div class="max-w-5xl mx-auto">
     
     <!-- Quiz Info Header -->
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="text-right">
-          <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-4 text-center">
+          <div class="bg-blue-500 rounded-2xl p-4 text-center">
             <div class="text-2xl font-bold text-white" id="soal-counter">1</div>
             <div class="text-white/80 text-sm">dari {{ $quiz->jumlah_soal ?? '10' }}</div>
           </div>
@@ -159,7 +159,7 @@
 
           <!-- Next/Submit Button -->
           <button type="button" id="next-btn" onclick="nextSoal()" 
-                  class="group bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center shadow-lg">
+                  class="group bg-blue-600 hover:from-blue-700  text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center shadow-lg">
             <span id="next-text">Soal Selanjutnya</span>
             <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>

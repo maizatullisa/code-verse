@@ -228,7 +228,7 @@
             <h1>CodeVerse</h1>
             <p>Admin Portal Security</p>
             <div class="admin-badge">
-                🔐 PORTAL AKSES ADMIN
+                PORTAL AKSES ADMIN
             </div>
         </div>
 

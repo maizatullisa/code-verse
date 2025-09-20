@@ -14,28 +14,26 @@ use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
-public function dashboardUserDesktop()
-{
-    $user = auth()->user();
-    
-    $kelasList = CourseEnrollment::where('user_id', $user->id)
-    ->with(['kelas.materis', 'kelas.pengajar'])
-    ->get()
-    ->map(fn($enrollment) => $enrollment->kelas) // ambil model kelas
-    ->filter() // buang null
-    ->map(function($kelas) {
-        $kelas->durasi = $kelas->durasi ?? '8 minggu pembelajaran';
-        return $kelas;
-    });  
+    public function dashboardUserDesktop()
+    {
+        $user = auth()->user();
+        
+        $kelasList = CourseEnrollment::where('user_id', $user->id)
+        ->with(['kelas.materis', 'kelas.pengajar'])
+        ->get()
+        ->map(fn($enrollment) => $enrollment->kelas) 
+        ->filter() 
+        ->map(function($kelas) {
+            $kelas->durasi = $kelas->durasi ?? '8 minggu pembelajaran';
+            return $kelas;
+        });  
 
-    // Sertifikat yang dimiliki
-    $certificates = \App\Models\UserCertificate::where('user_id', $user->id)
-        ->with('kelas')
-        ->get();
+        $certificates = \App\Models\UserCertificate::where('user_id', $user->id)
+            ->with('kelas')
+            ->get();
 
-    return view('desktop.user-desktop', compact('user', 'kelasList', 'certificates'));
-}
-
+        return view('desktop.user-desktop', compact('user', 'kelasList', 'certificates'));
+    }
 
         public function edit()
     {
@@ -48,7 +46,6 @@ public function dashboardUserDesktop()
     {
         $user = Auth::user();
 
-        // Validasi input
         $request->validate([
             'first_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
@@ -57,11 +54,9 @@ public function dashboardUserDesktop()
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        // Update nama & email
         $user->first_name = $request->first_name;
         $user->email = $request->email;
 
-        //update password kalau diisi
         if ($request->filled('current_password') && $request->filled('new_password')) {
             if (!Hash::check($request->current_password, $user->password)) {
                 return back()->withErrors(['current_password' => 'Password saat ini tidak cocok.']);
@@ -71,11 +66,10 @@ public function dashboardUserDesktop()
         }
 
         if ($request->hasFile('profile_photo')) {
-            // hapus foto lama kalau ada
             if ($user->profile_photo && Storage::disk('public')->exists($user->profile_photo)) {
                 Storage::disk('public')->delete($user->profile_photo);
             }
-            // simpan foto baru
+    
             $path = $request->file('profile_photo')->store('profile_photos', 'public');
             $user->profile_photo = $path;
         }

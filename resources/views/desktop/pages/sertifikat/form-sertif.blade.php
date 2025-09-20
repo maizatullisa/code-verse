@@ -104,7 +104,8 @@
                         type="text" 
                         id="fullName" 
                         name="full_name" 
-                        required
+                        value="{{ Auth::user()->first_name ?? '' }}"
+                        readonly
                         class="w-full px-4 py-4 input-focus rounded-xl bg-white/80 text-gray-800 font-medium"
                     >
                     <div class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden" id="nameCheck">

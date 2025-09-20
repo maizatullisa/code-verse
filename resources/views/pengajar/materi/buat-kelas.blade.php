@@ -133,14 +133,14 @@
                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300"
                   required>
                   <option value="">Pilih Kategori</option>
-                  <option value="programming" {{ old('kategori') == 'programming' ? 'selected' : '' }}>💻 Programming</option>
-                  <option value="design" {{ old('kategori') == 'design' ? 'selected' : '' }}>🎨 Design</option>
-                  <option value="web" {{ old('kategori') == 'web' ? 'selected' : '' }}>🌐 Web Development</option>
-                  <option value="mobile" {{ old('kategori') == 'mobile' ? 'selected' : '' }}>📱 Mobile Development</option>
-                  <option value="data" {{ old('kategori') == 'data' ? 'selected' : '' }}>📊 Data Science</option>
-                  <option value="ai" {{ old('kategori') == 'ai' ? 'selected' : '' }}>🤖 Artificial Intelligence</option>
-                  <option value="marketing" {{ old('kategori') == 'marketing' ? 'selected' : '' }}>📈 Marketing</option>
-                  <option value="business" {{ old('kategori') == 'business' ? 'selected' : '' }}>💼 Business</option>
+                  <option value="programming" {{ old('kategori') == 'programming' ? 'selected' : '' }}> Programming</option>
+                  <option value="design" {{ old('kategori') == 'design' ? 'selected' : '' }}> Design</option>
+                  <option value="web" {{ old('kategori') == 'web' ? 'selected' : '' }}> Web Development</option>
+                  <option value="mobile" {{ old('kategori') == 'mobile' ? 'selected' : '' }}> Mobile Development</option>
+                  <option value="data" {{ old('kategori') == 'data' ? 'selected' : '' }}> Data Science</option>
+                  <option value="ai" {{ old('kategori') == 'ai' ? 'selected' : '' }}> Artificial Intelligence</option>
+                  <option value="marketing" {{ old('kategori') == 'marketing' ? 'selected' : '' }}> Marketing</option>
+                  <option value="business" {{ old('kategori') == 'business' ? 'selected' : '' }}> Business</option>
                 </select>
                 @error('kategori')
                   <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -157,8 +157,8 @@
                         class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300"
                         required>
                   <option value="">Pilih Level</option>
-                  <option value="beginner" {{ old('level') == 'beginner' ? 'selected' : '' }}>🟢 Pemula</option>
-                  <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>🟡 Menengah</option>
+                  <option value="beginner" {{ old('level') == 'beginner' ? 'selected' : '' }}> Pemula</option>
+                  <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>Menengah</option>
                   <option value="advanced" {{ old('level') == 'advanced' ? 'selected' : '' }}>🔴 Lanjutan</option>
                 </select>
                 @error('level')
@@ -187,7 +187,7 @@
             <!-- Additional Settings -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               
-              <!-- Durasi -->
+              <!-- Durasi 
               <div>
                 <label for="durasi" class="block text-sm font-semibold text-gray-800 mb-2">
                   Durasi (Opsional)
@@ -201,7 +201,7 @@
                 @error('durasi')
                   <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
-              </div>
+              </div>-->
 
 
 
@@ -304,7 +304,7 @@
           <button type="submit"
             id="submitButtonText"
             form="kelasForm"
-            class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
+            class="bg-green-500  hover:from-green-600 hover:to-green-700 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300">
             Buat Kelas
         </button>
       </div>
@@ -326,7 +326,7 @@
       
       <button type="button"
          id="nextBtn" 
-         class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+         class="bg-blue-500  text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
         <span>Selanjutnya</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>

@@ -14,7 +14,6 @@ class QuizController extends Controller
 {
        public function index()
     {
-        // Menampilkan semua quiz milik pengajar saat ini
         $quizzes = Quiz::where('pengajar_id', Auth::id())->withCount('questions')->get();
         
 
@@ -29,7 +28,6 @@ class QuizController extends Controller
 
     public function store(Request $request)
     {
-        // \\\\\$quizzes = Quiz::where('pengajar_id', Auth::id())->withCount('questions')->get();
         
 
        $quiz = Quiz::create([
@@ -74,7 +72,7 @@ class QuizController extends Controller
     }
     public function listQuiz()
 {
-    $pengajarId = auth()->id(); // ambilID pengajar login
+    $pengajarId = auth()->id(); 
 
     $data = [
         //total soal dari quiz milik pengajer
@@ -82,7 +80,6 @@ class QuizController extends Controller
             $query->where('pengajar_id', $pengajarId);
         })->count(),
 
-        //total quiz yang dibuat pengajar (melalui materi)?
         'total_quiz' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
             $query->where('pengajar_id', $pengajarId);
         })->count(),
@@ -93,11 +90,10 @@ class QuizController extends Controller
                 $query->where('pengajar_id', $pengajarId);
             })->count(),
 
-        // ambl semwa quiz milik pengajar (untuk ditampilkan)
         'quizzes' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
                 $query->where('pengajar_id', $pengajarId);
             })
-            ->with('materi') //ambil info materi 
+            ->with('materi') 
             ->latest()
             ->get(),
     ];

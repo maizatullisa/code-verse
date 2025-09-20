@@ -28,7 +28,7 @@ class AuthController extends Controller
             'role' => $request->role,
         ]);
            $device = $request->input('device');
-           // ahkan ke halaman berhasil sesuai device
+           //arahkan ke halaman berhasil sesuai device
             return $device === 'mobile'
                 ? redirect('berhasil')->with('success', 'Registrasi berhasil!')
                 : redirect('/desktop/lorek-desktop')->with('success', 'Registrasi berhasil! Silakan login.');

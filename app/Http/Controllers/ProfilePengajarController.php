@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfilePengajarController extends Controller
 {
-    /**
-     * Halaman index biodata (tampilan biodata pengajar setelah diisi).
-     */
     public function index()
     {
         $user = Auth::user();
@@ -21,9 +18,6 @@ class ProfilePengajarController extends Controller
         return view('pengajar.index-bio', compact('profile', 'user', 'educationHistory'));
     }
 
-    /**
-     * Halaman form edit biodata.
-     */
     public function edit()
     {
         $user = Auth::user();
@@ -32,9 +26,6 @@ class ProfilePengajarController extends Controller
         return view('pengajar.form-bio', compact('profile', 'user'));
     }
 
-    /**
-     * Simpan data baru (pertama kali tambah biodata).
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -56,7 +47,6 @@ class ProfilePengajarController extends Controller
             'faculty', 'expertise', 'study_program'
         ]);
 
-        // kalau upload foto baru
         if ($request->hasFile('photo')) {
             $fileName = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('uploads/foto_pengajar'), $fileName);
@@ -70,9 +60,6 @@ class ProfilePengajarController extends Controller
         return redirect()->route('pengajar.index-bio')->with('success', 'Biodata berhasil ditambahkan.');
     }
 
-    /**
-     * Update data biodata (jika sudah ada).
-     */
     public function update(Request $request)
     {
         $request->validate([
@@ -95,7 +82,6 @@ class ProfilePengajarController extends Controller
             'faculty', 'expertise', 'study_program'
         ]);
 
-        // kalau upload foto baru
         if ($request->hasFile('photo')) {
             $fileName = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('uploads/foto_pengajar'), $fileName);
@@ -107,22 +93,21 @@ class ProfilePengajarController extends Controller
         return redirect()->route('pengajar.index-bio')->with('success', 'Biodata berhasil diperbarui.');
     }
 
-    // Riwayat Pendidikan
-    public function storeRiwayatPendidikan(Request $request)
-{
-    $request->validate([
-        'jenjang' => 'required|string|max:50',
-        'jurusan' => 'required|string|max:100',
-        'institusi' => 'required|string|max:100',
-        'tahun_lulus' => 'nullable|digits:4|integer',
-    ]);
+        public function storeRiwayatPendidikan(Request $request)
+    {
+        $request->validate([
+            'jenjang' => 'required|string|max:50',
+            'jurusan' => 'required|string|max:100',
+            'institusi' => 'required|string|max:100',
+            'tahun_lulus' => 'nullable|digits:4|integer',
+        ]);
 
-    $profile = ProfilePengajar::where('user_id', Auth::id())->firstOrFail();
+        $profile = ProfilePengajar::where('user_id', Auth::id())->firstOrFail();
 
-    $profile->riwayatPendidikan()->create($request->all());
+        $profile->riwayatPendidikan()->create($request->all());
 
-    return redirect()->back()->with('success', 'Riwayat pendidikan berhasil ditambahkan.');
-}
+        return redirect()->back()->with('success', 'Riwayat pendidikan berhasil ditambahkan.');
+    }
 
     public function updateRiwayatPendidikan(Request $request, $id)
     {

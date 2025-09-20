@@ -23,7 +23,9 @@ Route::get('/pengajar/materi', function () {
 Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::get('/pengajar/dashboard', [PengajarDashboardController::class, 'index'])
         ->name('pengajar.dashboard');
-    Route::get('/pengajar/siswa', [PengajarSiswaListController::class, 'index'])->name('pengajar.siswa');
+    Route::get('/pengajar/siswa', [PengajarSiswaListController::class, 'index'])->name('pengajar.siswa.index');
+    Route::get('/pengajar/siswa/{id}', [PengajarSiswaListController::class, 'show'])->name('pengajar.siswa.show');
+
         Route::get('/bio-pengajar', [ProfilePengajarController::class, 'index'])->name('pengajar.index-bio');
     Route::get('/pengajar/biodata/edit', [ProfilePengajarController::class, 'edit'])->name('pengajar.edit-bio');
     Route::post('/pengajar/biodata', [ProfilePengajarController::class, 'store'])->name('pengajar.store-bio');
@@ -45,6 +47,9 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::put('/pengajar/kelas/{kelas}', [KelasController::class, 'update'])->name('pengajar.kelas.update');
     // Hapus Kelas
     Route::delete('/pengajar/kelas/{kelas}', [KelasController::class, 'destroy'])->name('pengajar.kelas.destroy');
+    //anjay publish kelas
+    Route::patch('/kelas/{id}/publish', [KelasController::class, 'publish'])->name('kelas.publish');
+
     Route::get('/pengajar/kelas/{kelasId}/materi', [MateriController::class, 'index'])
     ->name('pengajar.materi.index');
     Route::get('/pengajar/materi/create/{kelasId?}', [MateriController::class, 'create'])
@@ -59,6 +64,9 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::put('/pengajar/materi/{materi}', [MateriController::class, 'update'])->name('pengajar.materi.update');
     //  Materi - hapus materi
     Route::delete('/pengajar/materi/{materi}', [MateriController::class, 'destroy'])->name('pengajar.materi.destroy');
+    ///PUBLISH
+    Route::patch('/materi/{materi}/publish', [MateriController::class, 'publish'])->name('pengajar.materi.publish');
+
     Route::get('/pengajar/quiz', [QuizController::class, 'listQuiz'])->name('pengajar.quiz.listquiz');
     Route::get('/pengajar/quiz/{materi}', [QuizController::class, 'create'])->name('pengajar.quiz.create');
     Route::post('/pengajar/quiz/store', [QuizController::class, 'store'])->name('pengajar.quiz.store');

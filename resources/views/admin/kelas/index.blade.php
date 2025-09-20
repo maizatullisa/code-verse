@@ -23,9 +23,7 @@
     <div class="max-w-7xl mx-auto px-6 pt-6">
         <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
             <div class="flex items-center">
-                <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
+                 
                 <p class="text-green-700 font-medium">{{ session('success') }}</p>
             </div>
         </div>
@@ -51,13 +49,8 @@
             <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-600 text-sm font-medium">Total Kelas</p>
-                        <p class="text-3xl font-bold text-blue-600 mt-2">{{ $totalKelas ?? 0 }}</p>
-                    </div>
-                    <div class="bg-blue-100 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
+                        <p class="text-black text-sm font-medium">Total Kelas</p>
+                        <p class="text-3xl font-bold text-black mt-2">{{ $totalKelas ?? 0 }}</p>
                     </div>
                 </div>
             </div>
@@ -65,13 +58,8 @@
             <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-600 text-sm font-medium">Total Siswa</p>
-                        <p class="text-3xl font-bold text-green-600 mt-2">{{ $totalSiswa ?? 0 }}</p>
-                    </div>
-                    <div class="bg-green-100 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                        </svg>
+                        <p class="text-black text-sm font-medium">Total Siswa</p>
+                        <p class="text-3xl font-bold text-black mt-2">{{ $totalSiswa ?? 0 }}</p>
                     </div>
                 </div>
             </div>
@@ -79,28 +67,18 @@
             <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-600 text-sm font-medium">Total Pengajar</p>
-                        <p class="text-3xl font-bold text-purple-600 mt-2">{{ $totalPengajar ?? 0 }}</p>
-                    </div>
-                    <div class="bg-purple-100 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </div>
+                        <p class="text-black text-sm font-medium">Total Pengajar</p>
+                        <p class="text-3xl font-bold text-black mt-2">{{ $totalPengajar ?? 0 }}</p>
+                    </div> 
                 </div>
             </div>
 
             <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-600 text-sm font-medium">Kelas Aktif</p>
-                        <p class="text-3xl font-bold text-orange-600 mt-2">{{ $kelasAktif ?? 0 }}</p>
-                    </div>
-                    <div class="bg-orange-100 p-3 rounded-lg">
-                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
+                        <p class="text-black text-sm font-medium">Kelas Aktif</p>
+                        <p class="text-3xl font-bold text-black mt-2">{{ $kelasAktif ?? 0 }}</p>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -179,7 +157,7 @@
                     <div class="h-1 
                         @if($kelas->status == 'aktif') bg-green-500
                         @elseif($kelas->status == 'draft') bg-yellow-500
-                        @else bg-red-500
+                        @else  
                         @endif"></div>
                     
                     <div class="p-6">

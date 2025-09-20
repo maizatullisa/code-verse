@@ -16,7 +16,6 @@ class KelasPreviewController extends Controller
                 ->with('error', 'Kelas ini belum tersedia.');
         }
 
-        //load relasi yang dibutuhkan
         $kelas->load([
             'pengajar.profilePengajar.riwayatPendidikan',
             'materis' => function($query) {
@@ -28,22 +27,18 @@ class KelasPreviewController extends Controller
         ->where('id', '!=', $kelas->id)//tdk mengmbil kelas yg sdg tmpil
         ->where('status', 'published')
         ->latest()
-        ->take(6) // ambil maksimal 6 kelas
+        ->take(6) 
         ->get();
 
-
-        // Hitung total siswa dari semua kelas milik pengajar ini
         $totalSiswaPengajar = \App\Models\CourseEnrollment::whereIn(
             'kelas_id',
-            $kelas->pengajar->kelas()->pluck('id') // ambil semua kelas_id yang dibuat oleh pengajar 
+            $kelas->pengajar->kelas()->pluck('id') 
         )
         ->where('status', 'approved')
         ->count();
 
         $totalKelasPengajar = $kelas->pengajar->kelas()->count();
 
-
-        //cek user sudah terdaftar di kelas ini???
         $isEnrolled = false;
         if (Auth::check()) {
             $isEnrolled = CourseEnrollment::where('user_id', Auth::id())
@@ -52,12 +47,10 @@ class KelasPreviewController extends Controller
                 ->exists();
         }
 
-        // Hitung statistik kelas
         $enrollmentCount = CourseEnrollment::where('kelas_id', $kelas->id)
             ->where('status', 'approved')
             ->count();
 
-        // data yang akan dikirim ke view
         $courseData = [
             'id' => $kelas->id,
             'nama_kelas' => $kelas->nama_kelas,

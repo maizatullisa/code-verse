@@ -14,7 +14,6 @@ class HalamanMateriController extends Controller
         
         $materi = Materi::with('kelas', 'pengajar')->findOrFail($materiId);
 
-        // Cek apakah pengajar adalah pemilik materi ini
         if ($materi->pengajar_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses ke materi ini.');
         }

@@ -1,5 +1,31 @@
 <?php
 
+use App\Http\Controllers\MateriBladeSearch;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DaftarBelajarController;
+use App\Http\Controllers\GeminiController;
+use App\Http\Controllers\GoogleAuthController;
+use function PHPUnit\Framework\returnSelf;
+// use App\Http\Controllers\CourseEnrollmentController;
+// use App\Http\Controllers\ProfilePengajarController;
+// use App\Http\Controllers\KelasQuizController;
+// use App\Http\Controllers\KelasDetailController;
+// use App\Http\Controllers\DiskusiController;
+// use App\Http\Controllers\BalasanDiskusiController;
+// use App\Http\Controllers\PengajarDashboardController;
+// use App\Http\Controllers\AdminController;
+// use App\Http\Controllers\AdminUserController;
+// use App\Http\Controllers\KelasController;
+// use App\Http\Controllers\MateriShowController;
+// use App\Http\Controllers\MateriController;
+// use App\Http\Controllers\QuizController;
+// use App\Http\Controllers\HalamanQuizController;
+// use App\Http\Controllers\PengajarSiswaListController;
+// use App\Http\Controllers\SertifikatSiswaController;
+// use App\Http\Controllers\UserProfileController;
 // use App\Http\Controllers\AdminKelasController;
 // use App\Http\Controllers\AdminLihatKelasController;
 // use App\Http\Controllers\AdminInfoSertifikatController;
@@ -13,33 +39,6 @@
 // use App\Http\Controllers\KelasSelesaiController;
 // use App\Http\Controllers\KelasPreviewController;
 // use App\Http\Controllers\LihatDetailPengajarController;
-use App\Http\Controllers\MateriBladeSearch;
-// use App\Http\Controllers\PengajarSiswaListController;
-// use App\Http\Controllers\SertifikatSiswaController;
-// use App\Http\Controllers\UserProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\GoogleAuthController;
-// use App\Http\Controllers\MateriController;
-// use App\Http\Controllers\QuizController;
-// use App\Http\Controllers\HalamanQuizController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DaftarBelajarController;
-// use App\Http\Controllers\DiskusiController;
-// use App\Http\Controllers\BalasanDiskusiController;
-// use App\Http\Controllers\PengajarDashboardController;
-// use App\Http\Controllers\AdminController;
-// use App\Http\Controllers\AdminUserController;
-// use App\Http\Controllers\KelasController;
-// use App\Http\Controllers\MateriShowController;
-use App\Http\Controllers\GeminiController;
-// use App\Http\Controllers\CourseEnrollmentController;
-// use App\Http\Controllers\ProfilePengajarController;
-// use App\Http\Controllers\KelasQuizController;
-// use App\Http\Controllers\KelasDetailController;
-use function PHPUnit\Framework\returnSelf;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,35 +56,230 @@ use function PHPUnit\Framework\returnSelf;
 |--------------------------------------------------------------------------
 */
 
+
+//////
+// Desktop Help AI
+
+Route::post('/auth/send-otp', [\App\Http\Controllers\Auth\CustomForgotPasswordController::class, 'sendOtp']);
+Route::post('/auth/verify-otp', [\App\Http\Controllers\Auth\CustomForgotPasswordController::class, 'verifyOtp']);
+Route::post('/auth/reset-password', [\App\Http\Controllers\Auth\CustomForgotPasswordController::class, 'resetPassword']);
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+Route::get('/desktop/help-ai', function () {
+    return view('desktop.help-ai');
+ })->name('desktop.help-ai');
+
+
+// Desktop Roadmap
+Route::get('/desktop/index-roadmap', function () {
+    return view('desktop.roadmap.index-roadmap-user');
+ })->name('desktop.roadmap.index-roadmap-user');
+
+Route::get('/desktop/fe-roadmap', function () {
+    return view('desktop.roadmap.frontend');
+ })->name('desktop.roadmap.frontend');
+
+ Route::get('/desktop/be-roadmap', function () {
+    return view('desktop.roadmap.backend');
+ })->name('desktop.roadmap.backend');
+
+ Route::get('/desktop/dev-roadmap', function () {
+    return view('desktop.roadmap.devops');
+ })->name('desktop.roadmap.devops');
+
+/*
+|--------------------------------------------------------------------------
+| GAMES ROUTES
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/games/pilih-game', function () {
+    return view('games.pilih-game');
+ })->name('games.pilih-game');
+
+Route::get('/games/bird', function () {
+    return view('games.bird');
+ })->name('games.bird');
+
+Route::get('/games/syntaxLab', function () {
+    return view('games.syntaxLab');
+ })->name('games.syntaxLab');
+
+Route::get('/games/glitchmaze', function () {
+    return view('games.glitchmaze');
+ })->name('games.glitchmaze');
+
+Route::get('/games/syntaxShowdown', function () {
+    return view('games.syntaxShowdown');
+ })->name('games.syntaxShowdown');
+
+
+ // COBA JELAJAHI
+Route::get('/glossary', function (){
+    return view('desktop.jelajahi.glosarry');
+})->name('desktop.jelajahi.glosarry');
+
+Route::get('/keyboard-shortcuts', function(){
+    return view('desktop.jelajahi.keyboard-shourcut');
+})->name('desktop.jelajahi.keyboard-shourcut');
+
+Route::get('/coding-tips', function(){
+    return view('desktop.jelajahi.coding-tips');
+})->name('desktop.jelajahi.coding-tips');
+
+Route::prefix('gemini')->group(function () {
+    Route::post('/ask', [App\Http\Controllers\GeminiController::class, 'ask']);
+    Route::get('/test', [App\Http\Controllers\GeminiController::class, 'test']); // untuk testing
+});
 // Google Auth
+// Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
+// Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+// // Landing Page
+// Route::get('/landing-mobile', function(){
+//     return view('mobile.landing-mobile');
+// })->name('mobile.landing');
+
+// // LOGIN & REGISTER
+// Route::get('/masuk-mobile', function () {
+//     return view('mobile.auth.masuk');
+// })->name('mobile.auth.masuk');
+
+// Route::get('/register-mobile', function () {
+//     return view('mobile.auth.register'); 
+// })->name('mobile.auth.register');
+
+// Route::get('/berhasil', function () {
+//     return view('mobile.auth.berhasil'); 
+// })->name('mobile.auth.berhasil');
+
+// //USER PATH DUMMY 
+// Route::get('/user-mobile', function(){
+//     return view('mobile.user-mobile');
+// })->name('mobile.user-mobile');
+
+
+
+// LANDING
+Route::get('/desktop/landing-desktop', function () {
+    return view('desktop.landing-desktop');
+})->name('desktop.landing-desktop');
+
+Route::get('/desktop/lorek-desktop', function () {
+    return view('desktop.lorek-desktop');
+ })->name('desktop.lorek-desktop');
+
+Route::get('/admin/kelas/edit', function () {
+    return view('admin.kelas.edit');
+})->name('admin.kelas.edit');
+
+Route::get('/admin/modul', function () {
+    return view('admin.modul.index');
+})->name('admin.modul.index');
+
+Route::get('/admin/quiz', function () {
+    return view('admin.quiz.index');
+})->name('admin.quiz.index');
+
+Route::get('/admin/sertifikat', function () {
+    return view('admin.sertifikat.index');
+})->name('admin.sertifikat.index');
+//google auth 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
-// Landing Page
+//PERTAMA
 Route::get('/landing-mobile', function(){
-    return view('mobile.landing-mobile');
-})->name('mobile.landing');
-
-// LOGIN & REGISTER
-Route::get('/masuk-mobile', function () {
-    return view('mobile.auth.masuk');
-})->name('mobile.auth.masuk');
-
-Route::get('/register-mobile', function () {
-    return view('mobile.auth.register'); 
-})->name('mobile.auth.register');
-
-Route::get('/berhasil', function () {
-    return view('mobile.auth.berhasil'); 
-})->name('mobile.auth.berhasil');
-
-//USER PATH DUMMY 
-Route::get('/user-mobile', function(){
-    return view('mobile.user-mobile');
-})->name('mobile.user-mobile');
+    return view(view:'landing');
+})->name(name:'landing');
 
 
+// LUPA PASWORD
+Route::get('/pw', function () {
+    return view('lupa-pw');
+})->name('pw');
 
+Route::get('/bikin-pw', function () {
+    return view('bikin-pw');
+})->name('bikin-pw');
+
+Route::get('/otp', function () {
+    return view('veriv-otp');
+})->name('otp');
+
+Route::get('/pw-baru', function () {
+    return view('pw-baru-sukses');
+})->name('pw-baru');
+
+/// Halaman registrasi
+Route::get('/register', function () {
+    return view('register'); 
+})->name('register');
+
+// PENGATURAN
+Route::get('/settings', function(){
+    return view('settings');
+})->name('settings');
+
+Route::get('/details', function(){
+    return view('verify-details');
+})->name('details');
+
+Route::get('/notification', function(){
+    return view('notification-setting');
+})->name('notification');
+
+//NAVBAR BAWAH
+Route::get('/box', function (){
+    return view(view:'chat-box');
+})->name(name:'box');
+//LIBRARY
+Route::get('/library', function(){
+    return view(view:'library');
+})->name(name:'library');
+// Navigation Pages
+Route::get('/help-mobile', function (){
+    return view('mobile.help-ai-mobile');
+})->name('mobile.help-ai-mobile');
+
+Route::get('/roadmap-mobile', function(){
+    return view('mobile.roadmap.index-roadmap-mobile');
+})->name('mobile.roadmap.index-roadmap-mobile');
+
+Route::get('/detail-roadmap-mobile', function(){
+    return view('mobile.roadmap.detail-roadmap-mobile');
+})->name('mobile.roadmap.detail-roadmap-mobile');
+
+  Route::get('/admin/login', function () {
+    return view('admin.login-admin');
+    })->name('login-admin');
+
+// Pengajar Kelas Management
+Route::get('/pengajar/buat-kelas', function () {
+    return view('pengajar.materi.buat-kelas');
+})->name('pengajar.materi.buat-kelas');
+
+//desk
+ //POPUP
+ Route::get('/popup', function () {
+    return view('desktop.popup-pengajar');
+ })->name('desktop.popup-pengajar');
+  // PATH KE EDIT PROFILE USER
+Route::get('/edit-profil', function(){
+    return view('desktop.edit-profil');
+})->name('desktop.edit-profil');
+
+// Desktop Materi
+Route::get('/desktop/rekomendasi-materi', function () {
+    return view('desktop.pages.materi.rekomendasi-materi');
+ })->name('desktop.pages.materi.rekomendasi-materi');
+
+Route::get('/desktop/belajar-materi', function () {
+    return view('desktop.pages.materi.belajar-materi');
+ })->name('desktop.pages.materi.belajar-materi');
+
+/// Aksi kirim form register
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 
 
@@ -205,21 +399,21 @@ Route::post('/masuk', [AuthController::class, 'login'])->name('login');
 
 /////////////////////
 // PASSWORD RESET
-Route::get('/pw', function () {
-    return view('mobile.auth.lupa-pw');
-})->name('mobile.auth.lupa-pw');
+// Route::get('/pw', function () {
+//     return view('mobile.auth.lupa-pw');
+// })->name('mobile.auth.lupa-pw');
 
-Route::get('/bikin-pw', function () {
-    return view('mobile.auth.bikin-pw');
-})->name('mobile.auth.bikin-pw');
+// Route::get('/bikin-pw', function () {
+//     return view('mobile.auth.bikin-pw');
+// })->name('mobile.auth.bikin-pw');
 
-Route::get('/otp', function () {
-    return view('mobile.auth.veriv-otp');
-})->name('mobile.auth.otp');
+// Route::get('/otp', function () {
+//     return view('mobile.auth.veriv-otp');
+// })->name('mobile.auth.otp');
 
-Route::get('/pw-baru', function () {
-    return view('.mobile.auth.pw-baru-sukses');
-})->name('mobile.auth.pw-baru');
+// Route::get('/pw-baru', function () {
+//     return view('.mobile.auth.pw-baru-sukses');
+// })->name('mobile.auth.pw-baru');
 
 /*
 |--------------------------------------------------------------------------
@@ -318,56 +512,6 @@ Route::get('/pw-baru', function () {
 |--------------------------------------------------------------------------
 */
 
-// Route::get('/admin/kelas/edit', function () {
-//     return view('admin.kelas.edit');
-// })->name('admin.kelas.edit');
-
-// Route::get('/admin/modul', function () {
-//     return view('admin.modul.index');
-// })->name('admin.modul.index');
-
-// Route::get('/admin/quiz', function () {
-//     return view('admin.quiz.index');
-// })->name('admin.quiz.index');
-
-// Route::get('/admin/sertifikat', function () {
-//     return view('admin.sertifikat.index');
-// })->name('admin.sertifikat.index');
-//google auth 
-Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-//PERTAMA
-Route::get('/landing-mobile', function(){
-    return view(view:'landing');
-})->name(name:'landing');
-
-
-// LUPA PASWORD
-Route::get('/pw', function () {
-    return view('lupa-pw');
-})->name('pw');
-
-Route::get('/bikin-pw', function () {
-    return view('bikin-pw');
-})->name('bikin-pw');
-
-Route::get('/otp', function () {
-    return view('veriv-otp');
-})->name('otp');
-
-Route::get('/pw-baru', function () {
-    return view('pw-baru-sukses');
-})->name('pw-baru');
-
-/// Halaman registrasi
-Route::get('/register', function () {
-    return view('register'); 
-})->name('register');
-
-
-/// Aksi kirim form register
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-
 // /// Aksi kirim form login
 // /// Halaman awal: login
 // Route::get('/masuk-mobile', function () {
@@ -379,11 +523,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 /// Redirect jika akses GET ke /login
 
 /// Halaman setelah login berhasil DIA AKAN KE HOME INI AKU COMM DULU YA 
- Route::get('home-mobile', [MateriBladeSearch::class, 'index'])->name('home');
-Route::get('/home-mobile', function () {
- $user = Auth::user(); // ambil user login
- return view('mobile.home.mobile', compact('user'));
-})->middleware('auth')->name('home-mobile');
+//  Route::get('home-mobile', [MateriBladeSearch::class, 'index'])->name('home');
+// Route::get('/home-mobile', function () {
+//  $user = Auth::user(); // ambil user login
+//  return view('mobile.home.mobile', compact('user'));
+// })->middleware('auth')->name('home-mobile');
 
 // DICOMMENT SAMA OYIN
 // Route::get('/home', function () {
@@ -391,16 +535,16 @@ Route::get('/home-mobile', function () {
 // return view('mobile.home-mobile', compact('user'));
 // })->middleware('auth')->name('home');
 
-Route::get('/profile', function () {
-    $user = Auth::user(); // ambil user login
-    return view('mobile.user-mobile', compact('user'));
-})->middleware('auth')->name('profile');
+// Route::get('/profile', function () {
+//     $user = Auth::user(); // ambil user login
+//     return view('mobile.user-mobile', compact('user'));
+// })->middleware('auth')->name('profile');
 
 
-// ROUTE DUMMY 
- Route::get('/home-mobile', function(){
-     return view('mobile.home-mobile');
- })->name('home-mobile');
+// // ROUTE DUMMY 
+//  Route::get('/home-mobile', function(){
+//      return view('mobile.home-mobile');
+//  })->name('home-mobile');
 
 
 // SEARCH
@@ -409,14 +553,14 @@ Route::get('/profile', function () {
 // })->name('search-result');
 
 // HOME
-Route::get('/home-mobile', function(){
-    return view('mobile.home-mobile');
-})->name('mobile.home-mobile');
+// Route::get('/home-mobile', function(){
+//     return view('mobile.home-mobile');
+// })->name('mobile.home-mobile');
 
-// CARI
-Route::get('/search-result', function(){
-    return view('contest-search-result');
-})->name('search-result');
+// // CARI
+// Route::get('/search-result', function(){
+//     return view('contest-search-result');
+// })->name('search-result');
 
 // PAGES KONTEN
 // Route::get('/pengajar', function(){
@@ -429,39 +573,6 @@ Route::get('/search-result', function(){
 
 // ROUTE NAVBAR SAMPING KIRI (KOMPONEN DAN KAWAN KAWANNYA)
 // PENGATURAN START
-// PENGATURAN
-Route::get('/settings', function(){
-    return view('settings');
-})->name('settings');
-
-Route::get('/details', function(){
-    return view('verify-details');
-})->name('details');
-
-Route::get('/notification', function(){
-    return view('notification-setting');
-})->name('notification');
-
-//NAVBAR BAWAH
-Route::get('/box', function (){
-    return view(view:'chat-box');
-})->name(name:'box');
-//LIBRARY
-Route::get('/library', function(){
-    return view(view:'library');
-})->name(name:'library');
-// Navigation Pages
-Route::get('/help-mobile', function (){
-    return view('mobile.help-ai-mobile');
-})->name('mobile.help-ai-mobile');
-
-Route::get('/roadmap-mobile', function(){
-    return view('mobile.roadmap.index-roadmap-mobile');
-})->name('mobile.roadmap.index-roadmap-mobile');
-
-Route::get('/detail-roadmap-mobile', function(){
-    return view('mobile.roadmap.detail-roadmap-mobile');
-})->name('mobile.roadmap.detail-roadmap-mobile');
 
 /*
 |--------------------------------------------------------------------------
@@ -469,30 +580,31 @@ Route::get('/detail-roadmap-mobile', function(){
 |--------------------------------------------------------------------------
 */
 
-Route::get('/detail', function(){
-    return view('quiz-details');
-})->name('/detail');
+// Route::get('/detail', function(){
+//     return view('quiz-details');
+// })->name('/detail');
 
-// Quiz Pages
-Route::get('/quiz-1', function(){
-    return view('dasar-quiz-1');
-})->name('/quiz-1');
+// // Quiz Pages
+// Route::get('/quiz-1', function(){
+//     return view('dasar-quiz-1');
+// })->name('/quiz-1');
 
-Route::get('/quiz-2', function(){
-    return view('dasar-quiz-2');
-})->name('/quiz-2');
+// Route::get('/quiz-2', function(){
+//     return view('dasar-quiz-2');
+// })->name('/quiz-2');
 
-Route::get('/quiz-3', function(){
-    return view('dasar-quiz-3');
-})->name('/quiz-3');
+// Route::get('/quiz-3', function(){
+//     return view('dasar-quiz-3');
+// })->name('/quiz-3');
 
-Route::get('/quiz-4', function(){
-    return view('dasar-quiz-4');
-})->name('/quiz-4');
+// Route::get('/quiz-4', function(){
+//     return view('dasar-quiz-4');
+// })->name('/quiz-4');
 
-Route::get('/quiz-5', function(){
-    return view('dasar-quiz-5');
-})->name('/quiz-4');
+// Route::get('/quiz-5', function(){
+//     return view('dasar-quiz-5');
+// })->name('/quiz-4');
+
 
 //rute pengajar
 //forumdiskusi 
@@ -541,10 +653,6 @@ Route::get('/quiz-5', function(){
 //     return view('pengajar.dashboard_pengajar');
 // })->name('pengajar.dashboard_pengajar');
 
-// Pengajar Kelas Management
-Route::get('/pengajar/buat-kelas', function () {
-    return view('pengajar.materi.buat-kelas');
-})->name('pengajar.materi.buat-kelas');
 
 // Route::get('/pengajar/index-kelas-pengajar', action: function () {
 //     return view('pengajar.materi.index-kelas-pengajar');
@@ -627,9 +735,9 @@ Route::get('/pengajar/buat-kelas', function () {
 // })->name('pengajar.soal.create');
 
 // Routes untuk public (siswa/umum)
-Route::get('/materi', [MateriShowController::class, 'index'])->name('materi');
-Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
-Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
+// Route::get('/materi', [MateriShowController::class, 'index'])->name('materi');
+// Route::get('/materi/pengajar/{id}', [MateriShowController::class, 'showByPengajar'])->name('materi.showByPengajar');
+// Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->name('materi.showByKelas'); 
 
 
 
@@ -667,8 +775,8 @@ Route::get('/materi/kelas/{id}', [MateriShowController::class, 'showByKelas'])->
 // Route::get('/basic-quiz/{number}', [BasicQuizController::class, 'show'])->name('basic.quiz.show');
 // Route::post('/basic-quiz/{number}', [BasicQuizController::class, 'submit'])->name('basic.quiz.submit');
 // Kelas & Learning
-Route::get('/belajar/materi-belum', [DaftarBelajarController::class, 'index'])->name('belajar.materi-belum');
-Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
+// Route::get('/belajar/materi-belum', [DaftarBelajarController::class, 'index'])->name('belajar.materi-belum');
+// Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
 
 /*
 |--------------------------------------------------------------------------
@@ -676,14 +784,6 @@ Route::get('/kelas', [DaftarBelajarController::class, 'index'])->name('kelas');
 |--------------------------------------------------------------------------
 */
 
-// LANDING
-Route::get('/desktop/landing-desktop', function () {
-    return view('desktop.landing-desktop');
-})->name('desktop.landing-desktop');
-
-Route::get('/desktop/lorek-desktop', function () {
-    return view('desktop.lorek-desktop');
- })->name('desktop.lorek-desktop');
 
 //  Route::get('/desktop/user-desktop', function () {
 //     return view('desktop.user-desktop');
@@ -692,11 +792,6 @@ Route::get('/desktop/lorek-desktop', function () {
 //  Route::get('desktop/user-desktop', [UserProfileController::class, 'dashboardUserDesktop'])->name('user.desktop');
 //  Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
 //  Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
-
- // PATH KE EDIT PROFILE USER
-Route::get('/edit-profil', function(){
-    return view('desktop.edit-profil');
-})->name('desktop.edit-profil');
 
 
 // Route::get('/desktop/home-desktop', function () {
@@ -708,21 +803,6 @@ Route::get('/edit-profil', function(){
 // Route::get('/profile/pengajar/{id}', [LihatDetailPengajarController::class, 'show'])
 //     ->name('profile-pengajar');
 
- //POPUP
- Route::get('/popup', function () {
-    return view('desktop.popup-pengajar');
- })->name('desktop.popup-pengajar');
-
-
-
-// Desktop Materi
-Route::get('/desktop/rekomendasi-materi', function () {
-    return view('desktop.pages.materi.rekomendasi-materi');
- })->name('desktop.pages.materi.rekomendasi-materi');
-
-Route::get('/desktop/belajar-materi', function () {
-    return view('desktop.pages.materi.belajar-materi');
- })->name('desktop.pages.materi.belajar-materi');
 
 // Desktop Kelas
 // Route::get('/desktop/kelas-index', function () {
@@ -834,68 +914,7 @@ Route::get('/desktop/belajar-materi', function () {
 
     
 
-// Desktop Help AI
-Route::get('/desktop/help-ai', function () {
-    return view('desktop.help-ai');
- })->name('desktop.help-ai');
-
-
-// Desktop Roadmap
-Route::get('/desktop/index-roadmap', function () {
-    return view('desktop.roadmap.index-roadmap-user');
- })->name('desktop.roadmap.index-roadmap-user');
-
-Route::get('/desktop/fe-roadmap', function () {
-    return view('desktop.roadmap.frontend');
- })->name('desktop.roadmap.frontend');
-
- Route::get('/desktop/be-roadmap', function () {
-    return view('desktop.roadmap.backend');
- })->name('desktop.roadmap.backend');
-
- Route::get('/desktop/dev-roadmap', function () {
-    return view('desktop.roadmap.devops');
- })->name('desktop.roadmap.devops');
-
-/*
-|--------------------------------------------------------------------------
-| GAMES ROUTES
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/games/pilih-game', function () {
-    return view('games.pilih-game');
- })->name('games.pilih-game');
-
-Route::get('/games/bird', function () {
-    return view('games.bird');
- })->name('games.bird');
-
-Route::get('/games/syntaxLab', function () {
-    return view('games.syntaxLab');
- })->name('games.syntaxLab');
-
-Route::get('/games/glitchmaze', function () {
-    return view('games.glitchmaze');
- })->name('games.glitchmaze');
-
-Route::get('/games/syntaxShowdown', function () {
-    return view('games.syntaxShowdown');
- })->name('games.syntaxShowdown');
-
-
- // COBA JELAJAHI
-Route::get('/glossary', function (){
-    return view('desktop.jelajahi.glosarry');
-})->name('desktop.jelajahi.glosarry');
-
-Route::get('/keyboard-shortcuts', function(){
-    return view('desktop.jelajahi.keyboard-shourcut');
-})->name('desktop.jelajahi.keyboard-shourcut');
-
-Route::get('/coding-tips', function(){
-    return view('desktop.jelajahi.coding-tips');
-})->name('desktop.jelajahi.coding-tips');
+// 
 
 
 
@@ -908,11 +927,6 @@ Route::get('/coding-tips', function(){
 // Gemini AI
 //Route::post('/gemini/ask', [GeminiController::class, 'ask']);
 
-// Di routes/web.php
-Route::prefix('gemini')->group(function () {
-    Route::post('/ask', [App\Http\Controllers\GeminiController::class, 'ask']);
-    Route::get('/test', [App\Http\Controllers\GeminiController::class, 'test']); // untuk testing
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -946,8 +960,6 @@ Route::prefix('gemini')->group(function () {
 
 // Route::post('/kelas/{kelas}/pendaftaran', [CourseEnrollmentController::class, 'store'])
 //     ->name('desktop.pages.kelas.kelas-pendaftaran.store');
-
-
 
 // List kelas yang diambil
 // Route::get('/kelas-diambil', [CourseEnrollmentController::class, 'index'])

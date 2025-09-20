@@ -56,14 +56,7 @@ class KelasController extends Controller
     $data['kapasitas'] = $data['kapasitas'] ?? 9999;
     $data['harga'] = $data['harga'] ?? 0;
 
-    // // Handle button action untuk status
-    // if ($request->input('action') === 'save_draft') {
-    //     $data['status'] = 'draft';
-    // } elseif ($request->input('action') === 'publish') {
-    //     $data['status'] = 'published';
-    // }
 
-    //handle cover image upload
     if ($request->hasFile('cover_image')) {
         $file = $request->file('cover_image');
         $fileName = time() . '_' . $file->getClientOriginalName();
@@ -82,7 +75,6 @@ class KelasController extends Controller
 
     public function show(Kelas $kelas)
     {
-        // Cek akses pengajar
         if ($kelas->pengajar_id !== Auth::id()) {
             abort(403, 'Anda tidak memiliki akses ke kelas ini.');
         }
@@ -90,7 +82,6 @@ class KelasController extends Controller
         $materis = $kelas->materis()->orderBy('created_at', 'desc')->get();
         $jumlahMateri = $materis->count();
 
-        // Semua kelas milik pengajar yang sedang login
         $allKelas = Kelas::where('pengajar_id', Auth::id())->get();
 
         return view('pengajar.materi.index-materi-pengajar', compact('kelas', 'materis', 'jumlahMateri', 'allKelas'));
@@ -127,7 +118,7 @@ class KelasController extends Controller
         $data['kapasitas'] = $data['kapasitas'] ?? 9999;
         $data['harga'] = $data['harga'] ?? 0;
 
-        // Handle cover image upload
+     
         if ($request->hasFile('cover_image')) {
             // Hapus cover lama jika ada
             if ($kelas->cover_image && Storage::disk('public')->exists($kelas->cover_image)) {
@@ -151,7 +142,6 @@ class KelasController extends Controller
             abort(403, 'Anda tidak memiliki akses untuk menghapus kelas ini.');
         }
 
-        //hpus cover image jika ada
         if ($kelas->cover_image && Storage::disk('public')->exists($kelas->cover_image)) {
             Storage::disk('public')->delete($kelas->cover_image);
         }
@@ -161,4 +151,19 @@ class KelasController extends Controller
         return redirect()->route('pengajar.materi.index-kelas-pengajar')
                         ->with('success', 'Kelas berhasil dihapus!');
     }
+
+        public function publish($id)
+    {
+        $kelas = Kelas::findOrFail($id);
+       
+        if ($kelas->pengajar_id != Auth::id()) {
+            abort(403);
+        }
+
+        $kelas->status = 'published';
+        $kelas->save();
+
+        return redirect()->back()->with('success', 'Kelas berhasil dipublish.');
+}
+
 }

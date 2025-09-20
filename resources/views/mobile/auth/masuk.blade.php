@@ -105,7 +105,7 @@
         </button>
 
       </form>
-      <div class="relative z-10">
+      <!-- <div class="relative z-10">
         <div class="flex justify-center items-center my-8 gap-2">
           <div class="border-b border-color21 w-full dark:border-color18"></div>
           <p class="text-sm text-color1 text-nowrap dark:text-white">
@@ -127,7 +127,7 @@
             <img src="assets/images/AppleLogo.png" alt="" />
             <p>Masuk Dengan</p>
           </button>
-        </div>
+        </div> -->
 
         <p class="text-sm font-semibold text-center pt-5">
           Tidak Memiliki Akun?

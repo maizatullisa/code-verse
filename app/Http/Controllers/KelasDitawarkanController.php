@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelasDitawarkanController extends Controller
 {
@@ -24,6 +26,15 @@ class KelasDitawarkanController extends Controller
          ,'siswa as siswa_count'
         ]);
 
+        $enrolledClassIds = [];
+
+        if (Auth::check()) {
+            $enrolledClassIds = \App\Models\CourseEnrollment::where('user_id', Auth::id())
+                                    ->pluck('kelas_id')
+                                    ->toArray();
+        }
+
+
         // keyword pencarian, filter data
         if (!empty($keyword)) {
             $kelasQuery->where(function ($query) use ($keyword) {
@@ -43,6 +54,6 @@ class KelasDitawarkanController extends Controller
 
 
 
-        return view('desktop.pages.kelas.kelas-ditawarkan', compact('kelasList', 'keyword', 'kategori'));
+        return view('desktop.pages.kelas.kelas-ditawarkan', compact('kelasList', 'keyword', 'kategori', 'enrolledClassIds'));
     }
 }

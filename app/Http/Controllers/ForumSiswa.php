@@ -13,9 +13,6 @@ class ForumSiswa extends Controller
     public function index(Kelas $kelas)
     {
        
-        // Load data kelas dan forum diskusinya
-        // Contoh: ambil semua diskusi terkait kelas ini
-
          $forumPosts = $kelas->diskusi()->with(['user', 'balasan.user'])->latest()->get();
 
         
@@ -25,9 +22,9 @@ class ForumSiswa extends Controller
     {
     $kelas = Kelas::findOrFail($kelasId);
 
-    // Ambil diskusi pengajar yang terkait langsung dengan kelas ini
+   
     $diskusiPengajar = Diskusi::where('kelas_id', $kelasId)
-        ->with('user')  // relasi ke user/pengajar agar bisa nampilin nama pengajar
+        ->with('user')  
         ->orderBy('created_at', 'desc')
         ->get();
 
@@ -79,10 +76,9 @@ class ForumSiswa extends Controller
     // Simpan balasan baru
     $diskusi->balasan()->create([
         'konten' => $request->konten,
-        'user_id' => Auth::id(), // Balasan milik pengguna yang sedang login
+        'user_id' => Auth::id(), 
     ]);
 
-    // Redirect kembali ke halaman diskusi
     return redirect()->back()->with('success', 'Balasan berhasil dikirim.');
 }
 

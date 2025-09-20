@@ -9,12 +9,6 @@ use App\Http\Controllers\AdminUserController;
 
 use function PHPUnit\Framework\returnSelf;
 
-
-
-
-  Route::get('/admin/login', function () {
-    return view('admin.login-admin');
-    })->name('login-admin');
     
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Dashboard admin

@@ -1,4 +1,4 @@
-<div class="bg-blue-950 glass-effect p-4 ios-shadow sticky top-0 z-40 border-b border-white/20">
+<!--<div class="bg-blue-950 glass-effect p-4 ios-shadow sticky top-0 z-40 border-b border-white/20">
     <div class="flex justify-between items-center max-w-7xl mx-auto">
         <div class="flex items-center space-x-4">
             <div class="flex items-center space-x-3">
@@ -12,4 +12,4 @@
         <div class="flex items-center space-x-4">
         </div>
     </div>
-</div>
+</div>-->

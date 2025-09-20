@@ -6,69 +6,83 @@
 @section('hideSidebar', true)
 @section('hideBottomNavbar', true)
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 py-12">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-500 rounded-2xl mb-4">
-                <i class="ph ph-keyboard text-white text-2xl"></i>
+<div class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 py-6 sm:py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <!-- Header Section -->
+        <div class="text-center mb-8 sm:mb-12">
+            <div class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-purple-500 rounded-2xl mb-4">
+                <i class="ph ph-keyboard text-white text-xl sm:text-2xl"></i>
             </div>
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Keyboard Shortcuts</h1>
-            <p class="text-lg text-gray-600">Shortcut yang wajib diketahui untuk meningkatkan produktivitas</p>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">Keyboard Shortcuts</h1>
+            <p class="text-base sm:text-lg text-gray-600 px-4">Shortcut yang wajib diketahui untuk meningkatkan produktivitas</p>
         </div>
 
-        <!-- Category Tabs -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
-            <div class="flex flex-wrap gap-2 justify-center mb-6">
-                <button onclick="showCategory('vscode')" class="category-btn active px-6 py-3 rounded-xl font-medium transition-all">
-                    <i class="ph ph-code mr-2"></i>VS Code
+        <!-- Category Tabs & Search -->
+        <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-6 mb-6 sm:mb-8">
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap gap-1 sm:gap-2 justify-center mb-4 sm:mb-6 overflow-x-auto pb-2">
+                <button onclick="showCategory('vscode')" class="category-btn active px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center">
+                    <i class="ph ph-code mr-1 sm:mr-2 text-sm sm:text-base"></i>
+                    <span class="hidden xs:inline">VS Code</span>
+                    <span class="xs:hidden">VS</span>
                 </button>
-                <button onclick="showCategory('git')" class="category-btn px-6 py-3 rounded-xl font-medium transition-all">
-                    <i class="ph ph-git-branch mr-2"></i>Git
+                <button onclick="showCategory('git')" class="category-btn px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center">
+                    <i class="ph ph-git-branch mr-1 sm:mr-2 text-sm sm:text-base"></i>Git
                 </button>
-                <button onclick="showCategory('linux')" class="category-btn px-6 py-3 rounded-xl font-medium transition-all">
-                    <i class="ph ph-terminal mr-2"></i>Linux
+                <button onclick="showCategory('linux')" class="category-btn px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center">
+                    <i class="ph ph-terminal mr-1 sm:mr-2 text-sm sm:text-base"></i>Linux
                 </button>
-                <button onclick="showCategory('chrome')" class="category-btn px-6 py-3 rounded-xl font-medium transition-all">
-                    <i class="ph ph-browser mr-2"></i>Chrome DevTools
+                <button onclick="showCategory('chrome')" class="category-btn px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center">
+                    <i class="ph ph-browser mr-1 sm:mr-2 text-sm sm:text-base"></i>
+                    <span class="hidden sm:inline">Chrome DevTools</span>
+                    <span class="sm:hidden">Chrome</span>
                 </button>
-                <button onclick="showCategory('general')" class="category-btn px-6 py-3 rounded-xl font-medium transition-all">
-                    <i class="ph ph-desktop mr-2"></i>General
+                <button onclick="showCategory('general')" class="category-btn px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex items-center">
+                    <i class="ph ph-desktop mr-1 sm:mr-2 text-sm sm:text-base"></i>General
                 </button>
             </div>
 
             <!-- Search Bar -->
             <div class="relative">
-                <i class="ph ph-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+                <i class="ph ph-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg sm:text-xl"></i>
                 <input 
                     type="text" 
                     id="search-shortcuts"
                     placeholder="Cari shortcut..."
-                    class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-gray-700"
-                    oninput="searchShortcuts()"
+                    class="w-full pl-12 pr-4 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none text-gray-700 text-sm sm:text-base transition-all"
+                    oninput="debouncedSearch()"
                 >
+                <button onclick="clearSearch()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors hidden" id="clear-search-btn">
+                    <i class="ph ph-x text-lg"></i>
+                </button>
             </div>
         </div>
 
         <!-- Shortcuts Content -->
-        <div id="shortcuts-container" class="space-y-8">
+        <div id="shortcuts-container" class="space-y-4 sm:space-y-6 lg:space-y-8">
             <!-- Content akan dimuat di sini -->
         </div>
 
         <!-- No Results -->
-        <div id="no-results-shortcuts" class="hidden text-center py-12">
-            <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="ph ph-keyboard text-gray-400 text-2xl"></i>
+        <div id="no-results-shortcuts" class="hidden text-center py-8 sm:py-12">
+            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="ph ph-keyboard text-gray-400 text-xl sm:text-2xl"></i>
             </div>
-            <h3 class="text-lg font-medium text-gray-600 mb-2">Tidak ada shortcut ditemukan</h3>
-            <p class="text-gray-500">Coba dengan kata kunci yang berbeda</p>
+            <h3 class="text-base sm:text-lg font-medium text-gray-600 mb-2">Tidak ada shortcut ditemukan</h3>
+            <p class="text-sm sm:text-base text-gray-500">Coba dengan kata kunci yang berbeda</p>
         </div>
     </div>
 </div>
 
 <style>
+/* Category buttons styling */
 .category-btn {
     background: #f3f4f6;
     color: #6b7280;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-btn:hover {
@@ -84,27 +98,151 @@
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
+/* Shortcut key styling */
 .shortcut-key {
-    background: #f3f4f6;
-    border: 2px solid #e5e7eb;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
     border-radius: 6px;
-    padding: 4px 8px;
-    font-family: 'Monaco', 'Menlo', monospace;
-    font-size: 12px;
+    padding: 3px 6px;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    font-size: 11px;
     font-weight: 600;
-    color: #374151;
+    color: #475569;
     display: inline-block;
-    margin: 0 2px;
-    min-width: 24px;
+    margin: 0 1px;
+    min-width: 20px;
     text-align: center;
+    box-shadow: 0 1px 0 0 #cbd5e1;
+    position: relative;
+    top: -1px;
 }
 
+@media (min-width: 640px) {
+    .shortcut-key {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin: 0 2px;
+        min-width: 24px;
+    }
+}
+
+/* Shortcut group styling */
 .shortcut-group {
     background: white;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    padding: 24px;
+    padding: 16px;
+    transition: all 0.3s ease;
 }
+
+@media (min-width: 640px) {
+    .shortcut-group {
+        padding: 24px;
+    }
+}
+
+.shortcut-group:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Shortcut item styling */
+.shortcut-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 640px) {
+    .shortcut-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        gap: 12px;
+    }
+}
+
+.shortcut-item:hover {
+    background: #f1f5f9;
+    transform: translateX(4px);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+    /* Category tabs horizontal scroll */
+    .category-tabs-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .category-tabs-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* Shortcut keys wrap on mobile */
+    .shortcut-keys-mobile {
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+    
+    /* Description on mobile */
+    .shortcut-description-mobile {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Search input focus */
+#search-shortcuts:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* Animation for content changes */
+.shortcut-item {
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive breakpoint for extra small screens */
+@media (min-width: 480px) {
+    .xs\:inline {
+        display: inline;
+    }
+    .xs\:hidden {
+        display: none;
+    }
+}
+
+/* Color variations for different categories */
+.color-blue { background-color: #3b82f6; }
+.color-orange { background-color: #f97316; }
+.color-green { background-color: #10b981; }
+.color-red { background-color: #ef4444; }
+.color-gray { background-color: #6b7280; }
 </style>
 
 <script>
@@ -215,9 +353,12 @@ const shortcuts = {
 };
 
 let currentCategory = 'vscode';
-let filteredShortcuts = [];
+let searchTimeout;
+let isLoading = false;
 
 function showCategory(category) {
+    if (isLoading) return;
+    
     currentCategory = category;
     
     // Update active button
@@ -226,6 +367,7 @@ function showCategory(category) {
     
     // Clear search
     document.getElementById('search-shortcuts').value = '';
+    toggleClearButton(false);
     
     renderShortcuts(shortcuts[category]);
 }
@@ -243,42 +385,51 @@ function renderShortcuts(categoryData) {
     container.classList.remove('hidden');
     noResults.classList.add('hidden');
     
-    // Group shortcuts by category
-    const groupedShortcuts = categoryData.items.reduce((acc, item) => {
-        if (!acc[item.category]) {
-            acc[item.category] = [];
-        }
-        acc[item.category].push(item);
-        return acc;
-    }, {});
+    // Add loading state
+    container.classList.add('loading');
     
-    container.innerHTML = Object.keys(groupedShortcuts).map(category => `
-        <div class="shortcut-group">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <div class="w-8 h-8 bg-${categoryData.color}-500 rounded-lg flex items-center justify-center">
-                    <i class="${categoryData.icon} text-white text-sm"></i>
-                </div>
-                ${category}
-            </h3>
-            <div class="grid gap-4">
-                ${groupedShortcuts[category].map(shortcut => `
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-1">
+    setTimeout(() => {
+        // Group shortcuts by category
+        const groupedShortcuts = categoryData.items.reduce((acc, item) => {
+            if (!acc[item.category]) {
+                acc[item.category] = [];
+            }
+            acc[item.category].push(item);
+            return acc;
+        }, {});
+        
+        container.innerHTML = Object.keys(groupedShortcuts).map((category, groupIndex) => `
+            <div class="shortcut-group" style="animation-delay: ${groupIndex * 0.1}s">
+                <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 color-${categoryData.color} rounded-lg flex items-center justify-center">
+                        <i class="${categoryData.icon} text-white text-sm"></i>
+                    </div>
+                    ${category}
+                </h3>
+                <div class="grid gap-2 sm:gap-3">
+                    ${groupedShortcuts[category].map((shortcut, index) => `
+                        <div class="shortcut-item" style="animation-delay: ${(groupIndex * 0.1) + (index * 0.05)}s">
+                            <div class="flex items-center gap-1 sm:gap-2 shortcut-keys-mobile">
                                 ${shortcut.keys.map(key => `<span class="shortcut-key">${key}</span>`).join('')}
                             </div>
+                            <div class="text-gray-700 font-medium text-sm sm:text-base shortcut-description-mobile flex-1">
+                                ${shortcut.description}
+                            </div>
                         </div>
-                        <div class="text-gray-700 font-medium">${shortcut.description}</div>
-                    </div>
-                `).join('')}
+                    `).join('')}
+                </div>
             </div>
-        </div>
-    `).join('');
+        `).join('');
+        
+        container.classList.remove('loading');
+    }, 100);
 }
 
 function searchShortcuts() {
-    const searchValue = document.getElementById('search-shortcuts').value.toLowerCase();
+    const searchValue = document.getElementById('search-shortcuts').value.toLowerCase().trim();
     const categoryData = shortcuts[currentCategory];
+    
+    toggleClearButton(searchValue.length > 0);
     
     if (!searchValue) {
         renderShortcuts(categoryData);
@@ -297,9 +448,67 @@ function searchShortcuts() {
     renderShortcuts(filtered);
 }
 
-// Initial render
+function debouncedSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(searchShortcuts, 300);
+}
+
+function clearSearch() {
+    document.getElementById('search-shortcuts').value = '';
+    toggleClearButton(false);
+    renderShortcuts(shortcuts[currentCategory]);
+}
+
+function toggleClearButton(show) {
+    const clearBtn = document.getElementById('clear-search-btn');
+    if (show) {
+        clearBtn.classList.remove('hidden');
+    } else {
+        clearBtn.classList.add('hidden');
+    }
+}
+
+function setLoadingState(loading) {
+    isLoading = loading;
+    const container = document.getElementById('shortcuts-container');
+    
+    if (loading) {
+        container.classList.add('loading');
+    } else {
+        container.classList.remove('loading');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-shortcuts');
+    
+    searchInput.removeAttribute('oninput');
+    searchInput.addEventListener('input', debouncedSearch);
+    
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            clearSearch();
+        }
+    });
+    
+    // MOBILE
+    const categoryContainer = searchInput.closest('.bg-white').querySelector('.flex.flex-wrap');
+    if (categoryContainer && window.innerWidth <= 640) {
+        categoryContainer.classList.add('category-tabs-container');
+    }
     renderShortcuts(shortcuts.vscode);
+});
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    const categoryContainer = document.querySelector('.flex.flex-wrap.gap-1');
+    if (categoryContainer) {
+        if (window.innerWidth <= 640) {
+            categoryContainer.classList.add('category-tabs-container');
+        } else {
+            categoryContainer.classList.remove('category-tabs-container');
+        }
+    }
 });
 </script>
 @endsection

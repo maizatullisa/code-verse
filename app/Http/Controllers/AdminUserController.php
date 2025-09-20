@@ -17,26 +17,25 @@ class AdminUserController extends Controller
    $query = User::where('role', 'siswa')
                     ->select('id', 'first_name', 'email', 'created_at', 'profile_photo')
                     ->oldest();
-    //search
     if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('first_name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
         });
     }
-    //pagination
-     $users = $query->paginate($perPage);    
+   
+    $users = $query->paginate($perPage);    
     $users->appends($request->query());
 
     $totalSiswa = User::where('role', 'siswa')->count();
     return view('admin.user.index', compact('users', 'totalSiswa', ));
    }
-   //edit
+   
    public function edit(User $user)
 {
     return view('admin.user.edit', compact('user'));
 }
-   //update/update user
+ 
    public function update(Request $request, User $user)
     {
         $request->validate([
@@ -52,7 +51,6 @@ class AdminUserController extends Controller
             'role' => $request->role,
         ];
 
-        // Update password hanya jika diisi
         if ($request->filled('password')) {
             $userData['password'] = Hash::make($request->password);
         }
@@ -63,7 +61,7 @@ class AdminUserController extends Controller
                         ->with('success', 'User berhasil diperbarui!');
     }
 
-    //hapus user
+  
         public function destroy(User $user)
     {
         // Cegah admin menghapus dirinya sendiri
@@ -78,7 +76,6 @@ class AdminUserController extends Controller
                         ->with('success', 'User berhasil dihapus!');
     }
 
-    //user kalo di 
     public function download(Request $request)
     {
         $query = User::where('role', 'siswa');

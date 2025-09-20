@@ -170,4 +170,5 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\UserMateriProgress::class, 'user_id');
     }
 
+    
 }

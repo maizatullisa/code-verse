@@ -54,15 +54,18 @@
         }
     </style>
 </head>
-<body class="flex bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen font-['Inter'] antialiased">
-    @include('admin.layouts.sidebar-admin')
-    <div class="flex-1 overflow-hidden">
-        @include('admin.layouts.navbar-admin')
-        <main class="p-6 h-[calc(100vh-80px)] overflow-y-auto">
-            <div class="max-w-7xl mx-auto">
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 font-['Inter'] antialiased w-screen h-screen overflow-hidden">
+    <div class="flex h-full">
+        @include('admin.layouts.sidebar-admin')
+
+        <div class="flex-1 flex flex-col h-full">
+            @include('admin.layouts.navbar-admin')
+
+            <main class="flex-1 overflow-y-auto px-6 py-4">
                 @yield('content')
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 </body>
+
 </html>

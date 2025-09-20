@@ -16,12 +16,7 @@
 
 <!-- Header Section -->
 <div class="bg-gradient-to-br from-green-50 to-blue-100 rounded-3xl p-8 shadow-xl border border-white/20 backdrop-blur-sm mb-8">
-  <div class="flex items-center space-x-4">
-    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-      <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-      </svg>
-    </div>
+  <div class="flex items-center space-x-4"> 
     <div>
       <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Tambah Materi Baru</h1>
       <p class="text-gray-600 text-lg">Lengkapi informasi untuk membuat materi pembelajaran</p>
@@ -31,8 +26,9 @@
 
 <!-- Form Section -->
 <div class="bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-xl">
-  <form action="#" method="POST" enctype="multipart/form-data" class="space-y-8">
+<form action="{{ route('pengajar.materi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
     @csrf
+
     @if($kelas)
     <!-- Jika dari kelas tertentu, hidden input -->
     <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
@@ -152,10 +148,11 @@
           <div id="uploadText">
             <p class="text-lg font-semibold text-gray-700 mb-2">🎯 Drop file di sini atau klik untuk browse</p>
             <p class="text-sm text-gray-500">
-              📄 Support: PDF, DOC, DOCX, PPT, PPTX, MP4, AVI, MKV<br>
+              📄 Support: PDF, DOC, DOCX, PPT, PPTX<br>
               📏 Maksimal ukuran file: 50MB
             </p>
           </div>
+          
           <div id="filePreview" class="hidden">
             <div class="bg-white rounded-xl p-4 border border-gray-200 inline-block">
               <div class="flex items-center space-x-3">
@@ -179,6 +176,21 @@
         </div>
       </div>
     </div>
+
+    <!-- Link Video -->
+    <div class="space-y-3 mt-4">
+      <label class="block text-sm font-semibold text-gray-700 mb-2">
+        🎥 Link Video 
+      </label>
+      <input 
+        type="url" 
+        name="video_url" 
+        class="w-full p-4 border border-gray-200 rounded-2xl bg-white/70 backdrop-blur-sm focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all duration-300 placeholder-gray-400"
+        placeholder="Contoh: https://www.youtube.com/embed/abc123xyz"
+      >
+      <p class="text-xs text-gray-500">💡 Gunakan format link embed agar video tampil langsung di materi</p>
+    </div>
+
 
     <!-- Status -->
     <div class="space-y-3">

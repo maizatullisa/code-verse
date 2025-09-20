@@ -153,6 +153,30 @@
                             </p>
                         </div>
                         @endif
+
+                   <!-- PDF Preview  -->
+                        @if($materi->file_path && Str::endsWith(strtolower($materi->file_name), '.pdf'))
+                            <a href="{{ asset('storage/' . $materi->file_path) }}" target="_blank" class="inline-block mb-2">
+                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow font-bold flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" ...></svg>
+                                    PDF
+                                </button>
+                            </a>
+                            <div class="w-full mt-2 rounded-lg overflow-hidden border" style="height:140px; max-width:260px;">
+                                <iframe src="{{ asset('storage/' . $materi->file_path) }}"
+                                        width="100%" height="100%" style="min-height:120px; border:0; border-radius:8px;"></iframe>
+                            </div>
+                        @endif
+
+                        <!-- Youtube Video -->
+                        @if($materi->video_url)
+                            <div class="mb-4">
+                                <iframe src="{{ $materi->video_url }}"
+                                    style="width:100%; aspect-ratio:16/9; border-radius:12px;"
+                                    frameborder="0"
+                                    allowfullscreen></iframe>
+                            </div>
+                        @endif
                         
                         <!-- Tags Section -->
                         <div class="flex flex-wrap gap-2 mb-4">

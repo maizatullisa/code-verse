@@ -18,12 +18,7 @@
 <!-- Header Section -->
 <div class="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-3xl p-8 shadow-xl border border-white/20 backdrop-blur-sm mb-8">
   <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-    <div class="flex items-center space-x-4">
-      <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-        </svg>
-      </div>
+    <div class="flex items-center space-x-4"> 
       <div>
         <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Kelas Saya</h1>
         <p class="text-gray-600 text-lg">Kelola dan pantau semua kelas yang telah Anda buat</p>
@@ -32,7 +27,7 @@
     
     <div class="flex items-center space-x-4">
       <a href="/pengajar/buat-kelas" 
-         class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+         class="bg-green-500  hover:from-green-600 text-white px-6 py-3 rounded-2xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
         </svg>
@@ -57,12 +52,7 @@
       <div>
         <p class="text-gray-600 text-sm font-medium">Total Kelas</p>
         <p class="text-2xl font-bold text-gray-800" id="totalKelas">{{ $kelas->count() }}</p>
-      </div>
-      <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-        </svg>
-      </div>
+      </div> 
     </div>
   </div>
 
@@ -72,11 +62,6 @@
         <p class="text-gray-600 text-sm font-medium">Kelas Aktif</p>
         <p class="text-2xl font-bold text-green-600" id="kelasAktif">{{ $kelas->where('status', 'published')->count() }}</p>
       </div>
-      <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-      </div>
     </div>
   </div>
 
@@ -85,11 +70,6 @@
       <div>
         <p class="text-gray-600 text-sm font-medium">Total Siswa</p>
         <p class="text-2xl font-bold text-orange-600" id="totalPeserta">{{ $totalSiswa }}</p>
-      </div>
-      <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
-        </svg>
       </div>
     </div>
   </div>
@@ -104,27 +84,24 @@
                id="searchInput" 
                placeholder="Cari kelas..." 
                class="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 text-gray-800 placeholder-gray-400">
-        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-        </svg>
       </div>
       
       <select id="filterStatus" class="px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 text-gray-800">
         <option value="">Semua Status</option>
-        <option value="published">📚 Published</option>
-        <option value="draft">✏️ Draft</option>
+        <option value="published"> Published</option>
+        <option value="draft"> Draft</option>
       </select>
 
       <select id="filterKategori" class="px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-300 text-gray-800">
         <option value="">Semua Kategori</option>
-        <option value="programming">💻 Programming</option>
-        <option value="design">🎨 Design</option>
-        <option value="web">🌐 Web Development</option>
-        <option value="mobile">📱 Mobile Development</option>
-        <option value="data">📊 Data Science</option>
-        <option value="ai">🤖 AI</option>
-        <option value="marketing">📈 Marketing</option>
-        <option value="business">💼 Business</option>
+        <option value="programming"> Programming</option>
+        <option value="design"> Design</option>
+        <option value="web"> Web Development</option>
+        <option value="mobile"> Mobile Development</option>
+        <option value="data"> Data Science</option>
+        <option value="ai"> AI</option>
+        <option value="marketing"> Marketing</option>
+        <option value="business"> Business</option>
       </select>
     </div>
 
@@ -164,7 +141,7 @@
         
         <div class="absolute top-2 left-2">
           <span class="bg-{{ $kelasItem->status == 'published' ? 'green' : 'orange' }}-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-            {{ $kelasItem->status == 'published' ? '📚 Published' : '✏️ Draft' }}
+            {{ $kelasItem->status == 'published' ? 'Published' : ' Draft' }}
           </span>
         </div>
         
@@ -190,9 +167,9 @@
       <div class="p-4">
         <div class="flex items-center gap-1 mb-2">
           <span class="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-800 rounded-md">
-            🌐 {{ ucfirst($kelasItem->kategori) }}
+            {{ ucfirst($kelasItem->kategori) }}
           </span>
-          <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-800 rounded-md">🟢 Pemula</span>
+          <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-800 rounded-md">Pemula</span>
         </div>
         
         <h3 class="text-sm font-bold text-gray-800 mb-2 hover:text-indigo-600 transition-colors cursor-pointer line-clamp-2">
@@ -223,16 +200,32 @@
           </span>
         </div>
         
-        <div class="flex items-center gap-1">
-         <a href="{{ route('forum.pengajar', $kelasItem->id) }}" 
-             class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105">
-            Forum
+      <div  class="card-actions flex gap-1">
+      <div class="flex-1">
+          <a href="{{ route('forum.pengajar', $kelasItem->id) }}" 
+            class="w-full block bg-blue-500 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition duration-300 transform hover:scale-105">
+              Forum
           </a>
+      </div>
+      <div class="flex-1">
           <a href="{{ route('pengajar.kelas.show', $kelasItem->id) }}"
-             class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105">
-            Kelola
+            class="w-full block bg-green-500 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition duration-300 transform hover:scale-105">
+              Kelola
           </a>
-        </div>
+      </div>
+      @if ($kelasItem->status === 'draft')
+      <div class="flex-1">
+          <form action="{{ route('kelas.publish', $kelasItem->id) }}" method="POST" onsubmit="return confirm('Yakin ingin publish kelas ini?')">
+              @csrf
+              @method('PATCH')
+              <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white text-center py-1.5 px-2 rounded-lg font-semibold text-xs transition duration-300 transform hover:scale-105">
+                  Publish
+              </button>
+          </form>
+      </div>
+      @endif
+  </div>
+
       </div>
     </div>
   @empty
@@ -520,6 +513,21 @@ document.addEventListener('DOMContentLoaded', function() {
             max-width: none;
         }
         
+        .class-card {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+      }
+
+      .class-card .p-4 {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+      }
+
+      .card-actions {
+          margin-top: auto;
+      }
         .grid-cols-1 .class-card .relative {
             width: 180px;
             flex-shrink: 0;

@@ -250,9 +250,10 @@ function moveToNext(current, index) {
     }
 }
 
-// FORM SUBMISSION HANDLERS - YANG SUDAH DIPERBAIKI
+// FORM SUBMISSION HANDLERS
 function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent immediate form submission
+    
     const form = event.target;
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
@@ -261,65 +262,105 @@ function handleSubmit(event) {
     submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Memproses...</span></div>';
     submitBtn.disabled = true;
 
-    // Simulate API call
+    // Show success notification first
     setTimeout(() => {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
         showNotification('Login berhasil! Selamat datang kembali 🎉', 'success');
-    }, 2000);
+        
+        // Then submit the form after showing notification
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            form.submit(); // Submit form to Laravel
+        }, 1500); // Wait 1.5 seconds to show notification
+    }, 1000); // Wait 1 second for loading effect
 }
 
 function handleForgotPassword(event) {
     event.preventDefault();
-    
-    // Validasi form terlebih dahulu
-    if (!validateForgotPasswordForm()) {
-        return;
-    }
-    
+
+    if (!validateForgotPasswordForm()) return;
+
+    const email = document.querySelector('input[name="reset_email"]').value.trim();
     const submitBtn = event.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
 
     submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Mengirim...</span></div>';
     submitBtn.disabled = true;
 
-    setTimeout(() => {
+    fetch('/auth/send-otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify({ email })
+    })
+    .then(res => res.json())
+    .then(res => {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        showNotification('Kode OTP berhasil dikirim ke email Anda 📧', 'success');
+        if (res.message) showNotification(res.message, 'success');
         showOtp();
-    }, 2000);
+    })
+    .catch(err => {
+        showNotification('Gagal mengirim OTP!', 'error');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
 }
 
 function handleOTPVerification(event) {
     event.preventDefault();
-    
-    // Validasi OTP terlebih dahulu
-    if (!validateOTPForm()) {
-        return;
-    }
 
+    if (!validateOTPForm()) return;
+
+    const otpInputs = document.querySelectorAll('.otp-input');
+    let otp = '';
+    otpInputs.forEach(input => otp += input.value.trim());
+    const email = document.querySelector('input[name="reset_email"]').value.trim();
     const submitBtn = event.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
 
     submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Memverifikasi...</span></div>';
     submitBtn.disabled = true;
 
-    setTimeout(() => {
+    fetch('/auth/verify-otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify({ email, otp })
+    })
+    .then(res => res.json())
+    .then(res => {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        showNotification('Kode OTP valid! Silakan buat password baru 🔐', 'success');
-        showCreatePW();
-    }, 2000);
+        if (res.message === 'OTP valid') {
+            showNotification('Kode OTP valid! Silakan buat password baru 🔐', 'success');
+            showCreatePW();
+        } else {
+            showNotification(res.message || 'OTP tidak valid!', 'error');
+        }
+    })
+    .catch(err => {
+        showNotification('Gagal verifikasi OTP!', 'error');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
 }
 
 function handleNewPassword(event) {
     event.preventDefault();
-    
-    // Validasi password terlebih dahulu
-    if (!validateNewPasswordForm()) {
-        return;
-    }
+
+    if (!validateNewPasswordForm()) return;
+
+    const newPassword = document.querySelector('input[name="new_password"]').value.trim();
+    const confirmPassword = document.querySelector('input[name="confirm_new_password"]').value.trim();
+    const email = document.querySelector('input[name="reset_email"]').value.trim();
+    const otpInputs = document.querySelectorAll('.otp-input');
+    let otp = '';
+    otpInputs.forEach(input => otp += input.value.trim());
 
     const submitBtn = event.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
@@ -327,12 +368,126 @@ function handleNewPassword(event) {
     submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Menyimpan...</span></div>';
     submitBtn.disabled = true;
 
-    setTimeout(() => {
+    fetch('/auth/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify({
+            email,
+            otp,
+            new_password: newPassword,
+            new_password_confirmation: confirmPassword
+        })
+    })
+    .then(res => res.json())
+    .then(res => {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        showNotification('Password berhasil diubah! Silakan masuk dengan password baru 🎉', 'success');
-        setTimeout(() => showLogin(), 1500);
-    }, 2000);
+        if (res.message === 'Password berhasil direset!') {
+            showNotification(res.message, 'success');
+            setTimeout(() => showLogin(), 1500);
+        } else {
+            showNotification(res.message || 'Gagal reset password!', 'error');
+        }
+    })
+    .catch(err => {
+        showNotification('Gagal reset password!', 'error');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+}
+
+
+function handleOTPVerification(event) {
+    event.preventDefault();
+
+    if (!validateOTPForm()) return;
+
+    const otpInputs = document.querySelectorAll('.otp-input');
+    let otp = '';
+    otpInputs.forEach(input => otp += input.value.trim());
+    const email = document.querySelector('input[name="reset_email"]').value.trim();
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+
+    submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Memverifikasi...</span></div>';
+    submitBtn.disabled = true;
+
+    fetch('/auth/verify-otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify({ email, otp })
+    })
+    .then(res => res.json())
+    .then(res => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        if (res.message === 'OTP valid') {
+            showNotification('Kode OTP valid! Silakan buat password baru 🔐', 'success');
+            showCreatePW();
+        } else {
+            showNotification(res.message || 'OTP tidak valid!', 'error');
+        }
+    })
+    .catch(err => {
+        showNotification('Gagal verifikasi OTP!', 'error');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+}
+
+function handleNewPassword(event) {
+    event.preventDefault();
+
+    if (!validateNewPasswordForm()) return;
+
+    const newPassword = document.querySelector('input[name="new_password"]').value.trim();
+    const confirmPassword = document.querySelector('input[name="confirm_new_password"]').value.trim();
+    const email = document.querySelector('input[name="reset_email"]').value.trim();
+    const otpInputs = document.querySelectorAll('.otp-input');
+    let otp = '';
+    otpInputs.forEach(input => otp += input.value.trim());
+
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+
+    submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Menyimpan...</span></div>';
+    submitBtn.disabled = true;
+
+    fetch('/auth/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify({
+            email,
+            otp,
+            new_password: newPassword,
+            new_password_confirmation: confirmPassword
+        })
+    })
+    .then(res => res.json())
+    .then(res => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        if (res.message === 'Password berhasil direset!') {
+            showNotification(res.message, 'success');
+            setTimeout(() => showLogin(), 1500);
+        } else {
+            showNotification(res.message || 'Gagal reset password!', 'error');
+        }
+    })
+    .catch(err => {
+        showNotification('Gagal reset password!', 'error');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
 }
 
 function resendOTP() {
@@ -342,6 +497,8 @@ function resendOTP() {
 // NOTIFICATION SYSTEM
 function showNotification(message, type = 'info') {
     const container = document.getElementById('notificationContainer');
+    if (!container) return;
+    
     const notification = document.createElement('div');
     
     const bgColor = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
@@ -364,7 +521,7 @@ function showNotification(message, type = 'info') {
 
     // Slide out and remove
     setTimeout(() => {
-        notification.style.transform = 'translateX(full)';
+        notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
             if (container.contains(notification)) {
                 container.removeChild(notification);
@@ -424,6 +581,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// TOUCH/SWIPE NAVIGATION
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
@@ -482,12 +640,14 @@ function setupInputValidation() {
     });
 }
 
+// INITIALIZATION
 document.addEventListener('DOMContentLoaded', function() {
     showLogin();
     setupPasswordToggle();
     setupInputValidation();
     updatePasswordStrength();
 
+    // Page load animations
     const elements = document.querySelectorAll('.space-y-6 > *, .space-y-8 > *');
     elements.forEach((element, index) => {
         element.style.opacity = '0';
@@ -501,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// PREVENT HORIZONTAL SCROLL
 document.addEventListener('wheel', function(e) {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         e.preventDefault();

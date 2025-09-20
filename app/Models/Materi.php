@@ -26,7 +26,8 @@ class Materi extends Model
         'kelas_id',
         'week_number',
         'order',
-        'type'
+        'type',
+        'video_url',
     ];
 
     protected $casts = [

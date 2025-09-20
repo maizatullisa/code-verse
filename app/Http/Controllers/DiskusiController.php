@@ -12,12 +12,34 @@ use Illuminate\Support\Facades\Auth;
 class DiskusiController extends Controller
 {
     
-    public function index($kelasId)
-    {
-        
-        $kelas = Kelas::with('diskusi.user', 'diskusi.balasan.user')->findOrFail($kelasId);
-        return view('pengajar.forum.forum-pengajar', compact('kelas'));
+    public function index(Request $request, $kelasId)
+{
+    $filter = $request->query('filter');
+
+    $kelas = Kelas::findOrFail($kelasId);
+
+    $diskusiQuery = Diskusi::with(['user', 'balasan.user', 'diskusiSukas'])
+        ->where('kelas_id', $kelasId);
+
+    if ($filter === 'terbaru') {
+        $diskusiQuery->orderBy('created_at', 'desc');
+    } elseif ($filter === 'populer') {
+        $diskusiQuery->withCount('diskusiSukas')->orderBy('diskusi_sukas_count', 'desc');
+    } elseif ($filter === 'belum_dijawab') {
+        $diskusiQuery->doesntHave('balasan');
+    } else {
+        $diskusiQuery->latest();
     }
+
+    $diskusi = $diskusiQuery->paginate(5)->withQueryString();
+
+    return view('pengajar.forum.forum-pengajar', [
+        'kelas' => $kelas,
+        'diskusi' => $diskusi,
+        'filter' => $filter,
+    ]);
+}
+
 
     public function store(Request $request, $kelasId)
     {

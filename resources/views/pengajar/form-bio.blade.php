@@ -2,7 +2,7 @@
 <div id="editProfileModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4" style="margin-left: 0 !important;">
     <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-white flex justify-between items-center">
+        <div class="bg-blue-500 p-4 text-white flex justify-between items-center">
             <h2 class="text-lg font-bold">Edit Biodata Pengajar</h2>
             <button onclick="closeModal('editProfileModal')" class="hover:bg-white/20 p-2 rounded-lg">✕</button>
         </div>
@@ -148,8 +148,7 @@ function openEditModal(hasExistingData = false) {
 
         form.action = baseUpdateUrl + '/' + id; // /pengajar/pendidikan/{id}
         methodInput.value = 'PUT';
-    } else {
-        // create
+    } else { 
         document.getElementById('input_jenjang').value = '';
         document.getElementById('input_jurusan').value = '';
         document.getElementById('input_institusi').value = '';

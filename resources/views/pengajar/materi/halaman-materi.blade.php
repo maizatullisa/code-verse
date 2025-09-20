@@ -18,6 +18,21 @@
             <span><i class="ph ph-chart-bar mr-1"></i> Status: <span class="text-white">{{ ucfirst($materi->status) }}</span></span>
         </div>
 
+             {{-- VIDEO YOUTUBE --}}
+                @if($materi->video_url)
+                    <div class="mb-6">
+                       <div class="relative w-full" style="padding-bottom: 56.25%;">
+                         <iframe width="560" height="315" src="{{$materi->video_url}}" 
+                                 title="YouTube video player" 
+                                 frameborder="0" 
+                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                 referrerpolicy="strict-origin-when-cross-origin" 
+                                 allowfullscreen>
+                        </iframe>
+                        </div>
+                    </div>
+                @endif
+
         @if($materi->file_name)
             @php
                 $ext = strtolower(pathinfo($materi->file_name, PATHINFO_EXTENSION));
@@ -31,7 +46,7 @@
                         <source src="{{ $fileUrl }}" type="video/{{ $ext }}">
                         Browser tidak mendukung video.
                     </video>
-                </div>
+                </div> 
 
             {{-- PREVIEW PDF --}}
             @elseif($ext === 'pdf')
