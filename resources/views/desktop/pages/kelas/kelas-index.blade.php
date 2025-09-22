@@ -60,7 +60,6 @@
                                         <div>
                                             <h4 class="font-bold text-lg text-gray-800 mb-1">{{ $kelas->nama_kelas }}</h4>
                                             <p class="text-gray-600 text-sm mb-1">Pengajar: {{ $kelas->pengajar->first_name ?? 'Pengajar' }}</p>
-                                            <p class="text-gray-500 text-sm">Durasi: {{ $kelas->durasi ?? '-' }}</p>
                                         </div>
 
                                         <!-- Action Buttons -->
@@ -90,10 +89,27 @@
                                         </div>
 
                                         <!-- Course Info -->
+                                       <!-- Info -->
                                         <div class="flex-1">
-                                            <h4 class="font-bold text-xl text-gray-800">{{ $kelas->nama_kelas }}</h4>
-                                            <p class="text-gray-600 text-sm">Pengajar: {{ $kelas->pengajar->first_name ?? 'Pengajar' }}</p>
-                                            <p class="text-gray-500 text-sm">Durasi: {{ $kelas->durasi ?? '-' }}</p>
+                                            <h4 class="font-semibold text-lg mb-2 text-gray-800 leading-tight">{{ $kelas->nama_kelas }}</h4>
+                                            
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <span class="text-gray-600 text-sm">Pengajar</span>
+                                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
+                                                <span class="text-gray-600 text-sm">{{ $kelas->pengajar->name ?? $kelas->pengajar->first_name ?? 'Pengajar' }}</span>
+                                                <i class="ph-fill ph-dot-outline text-p1 text-xl"></i>
+                                                <div class="flex items-center gap-1 text-gray-500 text-sm">
+                                                    <i class="ph ph-users text-p2"></i>
+                                                    <span>{{ $kelas->total_siswa ?? '0' }} siswa</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="flex items-center gap-2 text-xs">
+                                                <div class="flex items-center gap-1 text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full">
+                                                    <i class="ph ph-tag text-p2"></i>
+                                                    <span>Kategori: {{ $kelas->kategori ?? '-' }}</span>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <!-- Action Buttons -->
@@ -206,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div>
                                     <h4 class="font-bold text-lg text-gray-800 mb-1">${kelas.nama_kelas}</h4>
                                     <p class="text-gray-600 text-sm mb-1">Pengajar: ${kelas.pengajar ? kelas.pengajar.first_name : 'Pengajar'}</p>
-                                    <p class="text-gray-500 text-sm">Durasi: ${kelas.durasi || '-'}</p>
                                 </div>
                                 <div class="flex gap-2">
                                     <a href="/desktop/kelas-materi/${kelas.id}" 
@@ -233,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="flex-1">
                                     <h4 class="font-bold text-xl text-gray-800">${kelas.nama_kelas}</h4>
                                     <p class="text-gray-600 text-sm">Pengajar: ${kelas.pengajar ? kelas.pengajar.first_name : 'Pengajar'}</p>
-                                    <p class="text-gray-500 text-sm">Durasi: ${kelas.durasi || '-'}</p>
                                 </div>
                                 <div class="flex gap-3 flex-shrink-0">
                                     <a href="/desktop/kelas-materi/${kelas.id}" 

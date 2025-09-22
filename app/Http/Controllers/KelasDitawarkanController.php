@@ -11,7 +11,6 @@ class KelasDitawarkanController extends Controller
 {
   public function tampil(Request $request) 
     {
-        // Ambil keyword dari input search (query string)
         $keyword = $request->input('search');
         $kategori = $request->input('kategori');
 
@@ -34,8 +33,6 @@ class KelasDitawarkanController extends Controller
                                     ->toArray();
         }
 
-
-        // keyword pencarian, filter data
         if (!empty($keyword)) {
             $kelasQuery->where(function ($query) use ($keyword) {
                 $query->where('nama_kelas', 'LIKE', "%{$keyword}%")
@@ -43,7 +40,6 @@ class KelasDitawarkanController extends Controller
             });
         }
 
-          // Filter berdasarkan kategori
         if (!empty($kategori) && $kategori !== 'all') {
             $kelasQuery->where('kategori', $kategori);
         }
@@ -51,8 +47,6 @@ class KelasDitawarkanController extends Controller
         $kelasList = $kelasQuery->orderBy('created_at', 'desc')
                                 ->paginate(6)
                                 ->appends($request->all());  
-
-
 
         return view('desktop.pages.kelas.kelas-ditawarkan', compact('kelasList', 'keyword', 'kategori', 'enrolledClassIds'));
     }

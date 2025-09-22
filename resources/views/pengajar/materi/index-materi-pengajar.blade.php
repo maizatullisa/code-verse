@@ -26,7 +26,7 @@
       </div>
       <div>
         <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Daftar Materi</h1>
-        <p class="text-gray-600 text-lg">Kelola semua materi pembelajaran Anda</p>
+        <p class="text-gray-600 text-lg">Kelola semua materi dalam kelas anda</p>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
           <span>Tambah Materi</span>
       </a>
 
-      <a href="{{ route('pengajar.quiz.listquiz') }}" 
+      <a href="{{ route('pengajar.quiz.listquiz', $kelas->id) }}"
         class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
         <i class="ph-fill ph-bookmarks text-lg"></i>
         <span>Quiz</span>

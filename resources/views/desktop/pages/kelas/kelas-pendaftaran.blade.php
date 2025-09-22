@@ -336,8 +336,8 @@
 
                         <div id="course-details" class="space-y-3 text-sm text-gray-600 mb-6">
                             <div class="flex items-center gap-2">
-                                <i class="ph ph-clock text-p2"></i>
-                                <span>{{ $courseData['durasi'] }}</span>
+                                <!-- <i class="ph ph-clock text-p2"></i> -->
+                                <!-- <span>{{ $courseData['durasi'] }}</span> -->
                             </div>
                             <div class="flex items-center gap-2">
                                 <i class="ph ph-book-open text-p2"></i>

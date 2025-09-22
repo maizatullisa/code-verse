@@ -35,10 +35,10 @@
                                 <i class="ph ph-users-three text-xl"></i>
                                 <span>{{ $courseData['enrollment_count'] }}</span>
                             </div>
-                            <div class="flex items-center gap-2">
+                            <!-- <div class="flex items-center gap-2">
                                 <i class="ph ph-clock text-xl"></i>
                                 <span>{{ $kelas->durasi }}</span>
-                            </div>
+                            </div> -->
                         </div>
                         
                     </div>

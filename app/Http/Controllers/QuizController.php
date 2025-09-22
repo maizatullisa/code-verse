@@ -67,40 +67,79 @@ class QuizController extends Controller
                 'nomor_soal' => (int) $nomor,
             ]);
         }
+         $quiz = Quiz::with('materi')->find($request->quiz_id);
+         $kelasId = $quiz->materi->kelas_id;
 
-        return redirect()->route('pengajar.quiz.listquiz');
+        return redirect()->route('pengajar.quiz.listquiz', ['kelas' => $kelasId]);
     }
-    public function listQuiz()
-{
-    $pengajarId = auth()->id(); 
 
-    $data = [
-        //total soal dari quiz milik pengajer
-        'total_soal' => QuizQuestion::whereHas('quiz.materi', function ($query) use ($pengajarId) {
-            $query->where('pengajar_id', $pengajarId);
-        })->count(),
+    //=====menampilkan semua quiz pengajar semua kelas
+//     public function listQuiz()
+// {
+//     $pengajarId = auth()->id(); 
 
-        'total_quiz' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
-            $query->where('pengajar_id', $pengajarId);
-        })->count(),
+//     $data = [
+//         //total soal dari quiz milik pengajer
+//         'total_soal' => QuizQuestion::whereHas('quiz.materi', function ($query) use ($pengajarId) {
+//             $query->where('pengajar_id', $pengajarId);
+//         })->count(),
 
-        // quiz aktif dari pengajar??? ad brp
-        'total_quiz_aktif' => Quiz::where('status', 'aktif')
-            ->whereHas('materi', function ($query) use ($pengajarId) {
-                $query->where('pengajar_id', $pengajarId);
+//         'total_quiz' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
+//             $query->where('pengajar_id', $pengajarId);
+//         })->count(),
+
+//         // quiz aktif dari pengajar??? ad brp
+//         'total_quiz_aktif' => Quiz::where('status', 'aktif')
+//             ->whereHas('materi', function ($query) use ($pengajarId) {
+//                 $query->where('pengajar_id', $pengajarId);
+//             })->count(),
+
+//         'quizzes' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
+//                 $query->where('pengajar_id', $pengajarId);
+//             })
+//             ->with('materi') 
+//             ->latest()
+//             ->get(),
+//     ];
+
+//     return view('pengajar.quiz.index-quiz-pengajar', $data);
+// }
+
+//==menampilkan semua quiz dalam satu kelas
+    public function listQuiz($kelasId)
+    {
+        $pengajarId = auth()->id(); 
+
+        $data = [
+            'total_soal' => QuizQuestion::whereHas('quiz.materi', function ($query) use ($pengajarId, $kelasId) {
+                $query->where('pengajar_id', $pengajarId)
+                    ->where('kelas_id', $kelasId);
             })->count(),
 
-        'quizzes' => Quiz::whereHas('materi', function ($query) use ($pengajarId) {
-                $query->where('pengajar_id', $pengajarId);
-            })
-            ->with('materi') 
-            ->latest()
-            ->get(),
-    ];
+            'total_quiz' => Quiz::whereHas('materi', function ($query) use ($pengajarId, $kelasId) {
+                $query->where('pengajar_id', $pengajarId)
+                    ->where('kelas_id', $kelasId);
+            })->count(),
 
-    return view('pengajar.quiz.index-quiz-pengajar', $data);
-}
+            'total_quiz_aktif' => Quiz::where('status', 'aktif')
+                ->whereHas('materi', function ($query) use ($pengajarId, $kelasId) {
+                    $query->where('pengajar_id', $pengajarId)
+                        ->where('kelas_id', $kelasId);
+                })->count(),
 
+            'quizzes' => Quiz::whereHas('materi', function ($query) use ($pengajarId, $kelasId) {
+                    $query->where('pengajar_id', $pengajarId)
+                        ->where('kelas_id', $kelasId);
+                })
+                ->with(['materi', 'questions'])
+                ->latest()
+                ->get(),
+
+            'kelas_id' => $kelasId,
+        ];
+
+        return view('pengajar.quiz.index-quiz-pengajar', $data);
+    }
 
     public function addQuestion(Request $request, $quizId)
     {
@@ -140,7 +179,24 @@ class QuizController extends Controller
             // Hapus quiz
             $quiz->delete();
 
-            return redirect()->route('pengajar.quiz.listquiz')
+            $kelasId = $quiz->materi->kelas_id;
+
+            return redirect()->route('pengajar.quiz.listquiz', ['kelas' => $kelasId])
                 ->with('success', 'Quiz beserta semua soal berhasil dihapus.');
         }
+
+            public function publish($quizId)
+    {
+        $quiz = Quiz::where('id', $quizId)
+            ->whereHas('materi', function ($query) {
+                $query->where('pengajar_id', auth()->id());
+            })
+            ->firstOrFail();
+
+        $quiz->status = 'aktif';
+        $quiz->save();
+
+        return redirect()->back()->with('success', 'Quiz berhasil dipublish.');
+    }
+
 }

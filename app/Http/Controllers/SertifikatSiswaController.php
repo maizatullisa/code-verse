@@ -103,7 +103,7 @@ class SertifikatSiswaController extends Controller
 
             public function validasi($nomor)
         {
-            $sertifikat = \App\Models\UserCertificates::where('certificate_number', $nomor)->first();
+            $sertifikat = \App\Models\UserCertificate::where('certificate_number', $nomor)->first();
 
             if (!$sertifikat) {
                 abort(404, 'Sertifikat tidak ditemukan.');

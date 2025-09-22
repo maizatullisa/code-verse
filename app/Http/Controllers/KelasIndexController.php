@@ -12,10 +12,8 @@ class KelasIndexController extends Controller
     {
         $keyword = $request->input('search');
 
-        // Query dasar untuk menghitung stats
         $baseQuery = CourseEnrollment::where('user_id', Auth::id());
 
-        // Hitung stats dari total data
         $totalEnrollments = $baseQuery->get();
         $stats = [
             'total'     => $totalEnrollments->count(),
@@ -24,11 +22,15 @@ class KelasIndexController extends Controller
             'completed' => $totalEnrollments->where('status', 'completed')->count(),
         ];
 
-        // Query utama untuk data enrollments
-        $enrollmentsQuery = CourseEnrollment::with(['kelas.pengajar', 'kelas.materis'])
+           $enrollmentsQuery = CourseEnrollment::with([
+            'kelas.pengajar', 
+            'kelas.materis',
+            'kelas' => function($query) {
+                $query->withCount(['enrollments as total_siswa']);
+            }
+        ])
             ->where('user_id', Auth::id());
 
-        //filter search (cari di nama_kelas / deskripsi)
         if (!empty($keyword)) {
             $enrollmentsQuery->whereHas('kelas', function ($q) use ($keyword) {
                 $q->where('nama_kelas', 'LIKE', "%{$keyword}%")
@@ -38,7 +40,7 @@ class KelasIndexController extends Controller
 
         $enrollments = $enrollmentsQuery->orderBy('created_at', 'desc')
             ->paginate(5)
-            ->appends(['search' => $keyword]); // biar pagination bawa query search
+            ->appends(['search' => $keyword]); 
 
         return view('desktop.pages.kelas.kelas-index', compact('enrollments', 'stats', 'keyword'));
     }

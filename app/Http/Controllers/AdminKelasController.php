@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Response;
 
 class AdminKelasController extends Controller
 {
-
     public function index(Request $request)
     {
 

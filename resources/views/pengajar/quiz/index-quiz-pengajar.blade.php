@@ -52,6 +52,16 @@
                         </div>
                     </div>
 
+                    @if(isset($kelas_id))
+                    @php
+                        $kelas = \App\Models\Kelas::find($kelas_id);
+                    @endphp
+                    <h2 class="text-lg text-gray-700 mt-2">
+                        Menampilkan kuis untuk kelas: <span class="font-semibold">{{ $kelas->nama_kelas ?? 'Kelas Tidak Ditemukan' }}</span>
+                    </h2>
+                @endif
+
+
                     <!-- Add New Quiz Button -->
 
                     <!-- <button type="button" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 flex items-center space-x-2">
@@ -62,6 +72,20 @@
 
                 </div>
             </div>
+
+            @php
+            $kelasList = \App\Models\Kelas::where('pengajar_id', auth()->id())->get();
+            @endphp
+
+            <div class="mb-6">
+                    @foreach($kelasList as $kelas)
+                        <option value="{{ route('pengajar.quiz.listquiz', $kelas->id) }}"
+                            {{ isset($kelas_id) && $kelas_id == $kelas->id ? 'selected' : '' }}>
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
 
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
@@ -117,6 +141,11 @@
                                     <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
                                         {{ $quiz->judul }}
                                     </h3>
+                                    <p class="text-sm text-gray-600 mb-2">
+                                    <i class="ph-fill ph-book-open mr-1"></i>
+                                    Materi: <span class="font-semibold text-gray-800">{{ $quiz->materi->judul ?? 'Tidak diketahui' }}</span>
+                                    </p>
+        
                                     <div class="flex flex-wrap items-center gap-2 mb-3">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
                                     <i class="ph-fill ph-hash mr-1"></i> {{ $quiz->questions->count() }} Soal
@@ -144,6 +173,15 @@
                                 class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                                     <i class="ph ph-eye mr-2"></i>Lihat Detail
                                 </a>
+                                @if($quiz->status === 'tdk aktif')
+                                <form action="{{ route('pengajar.quiz.publish', $quiz->id) }}" method="POST" class="w-full sm:w-auto">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Yakin ingin mengaktifkan quiz ini?')" class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                        <i class="ph ph-check-circle mr-2"></i>Aktifkan
+                                    </button>
+                                </form>
+                            @endif
+
                                 <!-- <a href="#" class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-medium text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                                     <i class="ph ph-pencil mr-2"></i>Edit
                                 </a> -->

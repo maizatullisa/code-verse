@@ -67,11 +67,13 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     ///PUBLISH
     Route::patch('/materi/{materi}/publish', [MateriController::class, 'publish'])->name('pengajar.materi.publish');
 
-    Route::get('/pengajar/quiz', [QuizController::class, 'listQuiz'])->name('pengajar.quiz.listquiz');
+    // Route::get('/pengajar/quiz', [QuizController::class, 'listQuiz'])->name('pengajar.quiz.listquiz');
+    Route::get('/pengajar/quiz/kelas/{kelas}', [QuizController::class, 'listQuiz'])->name('pengajar.quiz.listquiz');
     Route::get('/pengajar/quiz/{materi}', [QuizController::class, 'create'])->name('pengajar.quiz.create');
     Route::post('/pengajar/quiz/store', [QuizController::class, 'store'])->name('pengajar.quiz.store');
     Route::get('/pengajar/quiz/question/create/{quiz_id}',[QuizController::class,'createQuizQuestion'])->name('pengajar.quiz.question.create');
     Route::post('/pengajar/quiz/question/store',[QuizController::class,'storeQuestion'])->name('pengajar.quiz.question.store');
+    Route::post('/pengajar/quiz/{quiz}/publish', [QuizController::class, 'publish'])->name('pengajar.quiz.publish');
     Route::delete('/pengajar/quiz/{quiz}',[QuizController::class,'destroy'])->name('pengajar.quiz.destroy');
     Route::get('/quiz/{quiz}/detail', [HalamanQuizController::class, 'show'])->name('quiz.preview');
     Route::get('/pengajar/{materi}/preview-materi', [HalamanMateriController::class, 'index'])

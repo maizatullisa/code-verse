@@ -287,23 +287,78 @@
                         </span>
                     @endif
                     
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                        {{-- Tombol Mark Complete --}}
-                        @if($currentMateri)
-                        <form id="completeForm" method="POST" action="{{ route('student.materi.complete', [$kelas->id, $currentMateri->id]) }}" class="flex-1 sm:flex-none">
-                            @csrf
-                            <button type="submit"
-                                class="w-full sm:w-auto px-4 sm:px-6 py-2 rounded-full font-semibold transition-all text-sm sm:text-base
-                                    {{ $isCompleted ? 'bg-green-100 text-green-700 cursor-default' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}"
-                                {{ $isCompleted ? 'disabled' : '' }}>
-                                <i class="ph ph-bookmark mr-2"></i>
-                                <span id="complete-text">
-                                    {{ $isCompleted ? 'Sudah Selesai' : 'Tandai Selesai' }}
-                                </span>
-                            </button>
-                        </form>
+                   <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    {{-- VALIDASI QUIZ - Bagian yang diperbaiki --}}
+                    @if($currentMateri)
+                        @if($currentMateri->quiz)
+                            @php
+                            $quizResult = \App\Models\QuizResult::where('user_id', Auth::id())
+                                                  ->where('quiz_id', $currentMateri->quiz->id)
+                                                  ->orderBy('score', 'desc')
+                                                  ->first();
+                            $quizPassed = $quizResult && $quizResult->passed;
+                            $materiCompleted = $progressData->has($currentMateri->id) && $progressData[$currentMateri->id]->status === 'completed';
+                            @endphp
+            
+                            @if(!$quizResult)
+                            {{-- Belum mengerjakan quiz --}}
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center flex-1 sm:flex-none">
+                                <p class="text-yellow-800 text-sm mb-2">
+                                    <i class="ph ph-warning mr-1"></i>
+                                    Selesaikan quiz terlebih dahulu
+                                </p>
+                                <a href="{{ route('student.quiz.index', [$kelas->id, $currentMateri->id]) }}" 
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                                    <i class="ph ph-play mr-1"></i> Mulai Quiz
+                                </a>
+                            </div>
+                                    @elseif(!$quizPassed)
+                                    {{-- Quiz belum lulus --}}
+                                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-center flex-1 sm:flex-none">
+                                        <p class="text-red-800 text-sm mb-1">Quiz belum lulus</p>
+                                        <p class="text-red-600 text-xs mb-2">Nilai: {{ $quizResult->score }} (Min: 70)</p>
+                                        <a href="{{ route('student.quiz.index', [$kelas->id, $currentMateri->id]) }}" 
+                                        class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+                                            <i class="ph ph-repeat mr-1"></i> Ulangi Quiz
+                                        </a>
+                                    </div>
+                                @else
+                                    {{-- Quiz sudah lulus, bisa mark complete --}}
+                                    @if(!$materiCompleted)
+                                        <form method="POST" action="{{ route('student.materi.complete', [$kelas->id, $currentMateri->id]) }}" class="flex-1 sm:flex-none">
+                                            @csrf
+                                            <button type="submit"
+                                                class="w-full sm:w-auto px-4 sm:px-6 py-2 rounded-full font-semibold transition-all text-sm sm:text-base bg-green-500 hover:bg-green-600 text-white">
+                                                <i class="ph ph-bookmark mr-2"></i>
+                                                Tandai Selesai
+                                            </button>
+                                        </form>
+                                    @else
+                                        <span class="w-full sm:w-auto px-4 sm:px-6 py-2 rounded-full font-semibold text-sm sm:text-base bg-green-100 text-green-700 cursor-default flex items-center justify-center">
+                                            <i class="ph ph-check mr-2"></i>
+                                            Sudah Selesai
+                                        </span>
+                                    @endif
+                                @endif
+                            @else
+                                {{-- Tidak ada quiz, langsung bisa mark complete --}}
+                                @if(!$isCompleted)
+                                    <form method="POST" action="{{ route('student.materi.complete', [$kelas->id, $currentMateri->id]) }}" class="flex-1 sm:flex-none">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full sm:w-auto px-4 sm:px-6 py-2 rounded-full font-semibold transition-all text-sm sm:text-base bg-gray-100 text-gray-700 hover:bg-gray-200">
+                                            <i class="ph ph-bookmark mr-2"></i>
+                                            Tandai Selesai
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="w-full sm:w-auto px-4 sm:px-6 py-2 rounded-full font-semibold text-sm sm:text-base bg-green-100 text-green-700 cursor-default flex items-center justify-center">
+                                        <i class="ph ph-check mr-2"></i>
+                                        Sudah Selesai
+                                    </span>
+                                @endif
+                            @endif
                         @endif
-
                         {{-- Tombol Next --}}
                         @if($hasNext && $nextMateri && $isCompleted)
                             <a href="{{ route('student.course.materi', ['kelasId' => $kelas->id, 'materiId' => $nextMateri->id]) }}" 

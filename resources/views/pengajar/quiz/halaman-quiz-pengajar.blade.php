@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-gray-700/50 shadow-2xl animate-fade-in">
             <div class="flex items-center justify-between mb-6">
-                <a href="{{ route('pengajar.quiz.listquiz') }}" class="flex items-center space-x-2 text-gray-400 hover:text-blue-400 transition-colors">
+               <a href="{{ route('pengajar.quiz.listquiz', ['kelas' => $quiz->materi->kelas_id]) }}" class="flex items-center space-x-2 text-gray-400 hover:text-blue-400 transition-colors">
                     <i class="ph ph-arrow-left text-xl"></i>
                     <span>Kembali</span>
                 </a>

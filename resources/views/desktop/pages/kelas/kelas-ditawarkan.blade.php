@@ -283,10 +283,10 @@
                                         <i class="ph ph-users-three text-xs"></i>
                                         <span>{{ $kelas->siswa_count ?? 0 }}</span>
                                     </div>
-                                    <div class="flex items-center gap-1">
+                                    <!-- <div class="flex items-center gap-1">
                                         <i class="ph ph-clock text-xs"></i>
                                         <span>{{ $kelas->durasi ?? '8 minggu' }}</span>
-                                    </div>
+                                    </div> -->
                                     <div class="flex items-center gap-1">
                                         <i class="ph ph-book-open text-xs"></i>
                                         <span>{{ $kelas->materis_count }} materi</span>

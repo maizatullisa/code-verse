@@ -85,7 +85,6 @@
                 </div>
             </div>
             <h2 class="text-4xl font-bold text-white mb-4 font-playfair">Dapatkan Sertifikat Anda</h2>
-            <p class="text-white/90 text-lg max-w-2xl mx-auto">Lengkapi formulir di bawah ini untuk mendapatkan sertifikat kompetensi kelulusan yang dapat diunduh dan dicetak</p>
         </div>
         
         <!-- Form Card -->

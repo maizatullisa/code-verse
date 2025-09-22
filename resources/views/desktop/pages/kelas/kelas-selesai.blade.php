@@ -130,8 +130,9 @@
                                                 <span class="text-green-600 font-semibold text-sm">100%</span>
                                                 <i class="ph-fill ph-dot-outline text-green-500"></i>
                                             </div>
-
-                                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-2">
+                                            
+                                             <!-- Course Stats -->
+                                            <div class="flex items-center gap-4 text-xs text-gray-500 mb-3">
                                                 <div class="flex items-center gap-1">
                                                     <i class="ph ph-users-three"></i>
                                                     <span>{{$kelas->total_siswa ?? 0}} siswa</span>
