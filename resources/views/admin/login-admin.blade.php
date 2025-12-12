@@ -210,67 +210,15 @@
                                 class="btn-primary w-full py-2.5 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
                             >
                                 <span id="loginBtnText" class="flex items-center justify-center">
-                                    Lanjutkan Verifikasi
-                                    <i class="ph ph-arrow-right ml-1.5 text-sm" id="loginBtnIcon"></i>
+                                    Masuk
+                                    <i class="ph ph-sign-in ml-1.5 text-sm" id="loginBtnIcon"></i>
                                 </span>
                             </button>
 
                         </form>
                     </div>
 
-                    <!-- Step 2: OTP Verification -->
-                    <!-- <div id="step2" class="step-transition step-hidden">
-                         -->
-                        <!-- Back Button -->
-                        <!-- <button id="backBtn" class="flex items-center text-slate-600 hover:text-blue-600 mb-4 transition-colors font-semibold text-sm">
-                            <i class="ph ph-arrow-left mr-1.5 text-sm"></i>
-                            Kembali Login
-                        </button>
-
-                        <div class="text-center mb-6">
-                            <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg">
-                                <i class="ph ph-envelope text-white text-xl"></i>
-                            </div>
-                            <h2 class="text-2xl font-black text-slate-800 mb-2">Verifikasi Identitas Anda</h2>
-                            <p class="text-slate-600 text-sm mb-1">Kami telah mengirim kode OTP ke</p>
-                            <p class="text-blue-600 font-bold text-sm" id="emailDisplay">admin@codeverse.com</p>
-                        </div> -->
-
-                        <!-- OTP Input -->
-                        <!-- <div class="mb-4">
-                            <label class="block text-xs font-semibold text-slate-700 mb-3 text-center">Masukkan Kode Verifikasi</label>
-                            <div class="flex justify-center gap-2 mb-3">
-                                <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp1">
-                                <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp2">
-                                <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp3">
-                                <input type="text" maxlength="1" class="w-10 h-10 text-center text-base font-bold bg-slate-50 border-2 border-slate-200 rounded-md focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp4">
-                            </div>
-                            <div class="text-red-500 text-xs text-center hidden" id="otpError"></div>
-                        </div> -->
-
-                        <!-- Timer & Resend -->
-                        <!-- <div class="text-center mb-4">
-                            <p class="text-slate-600 text-xs mb-1">Masa Berlaku Kode</p>
-                            <p class="text-2xl font-black text-slate-800 font-mono" id="countdown">05:00</p>
-                            <button id="resendBtn" class="text-blue-600 hover:text-blue-700 text-xs mt-2 font-semibold transition-colors hidden">
-                                Kirim ulang kode verifikasi
-                            </button>
-                        </div> -->
-
-                        <!-- Verify Button -->
-                        <!-- <button 
-                            id="verifyBtn"
-                            class="btn-primary w-full py-2.5 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
-                        >
-                            <span id="verifyBtnText" class="flex items-center justify-center">
-                                Verifikasi dan Masuk
-                                <i class="ph ph-shield-check ml-1.5 text-sm" id="verifyBtnIcon"></i>
-                            </span>
-                        </button>
-
-                    </div> -->
-
-                    <!-- Step 3: Forgot Password -->
+                    <!-- Step 3: Forgot Password (Input Email) -->
                     <div id="step3" class="step-transition step-hidden">
                         
                         <!-- Back Button -->
@@ -324,7 +272,7 @@
                         </form>
 
                         <!-- Help Info -->
-                        <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <!-- <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                             <div class="flex items-start space-x-2">
                                 <i class="ph ph-info text-blue-600 text-sm mt-0.5"></i>
                                 <div class="text-xs text-blue-800">
@@ -332,24 +280,35 @@
                                     <p>Jika Anda tidak memiliki akses ke email admin, hubungi super admin atau IT support untuk bantuan lebih lanjut.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
 
-                    <!-- Step 4: Reset Password Sent -->
-                    <div id="step4" class="step-transition step-hidden text-center">
-                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <i class="ph ph-check-circle text-white text-2xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-black text-slate-800 mb-2">Email Terkirim!</h2>
-                        <p class="text-slate-600 text-sm mb-4">Kami telah mengirimkan link reset password ke email Anda. Silakan cek inbox dan folder spam.</p>
+                    <!-- Step 4: Email Terkirim -->
+                    <div id="step4" class="step-transition step-hidden">
                         
+                        <!-- Back Button -->
+                        <button id="backToForgotBtn" class="flex items-center text-slate-600 hover:text-blue-600 mb-4 transition-colors font-semibold text-sm">
+                            <i class="ph ph-arrow-left mr-1.5 text-sm"></i>
+                            Kembali
+                        </button>
+
+                        <div class="text-center mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg">
+                                <i class="ph ph-envelope text-white text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-800 mb-2">Cek Email Anda!</h2>
+                            <p class="text-slate-600 text-sm mb-1">Kami telah mengirim kode OTP ke:</p>
+                            <p class="text-blue-600 font-bold text-sm mb-4" id="displayEmail">admin@email.com</p>
+                            <p class="text-slate-500 text-xs">Silakan cek inbox dan folder spam</p>
+                        </div>
+
                         <div class="space-y-3">
                             <button 
-                                id="backToLoginFromResetBtn"
-                                class="w-full py-2.5 text-blue-600 font-bold rounded-lg border-2 border-blue-200 hover:bg-blue-50 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
+                                id="continueToOtpBtn"
+                                class="btn-primary w-full py-2.5 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
                             >
-                                Kembali ke Login
+                                Lanjut Masukkan Kode OTP
                             </button>
                             
                             <button 
@@ -359,16 +318,152 @@
                                 Kirim ulang email reset
                             </button>
                         </div>
+
                     </div>
 
-                    <!-- Step 5: Success -->
-                    <div id="step5" class="step-transition step-hidden text-center">
-                        <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <i class="ph ph-check text-white text-2xl"></i>
+                    <!-- Step 5: Input OTP -->
+                    <div id="step5" class="step-transition step-hidden">
+                        
+                        <!-- Back Button -->
+                        <button id="backToEmailSentBtn" class="flex items-center text-slate-600 hover:text-blue-600 mb-4 transition-colors font-semibold text-sm">
+                            <i class="ph ph-arrow-left mr-1.5 text-sm"></i>
+                            Kembali
+                        </button>
+
+                        <div class="text-center mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg">
+                                <i class="ph ph-shield-check text-white text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-800 mb-2">Verifikasi Kode OTP</h2>
+                            <p class="text-slate-600 text-sm">Masukkan 4 digit kode dari email Anda</p>
                         </div>
-                        <h2 class="text-2xl font-black text-slate-800 mb-2">Selamat Datang!</h2>
-                        <p class="text-slate-600 text-sm mb-4">Login berhasil. Mengalihkan ke dasbor...</p>
-                        <div class="w-6 h-6 border-3 border-blue-500 border-t-transparent rounded-full mx-auto animate-spin"></div>
+
+                        <form id="otpForm" class="space-y-4">
+                            
+                            <!-- OTP Input -->
+                            <div class="space-y-1.5">
+                                <label class="block text-xs font-semibold text-slate-700 text-center">
+                                    Kode OTP
+                                </label>
+                                <div class="flex justify-center gap-2">
+                                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-lg font-bold bg-slate-50 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp1">
+                                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-lg font-bold bg-slate-50 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp2">
+                                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-lg font-bold bg-slate-50 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp3">
+                                    <input type="text" maxlength="1" class="otp-input w-12 h-12 text-center text-lg font-bold bg-slate-50 border-2 border-slate-200 rounded-lg focus:border-blue-500 focus:outline-none transition-all duration-300" id="otp4">
+                                </div>
+                                <div class="text-red-500 text-xs mt-0.5 text-center hidden" id="otpError"></div>
+                            </div>
+
+                            <!-- Timer Countdown -->
+                            <div class="text-center">
+                                <p class="text-slate-600 text-xs mb-1">Masa Berlaku Kode</p>
+                                <p class="text-2xl font-black text-slate-800 font-mono" id="otpCountdown">05:00</p>
+                                <button 
+                                    type="button"
+                                    id="resendOtpBtn"
+                                    class="text-blue-600 hover:text-blue-700 text-xs mt-2 font-semibold transition-colors hidden"
+                                >
+                                    Kirim ulang kode OTP
+                                </button>
+                            </div>
+
+                            <!-- Verify Button -->
+                            <button 
+                                type="submit" 
+                                id="verifyOtpBtn"
+                                class="btn-primary w-full py-2.5 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
+                            >
+                                <span id="verifyOtpBtnText" class="flex items-center justify-center">
+                                    Verifikasi Kode
+                                    <i class="ph ph-check-circle ml-1.5 text-sm"></i>
+                                </span>
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                    <!-- Step 6: Reset Password Baru -->
+                    <div id="step6" class="step-transition step-hidden">
+                        
+                        <div class="text-center mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg">
+                                <i class="ph ph-lock-key text-white text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-800 mb-2">Buat Password Baru</h2>
+                            <p class="text-slate-600 text-sm">Masukkan password baru untuk akun Anda</p>
+                        </div>
+
+                        <form id="newPasswordForm" class="space-y-4">
+                            
+                            <!-- Password Baru -->
+                            <div class="space-y-1.5">
+                                <label class="block text-xs font-semibold text-slate-700">
+                                    Password Baru
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="ph ph-lock text-slate-400 text-sm"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        id="newPassword"
+                                        class="input-field w-full pl-10 pr-10 py-2.5 bg-slate-50 border-2 border-slate-200 rounded-lg text-slate-800 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-300"
+                                        placeholder="Minimal 8 karakter"
+                                        required
+                                    >
+                                    <button 
+                                        type="button" 
+                                        id="toggleNewPassword"
+                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
+                                    >
+                                        <i class="ph ph-eye text-sm" id="newPasswordIcon"></i>
+                                    </button>
+                                </div>
+                                <div class="text-red-500 text-xs mt-0.5 hidden" id="newPasswordError"></div>
+                            </div>
+
+                            <!-- Konfirmasi Password -->
+                            <div class="space-y-1.5">
+                                <label class="block text-xs font-semibold text-slate-700">
+                                    Konfirmasi Password
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="ph ph-lock text-slate-400 text-sm"></i>
+                                    </div>
+                                    <input 
+                                        type="password" 
+                                        id="confirmNewPassword"
+                                        class="input-field w-full pl-10 pr-10 py-2.5 bg-slate-50 border-2 border-slate-200 rounded-lg text-slate-800 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all duration-300"
+                                        placeholder="Ketik ulang password baru"
+                                        required
+                                    >
+                                    <button 
+                                        type="button" 
+                                        id="toggleConfirmPassword"
+                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
+                                    >
+                                        <i class="ph ph-eye text-sm" id="confirmPasswordIcon"></i>
+                                    </button>
+                                </div>
+                                <div class="text-red-500 text-xs mt-0.5 hidden" id="confirmNewPasswordError"></div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button 
+                                type="submit" 
+                                id="savePasswordBtn"
+                                class="btn-primary w-full py-2.5 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-30 text-sm"
+                            >
+                                <span id="savePasswordBtnText" class="flex items-center justify-center">
+                                    Simpan Password Baru
+                                    <i class="ph ph-check ml-1.5 text-sm"></i>
+                                </span>
+                            </button>
+
+                        </form>
+
                     </div>
 
                 </div>
@@ -384,7 +479,6 @@
     </div>
 
     <script src="{{ asset('assets/js/custom/login-admin.js') }}"></script>
-
 
 </body>
 </html>

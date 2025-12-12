@@ -311,7 +311,7 @@ public function courseCompleted($kelasId)
                         ->with('error', 'Anda belum menyelesaikan semua materi.');
     }
 
-    //Ambil semua kelas yang sudah selesai oleh user**
+    //Ambil semua kelas yang sudah selesai oleh u
         $kelasList = Kelas::whereHas('materis', function($q) use ($user) {
             $q->whereHas('userProgress', function($q2) use ($user) {
                 $q2->where('user_id', $user->id)

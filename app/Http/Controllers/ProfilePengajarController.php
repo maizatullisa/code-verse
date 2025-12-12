@@ -131,4 +131,26 @@ class ProfilePengajarController extends Controller
         return redirect()->back()->with('success', 'Riwayat pendidikan berhasil dihapus.');
     }
 
+    
+    public function destroyProfile()
+    {
+        $profile = ProfilePengajar::where('user_id', Auth::id())->first();
+
+        if (!$profile) {
+            return redirect()->route('pengajar.dashboard')
+                ->with('error', 'Profile tidak ditemukan.');
+        }
+
+        // Hapus foto jika ada
+        if ($profile->photo && file_exists(public_path($profile->photo))) {
+            unlink(public_path($profile->photo));
+        }
+
+        // Hapus hanya profile, riwayat pendidikan tetap ada
+        $profile->delete();
+
+        return redirect()->route('pengajar.index-bio')
+            ->with('success', 'Profile pengajar berhasil dihapus.');
+    }
+
 }

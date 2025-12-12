@@ -58,10 +58,11 @@ class AuthController extends Controller
                             : redirect()->route('desktop.dashboard-user-desktop');
                     }
                 }
-
-                return back()->withErrors([
-                    'email' => 'Email atau password salah.',
-                ]);
+                // Notifikasi jika login gagal
+                        return back()
+                            ->withErrors(['email' => 'Email atau password yang Anda masukkan salah.'])
+                            ->withInput()
+                            ->with('error', 'Login gagal! Silakan periksa kembali email dan password Anda.');
             }
 
 

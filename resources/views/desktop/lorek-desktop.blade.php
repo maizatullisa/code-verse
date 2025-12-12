@@ -65,19 +65,7 @@
                         <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/25 transition-all duration-300">
                             <i class="ph ph-graduation-cap text-xl"></i>
                         </div>
-                        <span class="text-sm font-medium">Pembelajaran</span>
-                    </div>
-                    <div class="text-center group">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/25 transition-all duration-300">
-                            <i class="ph ph-users text-xl"></i>
-                        </div>
-                        <span class="text-sm font-medium">Komunitas</span>
-                    </div>
-                    <div class="text-center group">
-                        <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/25 transition-all duration-300">
-                            <i class="ph ph-trophy text-xl"></i>
-                        </div>
-                        <span class="text-sm font-medium">Pencapaian</span>
+                        <span class="text-sm font-medium">Khusus Pengajar Diwajibkan login dengan akun pengajar</span>
                     </div>
                 </div>
             </div>

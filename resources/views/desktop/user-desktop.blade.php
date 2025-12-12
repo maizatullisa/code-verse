@@ -85,7 +85,6 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row sm:justify-between text-xs sm:text-sm text-gray-300 space-y-1 sm:space-y-0">
-                        <span>Durasi: {{ $kelas->durasi }}</span>
                         <span>Modul {{ $completedCount }}/{{ $totalCount }}</span>
                     </div>
                 </div>

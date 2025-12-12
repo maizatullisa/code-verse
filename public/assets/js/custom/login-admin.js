@@ -1,393 +1,84 @@
-  
-        // let currentStep = 1;
-        // let countdownTimer = null;
-        // let tempToken = null; 
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('CodeVerse Admin Portal - Login Initialized');
 
-        // // Utility functions
-        // function showStep(stepNumber) {
-        //     // Hide all steps
-        //     for (let i = 1; i <= 5; i++) {
-        //         const step = document.getElementById(`step${i}`);
-        //         if (step) {
-        //             step.classList.remove('step-visible');
-        //             step.classList.add('step-hidden');
-        //         }
-        //     }
-            
-        //     // Show target step after transition
-        //     setTimeout(() => {
-        //         const targetStep = document.getElementById(`step${stepNumber}`);
-        //         if (targetStep) {
-        //             targetStep.classList.remove('step-hidden');
-        //             targetStep.classList.add('step-visible');
-        //             currentStep = stepNumber;
-        //         }
-        //     }, 400);
-        // }
+    let currentStep = 1;
+    let countdownTimer = null;
 
-        // function showError(fieldId, message) {
-        //     const errorElement = document.getElementById(`${fieldId}Error`);
-        //     if (errorElement) {
-        //         errorElement.textContent = message;
-        //         errorElement.classList.remove('hidden');
-        //     }
-        // }
-
-        // function hideError(fieldId) {
-        //     const errorElement = document.getElementById(`${fieldId}Error`);
-        //     if (errorElement) {
-        //         errorElement.classList.add('hidden');
-        //     }
-        // }
-
-        // function validateEmail(email) {
-        //     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        //     return re.test(email);
-        // }
-
-        // // Toggle password visibility
-        // document.getElementById('togglePassword').addEventListener('click', function() {
-        //     const password = document.getElementById('password');
-        //     const eyeIcon = document.getElementById('eyeIcon');
-            
-        //     if (password.type === 'password') {
-        //         password.type = 'text';
-        //         eyeIcon.className = 'ph ph-eye-slash text-sm';
-        //     } else {
-        //         password.type = 'password';
-        //         eyeIcon.className = 'ph ph-eye text-sm';
-        //     }
-        // });
-
-        // // OTP input handling
-        // function setupOTPInputs() {
-        //     const otpInputs = document.querySelectorAll('[id^="otp"]');
-            
-        //     otpInputs.forEach((input, index) => {
-        //         input.addEventListener('input', function() {
-        //             const value = this.value;
-                    
-        //             // Only allow numbers
-        //             if (!/^\d*$/.test(value)) {
-        //                 this.value = '';
-        //                 return;
-        //             }
-                    
-        //             // Move to next input if filled
-        //             if (value.length === 1 && index < otpInputs.length - 1) {
-        //                 otpInputs[index + 1].focus();
-        //             }
-        //         });
-                
-        //         input.addEventListener('keydown', function(e) {
-        //             // Handle backspace to move to previous input
-        //             if (e.key === 'Backspace' && this.value === '' && index > 0) {
-        //                 otpInputs[index - 1].focus();
-        //             }
-        //         });
-        //     });
-        // }
-
-        // // Initialize OTP inputs
-        // setupOTPInputs();
-
-        // // Handle login form submission (Step 1)
-        // document.getElementById('loginForm').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-            
-        //     const username = document.getElementById('username').value.trim();
-        //     const password = document.getElementById('password').value;
-            
-        //     // Clear previous errors
-        //     hideError('username');
-        //     hideError('password');
-            
-        //     // Validation
-        //     let isValid = true;
-            
-        //     if (!username) {
-        //         showError('username', 'Username atau email wajib diisi');
-        //         isValid = false;
-        //     }
-            
-        //     if (!password) {
-        //         showError('password', 'Password wajib diisi');
-        //         isValid = false;
-        //     } else if (password.length < 6) {
-        //         showError('password', 'Password minimal 6 karakter');
-        //         isValid = false;
-        //     }
-            
-        //     if (!isValid) return;
-            
-        //     // Show loading state
-        //     const loginBtn = document.getElementById('loginBtn');
-        //     const loginBtnText = document.getElementById('loginBtnText');
-            
-        //     loginBtn.disabled = true;
-        //     loginBtnText.innerHTML = `
-        //         <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-        //         Memverifikasi...
-        //     `;
-            
-        //     // Simulate API call
-        //     setTimeout(() => {
-        //         // Reset button state
-        //         loginBtn.disabled = false;
-        //         loginBtnText.innerHTML = `
-        //             Lanjutkan Verifikasi
-        //             <i class="ph ph-arrow-right ml-1.5 text-sm"></i>
-        //         `;
-                
-        //         // Update email display for OTP
-        //         const emailDisplay = document.getElementById('emailDisplay');
-        //         if (username.includes('@')) {
-        //             emailDisplay.textContent = username;
-        //         } else {
-        //             emailDisplay.textContent = 'admin@codeverse.com';
-        //         }
-                
-        //         // Move to OTP step
-        //         showStep(2);
-        //         startCountdown();
-        //     }, 2000);
-        // });
-
-        // // Handle forgot password button
-        // document.getElementById('forgotPasswordBtn').addEventListener('click', function(e) {
-        //     e.preventDefault();
-        //     showStep(3);
-        // });
-
-        // // Handle forgot password form submission
-        // document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-            
-        //     const email = document.getElementById('resetEmail').value.trim();
-            
-        //     // Clear previous errors
-        //     hideError('resetEmail');
-            
-        //     // Validation
-        //     if (!email) {
-        //         showError('resetEmail', 'Email wajib diisi');
-        //         return;
-        //     }
-            
-        //     if (!validateEmail(email)) {
-        //         showError('resetEmail', 'Format email tidak valid');
-        //         return;
-        //     }
-            
-        //     // Show loading state
-        //     const resetBtn = document.getElementById('resetBtn');
-        //     const resetBtnText = document.getElementById('resetBtnText');
-            
-        //     resetBtn.disabled = true;
-        //     resetBtnText.innerHTML = `
-        //         <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-        //         Mengirim...
-        //     `;
-            
-        //     // Simulate API call
-        //     setTimeout(() => {
-        //         // Reset button state
-        //         resetBtn.disabled = false;
-        //         resetBtnText.innerHTML = `
-        //             Kirim Link Reset Password
-        //             <i class="ph ph-paper-plane-tilt ml-1.5 text-sm"></i>
-        //         `;
-                
-        //         // Move to reset sent step
-        //         showStep(4);
-        //     }, 2000);
-        // });
-
-        // // Handle back buttons
-        // document.getElementById('backBtn').addEventListener('click', function() {
-        //     showStep(1);
-        //     if (countdownTimer) {
-        //         clearInterval(countdownTimer);
-        //         countdownTimer = null;
-        //     }
-        // });
-
-        // document.getElementById('backToLoginBtn').addEventListener('click', function() {
-        //     showStep(1);
-        // });
-
-        // document.getElementById('backToLoginFromResetBtn').addEventListener('click', function() {
-        //     showStep(1);
-        // });
-
-        // // Handle OTP verification
-        // document.getElementById('verifyBtn').addEventListener('click', function() {
-        //     const otpInputs = document.querySelectorAll('[id^="otp"]');
-        //     let otp = '';
-            
-        //     otpInputs.forEach(input => {
-        //         otp += input.value;
-        //     });
-            
-        //     // Clear previous errors
-        //     hideError('otp');
-            
-        //     if (otp.length !== 4) {
-        //         showError('otp', 'Masukkan sesuai dengan kode yng di kirim');
-        //         return;
-        //     }
-            
-        //     // Show loading state
-        //     const verifyBtn = document.getElementById('verifyBtn');
-        //     const verifyBtnText = document.getElementById('verifyBtnText');
-            
-        //     verifyBtn.disabled = true;
-        //     verifyBtnText.innerHTML = `
-        //         <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-        //         Memverifikasi...
-        //     `;
-            
-        //     // Simulate API call
-        //     setTimeout(() => {
-        //         // Clear countdown timer
-        //         if (countdownTimer) {
-        //             clearInterval(countdownTimer);
-        //             countdownTimer = null;
-        //         }
-                
-        //         // Reset button state
-        //         verifyBtn.disabled = false;
-        //         verifyBtnText.innerHTML = `
-        //             Verifikasi dan Masuk
-        //             <i class="ph ph-shield-check ml-1.5 text-sm"></i>
-        //         `;
-                
-        //         // Move to success step
-        //         showStep(5);
-                
-        //         // Redirect after 3 seconds
-        //         setTimeout(() => {
-        //             alert('Berhasil login! Mengalihkan ke dashboard...');
-        //             // window.location.href = '/admin/dashboard';
-        //         }, 3000);
-        //     }, 2000);
-        // });
-
-        // // Countdown timer
-        // function startCountdown() {
-        //     let time = 300; // 5 minutes
-        //     const countdown = document.getElementById('countdown');
-        //     const resendBtn = document.getElementById('resendBtn');
-            
-        //     // Clear existing timer if any
-        //     if (countdownTimer) {
-        //         clearInterval(countdownTimer);
-        //     }
-            
-        //     countdownTimer = setInterval(() => {
-        //         const minutes = Math.floor(time / 60);
-        //         const seconds = time % 60;
-        //         countdown.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-        //         if (time === 0) {
-        //             clearInterval(countdownTimer);
-        //             countdownTimer = null;
-        //             countdown.textContent = '00:00';
-        //             resendBtn.classList.remove('hidden');
-        //         }
-                
-        //         time--;
-        //     }, 1000);
-        // }
-
-        // // Resend OTP code
-        // document.getElementById('resendBtn').addEventListener('click', function() {
-        //     this.classList.add('hidden');
-        //     startCountdown();
-            
-        //     // Clear OTP inputs
-        //     const otpInputs = document.querySelectorAll('[id^="otp"]');
-        //     otpInputs.forEach(input => {
-        //         input.value = '';
-        //     });
-            
-        //     // Focus first input
-        //     document.getElementById('otp1').focus();
-            
-        //     // Show success message
-        //     const originalText = this.textContent;
-        //     this.textContent = 'Kode baru telah dikirim!';
-        //     this.classList.remove('text-blue-600', 'hover:text-blue-700');
-        //     this.classList.add('text-green-600');
-            
-        //     setTimeout(() => {
-        //         this.textContent = originalText;
-        //         this.classList.remove('text-green-600');
-        //         this.classList.add('text-blue-600', 'hover:text-blue-700');
-        //     }, 2000);
-        // });
-
-        // // Resend reset email
-        // document.getElementById('resendResetBtn').addEventListener('click', function() {
-        //     const originalText = this.textContent;
-        //     this.textContent = 'Email reset telah dikirim ulang!';
-        //     this.classList.add('text-green-600');
-            
-        //     setTimeout(() => {
-        //         this.textContent = originalText;
-        //         this.classList.remove('text-green-600');
-        //     }, 3000);
-        // });
-
-        // // Clear form errors when user starts typing
-        // document.getElementById('username').addEventListener('input', () => hideError('username'));
-        // document.getElementById('password').addEventListener('input', () => hideError('password'));
-        // document.getElementById('resetEmail').addEventListener('input', () => hideError('resetEmail'));
-
-        // // Handle Enter key for OTP inputs
-        // document.querySelectorAll('[id^="otp"]').forEach(input => {
-        //     input.addEventListener('keydown', function(e) {
-        //         if (e.key === 'Enter') {
-        //             document.getElementById('verifyBtn').click();
-        //         }
-        //     });
-        // });
-
-        // // Auto-focus first input when OTP step is shown
-        // const observer = new MutationObserver(function(mutations) {
-        //     mutations.forEach(function(mutation) {
-        //         if (mutation.target.id === 'step2' && mutation.target.classList.contains('step-visible')) {
-        //             setTimeout(() => {
-        //                 document.getElementById('otp1').focus();
-        //             }, 100);
-        //         }
-        //     });
-        // });
-
-        // observer.observe(document.getElementById('step2'), {
-        //     attributes: true,
-        //     attributeFilter: ['class']
-        // });
-
-        // // Prevent form submission on Enter for OTP step
-        // document.addEventListener('keydown', function(e) {
-        //     if (e.key === 'Enter' && currentStep === 2) {
-        //         e.preventDefault();
-        //         document.getElementById('verifyBtn').click();
-        //     }
-        // });
-
-        // console.log('CodeVerse Admin Portal - Login System Initialized');
-
-        document.addEventListener('DOMContentLoaded', function () {
-    console.log('CodeVerse Admin Portal - Login Initialized (Minimal Mode)');
-
-    // Hapus semua error handler OTP, reset, dll.
+    // ===========================
+    // UTILITY FUNCTIONS
+    // ===========================
     
-    // Hapus semua preventDefault pada form login
-    // Biarkan form mengarah ke server Laravel
+    function showStep(stepNumber) {
+        // Hide all steps
+        for (let i = 1; i <= 6; i++) {
+            const step = document.getElementById(`step${i}`);
+            if (step) {
+                step.classList.remove('step-visible');
+                step.classList.add('step-hidden');
+            }
+        }
+        
+        // Show target step after transition
+        setTimeout(() => {
+            const targetStep = document.getElementById(`step${stepNumber}`);
+            if (targetStep) {
+                targetStep.classList.remove('step-hidden');
+                targetStep.classList.add('step-visible');
+                currentStep = stepNumber;
+            }
+        }, 400);
+    }
 
-    // Password toggle (opsional kalau kamu masih ingin)
+    function showError(fieldId, message) {
+        const errorElement = document.getElementById(`${fieldId}Error`);
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+    }
+
+    function hideError(fieldId) {
+        const errorElement = document.getElementById(`${fieldId}Error`);
+        if (errorElement) {
+            errorElement.classList.add('hidden');
+        }
+    }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function showNotification(message, type = 'info') {
+        const bgColor = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6';
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${bgColor};
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 9999;
+            font-size: 14px;
+            font-weight: 600;
+            animation: slideIn 0.3s ease-out;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => document.body.removeChild(notification), 300);
+        }, 3000);
+    }
+
+    // ===========================
+    // PASSWORD TOGGLE
+    // ===========================
+    
     const togglePassword = document.getElementById('togglePassword');
     if (togglePassword) {
         togglePassword.addEventListener('click', function () {
@@ -406,20 +97,585 @@
         });
     }
 
-    // Bersihkan error ketika user mulai mengetik
+    // Toggle New Password
+    const toggleNewPassword = document.getElementById('toggleNewPassword');
+    if (toggleNewPassword) {
+        toggleNewPassword.addEventListener('click', function () {
+            const newPassword = document.getElementById('newPassword');
+            const icon = document.getElementById('newPasswordIcon');
+
+            if (newPassword && icon) {
+                if (newPassword.type === 'password') {
+                    newPassword.type = 'text';
+                    icon.className = 'ph ph-eye-slash text-sm';
+                } else {
+                    newPassword.type = 'password';
+                    icon.className = 'ph ph-eye text-sm';
+                }
+            }
+        });
+    }
+
+    // Toggle Confirm Password
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    if (toggleConfirmPassword) {
+        toggleConfirmPassword.addEventListener('click', function () {
+            const confirmPassword = document.getElementById('confirmNewPassword');
+            const icon = document.getElementById('confirmPasswordIcon');
+
+            if (confirmPassword && icon) {
+                if (confirmPassword.type === 'password') {
+                    confirmPassword.type = 'text';
+                    icon.className = 'ph ph-eye-slash text-sm';
+                } else {
+                    confirmPassword.type = 'password';
+                    icon.className = 'ph ph-eye text-sm';
+                }
+            }
+        });
+    }
+
+    // ===========================
+    // NAVIGATION BUTTONS
+    // ===========================
+    
+    // Forgot Password Button
+    const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+    if (forgotPasswordBtn) {
+        forgotPasswordBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            showStep(3);
+        });
+    }
+
+    // Back to Login dari Forgot Password
+    const backToLoginBtn = document.getElementById('backToLoginBtn');
+    if (backToLoginBtn) {
+        backToLoginBtn.addEventListener('click', function () {
+            showStep(1);
+        });
+    }
+
+    // Back dari Email Sent ke Forgot Password
+    const backToForgotBtn = document.getElementById('backToForgotBtn');
+    if (backToForgotBtn) {
+        backToForgotBtn.addEventListener('click', function () {
+            showStep(3);
+        });
+    }
+
+    // Continue to OTP dari Email Sent
+    const continueToOtpBtn = document.getElementById('continueToOtpBtn');
+    if (continueToOtpBtn) {
+        continueToOtpBtn.addEventListener('click', function () {
+            showStep(5);
+            // Focus ke input OTP pertama
+            const otp1 = document.getElementById('otp1');
+            if (otp1) otp1.focus();
+            // Start countdown timer
+            startOtpCountdown();
+        });
+    }
+
+    // Back dari OTP ke Email Sent
+    const backToEmailSentBtn = document.getElementById('backToEmailSentBtn');
+    if (backToEmailSentBtn) {
+        backToEmailSentBtn.addEventListener('click', function () {
+            // Clear countdown timer
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+            showStep(4);
+        });
+    }
+
+    // ===========================
+    // OTP COUNTDOWN TIMER (5 MENIT)
+    // ===========================
+    
+    function startOtpCountdown() {
+        let timeLeft = 300; // 5 menit = 300 detik
+        const countdownElement = document.getElementById('otpCountdown');
+        const resendBtn = document.getElementById('resendOtpBtn');
+        
+        // Clear existing timer if any
+        if (countdownTimer) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+        }
+        
+        // Reset dan hide resend button
+        if (resendBtn) {
+            resendBtn.classList.add('hidden');
+        }
+        
+        // Reset countdown display color
+        if (countdownElement) {
+            countdownElement.classList.remove('text-red-500');
+        }
+        
+        // Update immediately first
+        if (countdownElement) {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        countdownTimer = setInterval(() => {
+            timeLeft--;
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            if (countdownElement) {
+                countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+                if (countdownElement) {
+                    countdownElement.textContent = '00:00';
+                    countdownElement.classList.add('text-red-500');
+                }
+                // Show resend button
+                if (resendBtn) {
+                    resendBtn.classList.remove('hidden');
+                }
+            }
+        }, 1000);
+        
+        console.log('OTP countdown started - 5 minutes');
+    }
+    
+    // Resend OTP dari Step 5
+    const resendOtpBtn = document.getElementById('resendOtpBtn');
+    if (resendOtpBtn) {
+        resendOtpBtn.addEventListener('click', function () {
+            const email = document.getElementById('resetEmail').value.trim();
+            
+            if (!email) {
+                showNotification('Email tidak ditemukan!', 'error');
+                return;
+            }
+
+            const originalText = this.textContent;
+            this.textContent = 'Mengirim...';
+            this.disabled = true;
+            
+            fetch('/auth/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(res => res.json())
+            .then(res => {
+                this.disabled = false;
+                if (res.message) {
+                    showNotification('Kode OTP baru telah dikirim 📧', 'success');
+                    
+                    // Clear OTP inputs
+                    const otpInputs = document.querySelectorAll('.otp-input');
+                    otpInputs.forEach(input => input.value = '');
+                    if (otpInputs.length > 0) otpInputs[0].focus();
+                    
+                    // Reset countdown
+                    const countdownElement = document.getElementById('otpCountdown');
+                    if (countdownElement) {
+                        countdownElement.classList.remove('text-red-500');
+                    }
+                    
+                    // Hide resend button dan restart timer
+                    this.classList.add('hidden');
+                    this.textContent = originalText;
+                    startOtpCountdown();
+                } else {
+                    this.textContent = originalText;
+                    showNotification('Gagal mengirim OTP!', 'error');
+                }
+            })
+            .catch(err => {
+                this.disabled = false;
+                this.textContent = originalText;
+                showNotification('Gagal mengirim OTP!', 'error');
+                console.error('Resend OTP error:', err);
+            });
+        });
+    }
+
+    // ===========================
+    // OTP INPUT HANDLING
+    // ===========================
+    
+    const otpInputs = document.querySelectorAll('.otp-input');
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', function () {
+            const value = this.value;
+            
+            // Only allow numbers
+            if (!/^\d*$/.test(value)) {
+                this.value = '';
+                return;
+            }
+            
+            // Move to next input if filled
+            if (value.length === 1 && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        });
+        
+        input.addEventListener('keydown', function (e) {
+            // Handle backspace to move to previous input
+            if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });
+
+    // ===========================
+    // FORGOT PASSWORD FORM (SEND OTP)
+    // ===========================
+    
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('resetEmail').value.trim();
+            
+            hideError('resetEmail');
+            
+            if (!email) {
+                showError('resetEmail', 'Email wajib diisi');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showError('resetEmail', 'Format email tidak valid');
+                return;
+            }
+            
+            const resetBtn = document.getElementById('resetBtn');
+            const resetBtnText = document.getElementById('resetBtnText');
+            
+            resetBtn.disabled = true;
+            resetBtnText.innerHTML = `
+                <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                Mengirim...
+            `;
+            
+            // ✅ Kirim OTP ke Backend
+            fetch('/auth/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(res => res.json())
+            .then(res => {
+                resetBtn.disabled = false;
+                resetBtnText.innerHTML = `
+                    Kirim Link Reset Password
+                    <i class="ph ph-paper-plane-tilt ml-1.5 text-sm"></i>
+                `;
+                
+                if (res.message) {
+                    showNotification(res.message, 'success');
+                    // Update display email
+                    const displayEmail = document.getElementById('displayEmail');
+                    if (displayEmail) displayEmail.textContent = email;
+                    showStep(4);
+                } else {
+                    showNotification('Gagal mengirim OTP!', 'error');
+                }
+            })
+            .catch(err => {
+                resetBtn.disabled = false;
+                resetBtnText.innerHTML = `
+                    Kirim Link Reset Password
+                    <i class="ph ph-paper-plane-tilt ml-1.5 text-sm"></i>
+                `;
+                showNotification('Gagal mengirim OTP! Silakan coba lagi.', 'error');
+                console.error('Send OTP error:', err);
+            });
+        });
+    }
+
+    // ===========================
+    // RESEND OTP
+    // ===========================
+    
+    const resendResetBtn = document.getElementById('resendResetBtn');
+    if (resendResetBtn) {
+        resendResetBtn.addEventListener('click', function () {
+            const email = document.getElementById('resetEmail').value.trim();
+            
+            if (!email) {
+                showNotification('Email tidak ditemukan!', 'error');
+                showStep(3);
+                return;
+            }
+
+            const originalText = this.textContent;
+            this.textContent = 'Mengirim...';
+            this.disabled = true;
+            
+            fetch('/auth/send-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(res => res.json())
+            .then(res => {
+                this.disabled = false;
+                if (res.message) {
+                    this.textContent = 'Email terkirim! ✓';
+                    this.classList.add('text-green-600');
+                    showNotification('Kode OTP baru telah dikirim 📧', 'success');
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.classList.remove('text-green-600');
+                    }, 3000);
+                } else {
+                    this.textContent = originalText;
+                    showNotification('Gagal mengirim OTP!', 'error');
+                }
+            })
+            .catch(err => {
+                this.disabled = false;
+                this.textContent = originalText;
+                showNotification('Gagal mengirim OTP!', 'error');
+                console.error('Resend OTP error:', err);
+            });
+        });
+    }
+
+    // ===========================
+    // VERIFY OTP FORM
+    // ===========================
+    
+    const otpForm = document.getElementById('otpForm');
+    if (otpForm) {
+        otpForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const otpInputs = document.querySelectorAll('.otp-input');
+            let otp = '';
+            otpInputs.forEach(input => otp += input.value.trim());
+            
+            hideError('otp');
+            
+            if (otp.length !== 4) {
+                showError('otp', 'Masukkan 4 digit kode OTP lengkap');
+                return;
+            }
+            
+            const email = document.getElementById('resetEmail').value.trim();
+            const verifyBtn = document.getElementById('verifyOtpBtn');
+            const verifyBtnText = document.getElementById('verifyOtpBtnText');
+            
+            verifyBtn.disabled = true;
+            verifyBtnText.innerHTML = `
+                <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                Memverifikasi...
+            `;
+            
+            // ✅ Verify OTP ke Backend
+            fetch('/auth/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ email, otp })
+            })
+            .then(res => res.json())
+            .then(res => {
+                verifyBtn.disabled = false;
+                verifyBtnText.innerHTML = `
+                    Verifikasi Kode
+                    <i class="ph ph-check-circle ml-1.5 text-sm"></i>
+                `;
+                
+                if (res.message === 'OTP valid') {
+                    showNotification('Kode OTP valid! Silakan buat password baru 🔐', 'success');
+                    // Clear countdown timer
+                    if (countdownTimer) {
+                        clearInterval(countdownTimer);
+                        countdownTimer = null;
+                    }
+                    showStep(6);
+                } else {
+                    showNotification(res.message || 'OTP tidak valid!', 'error');
+                }
+            })
+            .catch(err => {
+                verifyBtn.disabled = false;
+                verifyBtnText.innerHTML = `
+                    Verifikasi Kode
+                    <i class="ph ph-check-circle ml-1.5 text-sm"></i>
+                `;
+                showNotification('Gagal verifikasi OTP!', 'error');
+                console.error('Verify OTP error:', err);
+            });
+        });
+    }
+
+    // ===========================
+    // NEW PASSWORD FORM
+    // ===========================
+    
+    const newPasswordForm = document.getElementById('newPasswordForm');
+    if (newPasswordForm) {
+        newPasswordForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('newPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmNewPassword').value.trim();
+            
+            hideError('newPassword');
+            hideError('confirmNewPassword');
+            
+            if (!newPassword) {
+                showError('newPassword', 'Password baru wajib diisi');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                showError('newPassword', 'Password minimal 8 karakter');
+                return;
+            }
+            
+            if (!confirmPassword) {
+                showError('confirmNewPassword', 'Konfirmasi password wajib diisi');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showError('confirmNewPassword', 'Password tidak cocok');
+                return;
+            }
+            
+            const email = document.getElementById('resetEmail').value.trim();
+            const otpInputs = document.querySelectorAll('.otp-input');
+            let otp = '';
+            otpInputs.forEach(input => otp += input.value.trim());
+            
+            const saveBtn = document.getElementById('savePasswordBtn');
+            const saveBtnText = document.getElementById('savePasswordBtnText');
+            
+            saveBtn.disabled = true;
+            saveBtnText.innerHTML = `
+                <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                Menyimpan...
+            `;
+            
+            // ✅ Reset Password ke Backend
+            fetch('/auth/reset-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({
+                    email,
+                    otp,
+                    new_password: newPassword,
+                    new_password_confirmation: confirmPassword
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                saveBtn.disabled = false;
+                saveBtnText.innerHTML = `
+                    Simpan Password Baru
+                    <i class="ph ph-check ml-1.5 text-sm"></i>
+                `;
+                
+                if (res.message === 'Password berhasil direset!') {
+                    showNotification(res.message, 'success');
+                    setTimeout(() => showStep(1), 1500);
+                } else {
+                    showNotification(res.message || 'Gagal reset password!', 'error');
+                }
+            })
+            .catch(err => {
+                saveBtn.disabled = false;
+                saveBtnText.innerHTML = `
+                    Simpan Password Baru
+                    <i class="ph ph-check ml-1.5 text-sm"></i>
+                `;
+                showNotification('Gagal reset password!', 'error');
+                console.error('Reset password error:', err);
+            });
+        });
+    }
+
+    // ===========================
+    // CLEAR ERROR ON INPUT
+    // ===========================
+    
     const username = document.getElementById('username');
     if (username) {
         username.addEventListener('input', function () {
-            const error = document.getElementById('usernameError');
-            if (error) error.classList.add('hidden');
+            hideError('username');
         });
     }
 
     const password = document.getElementById('password');
     if (password) {
         password.addEventListener('input', function () {
-            const error = document.getElementById('passwordError');
-            if (error) error.classList.add('hidden');
+            hideError('password');
         });
     }
+
+    const resetEmail = document.getElementById('resetEmail');
+    if (resetEmail) {
+        resetEmail.addEventListener('input', function () {
+            hideError('resetEmail');
+        });
+    }
+
+    const newPassword = document.getElementById('newPassword');
+    if (newPassword) {
+        newPassword.addEventListener('input', function () {
+            hideError('newPassword');
+        });
+    }
+
+    const confirmNewPassword = document.getElementById('confirmNewPassword');
+    if (confirmNewPassword) {
+        confirmNewPassword.addEventListener('input', function () {
+            hideError('confirmNewPassword');
+        });
+    }
+
+    console.log('Admin Login System Ready');
+    console.log('✓ Login form submits to Laravel backend');
+    console.log('✓ Forgot password with OTP complete');
+    console.log('✓ All steps: Login → Email → OTP → New Password');
 });
+
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);

@@ -20,7 +20,7 @@ function showLogin() {
         setTimeout(() => {
             mainIcon.className = 'ph ph-graduation-cap w-full h-full text-white text-5xl flex items-center justify-center transition-all duration-500';
             mainTitle.textContent = 'Udah siap upgrade skill hari ini?';
-            mainDescription.textContent = 'Login yuk, langsung gas ke materi seru!';
+            mainDescription.textContent = 'Login yuk, langsung gas ke materi seru! ';
             mainIcon.style.transform = 'scale(1) rotate(0deg)';
         }, 200);
     }
@@ -491,7 +491,41 @@ function handleNewPassword(event) {
 }
 
 function resendOTP() {
-    showNotification('Kode OTP baru telah dikirim 📧', 'success');
+    const email = document.querySelector('input[name="reset_email"]').value.trim();
+    
+    if (!email) {
+        showNotification('Email tidak ditemukan! Silakan kembali ke halaman lupa password.', 'error');
+        return;
+    }
+
+    // Show loading notification
+    showNotification('Mengirim ulang kode OTP...', 'info');
+
+    fetch('/auth/send-otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: JSON.stringify({ email })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.message) {
+            showNotification('Kode OTP baru telah dikirim ke email Anda 📧', 'success');
+            
+            // Clear OTP inputs
+            const otpInputs = document.querySelectorAll('.otp-input');
+            otpInputs.forEach(input => input.value = '');
+            if (otpInputs.length > 0) otpInputs[0].focus();
+        } else {
+            showNotification(res.message || 'Gagal mengirim OTP!', 'error');
+        }
+    })
+    .catch(err => {
+        showNotification('Gagal mengirim ulang OTP! Silakan coba lagi.', 'error');
+        console.error('Resend OTP error:', err);
+    });
 }
 
 // NOTIFICATION SYSTEM

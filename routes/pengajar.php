@@ -30,6 +30,8 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::get('/pengajar/biodata/edit', [ProfilePengajarController::class, 'edit'])->name('pengajar.edit-bio');
     Route::post('/pengajar/biodata', [ProfilePengajarController::class, 'store'])->name('pengajar.store-bio');
     Route::put('/pengajar/biodata/update', [ProfilePengajarController::class, 'update'])->name('pengajar.update-bio');
+    Route::delete('/pengajar/profile/delete', [ProfilePengajarController::class, 'destroyProfile'])
+    ->name('pengajar.destroy-profile');
     // riwayat pendidikan
     Route::post('/pengajar/pendidikan', [ProfilePengajarController::class, 'storeRiwayatPendidikan'])->name('pengajar.store-riwayat');
     Route::put('/pengajar/pendidikan/{id}', [ProfilePengajarController::class, 'updateRiwayatPendidikan'])->name('pengajar.update-riwayat');

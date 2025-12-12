@@ -29,7 +29,7 @@ class CustomForgotPasswordController extends Controller
             ['email' => $request->email, 'is_used' => false],
             [
                 'otp' => $otp,
-                'expires_at' => Carbon::now()->addMinutes(10),
+                'expires_at' => Carbon::now()->addMinutes(5),
                 'created_at' => now(),
                 'updated_at' => now(),
                 'is_used' => false
