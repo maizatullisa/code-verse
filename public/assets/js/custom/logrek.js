@@ -147,6 +147,18 @@ function validateForgotPasswordForm() {
     return true;
 }
 
+// Resend OTP button state management
+document.querySelector('input[name="reset_email"]').addEventListener('input', function() {
+    const resendBtn = document.querySelector('#resendButton'); // Pastikan ID tombol benar
+    const email = this.value.trim();
+
+    if (email) {
+        resendBtn.disabled = false; // Enable "Resend OTP" if email input is filled
+    } else {
+        resendBtn.disabled = true;
+    }
+});
+
 function validateOTPForm() {
     const otpInputs = document.querySelectorAll('.otp-input');
     let otp = '';
@@ -284,7 +296,8 @@ function handleForgotPassword(event) {
     const submitBtn = event.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
 
-    submitBtn.innerHTML = '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Mengirim...</span></div>';
+    submitBtn.innerHTML =
+        '<div class="flex items-center justify-center gap-3"><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div><span>Mengirim...</span></div>';
     submitBtn.disabled = true;
 
     fetch('/auth/send-otp', {
@@ -295,17 +308,27 @@ function handleForgotPassword(event) {
         },
         body: JSON.stringify({ email })
     })
-    .then(res => res.json())
+    .then(res => {
+        // Trigger an error if response isn't success
+        if (!res.ok) throw res;
+        return res.json();
+    })
     .then(res => {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
+
+        // Success notification when OTP is sent
         if (res.message) showNotification(res.message, 'success');
         showOtp();
     })
-    .catch(err => {
-        showNotification('Gagal mengirim OTP!', 'error');
+    .catch(async err => {
+        const errorMessage = await err.json();
+
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
+
+        // Show red error notification for "email not found"
+        showNotification(errorMessage.message || 'Email tidak ditemukan, silakan coba lagi.', 'error');
     });
 }
 
@@ -492,14 +515,11 @@ function handleNewPassword(event) {
 
 function resendOTP() {
     const email = document.querySelector('input[name="reset_email"]').value.trim();
-    
+
     if (!email) {
-        showNotification('Email tidak ditemukan! Silakan kembali ke halaman lupa password.', 'error');
+        showNotification('Email harus diisi sebelum mengirim ulang OTP.', 'error');
         return;
     }
-
-    // Show loading notification
-    showNotification('Mengirim ulang kode OTP...', 'info');
 
     fetch('/auth/send-otp', {
         method: 'POST',
@@ -509,22 +529,25 @@ function resendOTP() {
         },
         body: JSON.stringify({ email })
     })
-    .then(res => res.json())
     .then(res => {
-        if (res.message) {
-            showNotification('Kode OTP baru telah dikirim ke email Anda 📧', 'success');
-            
-            // Clear OTP inputs
-            const otpInputs = document.querySelectorAll('.otp-input');
-            otpInputs.forEach(input => input.value = '');
-            if (otpInputs.length > 0) otpInputs[0].focus();
-        } else {
-            showNotification(res.message || 'Gagal mengirim OTP!', 'error');
-        }
+        // Trigger an error if the response isn't success
+        if (!res.ok) throw res;
+        return res.json();
     })
-    .catch(err => {
-        showNotification('Gagal mengirim ulang OTP! Silakan coba lagi.', 'error');
-        console.error('Resend OTP error:', err);
+    .then(res => {
+        // On success (200), send a green notification
+        showNotification('Kode OTP baru telah dikirim ke email Anda 📧', 'success');
+
+        // Reset OTP inputs and refocus if necessary
+        const otpInputs = document.querySelectorAll('.otp-input');
+        otpInputs.forEach(input => input.value = '');
+        if (otpInputs.length > 0) otpInputs[0].focus();
+    })
+    .catch(async err => {
+        const errorMessage = await err.json();
+
+        // Red error if email doesn't exist
+        showNotification(errorMessage.message || 'Email tidak ditemukan, Anda harus kembali ke halaman lupa password.', 'error');
     });
 }
 

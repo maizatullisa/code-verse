@@ -12,8 +12,8 @@ use Illuminate\Support\Carbon;
 use DB;
 
 class CustomForgotPasswordController extends Controller
-{
-    // 1. Kirim OTP
+{   
+    // Kirim OTP
     public function sendOtp(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -40,7 +40,7 @@ class CustomForgotPasswordController extends Controller
         return response()->json(['message' => 'OTP terkirim']);
     }
 
-    // 2. Verifikasi OTP
+    // Verifikasi OTP
     public function verifyOtp(Request $request)
     {
         $request->validate([
@@ -60,7 +60,7 @@ class CustomForgotPasswordController extends Controller
         return response()->json(['message' => 'OTP valid']);
     }
 
-    // 3. Ubah Password
+    // Reset Password
     public function resetPassword(Request $request)
     {
         $request->validate([
