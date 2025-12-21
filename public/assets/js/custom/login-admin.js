@@ -252,60 +252,54 @@ document.addEventListener('DOMContentLoaded', function () {
     // Resend OTP dari Step 5
     const resendOtpBtn = document.getElementById('resendOtpBtn');
     if (resendOtpBtn) {
-        resendOtpBtn.addEventListener('click', function () {
-            const email = document.getElementById('resetEmail').value.trim();
+    resendOtpBtn.addEventListener('click', function () {
+        const email = document.getElementById('resetEmail').value.trim();
+        
+        if (!email) {
+            showNotification('Email tidak ditemukan! Kembali ke halaman Lupa Password.', 'error');
+            showStep(3); // Kembali ke halaman Lupa Password
+            return;
+        }
+
+        const originalText = this.textContent;
+        this.textContent = 'Mengirim...';
+        this.disabled = true;
+        
+        fetch('/auth/send-otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify({ email })
+        })
+        .then(res => {
+            this.textContent = originalText;
+            this.disabled = false;
             
-            if (!email) {
-                showNotification('Email tidak ditemukan!', 'error');
+            if (!res.ok) {
+                showNotification('Email tidak ditemukan! Silakan coba lagi.', 'error');
+                showStep(3); // Kembali ke halaman Lupa Password jika gagal
                 return;
             }
 
-            const originalText = this.textContent;
-            this.textContent = 'Mengirim...';
-            this.disabled = true;
-            
-            fetch('/auth/send-otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify({ email })
-            })
-            .then(res => res.json())
-            .then(res => {
-                this.disabled = false;
-                if (res.message) {
-                    showNotification('Kode OTP baru telah dikirim 📧', 'success');
-                    
-                    // Clear OTP inputs
-                    const otpInputs = document.querySelectorAll('.otp-input');
-                    otpInputs.forEach(input => input.value = '');
-                    if (otpInputs.length > 0) otpInputs[0].focus();
-                    
-                    // Reset countdown
-                    const countdownElement = document.getElementById('otpCountdown');
-                    if (countdownElement) {
-                        countdownElement.classList.remove('text-red-500');
-                    }
-                    
-                    // Hide resend button dan restart timer
-                    this.classList.add('hidden');
-                    this.textContent = originalText;
-                    startOtpCountdown();
-                } else {
-                    this.textContent = originalText;
-                    showNotification('Gagal mengirim OTP!', 'error');
-                }
-            })
-            .catch(err => {
-                this.disabled = false;
-                this.textContent = originalText;
-                showNotification('Gagal mengirim OTP!', 'error');
-                console.error('Resend OTP error:', err);
-            });
+            return res.json();
+        })
+        .then(res => {
+            if (res && res.message) {
+                showNotification('Kode OTP baru telah dikirim 📧', 'success');
+                // Reset countdown OTP
+                startOtpCountdown();
+            }
+        })
+        .catch(err => {
+            this.textContent = originalText;
+            this.disabled = false;
+            showNotification('Gagal mengirim OTP! Silakan coba lagi.', 'error');
+            console.error('Resend OTP error:', err);
         });
-    }
+    });
+}
 
     // ===========================
     // OTP INPUT HANDLING
@@ -340,72 +334,71 @@ document.addEventListener('DOMContentLoaded', function () {
     // FORGOT PASSWORD FORM (SEND OTP)
     // ===========================
     
-    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
-    if (forgotPasswordForm) {
-        forgotPasswordForm.addEventListener('submit', function (e) {
-            e.preventDefault();
+const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+if (forgotPasswordForm) {
+    forgotPasswordForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('resetEmail').value.trim();
+        
+        hideError('resetEmail'); // Hilangkan error sebelumnya
+        
+        if (!email) {
+            showError('resetEmail', 'Email wajib diisi');
+            return;
+        }
+        
+        if (!validateEmail(email)) {
+            showError('resetEmail', 'Format email tidak valid');
+            return;
+        }
+        
+        const resetBtn = document.getElementById('resetBtn');
+        const resetBtnText = document.getElementById('resetBtnText');
+        
+        resetBtn.disabled = true;
+        resetBtnText.innerHTML = `
+            <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+            Memproses...
+        `;
+        
+        // ✅ Kirim OTP ke Backend
+        fetch('/auth/send-otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify({ email })
+        })
+        .then(res => {
+            resetBtn.disabled = false; // Aktifkan kembali tombol jika berhasil
+            resetBtnText.innerHTML = `Kirim Link Reset Password`;
             
-            const email = document.getElementById('resetEmail').value.trim();
-            
-            hideError('resetEmail');
-            
-            if (!email) {
-                showError('resetEmail', 'Email wajib diisi');
-                return;
+            if (!res.ok) {
+                // Jika email tidak ditemukan, jangan pindah ke halaman berikutnya
+                showNotification('Email tidak ditemukan. Silakan coba lagi.', 'error');
+                return; // Hentikan alur di sini
             }
-            
-            if (!validateEmail(email)) {
-                showError('resetEmail', 'Format email tidak valid');
-                return;
+
+            return res.json();
+        })
+        .then(res => {
+            if (res && res.message) {
+                showNotification(res.message, 'success');
+                // Update tampilan email dan pindah ke halaman "Email Terkirim"
+                const displayEmail = document.getElementById('displayEmail');
+                if (displayEmail) displayEmail.textContent = email;
+                showStep(4); // Pindah ke langkah berikutnya (Email Sent)
             }
-            
-            const resetBtn = document.getElementById('resetBtn');
-            const resetBtnText = document.getElementById('resetBtnText');
-            
-            resetBtn.disabled = true;
-            resetBtnText.innerHTML = `
-                <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                Mengirim...
-            `;
-            
-            // ✅ Kirim OTP ke Backend
-            fetch('/auth/send-otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify({ email })
-            })
-            .then(res => res.json())
-            .then(res => {
-                resetBtn.disabled = false;
-                resetBtnText.innerHTML = `
-                    Kirim Link Reset Password
-                    <i class="ph ph-paper-plane-tilt ml-1.5 text-sm"></i>
-                `;
-                
-                if (res.message) {
-                    showNotification(res.message, 'success');
-                    // Update display email
-                    const displayEmail = document.getElementById('displayEmail');
-                    if (displayEmail) displayEmail.textContent = email;
-                    showStep(4);
-                } else {
-                    showNotification('Gagal mengirim OTP!', 'error');
-                }
-            })
-            .catch(err => {
-                resetBtn.disabled = false;
-                resetBtnText.innerHTML = `
-                    Kirim Link Reset Password
-                    <i class="ph ph-paper-plane-tilt ml-1.5 text-sm"></i>
-                `;
-                showNotification('Gagal mengirim OTP! Silakan coba lagi.', 'error');
-                console.error('Send OTP error:', err);
-            });
+        })
+        .catch(() => {
+            resetBtn.disabled = false;
+            resetBtnText.innerHTML = `Kirim Link Reset Password`;
+            showNotification('Terjadi masalah. Silakan coba lagi.', 'error');
         });
-    }
+    });
+}
 
     // ===========================
     // RESEND OTP
