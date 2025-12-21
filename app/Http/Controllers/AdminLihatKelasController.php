@@ -14,7 +14,7 @@ class AdminLihatKelasController extends Controller
 
         // Ambil semua materi
         $materis = Materi::where('kelas_id', $kelasId)
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('created_at', 'asc')
                         ->get();
 
         $totalMateri = $materis->count();
