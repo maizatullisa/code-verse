@@ -153,4 +153,26 @@ class ProfilePengajarController extends Controller
             ->with('success', 'Profile pengajar berhasil dihapus.');
     }
 
+        public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $profile = ProfilePengajar::where('user_id', Auth::id())->first();
+
+        // Hapus foto lama jika ada
+        if ($profile->photo && file_exists(public_path($profile->photo))) {
+            unlink(public_path($profile->photo));
+        }
+
+        $fileName = time() . '.' . $request->photo->extension();
+        $request->photo->move(public_path('uploads/foto_pengajar'), $fileName);
+        $profile->update(['photo' => 'uploads/foto_pengajar/' . $fileName]);
+
+        return redirect()->back()->with('success', 'Foto profil berhasil diperbarui.');
+    }
+
+    
+
 }

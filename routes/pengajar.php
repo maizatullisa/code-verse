@@ -26,12 +26,14 @@ Route::middleware(['auth', 'role:pengajar'])->group(function () {
     Route::get('/pengajar/siswa', [PengajarSiswaListController::class, 'index'])->name('pengajar.siswa.index');
     Route::get('/pengajar/siswa/{id}', [PengajarSiswaListController::class, 'show'])->name('pengajar.siswa.show');
 
-        Route::get('/bio-pengajar', [ProfilePengajarController::class, 'index'])->name('pengajar.index-bio');
+    Route::get('/bio-pengajar', [ProfilePengajarController::class, 'index'])->name('pengajar.index-bio');
     Route::get('/pengajar/biodata/edit', [ProfilePengajarController::class, 'edit'])->name('pengajar.edit-bio');
     Route::post('/pengajar/biodata', [ProfilePengajarController::class, 'store'])->name('pengajar.store-bio');
     Route::put('/pengajar/biodata/update', [ProfilePengajarController::class, 'update'])->name('pengajar.update-bio');
     Route::delete('/pengajar/profile/delete', [ProfilePengajarController::class, 'destroyProfile'])
     ->name('pengajar.destroy-profile');
+    Route::put('/pengajar/update-photo', [ProfilePengajarController::class, 'updatePhoto'])->name('pengajar.update-photo');
+
     // riwayat pendidikan
     Route::post('/pengajar/pendidikan', [ProfilePengajarController::class, 'storeRiwayatPendidikan'])->name('pengajar.store-riwayat');
     Route::put('/pengajar/pendidikan/{id}', [ProfilePengajarController::class, 'updateRiwayatPendidikan'])->name('pengajar.update-riwayat');

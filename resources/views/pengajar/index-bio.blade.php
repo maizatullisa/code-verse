@@ -64,7 +64,8 @@
                            <span class="text-white">{{ strtoupper(substr($profile->full_name, 0, 1)) }}</span>
                             </div>
                         @endif
-                        <button onclick="openPhotoModal()" class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition shadow-lg">
+                       <button onclick="openPhotoModal()" 
+                            class="absolute -bottom-2 -right-2 w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -277,44 +278,48 @@
 <script>
 // Photo upload functionality
 function openPhotoModal() {
-    showNotification('Fitur upload foto akan segera tersedia', 'info');
+    // Buat popup modal untuk upload foto
+    const modal = document.createElement('div');
+    modal.id = 'photoUploadModal';
+    modal.className = 'fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur';
+    modal.innerHTML = `
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md">
+            <h3 class="text-lg font-bold mb-4">Ganti Foto Profil</h3>
+            <form id="photoUploadForm" method="POST" enctype="multipart/form-data" action="{{ route('pengajar.update-photo') }}">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="profile_id" value="{{ $profile->id ?? '' }}">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Pilih Foto Baru</label>
+                    <input type="file" name="photo" id="photoInput" accept="image/*" class="w-full p-3 border rounded-lg" required>
+                    <small class="text-gray-400">Format: JPG, PNG. Maksimal: 2MB.</small>
+                </div>
+                <div class="flex justify-end gap-3 mt-4">
+                    <button type="button" onclick="closeModal('photoUploadModal')" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Simpan</button>
+                </div>
+            </form>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    // Validasi input foto
+    const photoInput = document.getElementById('photoInput');
+    photoInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file.size > 2 * 1024 * 1024) { // Ukuran maksimal 2MB
+            alert('Ukuran file maksimal 2MB.');
+            e.target.value = '';
+        }
+        if (!file.type.startsWith('image/')) { // Hanya gambar
+            alert('File harus berupa gambar.');
+            e.target.value = '';
+        }
+    });
 }
- 
-document.addEventListener('DOMContentLoaded', function() { 
-    const cards = document.querySelectorAll('.backdrop-blur-xl');
-    cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            card.style.transition = 'all 0.6s ease';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, index * 100);
-    });
-     
-    const educationItems = document.querySelectorAll('#educationList > div');
-    educationItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.classList.add('shadow-lg', 'transform', 'scale-[1.02]');
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.classList.remove('shadow-lg', 'transform', 'scale-[1.02]');
-        });
-    });
-     
-    const addButton = document.querySelector('button[onclick="openAddEducationModal()"]');
-    if (addButton) {
-        setInterval(() => {
-            addButton.classList.add('animate-pulse');
-            setTimeout(() => {
-                addButton.classList.remove('animate-pulse');
-            }, 1000);
-        }, 5000);
-    }
-});
- 
+
 function showNotification(message, type = 'info', duration = 4000) { 
     const existingNotifications = document.querySelectorAll('.page-notification');
     existingNotifications.forEach(notification => {
