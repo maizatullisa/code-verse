@@ -126,7 +126,7 @@
     </div>
 
     <!-- Upload File -->
-    <div class="space-y-3">
+    <!-- <div class="space-y-3">
       <label class="block text-sm font-semibold text-gray-700 mb-2">
         📎 File Materi
       </label>
@@ -175,7 +175,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Link Video -->
     <div class="space-y-3 mt-4">
